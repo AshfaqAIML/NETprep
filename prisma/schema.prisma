@@ -134,27 +134,46 @@ model Book {
 // ---------------------------------------------------------------------------
 
 model Question {
-  id            String   @id @default(cuid())
-  topicId       String?
-  topic         Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
-  questionText  String
-  optionA       String
-  optionB       String
-  optionC       String
-  optionD       String
-  correctAnswer String   @default("A") // A | B | C | D
-  explanation   String
-  difficulty    String   @default("medium") // easy | medium | hard
-  questionType  String   @default("mcq") // mcq | assertion-reason | match
-  isPYQ         Boolean  @default(false)
-  pyqYear       Int?
-  source        String?
-  tags          String   @default("")
-  status        String   @default("published") // draft | review | published | archived
-  mockTests     MockTestQuestion[]
-  attempts      Attempt[]
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id              String   @id @default(cuid())
+  topicId         String?
+  topic           Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  questionText    String
+  optionA         String
+  optionB         String
+  optionC         String
+  optionD         String
+  correctAnswer   String   @default("A") // A | B | C | D
+  explanation     String
+  difficulty      String   @default("medium") // easy | medium | hard
+  questionType    String   @default("mcq") // mcq | assertion-reason | match | sequence | case-based
+  // --- Source classification (CRITICAL for trust) ---
+  sourceType      String   @default("practice") // official_pyq | verified_pyq | practice | mock
+  // --- PYQ metadata (only populated for official_pyq / verified_pyq) ---
+  isPYQ           Boolean  @default(false)
+  pyqYear         Int?
+  pyqSession      String?  // June | December | merged
+  pyqShift        String?  // Shift 1 | Shift 2 | Shift 3
+  pyqQuestionNumber Int?   // Original question number from the paper
+  pyqExamDate     String?  // ISO date string of the exam
+  pyqPaperId      String?  // Reference to the exam paper (e.g. "2024-06-p1-s1")
+  // --- Source provenance ---
+  source          String?  // Human-readable source name
+  sourceUrl       String?  // Official URL if available
+  sourceReference String?  // Citation / paper reference code
+  verified        Boolean  @default(false) // True only after editorial verification
+  verifiedAt      DateTime?
+  // --- General metadata ---
+  tags            String   @default("")
+  status          String   @default("published") // draft | review | published | archived
+  mockTests       MockTestQuestion[]
+  attempts        Attempt[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([sourceType])
+  @@index([pyqYear, pyqSession])
+  @@index([pyqPaperId])
+  @@index([topicId])
 }
 
 model PYQ {

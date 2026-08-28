@@ -9,6 +9,8 @@ export async function GET(req: NextRequest) {
     const topicId = searchParams.get('topicId')
     const difficulty = searchParams.get('difficulty')
     const isPYQ = searchParams.get('pyq')
+    const sourceType = searchParams.get('sourceType')
+    const year = searchParams.get('year')
     const mode = searchParams.get('mode') ?? 'practice'
     const limit = parseInt(searchParams.get('limit') ?? '20', 10)
 
@@ -16,6 +18,8 @@ export async function GET(req: NextRequest) {
     if (topicId) where.topicId = topicId
     if (difficulty) where.difficulty = difficulty
     if (isPYQ === 'true') where.isPYQ = true
+    if (sourceType) where.sourceType = sourceType
+    if (year && year !== 'all') where.pyqYear = parseInt(year, 10)
     if (subjectSlug || unitSlug) {
       where.topic = {
         unit: {

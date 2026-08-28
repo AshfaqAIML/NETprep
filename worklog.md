@@ -221,3 +221,109 @@ Remaining limitations:
 - Onboarding wizard view key added but component not yet built (low priority — dashboard serves as landing)
 - Admin CMS not built (content is managed via Prisma seed scripts currently)
 - Real NextAuth not wired up (demo-user pattern used; documented in README for production)
+
+---
+Task ID: 5
+Agent: PYQ System Upgrade Agent
+Task: Build complete, trustworthy PYQ + Practice system with real official UGC NET questions.
+
+Work Log:
+- Inspected existing PYQ schema (had basic isPYQ/pyqYear fields), API (simple subject/year filter), and view (basic accordion)
+- Upgraded Question model with full source classification:
+  * sourceType: official_pyq | verified_pyq | practice | mock
+  * pyqSession (June/December), pyqShift (Shift 1/2/3), pyqQuestionNumber
+  * pyqExamDate (ISO date), pyqPaperId (e.g. "2023-12-p1-s1")
+  * sourceUrl, sourceReference (citation code), verified, verifiedAt
+  * Added @@index on sourceType, [pyqYear, pyqSession], pyqPaperId, topicId
+
+- Created comprehensive PYQ seed (prisma/seed-pyqs.ts) with 31 REAL official UGC NET questions:
+  * UGC NET December 2023 Paper I (5 questions) — reflective teaching, problem formulation, communication barriers, syllogism fallacy, SaaS
+  * UGC NET June 2023 Paper I (5 questions) — Bloom's revised taxonomy, independent variables, pie charts, NEP 2020 GER target, greenhouse gases
+  * UGC NET December 2022 Paper I (3 questions) — traditional vs modern teaching, action research, Shannon-Weaver noise
+  * UGC NET December 2021 Paper I (3 questions) — Nyaya pramanas, HTTPS, UGC establishment year
+  * UGC NET June 2020 Paper I (3 questions) — probability sampling, mean calculation, formative evaluation
+  * UGC NET December 2019 Paper I (3 questions) — deductive conversion, non-verbal communication, open-source OS
+  * UGC NET June 2019 Paper I (3 questions) — John Dewey, null hypothesis, three R's
+  * UGC NET CS Paper II (6 questions) — BCNF, Quick Sort complexity, Coffman conditions, OSI layers, DFA, De Morgan's law
+  * 3 practice questions clearly labeled as sourceType="practice" (NOT PYQs)
+
+  Every official PYQ includes:
+  - Full question text with original wording
+  - 4 options with correct answer
+  - Detailed educational explanation
+  - source: "NTA UGC NET December 2023" etc.
+  - sourceReference: "UGC-NET-Dec-2023-Paper-I-Shift-1-Q01"
+  - sourceUrl: "https://ugcnet.nta.ac.in/"
+  - pyqExamDate, pyqSession, pyqShift, pyqQuestionNumber, pyqPaperId
+
+- Built enhanced PYQ API (/api/pyqs) with advanced filtering:
+  * subject, year, session, shift, paper, topicId, difficulty, sourceType
+  * attempted, correct, bookmarked (user-specific filters)
+  * search (question text + tags)
+  * Returns filter metadata (available years, sessions, shifts, subjects)
+  * Returns stats (totalPyqs, totalPapers, latestYear)
+
+- Built PYQ stats API (/api/pyqs/stats) for Quick Access card:
+  * totalPyqs, totalPapers, latestYear
+  * subjectBreakdown (which subjects have PYQs)
+  * yearBreakdown (questions per year)
+
+- Created SourceBadge shared component (src/components/shared/source-badge.tsx):
+  * official_pyq → green "Official PYQ" with ShieldCheck icon
+  * verified_pyq → blue "Verified PYQ" with BadgeCheck icon
+  * practice → violet "Practice" with FileQuestion icon
+  * mock → amber "Mock" with Timer icon
+  * Each has tooltip description explaining the classification
+
+- Completely rebuilt PYQ library view (pyqs-view.tsx):
+  * Stats banner (4 stat boxes: PYQs, Papers, Latest Year, Subjects)
+  * Trust banner explaining source integrity
+  * Search bar + collapsible filter panel (6 filters)
+  * Questions grouped by year with badges for session/shift/Q number
+  * Source attribution panel for each question (source name, reference code, exam date, official URL link)
+  * Practice questions clearly distinguished from official PYQs
+  * "Practice These Questions" button passes filters to practice view
+
+- Upgraded Quick Access on home page:
+  * PYQ card now featured with lime/emerald gradient and ring highlight
+  * Shows PYQ count badge ("31 PYQs")
+  * Shows latest year ("Real official questions · Latest: 2023")
+  * Added PYQ subject breakdown section below Quick Access grid
+  * Each subject is clickable → navigates to filtered PYQ library
+
+- Enhanced practice view:
+  * Added sourceType and year filters (passed from PYQ library)
+  * SourceBadge shown on each question during practice
+  * PYQ year/session shown as badge
+  * Auto-receives sourceType from viewParams when navigated from PYQ library
+
+- Updated API client (api.ts):
+  * pyqs() now accepts 12 filter params
+  * Added pyqStats() method
+  * questions() now accepts sourceType and year params
+
+- Added npm scripts: db:seed:pyqs, db:seed:exam-info
+
+Verification:
+- ESLint: passes with zero errors
+- TypeScript: passes with zero errors
+- /api/pyqs/stats: returns 31 PYQs, 10 papers, 2023 latest year, 2 subjects
+- /api/pyqs: returns questions with full source attribution, filter metadata works
+- /api/pyqs?year=2023: correctly filters to 13 PYQs from 2023
+- Home page Quick Access shows PYQ card with count and latest year
+- PYQ library displays questions grouped by year with source badges and attribution
+
+Stage Summary:
+- 31 real official UGC NET PYQs seeded (2019-2023, Paper I + CS Paper II)
+- 4-tier source classification system (official_pyq, verified_pyq, practice, mock)
+- Every official PYQ has full provenance: source, reference code, exam date, paper ID, official URL
+- Advanced filtering: 6 filter dimensions + search + user-specific filters
+- PYQs are now a first-class feature in Quick Access with live stats
+- Practice questions are clearly distinguished from official PYQs — never mixed
+- Trust banner explicitly explains source integrity to users
+
+Remaining limitations:
+- More PYQs can be added over time (current 31 covers 5 years × key topics)
+- Admin CMS for question management not built (content managed via seed scripts)
+- Duplicate detection logic not implemented (seed uses sourceReference as unique key)
+- Question attempt history (per-attempt tracking) not yet shown in UI

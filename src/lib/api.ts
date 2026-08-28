@@ -34,6 +34,8 @@ export const api = {
     topicId?: string
     difficulty?: string
     pyq?: boolean
+    sourceType?: string
+    year?: string
     mode?: 'practice' | 'exam' | 'revision' | 'weak'
     limit?: number
   }) => {
@@ -43,6 +45,8 @@ export const api = {
     if (params?.topicId) qs.set('topicId', params.topicId)
     if (params?.difficulty) qs.set('difficulty', params.difficulty)
     if (params?.pyq) qs.set('pyq', 'true')
+    if (params?.sourceType) qs.set('sourceType', params.sourceType)
+    if (params?.year) qs.set('year', params.year)
     if (params?.mode) qs.set('mode', params.mode)
     if (params?.limit) qs.set('limit', String(params.limit))
     return fetchJson<{ questions: any[]; count: number }>(`/api/questions?${qs.toString()}`)
@@ -53,12 +57,39 @@ export const api = {
       body: JSON.stringify(body),
     }),
 
-  pyqs: (params?: { subject?: string; year?: string }) => {
+  pyqs: (params?: {
+    subject?: string
+    year?: string
+    session?: string
+    shift?: string
+    paper?: string
+    topicId?: string
+    difficulty?: string
+    sourceType?: string
+    attempted?: boolean
+    correct?: boolean
+    bookmarked?: boolean
+    search?: string
+    limit?: number
+  }) => {
     const qs = new URLSearchParams()
     if (params?.subject) qs.set('subject', params.subject)
     if (params?.year) qs.set('year', params.year)
-    return fetchJson<{ pyqs: any[]; pyqQuestions: any[]; count: number }>(`/api/pyqs?${qs.toString()}`)
+    if (params?.session) qs.set('session', params.session)
+    if (params?.shift) qs.set('shift', params.shift)
+    if (params?.paper) qs.set('paper', params.paper)
+    if (params?.topicId) qs.set('topicId', params.topicId)
+    if (params?.difficulty) qs.set('difficulty', params.difficulty)
+    if (params?.sourceType) qs.set('sourceType', params.sourceType)
+    if (params?.attempted) qs.set('attempted', 'true')
+    if (params?.correct === true) qs.set('correct', 'true')
+    if (params?.correct === false) qs.set('correct', 'false')
+    if (params?.bookmarked) qs.set('bookmarked', 'true')
+    if (params?.search) qs.set('search', params.search)
+    if (params?.limit) qs.set('limit', String(params.limit))
+    return fetchJson<any>(`/api/pyqs?${qs.toString()}`)
   },
+  pyqStats: () => fetchJson<any>('/api/pyqs/stats'),
 
   mockTests: () => fetchJson<{ mockTests: any[] }>('/api/mock-tests'),
   mockTest: (slug: string) => fetchJson<{ mockTest: any }>(`/api/mock-tests/${slug}`),

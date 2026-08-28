@@ -33,12 +33,12 @@ import { cn } from '@/lib/utils'
 const QUICK_ACCESS = [
   { label: 'Paper I', icon: GraduationCap, view: 'subject-detail' as const, params: { slug: 'paper-1' }, color: 'from-emerald-500 to-teal-600' },
   { label: 'Paper II', icon: Library, view: 'subjects' as const, color: 'from-violet-500 to-purple-600' },
+  { label: 'UGC NET PYQs', icon: FileText, view: 'pyqs' as const, color: 'from-lime-500 to-emerald-600', featured: true },
   { label: 'Notes', icon: PenTool, view: 'notes' as const, color: 'from-rose-500 to-pink-600' },
   { label: 'Cheat Sheets', icon: Sparkles, view: 'cheat-sheets' as const, color: 'from-cyan-500 to-blue-500' },
   { label: 'Practice', icon: FileQuestion, view: 'practice' as const, color: 'from-fuchsia-500 to-pink-600' },
   { label: 'Mock Tests', icon: Timer, view: 'mock-tests' as const, color: 'from-orange-500 to-red-600' },
   { label: 'Revision', icon: RotateCcw, view: 'revision' as const, color: 'from-amber-500 to-orange-600' },
-  { label: 'Exam Info', icon: Info, view: 'exam-info' as const, color: 'from-blue-500 to-indigo-600' },
 ]
 
 export function HomeView() {
@@ -48,6 +48,7 @@ export function HomeView() {
   const [notes, setNotes] = React.useState<any[]>([])
   const [cheatSheets, setCheatSheets] = React.useState<any[]>([])
   const [progress, setProgress] = React.useState<any>(null)
+  const [pyqStats, setPyqStats] = React.useState<any>(null)
   const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
@@ -56,12 +57,14 @@ export function HomeView() {
       api.notes({ featured: true, limit: 6 }),
       api.cheatSheets(),
       api.progress().catch(() => null),
+      api.pyqStats().catch(() => null),
     ])
-      .then(([s, n, c, p]) => {
+      .then(([s, n, c, p, pyqS]) => {
         setSubjects(s.subjects)
         setNotes(n.notes)
         setCheatSheets(c.cheatSheets)
         setProgress(p)
+        setPyqStats(pyqS)
       })
       .finally(() => setLoading(false))
   }, [])
@@ -141,23 +144,65 @@ export function HomeView() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {QUICK_ACCESS.map((qa) => {
             const Icon = qa.icon
+            const isPyq = qa.label === 'UGC NET PYQs'
+            const pyqCount = pyqStats?.totalPyqs
             return (
               <button
                 key={qa.label}
                 onClick={() => navigate(qa.view, qa.params)}
-                className="group relative overflow-hidden rounded-xl border border-border bg-card p-4 text-left transition-all hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5"
+                className={cn(
+                  'group relative overflow-hidden rounded-xl border bg-card p-4 text-left transition-all hover:shadow-md hover:-translate-y-0.5',
+                  isPyq
+                    ? 'border-lime-500/40 hover:border-lime-500/60 ring-1 ring-lime-500/20'
+                    : 'border-border hover:border-primary/40',
+                )}
               >
+                {isPyq && pyqCount > 0 && (
+                  <div className="absolute top-2 right-2">
+                    <span className="inline-flex items-center gap-0.5 rounded-full bg-lime-500/15 px-1.5 py-0.5 text-[9px] font-semibold text-lime-700 dark:text-lime-300">
+                      {pyqCount} PYQs
+                    </span>
+                  </div>
+                )}
                 <div className={cn('inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br text-white shadow-sm', qa.color)}>
                   <Icon className="h-4 w-4" />
                 </div>
                 <div className="mt-3 font-semibold text-sm">{qa.label}</div>
-                <div className="mt-0.5 text-xs text-muted-foreground flex items-center gap-0.5">
-                  Open <ChevronRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
-                </div>
+                {isPyq && pyqStats?.latestYear ? (
+                  <div className="mt-0.5 text-[10px] text-muted-foreground">
+                    Real official questions · Latest: {pyqStats.latestYear}
+                  </div>
+                ) : (
+                  <div className="mt-0.5 text-xs text-muted-foreground flex items-center gap-0.5">
+                    Open <ChevronRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                )}
               </button>
             )
           })}
         </div>
+
+        {/* PYQ subject breakdown */}
+        {pyqStats?.subjectBreakdown && pyqStats.subjectBreakdown.length > 0 && (
+          <div className="mt-4 rounded-lg border border-lime-500/20 bg-lime-500/5 p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <FileText className="h-4 w-4 text-lime-600" />
+              <span className="text-sm font-semibold">PYQs available by subject</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {pyqStats.subjectBreakdown.map((s: any) => (
+                <button
+                  key={s.slug}
+                  onClick={() => navigate('pyqs', { subject: s.slug })}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-2.5 py-1 text-xs hover:border-lime-500/40 hover:bg-lime-500/5 transition-colors"
+                >
+                  <span className="font-medium">{s.name}</span>
+                  <Badge variant="secondary" className="text-[9px] h-4 px-1">{s.pyqCount}</Badge>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Popular Subjects */}

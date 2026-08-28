@@ -39,6 +39,7 @@ import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { BookmarkButton } from '@/components/shared/bookmark-button'
+import { SourceBadge } from '@/components/shared/source-badge'
 import { toast } from 'sonner'
 
 type Mode = 'practice' | 'exam' | 'revision' | 'weak'
@@ -55,6 +56,8 @@ export function PracticeView() {
   const [mode, setMode] = React.useState<Mode>('practice')
   const [subject, setSubject] = React.useState<string>(viewParams.subject ?? 'all')
   const [difficulty, setDifficulty] = React.useState<string>('all')
+  const [sourceType, setSourceType] = React.useState<string>(viewParams.sourceType ?? 'all')
+  const [year, setYear] = React.useState<string>(viewParams.year ?? 'all')
   const [limit, setLimit] = React.useState<number>(10)
   const [subjects, setSubjects] = React.useState<any[]>([])
 
@@ -68,6 +71,13 @@ export function PracticeView() {
   const [startTime, setStartTime] = React.useState<number>(0)
   const [questionStartTime, setQuestionStartTime] = React.useState<number>(0)
   const [completed, setCompleted] = React.useState(false)
+
+  // If navigated from PYQ library with sourceType, auto-start
+  React.useEffect(() => {
+    if (viewParams.sourceType && viewParams.sourceType !== 'all') {
+      setSourceType(viewParams.sourceType)
+    }
+  }, [viewParams.sourceType])
 
   React.useEffect(() => {
     api.subjects().then((r) => setSubjects(r.subjects))
@@ -87,6 +97,8 @@ export function PracticeView() {
       const params: any = { mode, limit }
       if (subject !== 'all') params.subject = subject
       if (difficulty !== 'all') params.difficulty = difficulty
+      if (sourceType !== 'all') params.sourceType = sourceType
+      if (year !== 'all') params.year = year
       const r = await api.questions(params)
       setQuestions(r.questions)
       if (r.questions.length === 0) {
@@ -410,9 +422,13 @@ export function PracticeView() {
       {/* Progress header */}
       <div className="mb-5">
         <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Badge variant="secondary" className="text-[10px]">{MODE_META[mode].label} mode</Badge>
+            {q.sourceType && <SourceBadge sourceType={q.sourceType} />}
             <Badge variant="outline" className="text-[10px] capitalize">{q.difficulty}</Badge>
+            {q.pyqYear && q.pyqYear > 0 && (
+              <Badge variant="outline" className="text-[10px]">{q.pyqYear} {q.pyqSession}</Badge>
+            )}
             {q.topic && (
               <Badge variant="outline" className="text-[10px]">{q.topic.name}</Badge>
             )}
