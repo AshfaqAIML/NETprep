@@ -10,6 +10,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { Breadcrumbs } from '@/components/shared/states'
 
 export function SubjectsView() {
   const navigate = useAppStore((s) => s.navigate)
@@ -35,6 +36,8 @@ export function SubjectsView() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'Subjects' }]} />
+
       <div className="mb-6">
         <h1 className="text-3xl font-bold tracking-tight">Subjects</h1>
         <p className="mt-1 text-sm text-muted-foreground">

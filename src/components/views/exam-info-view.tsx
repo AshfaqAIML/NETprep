@@ -21,6 +21,7 @@ import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { Markdown } from '@/components/shared/markdown'
 import { cn } from '@/lib/utils'
+import { Breadcrumbs } from '@/components/shared/states'
 
 const CATEGORY_ICONS: Record<string, React.ElementType> = {
   Pattern: FileText,
@@ -49,6 +50,8 @@ export function ExamInfoView() {
   if (loading) {
     return (
       <div className="mx-auto max-w-5xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'Exam Info' }]} />
+
         <Skeleton className="h-10 w-1/3 mb-4" />
         <Skeleton className="h-16 w-full mb-4" />
         <Skeleton className="h-96 w-full" />

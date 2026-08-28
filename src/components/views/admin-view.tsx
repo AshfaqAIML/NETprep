@@ -67,7 +67,14 @@ export function AdminView() {
     )
   }
 
-  if (!stats) return <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">Failed to load admin stats.</div>
+  if (!stats) return (
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      <div className="text-center py-12">
+        <p className="text-muted-foreground">Failed to load admin stats. Please try again.</p>
+        <Button variant="outline" size="sm" className="mt-3" onClick={() => window.location.reload()}>Retry</Button>
+      </div>
+    </div>
+  )
 
   const { totals } = stats
 

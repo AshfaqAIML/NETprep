@@ -21,6 +21,7 @@ import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
+import { Breadcrumbs } from '@/components/shared/states'
 
 const FOLDERS = ['Favorites', 'Important', 'Revise Later', 'Weak Topics', 'Exam Week']
 const ICONS: Record<string, React.ElementType> = {
@@ -70,6 +71,8 @@ export function BookmarksView() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'Bookmarks' }]} />
+
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-1">
           <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 text-white">

@@ -33,6 +33,7 @@ import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
+import { Breadcrumbs } from '@/components/shared/states'
 
 const CATEGORY_COLORS: Record<string, string> = {
   study: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300',
@@ -42,6 +43,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 }
 
 export function PlannerView() {
+  const navigate = useAppStore((s) => s.navigate)
   const [tasks, setTasks] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
   const [selectedDate, setSelectedDate] = React.useState<string>(new Date().toISOString().split('T')[0])
@@ -116,6 +118,8 @@ export function PlannerView() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'Study Planner' }]} />
+
       <div className="mb-6 flex items-start justify-between gap-2">
         <div>
           <div className="flex items-center gap-2 mb-1">

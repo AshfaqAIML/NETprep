@@ -68,7 +68,14 @@ export function PyqDashboardView() {
     )
   }
 
-  if (!data) return <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">Failed to load.</div>
+  if (!data) return (
+    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+      <div className="text-center py-12">
+        <p className="text-muted-foreground">Failed to load. Please try again..</p>
+        <Button variant="outline" size="sm" className="mt-3" onClick={() => window.location.reload()}>Retry</Button>
+      </div>
+    </div>
+  )
 
   const { paper1, paper2, overall, highFrequencyTopics = [], strongAreas = [], weakAreas = [] } = data
   const examPattern = analytics?.examPattern

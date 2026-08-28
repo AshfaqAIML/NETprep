@@ -31,6 +31,7 @@ import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 import { Markdown } from '@/components/shared/markdown'
+import { Breadcrumbs } from '@/components/shared/states'
 
 const COLORS = [
   { key: 'default', class: 'bg-muted border-border' },
@@ -42,6 +43,7 @@ const COLORS = [
 ]
 
 export function UserNotesView() {
+  const navigate = useAppStore((s) => s.navigate)
   const [notes, setNotes] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
   const [query, setQuery] = React.useState('')
@@ -104,6 +106,8 @@ export function UserNotesView() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'My Notes' }]} />
+
       {/* Header */}
       <div className="mb-6 flex items-start justify-between gap-2">
         <div>

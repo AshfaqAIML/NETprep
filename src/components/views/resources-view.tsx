@@ -8,6 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { Breadcrumbs } from '@/components/shared/states'
 
 const CATEGORY_META: Record<string, { icon: React.ElementType; color: string; label: string }> = {
   Official: { icon: ShieldCheck, color: 'text-emerald-600 bg-emerald-500/10', label: 'Official Source' },
@@ -17,6 +18,7 @@ const CATEGORY_META: Record<string, { icon: React.ElementType; color: string; la
 }
 
 export function ResourcesView() {
+  const navigate = useAppStore((s) => s.navigate)
   const [resources, setResources] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
 
@@ -35,6 +37,8 @@ export function ResourcesView() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'Resources' }]} />
+
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-1">
           <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 text-white">

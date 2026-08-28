@@ -8,6 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
+import { Breadcrumbs } from '@/components/shared/states'
 
 export function FaqView() {
   const navigate = useAppStore((s) => s.navigate)
@@ -24,6 +25,8 @@ export function FaqView() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'FAQ' }]} />
+
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-1">
           <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 text-white">

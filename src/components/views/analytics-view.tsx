@@ -37,6 +37,7 @@ import {
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { Breadcrumbs } from '@/components/shared/states'
 
 export function AnalyticsView() {
   const navigate = useAppStore((s) => s.navigate)
@@ -52,6 +53,8 @@ export function AnalyticsView() {
   if (loading) {
     return (
       <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'Analytics' }]} />
+
         <Skeleton className="h-10 w-1/3 mb-4" />
         <div className="grid sm:grid-cols-4 gap-3 mb-6">
           {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-24 w-full" />)}
@@ -62,7 +65,14 @@ export function AnalyticsView() {
     )
   }
 
-  if (!data) return <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">Failed to load analytics.</div>
+  if (!data) return (
+    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+      <div className="text-center py-12">
+        <p className="text-muted-foreground">Failed to load. Please try again. analytics.</p>
+        <Button variant="outline" size="sm" className="mt-3" onClick={() => window.location.reload()}>Retry</Button>
+      </div>
+    </div>
+  )
 
   const { accuracyOverTime = [], studyHoursOverTime = [], topicPerformance = [], difficultyBreakdown = [], mockScoreTrend = [], insights = [], summary = {} } = data
 

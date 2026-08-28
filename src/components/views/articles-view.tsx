@@ -9,6 +9,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { Breadcrumbs } from '@/components/shared/states'
 
 const CATEGORIES = ['All', 'Strategy', 'PYQ Analysis', 'Revision', 'Productivity', 'Subject']
 
@@ -30,6 +31,8 @@ export function ArticlesView() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'Articles' }]} />
+
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-1">
           <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-rose-500 to-pink-600 text-white">

@@ -10,6 +10,7 @@ import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { Markdown } from '@/components/shared/markdown'
 import { BookmarkButton } from '@/components/shared/bookmark-button'
+import { Breadcrumbs } from '@/components/shared/states'
 
 export function CheatSheetsView() {
   const navigate = useAppStore((s) => s.navigate)
@@ -24,6 +25,8 @@ export function CheatSheetsView() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'Cheat Sheets' }]} />
+
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-1">
           <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500 to-blue-500 text-white">
