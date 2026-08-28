@@ -1,0 +1,2002 @@
+     1→# MASTER PROMPT — BUILD A FULL-STACK UGC NET PREPARATION PLATFORM
+     2→
+     3→## 1. PROJECT VISION
+     4→
+     5→Build a **production-ready, exceptionally helpful, modern full-stack web platform for UGC NET aspirants**.
+     6→
+     7→The platform should become a student's **complete digital preparation ecosystem for UGC NET**, where they can:
+     8→
+     9→* Discover UGC NET information and strategy
+    10→* Select their Paper II subject
+    11→* Access books and study material
+    12→* Read detailed notes
+    13→* Download concise cheat sheets
+    14→* Study topic-by-topic
+    15→* Practice MCQs
+    16→* Attempt quizzes and mock tests
+    17→* Solve previous-year questions
+    18→* Bookmark important resources
+    19→* Track preparation progress
+    20→* Create a personalized study plan
+    21→* Monitor weak and strong topics
+    22→* Maintain study streaks
+    23→* Take notes
+    24→* Search the entire knowledge base
+    25→* Prepare for Paper I and Paper II from one place
+    26→
+    27→The website must feel like a combination of:
+    28→
+    29→**UGC NET Library + Digital Notes Platform + MCQ Practice App + Mock Test Platform + Study Planner + Progress Dashboard + Knowledge Base**
+    30→
+    31→Do not build a generic educational website.
+    32→
+    33→Build a product that an aspirant could realistically use every day during their UGC NET preparation.
+    34→
+    35→---
+    36→
+    37→# 2. CORE PRODUCT PRINCIPLE
+    38→
+    39→The primary goal is:
+    40→
+    41→> "Help a UGC NET aspirant go from syllabus → learning → revision → practice → analysis → improvement → exam readiness."
+    42→
+    43→Every feature, page, database model, and UI decision should support this journey.
+    44→
+    45→The website should answer common student questions immediately:
+    46→
+    47→* What should I study?
+    48→* Which topic should I study today?
+    49→* Where are my notes?
+    50→* Which book should I use?
+    51→* What is important for the exam?
+    52→* How much of the syllabus have I completed?
+    53→* Which topics am I weak in?
+    54→* What questions were asked previously?
+    55→* How am I performing?
+    56→* What should I revise?
+    57→* What should I do next?
+    58→
+    59→---
+    60→
+    61→# 3. BRAND / PRODUCT POSITIONING
+    62→
+    63→Create a memorable educational brand for the platform.
+    64→
+    65→Working name:
+    66→
+    67→**NETPrep Hub**
+    68→
+    69→You may use a better professional name if appropriate, but the branding should communicate:
+    70→
+    71→* UGC NET
+    72→* preparation
+    73→* knowledge
+    74→* academic credibility
+    75→* simplicity
+    76→* trust
+    77→* progress
+    78→
+    79→Avoid cheesy coaching-centre aesthetics.
+    80→
+    81→The website should look like a serious modern academic technology product.
+    82→
+    83→Visual inspiration:
+    84→
+    85→* modern SaaS dashboards
+    86→* Notion
+    87→* Coursera
+    88→* Khan Academy
+    89→* modern university portals
+    90→* premium digital libraries
+    91→* modern productivity applications
+    92→
+    93→Use a sophisticated, accessible design system.
+    94→
+    95→---
+    96→
+    97→# 4. TARGET USERS
+    98→
+    99→Primary users:
+   100→
+   101→### UGC NET Aspirants
+   102→
+   103→Students preparing for:
+   104→
+   105→* Paper I
+   106→* Paper II
+   107→* JRF
+   108→* Assistant Professor
+   109→* Both JRF and Assistant Professor goals
+   110→
+   111→Potential users may include:
+   112→
+   113→* first-time aspirants
+   114→* repeat candidates
+   115→* postgraduate students
+   116→* working professionals
+   117→* research-oriented students
+   118→* students preparing independently without coaching
+   119→
+   120→Design the experience especially well for people studying on:
+   121→
+   122→* desktop
+   123→* laptop
+   124→* tablet
+   125→* mobile phone
+   126→
+   127→The site must be completely responsive.
+   128→
+   129→---
+   130→
+   131→# 5. IMPORTANT EXAM STRUCTURE
+   132→
+   133→The platform should support the current UGC NET structure and must **not hard-code potentially outdated exam information**.
+   134→
+   135→Create an admin-managed:
+   136→
+   137→**Exam Information Center**
+   138→
+   139→where administrators can update:
+   140→
+   141→* examination pattern
+   142→* number of papers
+   143→* marks
+   144→* questions
+   145→* duration
+   146→* eligibility
+   147→* important dates
+   148→* subjects
+   149→* syllabus
+   150→* official notices
+   151→* application information
+   152→* result information
+   153→* JRF information
+   154→
+   155→Use official NTA/UGC sources as authoritative references.
+   156→
+   157→The latest exam configuration should always be configurable from the admin dashboard rather than buried inside frontend code.
+   158→
+   159→---
+   160→
+   161→# 6. WEBSITE INFORMATION ARCHITECTURE
+   162→
+   163→Create the following major sections.
+   164→
+   165→## Public Website
+   166→
+   167→### Home
+   168→
+   169→### About UGC NET
+   170→
+   171→### Exam Pattern
+   172→
+   173→### Eligibility
+   174→
+   175→### Important Dates
+   176→
+   177→### Syllabus
+   178→
+   179→### Subjects
+   180→
+   181→### Study Materials
+   182→
+   183→### Books
+   184→
+   185→### Notes
+   186→
+   187→### Cheat Sheets
+   188→
+   189→### Previous Year Questions
+   190→
+   191→### MCQ Practice
+   192→
+   193→### Mock Tests
+   194→
+   195→### Study Planner
+   196→
+   197→### Preparation Strategy
+   198→
+   199→### Articles / Blog
+   200→
+   201→### Resources
+   202→
+   203→### FAQ
+   204→
+   205→### Contact
+   206→
+   207→### Login
+   208→
+   209→### Register
+   210→
+   211→---
+   212→
+   213→# 7. HOME PAGE
+   214→
+   215→The homepage should immediately communicate the platform's value.
+   216→
+   217→Hero section:
+   218→
+   219→> Prepare Smarter for UGC NET
+   220→
+   221→Supporting message:
+   222→
+   223→> Books, notes, cheat sheets, previous-year questions, quizzes, mock tests, study plans and progress tracking — everything you need for your UGC NET preparation in one place.
+   224→
+   225→Primary CTA:
+   226→
+   227→**Start Preparing**
+   228→
+   229→Secondary CTA:
+   230→
+   231→**Explore Study Materials**
+   232→
+   233→Include a highly visible search bar:
+   234→
+   235→> Search books, notes, topics, questions, subjects...
+   236→
+   237→Below the hero, show:
+   238→
+   239→### Quick Access
+   240→
+   241→Cards for:
+   242→
+   243→* Paper I
+   244→* Paper II
+   245→* Books
+   246→* Notes
+   247→* Cheat Sheets
+   248→* PYQs
+   249→* MCQ Practice
+   250→* Mock Tests
+   251→
+   252→Then:
+   253→
+   254→### Popular Subjects
+   255→
+   256→Display subject cards.
+   257→
+   258→Each card should show:
+   259→
+   260→* subject name
+   261→* subject code
+   262→* number of resources
+   263→* notes available
+   264→* PYQs available
+   265→* practice questions
+   266→* progress indicator if logged in
+   267→
+   268→Then:
+   269→
+   270→### Study Resources
+   271→
+   272→Highlight:
+   273→
+   274→* Latest notes
+   275→* Most downloaded books
+   276→* Important cheat sheets
+   277→* Popular PYQs
+   278→* Recommended resources
+   279→
+   280→Then:
+   281→
+   282→### Your Preparation
+   283→
+   284→For logged-in users show:
+   285→
+   286→* syllabus completion
+   287→* study streak
+   288→* questions solved
+   289→* mock tests attempted
+   290→* average score
+   291→* weak topics
+   292→* next recommended activity
+   293→
+   294→For visitors, show a CTA to create an account.
+   295→
+   296→---
+   297→
+   298→# 8. STUDENT DASHBOARD
+   299→
+   300→Create a highly useful dashboard.
+   301→
+   302→The dashboard should become the user's home screen after login.
+   303→
+   304→## Dashboard sections
+   305→
+   306→### Welcome
+   307→
+   308→Example:
+   309→
+   310→> Good morning, Kamraan. Let's make progress today.
+   311→
+   312→### Preparation Overview
+   313→
+   314→Display:
+   315→
+   316→* Overall progress
+   317→* Paper I progress
+   318→* Paper II progress
+   319→* Topics completed
+   320→* Questions attempted
+   321→* Average accuracy
+   322→* Mock test performance
+   323→* Study hours
+   324→* Current streak
+   325→
+   326→### Continue Learning
+   327→
+   328→Show:
+   329→
+   330→* last opened book
+   331→* last studied topic
+   332→* unfinished notes
+   333→* unfinished quiz
+   334→* previous mock test
+   335→
+   336→### Today's Study Plan
+   337→
+   338→Show:
+   339→
+   340→* task
+   341→* estimated time
+   342→* priority
+   343→* completion status
+   344→
+   345→### Recommended for You
+   346→
+   347→Personalized recommendations such as:
+   348→
+   349→> You have low accuracy in Research Aptitude. Revise this topic.
+   350→
+   351→> You haven't practiced Teaching Aptitude in 7 days.
+   352→
+   353→> You completed Unit 1. Start Unit 2 next.
+   354→
+   355→### Weak Areas
+   356→
+   357→Show the student's lowest-performing topics.
+   358→
+   359→### Recent Activity
+   360→
+   361→Show:
+   362→
+   363→* resources viewed
+   364→* quizzes attempted
+   365→* bookmarks
+   366→* completed topics
+   367→* mock tests
+   368→
+   369→---
+   370→
+   371→# 9. AUTHENTICATION
+   372→
+   373→Implement complete authentication.
+   374→
+   375→Support:
+   376→
+   377→* email/password registration
+   378→* login
+   379→* logout
+   380→* forgot password
+   381→* reset password
+   382→* email verification
+   383→* secure sessions
+   384→* protected routes
+   385→
+   386→Optional architecture:
+   387→
+   388→* Google OAuth
+   389→* GitHub OAuth
+   390→
+   391→User profile should contain:
+   392→
+   393→* name
+   394→* email
+   395→* profile image
+   396→* target exam
+   397→* Paper II subject
+   398→* preparation goal
+   399→* target attempt
+   400→* study hours/day
+   401→* preferred language
+   402→* timezone
+   403→* notification preferences
+   404→
+   405→---
+   406→
+   407→# 10. USER ONBOARDING
+   408→
+   409→After registration, present a short onboarding wizard.
+   410→
+   411→Ask:
+   412→
+   413→### Step 1
+   414→
+   415→What are you preparing for?
+   416→
+   417→* UGC NET
+   418→* JRF
+   419→* Assistant Professor
+   420→* Both
+   421→
+   422→### Step 2
+   423→
+   424→Select your Paper II subject.
+   425→
+   426→### Step 3
+   427→
+   428→How much time can you study daily?
+   429→
+   430→* <1 hour
+   431→* 1–2 hours
+   432→* 2–4 hours
+   433→* 4+ hours
+   434→
+   435→### Step 4
+   436→
+   437→When are you planning to take the exam?
+   438→
+   439→### Step 5
+   440→
+   441→Current preparation level:
+   442→
+   443→* Beginner
+   444→* Intermediate
+   445→* Advanced
+   446→* Revision
+   447→
+   448→Use this information to generate a personalized dashboard.
+   449→
+   450→---
+   451→
+   452→# 11. SUBJECT SYSTEM
+   453→
+   454→Create a scalable subject architecture.
+   455→
+   456→Each UGC NET subject should have its own dedicated page.
+   457→
+   458→Example:
+   459→
+   460→/subjects/computer-science
+   461→
+   462→Subject page should contain:
+   463→
+   464→### Subject Header
+   465→
+   466→* Subject name
+   467→* subject code
+   468→* description
+   469→* syllabus
+   470→* preparation guide
+   471→
+   472→### Units
+   473→
+   474→Display every syllabus unit.
+   475→
+   476→For each unit show:
+   477→
+   478→* topics
+   479→* notes
+   480→* books
+   481→* cheat sheets
+   482→* PYQs
+   483→* MCQs
+   484→* mock tests
+   485→* completion percentage
+   486→
+   487→Example:
+   488→
+   489→Unit 1 — Mathematical Foundations
+   490→
+   491→Progress: 64%
+   492→
+   493→Topics:
+   494→
+   495→* Topic A
+   496→* Topic B
+   497→* Topic C
+   498→* Topic D
+   499→
+   500→Each topic can have:
+   501→
+   502→**Learn → Practice → Revise → Test**
+   503→
+   504→This should become the core learning loop.
+   505→
+   506→---
+   507→
+   508→# 12. SYLLABUS SYSTEM
+   509→
+   510→Build an interactive syllabus explorer.
+   511→
+   512→Each subject contains:
+   513→
+   514→* units
+   515→* subunits
+   516→* topics
+   517→* subtopics
+   518→
+   519→Allow students to mark:
+   520→
+   521→* Not Started
+   522→* Studying
+   523→* Completed
+   524→* Needs Revision
+   525→
+   526→Display progress visually.
+   527→
+   528→Example:
+   529→
+   530→```text
+   531→UGC NET Computer Science
+   532→
+   533→Unit 1     ████████░░ 80%
+   534→Unit 2     ██████░░░░ 60%
+   535→Unit 3     ███░░░░░░░ 30%
+   536→Unit 4     ██████████ 100%
+   537→```
+   538→
+   539→Clicking a topic opens the complete learning resources for that topic.
+   540→
+   541→---
+   542→
+   543→# 13. BOOK LIBRARY
+   544→
+   545→Create a powerful digital library.
+   546→
+   547→URL:
+   548→
+   549→/books
+   550→
+   551→Features:
+   552→
+   553→* search
+   554→* filtering
+   555→* categories
+   556→* subjects
+   557→* authors
+   558→* publishers
+   559→* year
+   560→* type
+   561→* tags
+   562→* popularity
+   563→* recently added
+   564→
+   565→Each book page should include:
+   566→
+   567→* title
+   568→* cover
+   569→* author
+   570→* subject
+   571→* description
+   572→* chapters
+   573→* tags
+   574→* publication information
+   575→* reading options
+   576→* download options where legally permitted
+   577→* bookmark
+   578→* rating
+   579→* related resources
+   580→
+   581→Allow:
+   582→
+   583→**Read Online**
+   584→
+   585→and, where authorized:
+   586→
+   587→**Download PDF**
+   588→
+   589→Do not assume every uploaded book can legally be distributed.
+   590→
+   591→Add an admin field:
+   592→
+   593→**Distribution Rights / License Status**
+   594→
+   595→Possible states:
+   596→
+   597→* owned
+   598→* licensed
+   599→* public domain
+   600→* permission granted
+   601→* user-uploaded
+   602→* restricted
+   603→* reference-only
+   604→
+   605→---
+   606→
+   607→# 14. DIGITAL READER
+   608→
+   609→Create an excellent PDF/document reading experience.
+   610→
+   611→Features:
+   612→
+   613→* full-screen mode
+   614→* page navigation
+   615→* zoom
+   616→* search inside document
+   617→* bookmarks
+   618→* highlights
+   619→* notes
+   620→* last-read page
+   621→* reading progress
+   622→* dark reading mode
+   623→* table of contents
+   624→* download where permitted
+   625→
+   626→Remember the user's reading position.
+   627→
+   628→Example:
+   629→
+   630→> Continue from Page 127
+   631→
+   632→---
+   633→
+   634→# 15. NOTES SYSTEM
+   635→
+   636→Create a dedicated notes platform.
+   637→
+   638→URL:
+   639→
+   640→/notes
+   641→
+   642→Notes may exist at:
+   643→
+   644→* Paper level
+   645→* Subject level
+   646→* Unit level
+   647→* Topic level
+   648→
+   649→Each note should support:
+   650→
+   651→* rich text
+   652→* headings
+   653→* tables
+   654→* diagrams
+   655→* images
+   656→* formulas
+   657→* highlighted key points
+   658→* examples
+   659→* important facts
+   660→* exam tips
+   661→* quick revision
+   662→* PYQ references
+   663→
+   664→Each note should show:
+   665→
+   666→* reading time
+   667→* difficulty
+   668→* subject
+   669→* unit
+   670→* topics
+   671→* last updated
+   672→* author
+   673→* related questions
+   674→
+   675→---
+   676→
+   677→# 16. CHEAT SHEETS
+   678→
+   679→Create a premium Cheat Sheet section.
+   680→
+   681→Cheat sheets should focus on:
+   682→
+   683→* formulas
+   684→* definitions
+   685→* theories
+   686→* important scholars
+   687→* terminology
+   688→* shortcuts
+   689→* comparisons
+   690→* frameworks
+   691→* important facts
+   692→* frequently confused concepts
+   693→* last-minute revision
+   694→
+   695→Each cheat sheet should have:
+   696→
+   697→* title
+   698→* subject
+   699→* unit
+   700→* topics
+   701→* visual summary
+   702→* downloadable version where permitted
+   703→* print-friendly layout
+   704→* bookmark
+   705→
+   706→Provide:
+   707→
+   708→**Quick Revision Mode**
+   709→
+   710→where multiple cheat sheets can be viewed rapidly.
+   711→
+   712→---
+   713→
+   714→# 17. PREVIOUS YEAR QUESTIONS
+   715→
+   716→Create a complete PYQ system.
+   717→
+   718→URL:
+   719→
+   720→/pyq
+   721→
+   722→Allow filtering by:
+   723→
+   724→* year
+   725→* subject
+   726→* unit
+   727→* topic
+   728→* Paper I / Paper II
+   729→* question type
+   730→
+   731→Each question should contain:
+   732→
+   733→* question
+   734→* options
+   735→* correct answer
+   736→* explanation
+   737→* topic
+   738→* unit
+   739→* year
+   740→* difficulty
+   741→* source/reference where applicable
+   742→
+   743→Important:
+   744→
+   745→Do not merely show the answer.
+   746→
+   747→Explain:
+   748→
+   749→**Why is this correct?**
+   750→
+   751→and, when useful:
+   752→
+   753→**Why are the other options wrong?**
+   754→
+   755→---
+   756→
+   757→# 18. MCQ PRACTICE ENGINE
+   758→
+   759→Build an interactive practice engine.
+   760→
+   761→Users can choose:
+   762→
+   763→### Practice by
+   764→
+   765→* Subject
+   766→* Unit
+   767→* Topic
+   768→* Difficulty
+   769→* Question count
+   770→* PYQ
+   771→* Custom questions
+   772→* Weak topics
+   773→* Bookmarked questions
+   774→
+   775→Modes:
+   776→
+   777→### Practice Mode
+   778→
+   779→Immediate explanation after answering.
+   780→
+   781→### Exam Mode
+   782→
+   783→No answer feedback until completion.
+   784→
+   785→### Revision Mode
+   786→
+   787→Questions previously answered incorrectly.
+   788→
+   789→### Weak Area Mode
+   790→
+   791→Automatically selects low-performing topics.
+   792→
+   793→---
+   794→
+   795→# 19. QUESTION EXPERIENCE
+   796→
+   797→Each MCQ page should contain:
+   798→
+   799→Question number.
+   800→
+   801→Question text.
+   802→
+   803→Four or more options.
+   804→
+   805→Actions:
+   806→
+   807→* Mark for Review
+   808→* Bookmark
+   809→* Report Question
+   810→* Add Note
+   811→
+   812→After answer:
+   813→
+   814→Show:
+   815→
+   816→* Correct / Incorrect
+   817→* Correct answer
+   818→* explanation
+   819→* related topic
+   820→* related notes
+   821→* related cheat sheet
+   822→* similar questions
+   823→
+   824→This creates a connected knowledge system.
+   825→
+   826→---
+   827→
+   828→# 20. MOCK TEST ENGINE
+   829→
+   830→Create a complete mock examination engine.
+   831→
+   832→Users can start:
+   833→
+   834→* Paper I mock
+   835→* Paper II mock
+   836→* Full mock
+   837→* Unit test
+   838→* Topic test
+   839→* Custom test
+   840→
+   841→Support:
+   842→
+   843→* countdown timer
+   844→* question palette
+   845→* navigation
+   846→* mark for review
+   847→* answer changing
+   848→* submit test
+   849→* automatic scoring
+   850→
+   851→After the test, show a detailed result.
+   852→
+   853→---
+   854→
+   855→# 21. MOCK TEST ANALYTICS
+   856→
+   857→Result screen must include:
+   858→
+   859→* total score
+   860→* percentage
+   861→* accuracy
+   862→* attempted
+   863→* correct
+   864→* incorrect
+   865→* skipped
+   866→* time spent
+   867→* average time/question
+   868→* strongest topics
+   869→* weakest topics
+   870→
+   871→Show charts.
+   872→
+   873→Example:
+   874→
+   875→```text
+   876→Accuracy by Topic
+   877→
+   878→Teaching Aptitude       88%
+   879→Research Aptitude       72%
+   880→Communication           64%
+   881→Logical Reasoning       48%
+   882→Data Interpretation     81%
+   883→```
+   884→
+   885→Then provide:
+   886→
+   887→> Recommended next step
+   888→
+   889→Example:
+   890→
+   891→> Revise Logical Reasoning and attempt 20 practice questions.
+   892→
+   893→---
+   894→
+   895→# 22. BOOKMARKS
+   896→
+   897→Global bookmarking system.
+   898→
+   899→Users should be able to bookmark:
+   900→
+   901→* books
+   902→* chapters
+   903→* notes
+   904→* topics
+   905→* questions
+   906→* cheat sheets
+   907→* mock tests
+   908→* articles
+   909→
+   910→Create:
+   911→
+   912→/bookmarks
+   913→
+   914→Allow folders such as:
+   915→
+   916→* Important
+   917→* Revise Later
+   918→* Weak Topics
+   919→* Exam Week
+   920→* Favorites
+   921→
+   922→---
+   923→
+   924→# 23. PERSONAL NOTES
+   925→
+   926→Allow users to create private notes.
+   927→
+   928→Example:
+   929→
+   930→> My Notes
+   931→
+   932→Features:
+   933→
+   934→* rich text editor
+   935→* markdown support
+   936→* tags
+   937→* subject
+   938→* unit
+   939→* topic
+   940→* links to resources
+   941→* private by default
+   942→
+   943→---
+   944→
+   945→# 24. STUDY PLANNER
+   946→
+   947→Create a personalized study planning system.
+   948→
+   949→User specifies:
+   950→
+   951→* target exam date
+   952→* available hours
+   953→* subjects
+   954→* target units
+   955→* revision frequency
+   956→
+   957→Generate a study plan.
+   958→
+   959→Daily view:
+   960→
+   961→```text
+   962→TODAY
+   963→
+   964→09:00–10:00
+   965→Research Aptitude
+   966→
+   967→10:15–11:00
+   968→20 MCQs
+   969→
+   970→18:00–18:30
+   971→Review Cheat Sheet
+   972→
+   973→20:00–20:30
+   974→Previous Year Questions
+   975→```
+   976→
+   977→Allow users to:
+   978→
+   979→* mark tasks complete
+   980→* postpone
+   981→* reschedule
+   982→* edit
+   983→* add custom tasks
+   984→
+   985→---
+   986→
+   987→# 25. STUDY STREAK
+   988→
+   989→Track:
+   990→
+   991→* daily study activity
+   992→* days completed
+   993→* weekly consistency
+   994→* longest streak
+   995→
+   996→Avoid manipulative gamification.
+   997→
+   998→The objective is motivation, not addiction.
+   999→
+  1000→---
+  1001→
+  1002→# 26. PROGRESS TRACKING
+  1003→
+  1004→Track progress at multiple levels.
+  1005→
+  1006→### Overall
+  1007→
+  1008→### Paper
+  1009→
+  1010→### Subject
+  1011→
+  1012→### Unit
+  1013→
+  1014→### Topic
+  1015→
+  1016→### Resource
+  1017→
+  1018→### Questions
+  1019→
+  1020→Example:
+  1021→
+  1022→```text
+  1023→Overall Preparation
+  1024→
+  1025→Paper I       72%
+  1026→Paper II      54%
+  1027→
+  1028→Questions
+  1029→Solved        3,840
+  1030→
+  1031→Accuracy      76%
+  1032→
+  1033→Mock Tests    12
+  1034→
+  1035→Study Time    84 hours
+  1036→```
+  1037→
+  1038→---
+  1039→
+  1040→# 27. ANALYTICS DASHBOARD
+  1041→
+  1042→Create detailed analytics.
+  1043→
+  1044→Charts:
+  1045→
+  1046→* study hours over time
+  1047→* questions solved
+  1048→* accuracy over time
+  1049→* mock scores
+  1050→* subject performance
+  1051→* topic performance
+  1052→* revision activity
+  1053→* completion rate
+  1054→
+  1055→Include useful insights.
+  1056→
+  1057→Example:
+  1058→
+  1059→> Your accuracy improved by 11% over the last 30 days.
+  1060→
+  1061→> Research Aptitude is currently your weakest major topic.
+  1062→
+  1063→> You perform better in untimed practice than timed tests.
+  1064→
+  1065→---
+  1066→
+  1067→# 28. SMART RECOMMENDATION ENGINE
+  1068→
+  1069→Implement a rule-based recommendation system initially.
+  1070→
+  1071→Later make it AI-ready.
+  1072→
+  1073→Recommendations can consider:
+  1074→
+  1075→* weak topics
+  1076→* low accuracy
+  1077→* inactivity
+  1078→* incomplete syllabus
+  1079→* upcoming exam
+  1080→* recently studied topics
+  1081→* bookmarked resources
+  1082→* practice history
+  1083→
+  1084→Examples:
+  1085→
+  1086→> Revise Unit 3.
+  1087→
+  1088→> Try this 15-question quiz.
+  1089→
+  1090→> Read this cheat sheet.
+  1091→
+  1092→> Reattempt these 8 questions.
+  1093→
+  1094→> Complete the unfinished chapter.
+  1095→
+  1096→Architecture should allow an AI recommendation engine to be added later.
+  1097→
+  1098→---
+  1099→
+  1100→# 29. GLOBAL SEARCH
+  1101→
+  1102→Build excellent search functionality.
+  1103→
+  1104→Search across:
+  1105→
+  1106→* books
+  1107→* notes
+  1108→* cheat sheets
+  1109→* subjects
+  1110→* units
+  1111→* topics
+  1112→* questions
+  1113→* PYQs
+  1114→* articles
+  1115→
+  1116→Search examples:
+  1117→
+  1118→```text
+  1119→Bayes theorem
+  1120→research methodology
+  1121→teaching aptitude
+  1122→binary tree
+  1123→Shakespeare
+  1124→Indian constitution
+  1125→```
+  1126→
+  1127→Search result should group results by content type.
+  1128→
+  1129→Include:
+  1130→
+  1131→* autocomplete
+  1132→* typo tolerance
+  1133→* filters
+  1134→* recent searches
+  1135→
+  1136→---
+  1137→
+  1138→# 30. KNOWLEDGE GRAPH / RELATED CONTENT
+  1139→
+  1140→Connect the content ecosystem.
+  1141→
+  1142→For every topic, show:
+  1143→
+  1144→### Related
+  1145→
+  1146→* Notes
+  1147→* Books
+  1148→* Cheat Sheets
+  1149→* PYQs
+  1150→* MCQs
+  1151→* Mock Tests
+  1152→* Articles
+  1153→
+  1154→Example:
+  1155→
+  1156→```text
+  1157→Research Methodology
+  1158→
+  1159→Learn
+  1160→→ Detailed Notes
+  1161→
+  1162→Read
+  1163→→ Recommended Book
+  1164→
+  1165→Revise
+  1166→→ Cheat Sheet
+  1167→
+  1168→Practice
+  1169→→ 50 MCQs
+  1170→
+  1171→Past Questions
+  1172→→ 32 PYQs
+  1173→
+  1174→Test
+  1175→→ Unit Mock Test
+  1176→```
+  1177→
+  1178→This should be one of the strongest features of the platform.
+  1179→
+  1180→---
+  1181→
+  1182→# 31. ARTICLE / BLOG SYSTEM
+  1183→
+  1184→Create an editorial section.
+  1185→
+  1186→Topics:
+  1187→
+  1188→* UGC NET preparation strategy
+  1189→* study methods
+  1190→* subject strategy
+  1191→* revision strategies
+  1192→* PYQ analysis
+  1193→* time management
+  1194→* exam mistakes
+  1195→* JRF preparation
+  1196→* research tips
+  1197→* productivity
+  1198→* academic resources
+  1199→
+  1200→CMS should allow admins to:
+  1201→
+  1202→* create articles
+  1203→* schedule articles
+  1204→* publish/unpublish
+  1205→* add featured image
+  1206→* categorize
+  1207→* tag
+  1208→* SEO optimize
+  1209→
+  1210→---
+  1211→
+  1212→# 32. RESOURCES SECTION
+  1213→
+  1214→Create a general academic resource center.
+  1215→
+  1216→Possible resources:
+  1217→
+  1218→* official syllabus links
+  1219→* NTA notices
+  1220→* application information
+  1221→* exam guides
+  1222→* recommended tools
+  1223→* academic websites
+  1224→* research resources
+  1225→* reference databases
+  1226→
+  1227→Clearly distinguish:
+  1228→
+  1229→**Official Source**
+  1230→
+  1231→from:
+  1232→
+  1233→**Platform Resource**
+  1234→
+  1235→Do not imply third-party content is officially affiliated with NTA or UGC unless it actually is.
+  1236→
+  1237→---
+  1238→
+  1239→# 33. ADMIN DASHBOARD
+  1240→
+  1241→Create a powerful admin CMS.
+  1242→
+  1243→Admin navigation:
+  1244→
+  1245→### Dashboard
+  1246→
+  1247→### Users
+  1248→
+  1249→### Subjects
+  1250→
+  1251→### Units
+  1252→
+  1253→### Topics
+  1254→
+  1255→### Books
+  1256→
+  1257→### Notes
+  1258→
+  1259→### Cheat Sheets
+  1260→
+  1261→### Questions
+  1262→
+  1263→### PYQs
+  1264→
+  1265→### Mock Tests
+  1266→
+  1267→### Articles
+  1268→
+  1269→### Resources
+  1270→
+  1271→### Exam Information
+  1272→
+  1273→### Downloads
+  1274→
+  1275→### Analytics
+  1276→
+  1277→### Reports
+  1278→
+  1279→### Settings
+  1280→
+  1281→---
+  1282→
+  1283→# 34. CONTENT MANAGEMENT SYSTEM
+  1284→
+  1285→The admin should be able to create content without editing source code.
+  1286→
+  1287→CRUD for:
+  1288→
+  1289→* subjects
+  1290→* units
+  1291→* topics
+  1292→* resources
+  1293→* books
+  1294→* notes
+  1295→* questions
+  1296→* answers
+  1297→* explanations
+  1298→* articles
+  1299→
+  1300→Every resource should support:
+  1301→
+  1302→* title
+  1303→* slug
+  1304→* description
+  1305→* content
+  1306→* thumbnail
+  1307→* subject
+  1308→* unit
+  1309→* topic
+  1310→* tags
+  1311→* difficulty
+  1312→* visibility
+  1313→* featured status
+  1314→* SEO metadata
+  1315→
+  1316→---
+  1317→
+  1318→# 35. FILE MANAGEMENT
+  1319→
+  1320→Create secure file upload functionality.
+  1321→
+  1322→Support:
+  1323→
+  1324→* PDF
+  1325→* images
+  1326→* documents
+  1327→* thumbnails
+  1328→
+  1329→Store files using scalable object storage architecture.
+  1330→
+  1331→Possible providers:
+  1332→
+  1333→* AWS S3
+  1334→* Cloudflare R2
+  1335→* Supabase Storage
+  1336→
+  1337→Do not store large PDFs directly inside the application database.
+  1338→
+  1339→Database should store metadata and file references.
+  1340→
+  1341→---
+  1342→
+  1343→# 36. CONTENT RIGHTS / COPYRIGHT
+  1344→
+  1345→This is extremely important.
+  1346→
+  1347→The system must distinguish:
+  1348→
+  1349→* original content
+  1350→* licensed content
+  1351→* public domain content
+  1352→* content with permission
+  1353→* external resources
+  1354→* restricted content
+  1355→
+  1356→Do not design the application around unauthorized distribution of copyrighted books.
+  1357→
+  1358→Admins should be able to disable downloading while still allowing metadata/reference pages.
+  1359→
+  1360→---
+  1361→
+  1362→# 37. REPORTING SYSTEM
+  1363→
+  1364→Users should be able to report:
+  1365→
+  1366→* incorrect answer
+  1367→* incorrect explanation
+  1368→* broken resource
+  1369→* outdated information
+  1370→* typo
+  1371→* inappropriate content
+  1372→* duplicate question
+  1373→
+  1374→Admin should receive:
+  1375→
+  1376→* issue type
+  1377→* resource
+  1378→* user
+  1379→* description
+  1380→* timestamp
+  1381→* status
+  1382→
+  1383→Statuses:
+  1384→
+  1385→* Open
+  1386→* Investigating
+  1387→* Resolved
+  1388→* Rejected
+  1389→
+  1390→---
+  1391→
+  1392→# 38. NOTIFICATIONS
+  1393→
+  1394→Create notification architecture.
+  1395→
+  1396→Notifications for:
+  1397→
+  1398→* study reminders
+  1399→* unfinished study plans
+  1400→* new resources
+  1401→* new mock tests
+  1402→* new PYQs
+  1403→* important exam updates
+  1404→* streak milestones
+  1405→* recommended revision
+  1406→
+  1407→Allow users to control notification preferences.
+  1408→
+  1409→---
+  1410→
+  1411→# 39. SEO
+  1412→
+  1413→The public site must be extremely SEO-friendly.
+  1414→
+  1415→Every important content object should have:
+  1416→
+  1417→* clean slug
+  1418→* title
+  1419→* meta description
+  1420→* canonical URL
+  1421→* Open Graph image
+  1422→* structured metadata
+  1423→
+  1424→Create SEO-friendly pages such as:
+  1425→
+  1426→```text
+  1427→/ugc-net
+  1428→/ugc-net/paper-1
+  1429→/ugc-net/paper-1/teaching-aptitude
+  1430→/subjects/computer-science
+  1431→/subjects/commerce
+  1432→/notes/research-methodology
+  1433→/pyq/computer-science
+  1434→/books
+  1435→/cheat-sheets
+  1436→```
+  1437→
+  1438→Use server-side rendering / static generation where appropriate.
+  1439→
+  1440→Generate:
+  1441→
+  1442→* sitemap.xml
+  1443→* robots.txt
+  1444→* structured data
+  1445→* breadcrumbs
+  1446→
+  1447→---
+  1448→
+  1449→# 40. PERFORMANCE
+  1450→
+  1451→The site should be fast.
+  1452→
+  1453→Target:
+  1454→
+  1455→* excellent Core Web Vitals
+  1456→* optimized images
+  1457→* lazy loading
+  1458→* code splitting
+  1459→* caching
+  1460→* database indexing
+  1461→* CDN
+  1462→* pagination
+  1463→* optimized API queries
+  1464→
+  1465→Avoid loading huge resource lists at once.
+  1466→
+  1467→---
+  1468→
+  1469→# 41. ACCESSIBILITY
+  1470→
+  1471→Follow modern accessibility standards.
+  1472→
+  1473→Support:
+  1474→
+  1475→* keyboard navigation
+  1476→* semantic HTML
+  1477→* ARIA where necessary
+  1478→* sufficient contrast
+  1479→* readable typography
+  1480→* focus states
+  1481→* screen readers
+  1482→* accessible forms
+  1483→* accessible error messages
+  1484→
+  1485→Do not rely solely on color to communicate status.
+  1486→
+  1487→---
+  1488→
+  1489→# 42. MOBILE EXPERIENCE
+  1490→
+  1491→Do not simply shrink the desktop layout.
+  1492→
+  1493→Design a real mobile experience.
+  1494→
+  1495→Mobile navigation should prioritize:
+  1496→
+  1497→* Home
+  1498→* Study
+  1499→* Practice
+  1500→* Library
+  1501→* Dashboard
+  1502→
+  1503→The question-taking UI should be especially optimized for mobile.
+  1504→
+  1505→---
+  1506→
+  1507→# 43. TECHNOLOGY STACK
+  1508→
+  1509→Use a modern production-ready architecture.
+  1510→
+  1511→Preferred stack:
+  1512→
+  1513→### Frontend
+  1514→
+  1515→* Next.js
+  1516→* React
+  1517→* TypeScript
+  1518→* Tailwind CSS
+  1519→* shadcn/ui
+  1520→* Lucide icons
+  1521→
+  1522→### Backend
+  1523→
+  1524→Prefer Next.js server architecture where practical.
+  1525→
+  1526→Use:
+  1527→
+  1528→* server actions / route handlers
+  1529→* validated API boundaries
+  1530→* service layer
+  1531→* background jobs where appropriate
+  1532→
+  1533→### Database
+  1534→
+  1535→* PostgreSQL
+  1536→* Prisma ORM
+  1537→
+  1538→### Authentication
+  1539→
+  1540→Use a secure modern authentication solution.
+  1541→
+  1542→### Storage
+  1543→
+  1544→Use S3-compatible object storage.
+  1545→
+  1546→### Search
+  1547→
+  1548→Start with PostgreSQL full-text search.
+  1549→
+  1550→Design the architecture so it can later support:
+  1551→
+  1552→* Meilisearch
+  1553→* Elasticsearch
+  1554→* Typesense
+  1555→
+  1556→### Deployment
+  1557→
+  1558→Design for:
+  1559→
+  1560→* Vercel / similar frontend hosting
+  1561→* managed PostgreSQL
+  1562→* object storage
+  1563→* CDN
+  1564→
+  1565→---
+  1566→
+  1567→# 44. DATABASE ARCHITECTURE
+  1568→
+  1569→Design a normalized relational database.
+  1570→
+  1571→Core models should include approximately:
+  1572→
+  1573→```text
+  1574→User
+  1575→Profile
+  1576→Role
+  1577→Permission
+  1578→
+  1579→Exam
+  1580→ExamSession
+  1581→Subject
+  1582→Unit
+  1583→Topic
+  1584→Subtopic
+  1585→
+  1586→Book
+  1587→BookChapter
+  1588→Document
+  1589→
+  1590→Note
+  1591→CheatSheet
+  1592→Article
+  1593→Resource
+  1594→
+  1595→Question
+  1596→QuestionOption
+  1597→QuestionExplanation
+  1598→PYQ
+  1599→MockTest
+  1600→MockTestQuestion
+  1601→QuizAttempt
+  1602→QuestionAttempt
+  1603→
+  1604→Bookmark
+  1605→BookmarkFolder
+  1606→
+  1607→UserNote
+  1608→StudyPlan
+  1609→StudyTask
+  1610→
+  1611→StudySession
+  1612→UserProgress
+  1613→TopicProgress
+  1614→SubjectProgress
+  1615→
+  1616→Achievement
+  1617→Streak
+  1618→
+  1619→Notification
+  1620→Report
+  1621→ContentTag
+  1622→
+  1623→File
+  1624→FilePermission
+  1625→
+  1626→SearchIndex / SearchMetadata
+  1627→AuditLog
+  1628→```
+  1629→
+  1630→Use foreign keys and appropriate indexes.
+  1631→
+  1632→---
+  1633→
+  1634→# 45. ROLE SYSTEM
+  1635→
+  1636→Support:
+  1637→
+  1638→### Student
+  1639→
+  1640→Can study and track their own progress.
+  1641→
+  1642→### Content Editor
+  1643→
+  1644→Can manage educational content.
+  1645→
+  1646→### Moderator
+  1647→
+  1648→Can review reports and content issues.
+  1649→
+  1650→### Admin
+  1651→
+  1652→Full platform access.
+  1653→
+  1654→### Super Admin
+  1655→
+  1656→Full system and configuration access.
+  1657→
+  1658→Use role-based access control throughout the application.
+  1659→
+  1660→---
+  1661→
+  1662→# 46. SECURITY
+  1663→
+  1664→Implement production-grade security.
+  1665→
+  1666→Include:
+  1667→
+  1668→* secure authentication
+  1669→* password hashing
+  1670→* session protection
+  1671→* CSRF protections where applicable
+  1672→* input validation
+  1673→* output sanitization
+  1674→* rate limiting
+  1675→* authorization checks
+  1676→* secure file uploads
+  1677→* file type validation
+  1678→* upload size limits
+  1679→* protection against malicious filenames
+  1680→* audit logs
+  1681→* admin route protection
+  1682→
+  1683→Never trust client-side permissions.
+  1684→
+  1685→---
+  1686→
+  1687→# 47. API DESIGN
+  1688→
+  1689→Create clean APIs/service boundaries.
+  1690→
+  1691→Examples:
+  1692→
+  1693→```text
+  1694→GET    /api/subjects
+  1695→GET    /api/subjects/:slug
+  1696→GET    /api/topics/:slug
+  1697→
+  1698→GET    /api/books
+  1699→GET    /api/notes
+  1700→GET    /api/cheat-sheets
+  1701→
+  1702→GET    /api/questions
+  1703→POST   /api/questions/:id/attempt
+  1704→
+  1705→GET    /api/mock-tests
+  1706→POST   /api/mock-tests/:id/start
+  1707→POST   /api/mock-tests/:id/submit
+  1708→
+  1709→GET    /api/progress
+  1710→GET    /api/analytics
+  1711→
+  1712→GET    /api/search
+  1713→
+  1714→POST   /api/bookmarks
+  1715→DELETE /api/bookmarks/:id
+  1716→```
+  1717→
+  1718→Use consistent validation and error handling.
+  1719→
+  1720→---
+  1721→
+  1722→# 48. ERROR / EMPTY / LOADING STATES
+  1723→
+  1724→Every page must handle:
+  1725→
+  1726→* loading
+  1727→* empty
+  1728→* error
+  1729→* offline-like failures
+  1730→* unauthorized
+  1731→* not found
+  1732→
+  1733→Do not leave blank screens.
+  1734→
+  1735→Create useful empty states.
+  1736→
+  1737→Example:
+  1738→
+  1739→> You haven't bookmarked anything yet.
+  1740→
+  1741→> Save important questions and resources here for quick revision.
+  1742→
+  1743→---
+  1744→
+  1745→# 49. UI DESIGN SYSTEM
+  1746→
+  1747→Create a coherent visual design system.
+  1748→
+  1749→Use:
+  1750→
+  1751→* modern typography
+  1752→* spacious layout
+  1753→* cards
+  1754→* tabs
+  1755→* badges
+  1756→* progress indicators
+  1757→* charts
+  1758→* command/search interface
+  1759→* modals
+  1760→* drawers
+  1761→* breadcrumbs
+  1762→* tooltips
+  1763→
+  1764→Avoid excessive gradients, excessive animations, and visual clutter.
+  1765→
+  1766→Animations should be subtle and purposeful.
+  1767→
+  1768→---
+  1769→
+  1770→# 50. DARK MODE
+  1771→
+  1772→Provide:
+  1773→
+  1774→* light mode
+  1775→* dark mode
+  1776→* system preference
+  1777→
+  1778→The reading experience should have an especially comfortable dark mode.
+  1779→
+  1780→---
+  1781→
+  1782→# 51. HOME PAGE CONTENT PERSONALIZATION
+  1783→
+  1784→For logged-in users, the homepage can change slightly based on their preparation.
+  1785→
+  1786→Example:
+  1787→
+  1788→> Continue Computer Science Paper II
+  1789→
+  1790→instead of:
+  1791→
+  1792→> Explore UGC NET.
+  1793→
+  1794→But public SEO pages must remain crawlable and accessible.
+  1795→
+  1796→---
+  1797→
+  1798→# 52. DAILY STUDY EXPERIENCE
+  1799→
+  1800→Create a dedicated:
+  1801→
+  1802→**Study Mode**
+  1803→
+  1804→When activated, the interface should remove distractions.
+  1805→
+  1806→Study session could contain:
+  1807→
+  1808→```text
+  1809→TODAY'S PLAN
+  1810→
+  1811→1. Read Research Aptitude Notes
+  1812→2. Complete 20 MCQs
+  1813→3. Review Mistakes
+  1814→4. Read Cheat Sheet
+  1815→5. Take Mini Test
+  1816→```
+  1817→
+  1818→Track time spent.
+  1819→
+  1820→At the end:
+  1821→
+  1822→> Study session complete.
+  1823→
+  1824→Show:
+  1825→
+  1826→* time studied
+  1827→* topics covered
+  1828→* questions attempted
+  1829→* accuracy
+  1830→* progress gained
+  1831→
+  1832→---
+  1833→
+  1834→# 53. REVISION ENGINE
+  1835→
+  1836→Create a revision system based on user activity.
+  1837→
+  1838→Track questions that are:
+  1839→
+  1840→* incorrect
+  1841→* uncertain
+  1842→* bookmarked
+  1843→* repeatedly missed
+  1844→* not studied recently
+  1845→
+  1846→Create:
+  1847→
+  1848→**Revision Center**
+  1849→
+  1850→with:
+  1851→
+  1852→### Revise Today
+  1853→
+  1854→### Mistakes
+  1855→
+  1856→### Bookmarked
+  1857→
+  1858→### Due for Review
+  1859→
+  1860→### Weak Topics
+  1861→
+  1862→Use spaced-repetition-friendly architecture without requiring a complex algorithm initially.
+  1863→
+  1864→---
+  1865→
+  1866→# 54. QUESTION BANK QUALITY SYSTEM
+  1867→
+  1868→Questions must have metadata:
+  1869→
+  1870→```text
+  1871→Subject
+  1872→Unit
+  1873→Topic
+  1874→Difficulty
+  1875→Question Type
+  1876→Year
+  1877→Source
+  1878→Explanation
+  1879→Concept
+  1880→Tags
+  1881→```
+  1882→
+  1883→Difficulty:
+  1884→
+  1885→* Easy
+  1886→* Medium
+  1887→* Hard
+  1888→
+  1889→Question status:
+  1890→
+  1891→* Draft
+  1892→* Review
+  1893→* Published
+  1894→* Archived
+  1895→
+  1896→Admins should be able to review questions before publication.
+  1897→
+  1898→---
+  1899→
+  1900→# 55. DATA VISUALIZATION
+  1901→
+  1902→Use charts when they actually help.
+  1903→
+  1904→Recommended:
+  1905→
+  1906→* progress rings
+  1907→* bar charts
+  1908→* line charts
+  1909→* heatmaps
+  1910→* topic performance tables
+  1911→* study activity calendar
+  1912→
+  1913→Do not turn the dashboard into a chart museum.
+  1914→
+  1915→Every chart should answer a useful question.
+  1916→
+  1917→---
+  1918→
+  1919→# 56. FREE VS PREMIUM ARCHITECTURE
+  1920→
+  1921→Design the product so monetization can be added later.
+  1922→
+  1923→Possible plans:
+  1924→
+  1925→### Free
+  1926→
+  1927→* selected notes
+  1928→* limited quizzes
+  1929→* selected PYQs
+  1930→* selected cheat sheets
+  1931→
+  1932→### Premium
+  1933→
+  1934→* complete library
+  1935→* advanced mock tests
+  1936→* analytics
+  1937→* advanced revision
+  1938→* premium notes
+  1939→
+  1940→Do not implement intrusive monetization unless requested.
+  1941→
+  1942→The architecture must support:
+  1943→
+  1944→```text
+  1945→Subscription
+  1946→Plan
+  1947→Entitlement
+  1948→Payment
+  1949→Invoice
+  1950→```
+  1951→
+  1952→later.
+  1953→
+  1954→---
+  1955→
+  1956→# 57. ADMIN ANALYTICS
+  1957→
+  1958→Admin analytics should show:
+  1959→
+  1960→* registered users
+  1961→* active users
+  1962→* resource views
+  1963→* downloads
+  1964→* questions attempted
+  1965→* quiz completions
+  1966→* mock test attempts
+  1967→* popular subjects
+  1968→* popular resources
+  1969→* search queries
+  1970→* failed searches
+  1971→* reported content
+  1972→
+  1973→Especially track:
+  1974→
+  1975→**What are students searching for but not finding?**
+  1976→
+  1977→This should inform future content creation.
+  1978→
+  1979→---
+  1980→
+  1981→# 58. SEARCH ANALYTICS
+  1982→
+  1983→Store anonymized search analytics where appropriate.
+  1984→
+  1985→Examples:
+  1986→
+  1987→```text
+  1988→"research aptitude"
+  1989→"ugc net computer science notes"
+  1990→"teaching aptitude mcq"
+  1991→"python"
+  1992→"research methodology"
+  1993→```
+  1994→
+  1995→Admin can see:
+  1996→
+  1997→* popular searches
+  1998→* searches with no results
+  1999→* search trends
+  2000→
+
+[showing lines 1-2000 of 2738; use offset=2001 with limit to continue reading]

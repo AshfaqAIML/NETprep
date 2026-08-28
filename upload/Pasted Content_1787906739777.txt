@@ -1,0 +1,2737 @@
+# MASTER PROMPT — BUILD A FULL-STACK UGC NET PREPARATION PLATFORM
+
+## 1. PROJECT VISION
+
+Build a **production-ready, exceptionally helpful, modern full-stack web platform for UGC NET aspirants**.
+
+The platform should become a student's **complete digital preparation ecosystem for UGC NET**, where they can:
+
+* Discover UGC NET information and strategy
+* Select their Paper II subject
+* Access books and study material
+* Read detailed notes
+* Download concise cheat sheets
+* Study topic-by-topic
+* Practice MCQs
+* Attempt quizzes and mock tests
+* Solve previous-year questions
+* Bookmark important resources
+* Track preparation progress
+* Create a personalized study plan
+* Monitor weak and strong topics
+* Maintain study streaks
+* Take notes
+* Search the entire knowledge base
+* Prepare for Paper I and Paper II from one place
+
+The website must feel like a combination of:
+
+**UGC NET Library + Digital Notes Platform + MCQ Practice App + Mock Test Platform + Study Planner + Progress Dashboard + Knowledge Base**
+
+Do not build a generic educational website.
+
+Build a product that an aspirant could realistically use every day during their UGC NET preparation.
+
+---
+
+# 2. CORE PRODUCT PRINCIPLE
+
+The primary goal is:
+
+> "Help a UGC NET aspirant go from syllabus → learning → revision → practice → analysis → improvement → exam readiness."
+
+Every feature, page, database model, and UI decision should support this journey.
+
+The website should answer common student questions immediately:
+
+* What should I study?
+* Which topic should I study today?
+* Where are my notes?
+* Which book should I use?
+* What is important for the exam?
+* How much of the syllabus have I completed?
+* Which topics am I weak in?
+* What questions were asked previously?
+* How am I performing?
+* What should I revise?
+* What should I do next?
+
+---
+
+# 3. BRAND / PRODUCT POSITIONING
+
+Create a memorable educational brand for the platform.
+
+Working name:
+
+**NETPrep Hub**
+
+You may use a better professional name if appropriate, but the branding should communicate:
+
+* UGC NET
+* preparation
+* knowledge
+* academic credibility
+* simplicity
+* trust
+* progress
+
+Avoid cheesy coaching-centre aesthetics.
+
+The website should look like a serious modern academic technology product.
+
+Visual inspiration:
+
+* modern SaaS dashboards
+* Notion
+* Coursera
+* Khan Academy
+* modern university portals
+* premium digital libraries
+* modern productivity applications
+
+Use a sophisticated, accessible design system.
+
+---
+
+# 4. TARGET USERS
+
+Primary users:
+
+### UGC NET Aspirants
+
+Students preparing for:
+
+* Paper I
+* Paper II
+* JRF
+* Assistant Professor
+* Both JRF and Assistant Professor goals
+
+Potential users may include:
+
+* first-time aspirants
+* repeat candidates
+* postgraduate students
+* working professionals
+* research-oriented students
+* students preparing independently without coaching
+
+Design the experience especially well for people studying on:
+
+* desktop
+* laptop
+* tablet
+* mobile phone
+
+The site must be completely responsive.
+
+---
+
+# 5. IMPORTANT EXAM STRUCTURE
+
+The platform should support the current UGC NET structure and must **not hard-code potentially outdated exam information**.
+
+Create an admin-managed:
+
+**Exam Information Center**
+
+where administrators can update:
+
+* examination pattern
+* number of papers
+* marks
+* questions
+* duration
+* eligibility
+* important dates
+* subjects
+* syllabus
+* official notices
+* application information
+* result information
+* JRF information
+
+Use official NTA/UGC sources as authoritative references.
+
+The latest exam configuration should always be configurable from the admin dashboard rather than buried inside frontend code.
+
+---
+
+# 6. WEBSITE INFORMATION ARCHITECTURE
+
+Create the following major sections.
+
+## Public Website
+
+### Home
+
+### About UGC NET
+
+### Exam Pattern
+
+### Eligibility
+
+### Important Dates
+
+### Syllabus
+
+### Subjects
+
+### Study Materials
+
+### Books
+
+### Notes
+
+### Cheat Sheets
+
+### Previous Year Questions
+
+### MCQ Practice
+
+### Mock Tests
+
+### Study Planner
+
+### Preparation Strategy
+
+### Articles / Blog
+
+### Resources
+
+### FAQ
+
+### Contact
+
+### Login
+
+### Register
+
+---
+
+# 7. HOME PAGE
+
+The homepage should immediately communicate the platform's value.
+
+Hero section:
+
+> Prepare Smarter for UGC NET
+
+Supporting message:
+
+> Books, notes, cheat sheets, previous-year questions, quizzes, mock tests, study plans and progress tracking — everything you need for your UGC NET preparation in one place.
+
+Primary CTA:
+
+**Start Preparing**
+
+Secondary CTA:
+
+**Explore Study Materials**
+
+Include a highly visible search bar:
+
+> Search books, notes, topics, questions, subjects...
+
+Below the hero, show:
+
+### Quick Access
+
+Cards for:
+
+* Paper I
+* Paper II
+* Books
+* Notes
+* Cheat Sheets
+* PYQs
+* MCQ Practice
+* Mock Tests
+
+Then:
+
+### Popular Subjects
+
+Display subject cards.
+
+Each card should show:
+
+* subject name
+* subject code
+* number of resources
+* notes available
+* PYQs available
+* practice questions
+* progress indicator if logged in
+
+Then:
+
+### Study Resources
+
+Highlight:
+
+* Latest notes
+* Most downloaded books
+* Important cheat sheets
+* Popular PYQs
+* Recommended resources
+
+Then:
+
+### Your Preparation
+
+For logged-in users show:
+
+* syllabus completion
+* study streak
+* questions solved
+* mock tests attempted
+* average score
+* weak topics
+* next recommended activity
+
+For visitors, show a CTA to create an account.
+
+---
+
+# 8. STUDENT DASHBOARD
+
+Create a highly useful dashboard.
+
+The dashboard should become the user's home screen after login.
+
+## Dashboard sections
+
+### Welcome
+
+Example:
+
+> Good morning, Kamraan. Let's make progress today.
+
+### Preparation Overview
+
+Display:
+
+* Overall progress
+* Paper I progress
+* Paper II progress
+* Topics completed
+* Questions attempted
+* Average accuracy
+* Mock test performance
+* Study hours
+* Current streak
+
+### Continue Learning
+
+Show:
+
+* last opened book
+* last studied topic
+* unfinished notes
+* unfinished quiz
+* previous mock test
+
+### Today's Study Plan
+
+Show:
+
+* task
+* estimated time
+* priority
+* completion status
+
+### Recommended for You
+
+Personalized recommendations such as:
+
+> You have low accuracy in Research Aptitude. Revise this topic.
+
+> You haven't practiced Teaching Aptitude in 7 days.
+
+> You completed Unit 1. Start Unit 2 next.
+
+### Weak Areas
+
+Show the student's lowest-performing topics.
+
+### Recent Activity
+
+Show:
+
+* resources viewed
+* quizzes attempted
+* bookmarks
+* completed topics
+* mock tests
+
+---
+
+# 9. AUTHENTICATION
+
+Implement complete authentication.
+
+Support:
+
+* email/password registration
+* login
+* logout
+* forgot password
+* reset password
+* email verification
+* secure sessions
+* protected routes
+
+Optional architecture:
+
+* Google OAuth
+* GitHub OAuth
+
+User profile should contain:
+
+* name
+* email
+* profile image
+* target exam
+* Paper II subject
+* preparation goal
+* target attempt
+* study hours/day
+* preferred language
+* timezone
+* notification preferences
+
+---
+
+# 10. USER ONBOARDING
+
+After registration, present a short onboarding wizard.
+
+Ask:
+
+### Step 1
+
+What are you preparing for?
+
+* UGC NET
+* JRF
+* Assistant Professor
+* Both
+
+### Step 2
+
+Select your Paper II subject.
+
+### Step 3
+
+How much time can you study daily?
+
+* <1 hour
+* 1–2 hours
+* 2–4 hours
+* 4+ hours
+
+### Step 4
+
+When are you planning to take the exam?
+
+### Step 5
+
+Current preparation level:
+
+* Beginner
+* Intermediate
+* Advanced
+* Revision
+
+Use this information to generate a personalized dashboard.
+
+---
+
+# 11. SUBJECT SYSTEM
+
+Create a scalable subject architecture.
+
+Each UGC NET subject should have its own dedicated page.
+
+Example:
+
+/subjects/computer-science
+
+Subject page should contain:
+
+### Subject Header
+
+* Subject name
+* subject code
+* description
+* syllabus
+* preparation guide
+
+### Units
+
+Display every syllabus unit.
+
+For each unit show:
+
+* topics
+* notes
+* books
+* cheat sheets
+* PYQs
+* MCQs
+* mock tests
+* completion percentage
+
+Example:
+
+Unit 1 — Mathematical Foundations
+
+Progress: 64%
+
+Topics:
+
+* Topic A
+* Topic B
+* Topic C
+* Topic D
+
+Each topic can have:
+
+**Learn → Practice → Revise → Test**
+
+This should become the core learning loop.
+
+---
+
+# 12. SYLLABUS SYSTEM
+
+Build an interactive syllabus explorer.
+
+Each subject contains:
+
+* units
+* subunits
+* topics
+* subtopics
+
+Allow students to mark:
+
+* Not Started
+* Studying
+* Completed
+* Needs Revision
+
+Display progress visually.
+
+Example:
+
+```text
+UGC NET Computer Science
+
+Unit 1     ████████░░ 80%
+Unit 2     ██████░░░░ 60%
+Unit 3     ███░░░░░░░ 30%
+Unit 4     ██████████ 100%
+```
+
+Clicking a topic opens the complete learning resources for that topic.
+
+---
+
+# 13. BOOK LIBRARY
+
+Create a powerful digital library.
+
+URL:
+
+/books
+
+Features:
+
+* search
+* filtering
+* categories
+* subjects
+* authors
+* publishers
+* year
+* type
+* tags
+* popularity
+* recently added
+
+Each book page should include:
+
+* title
+* cover
+* author
+* subject
+* description
+* chapters
+* tags
+* publication information
+* reading options
+* download options where legally permitted
+* bookmark
+* rating
+* related resources
+
+Allow:
+
+**Read Online**
+
+and, where authorized:
+
+**Download PDF**
+
+Do not assume every uploaded book can legally be distributed.
+
+Add an admin field:
+
+**Distribution Rights / License Status**
+
+Possible states:
+
+* owned
+* licensed
+* public domain
+* permission granted
+* user-uploaded
+* restricted
+* reference-only
+
+---
+
+# 14. DIGITAL READER
+
+Create an excellent PDF/document reading experience.
+
+Features:
+
+* full-screen mode
+* page navigation
+* zoom
+* search inside document
+* bookmarks
+* highlights
+* notes
+* last-read page
+* reading progress
+* dark reading mode
+* table of contents
+* download where permitted
+
+Remember the user's reading position.
+
+Example:
+
+> Continue from Page 127
+
+---
+
+# 15. NOTES SYSTEM
+
+Create a dedicated notes platform.
+
+URL:
+
+/notes
+
+Notes may exist at:
+
+* Paper level
+* Subject level
+* Unit level
+* Topic level
+
+Each note should support:
+
+* rich text
+* headings
+* tables
+* diagrams
+* images
+* formulas
+* highlighted key points
+* examples
+* important facts
+* exam tips
+* quick revision
+* PYQ references
+
+Each note should show:
+
+* reading time
+* difficulty
+* subject
+* unit
+* topics
+* last updated
+* author
+* related questions
+
+---
+
+# 16. CHEAT SHEETS
+
+Create a premium Cheat Sheet section.
+
+Cheat sheets should focus on:
+
+* formulas
+* definitions
+* theories
+* important scholars
+* terminology
+* shortcuts
+* comparisons
+* frameworks
+* important facts
+* frequently confused concepts
+* last-minute revision
+
+Each cheat sheet should have:
+
+* title
+* subject
+* unit
+* topics
+* visual summary
+* downloadable version where permitted
+* print-friendly layout
+* bookmark
+
+Provide:
+
+**Quick Revision Mode**
+
+where multiple cheat sheets can be viewed rapidly.
+
+---
+
+# 17. PREVIOUS YEAR QUESTIONS
+
+Create a complete PYQ system.
+
+URL:
+
+/pyq
+
+Allow filtering by:
+
+* year
+* subject
+* unit
+* topic
+* Paper I / Paper II
+* question type
+
+Each question should contain:
+
+* question
+* options
+* correct answer
+* explanation
+* topic
+* unit
+* year
+* difficulty
+* source/reference where applicable
+
+Important:
+
+Do not merely show the answer.
+
+Explain:
+
+**Why is this correct?**
+
+and, when useful:
+
+**Why are the other options wrong?**
+
+---
+
+# 18. MCQ PRACTICE ENGINE
+
+Build an interactive practice engine.
+
+Users can choose:
+
+### Practice by
+
+* Subject
+* Unit
+* Topic
+* Difficulty
+* Question count
+* PYQ
+* Custom questions
+* Weak topics
+* Bookmarked questions
+
+Modes:
+
+### Practice Mode
+
+Immediate explanation after answering.
+
+### Exam Mode
+
+No answer feedback until completion.
+
+### Revision Mode
+
+Questions previously answered incorrectly.
+
+### Weak Area Mode
+
+Automatically selects low-performing topics.
+
+---
+
+# 19. QUESTION EXPERIENCE
+
+Each MCQ page should contain:
+
+Question number.
+
+Question text.
+
+Four or more options.
+
+Actions:
+
+* Mark for Review
+* Bookmark
+* Report Question
+* Add Note
+
+After answer:
+
+Show:
+
+* Correct / Incorrect
+* Correct answer
+* explanation
+* related topic
+* related notes
+* related cheat sheet
+* similar questions
+
+This creates a connected knowledge system.
+
+---
+
+# 20. MOCK TEST ENGINE
+
+Create a complete mock examination engine.
+
+Users can start:
+
+* Paper I mock
+* Paper II mock
+* Full mock
+* Unit test
+* Topic test
+* Custom test
+
+Support:
+
+* countdown timer
+* question palette
+* navigation
+* mark for review
+* answer changing
+* submit test
+* automatic scoring
+
+After the test, show a detailed result.
+
+---
+
+# 21. MOCK TEST ANALYTICS
+
+Result screen must include:
+
+* total score
+* percentage
+* accuracy
+* attempted
+* correct
+* incorrect
+* skipped
+* time spent
+* average time/question
+* strongest topics
+* weakest topics
+
+Show charts.
+
+Example:
+
+```text
+Accuracy by Topic
+
+Teaching Aptitude       88%
+Research Aptitude       72%
+Communication           64%
+Logical Reasoning       48%
+Data Interpretation     81%
+```
+
+Then provide:
+
+> Recommended next step
+
+Example:
+
+> Revise Logical Reasoning and attempt 20 practice questions.
+
+---
+
+# 22. BOOKMARKS
+
+Global bookmarking system.
+
+Users should be able to bookmark:
+
+* books
+* chapters
+* notes
+* topics
+* questions
+* cheat sheets
+* mock tests
+* articles
+
+Create:
+
+/bookmarks
+
+Allow folders such as:
+
+* Important
+* Revise Later
+* Weak Topics
+* Exam Week
+* Favorites
+
+---
+
+# 23. PERSONAL NOTES
+
+Allow users to create private notes.
+
+Example:
+
+> My Notes
+
+Features:
+
+* rich text editor
+* markdown support
+* tags
+* subject
+* unit
+* topic
+* links to resources
+* private by default
+
+---
+
+# 24. STUDY PLANNER
+
+Create a personalized study planning system.
+
+User specifies:
+
+* target exam date
+* available hours
+* subjects
+* target units
+* revision frequency
+
+Generate a study plan.
+
+Daily view:
+
+```text
+TODAY
+
+09:00–10:00
+Research Aptitude
+
+10:15–11:00
+20 MCQs
+
+18:00–18:30
+Review Cheat Sheet
+
+20:00–20:30
+Previous Year Questions
+```
+
+Allow users to:
+
+* mark tasks complete
+* postpone
+* reschedule
+* edit
+* add custom tasks
+
+---
+
+# 25. STUDY STREAK
+
+Track:
+
+* daily study activity
+* days completed
+* weekly consistency
+* longest streak
+
+Avoid manipulative gamification.
+
+The objective is motivation, not addiction.
+
+---
+
+# 26. PROGRESS TRACKING
+
+Track progress at multiple levels.
+
+### Overall
+
+### Paper
+
+### Subject
+
+### Unit
+
+### Topic
+
+### Resource
+
+### Questions
+
+Example:
+
+```text
+Overall Preparation
+
+Paper I       72%
+Paper II      54%
+
+Questions
+Solved        3,840
+
+Accuracy      76%
+
+Mock Tests    12
+
+Study Time    84 hours
+```
+
+---
+
+# 27. ANALYTICS DASHBOARD
+
+Create detailed analytics.
+
+Charts:
+
+* study hours over time
+* questions solved
+* accuracy over time
+* mock scores
+* subject performance
+* topic performance
+* revision activity
+* completion rate
+
+Include useful insights.
+
+Example:
+
+> Your accuracy improved by 11% over the last 30 days.
+
+> Research Aptitude is currently your weakest major topic.
+
+> You perform better in untimed practice than timed tests.
+
+---
+
+# 28. SMART RECOMMENDATION ENGINE
+
+Implement a rule-based recommendation system initially.
+
+Later make it AI-ready.
+
+Recommendations can consider:
+
+* weak topics
+* low accuracy
+* inactivity
+* incomplete syllabus
+* upcoming exam
+* recently studied topics
+* bookmarked resources
+* practice history
+
+Examples:
+
+> Revise Unit 3.
+
+> Try this 15-question quiz.
+
+> Read this cheat sheet.
+
+> Reattempt these 8 questions.
+
+> Complete the unfinished chapter.
+
+Architecture should allow an AI recommendation engine to be added later.
+
+---
+
+# 29. GLOBAL SEARCH
+
+Build excellent search functionality.
+
+Search across:
+
+* books
+* notes
+* cheat sheets
+* subjects
+* units
+* topics
+* questions
+* PYQs
+* articles
+
+Search examples:
+
+```text
+Bayes theorem
+research methodology
+teaching aptitude
+binary tree
+Shakespeare
+Indian constitution
+```
+
+Search result should group results by content type.
+
+Include:
+
+* autocomplete
+* typo tolerance
+* filters
+* recent searches
+
+---
+
+# 30. KNOWLEDGE GRAPH / RELATED CONTENT
+
+Connect the content ecosystem.
+
+For every topic, show:
+
+### Related
+
+* Notes
+* Books
+* Cheat Sheets
+* PYQs
+* MCQs
+* Mock Tests
+* Articles
+
+Example:
+
+```text
+Research Methodology
+
+Learn
+→ Detailed Notes
+
+Read
+→ Recommended Book
+
+Revise
+→ Cheat Sheet
+
+Practice
+→ 50 MCQs
+
+Past Questions
+→ 32 PYQs
+
+Test
+→ Unit Mock Test
+```
+
+This should be one of the strongest features of the platform.
+
+---
+
+# 31. ARTICLE / BLOG SYSTEM
+
+Create an editorial section.
+
+Topics:
+
+* UGC NET preparation strategy
+* study methods
+* subject strategy
+* revision strategies
+* PYQ analysis
+* time management
+* exam mistakes
+* JRF preparation
+* research tips
+* productivity
+* academic resources
+
+CMS should allow admins to:
+
+* create articles
+* schedule articles
+* publish/unpublish
+* add featured image
+* categorize
+* tag
+* SEO optimize
+
+---
+
+# 32. RESOURCES SECTION
+
+Create a general academic resource center.
+
+Possible resources:
+
+* official syllabus links
+* NTA notices
+* application information
+* exam guides
+* recommended tools
+* academic websites
+* research resources
+* reference databases
+
+Clearly distinguish:
+
+**Official Source**
+
+from:
+
+**Platform Resource**
+
+Do not imply third-party content is officially affiliated with NTA or UGC unless it actually is.
+
+---
+
+# 33. ADMIN DASHBOARD
+
+Create a powerful admin CMS.
+
+Admin navigation:
+
+### Dashboard
+
+### Users
+
+### Subjects
+
+### Units
+
+### Topics
+
+### Books
+
+### Notes
+
+### Cheat Sheets
+
+### Questions
+
+### PYQs
+
+### Mock Tests
+
+### Articles
+
+### Resources
+
+### Exam Information
+
+### Downloads
+
+### Analytics
+
+### Reports
+
+### Settings
+
+---
+
+# 34. CONTENT MANAGEMENT SYSTEM
+
+The admin should be able to create content without editing source code.
+
+CRUD for:
+
+* subjects
+* units
+* topics
+* resources
+* books
+* notes
+* questions
+* answers
+* explanations
+* articles
+
+Every resource should support:
+
+* title
+* slug
+* description
+* content
+* thumbnail
+* subject
+* unit
+* topic
+* tags
+* difficulty
+* visibility
+* featured status
+* SEO metadata
+
+---
+
+# 35. FILE MANAGEMENT
+
+Create secure file upload functionality.
+
+Support:
+
+* PDF
+* images
+* documents
+* thumbnails
+
+Store files using scalable object storage architecture.
+
+Possible providers:
+
+* AWS S3
+* Cloudflare R2
+* Supabase Storage
+
+Do not store large PDFs directly inside the application database.
+
+Database should store metadata and file references.
+
+---
+
+# 36. CONTENT RIGHTS / COPYRIGHT
+
+This is extremely important.
+
+The system must distinguish:
+
+* original content
+* licensed content
+* public domain content
+* content with permission
+* external resources
+* restricted content
+
+Do not design the application around unauthorized distribution of copyrighted books.
+
+Admins should be able to disable downloading while still allowing metadata/reference pages.
+
+---
+
+# 37. REPORTING SYSTEM
+
+Users should be able to report:
+
+* incorrect answer
+* incorrect explanation
+* broken resource
+* outdated information
+* typo
+* inappropriate content
+* duplicate question
+
+Admin should receive:
+
+* issue type
+* resource
+* user
+* description
+* timestamp
+* status
+
+Statuses:
+
+* Open
+* Investigating
+* Resolved
+* Rejected
+
+---
+
+# 38. NOTIFICATIONS
+
+Create notification architecture.
+
+Notifications for:
+
+* study reminders
+* unfinished study plans
+* new resources
+* new mock tests
+* new PYQs
+* important exam updates
+* streak milestones
+* recommended revision
+
+Allow users to control notification preferences.
+
+---
+
+# 39. SEO
+
+The public site must be extremely SEO-friendly.
+
+Every important content object should have:
+
+* clean slug
+* title
+* meta description
+* canonical URL
+* Open Graph image
+* structured metadata
+
+Create SEO-friendly pages such as:
+
+```text
+/ugc-net
+/ugc-net/paper-1
+/ugc-net/paper-1/teaching-aptitude
+/subjects/computer-science
+/subjects/commerce
+/notes/research-methodology
+/pyq/computer-science
+/books
+/cheat-sheets
+```
+
+Use server-side rendering / static generation where appropriate.
+
+Generate:
+
+* sitemap.xml
+* robots.txt
+* structured data
+* breadcrumbs
+
+---
+
+# 40. PERFORMANCE
+
+The site should be fast.
+
+Target:
+
+* excellent Core Web Vitals
+* optimized images
+* lazy loading
+* code splitting
+* caching
+* database indexing
+* CDN
+* pagination
+* optimized API queries
+
+Avoid loading huge resource lists at once.
+
+---
+
+# 41. ACCESSIBILITY
+
+Follow modern accessibility standards.
+
+Support:
+
+* keyboard navigation
+* semantic HTML
+* ARIA where necessary
+* sufficient contrast
+* readable typography
+* focus states
+* screen readers
+* accessible forms
+* accessible error messages
+
+Do not rely solely on color to communicate status.
+
+---
+
+# 42. MOBILE EXPERIENCE
+
+Do not simply shrink the desktop layout.
+
+Design a real mobile experience.
+
+Mobile navigation should prioritize:
+
+* Home
+* Study
+* Practice
+* Library
+* Dashboard
+
+The question-taking UI should be especially optimized for mobile.
+
+---
+
+# 43. TECHNOLOGY STACK
+
+Use a modern production-ready architecture.
+
+Preferred stack:
+
+### Frontend
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* shadcn/ui
+* Lucide icons
+
+### Backend
+
+Prefer Next.js server architecture where practical.
+
+Use:
+
+* server actions / route handlers
+* validated API boundaries
+* service layer
+* background jobs where appropriate
+
+### Database
+
+* PostgreSQL
+* Prisma ORM
+
+### Authentication
+
+Use a secure modern authentication solution.
+
+### Storage
+
+Use S3-compatible object storage.
+
+### Search
+
+Start with PostgreSQL full-text search.
+
+Design the architecture so it can later support:
+
+* Meilisearch
+* Elasticsearch
+* Typesense
+
+### Deployment
+
+Design for:
+
+* Vercel / similar frontend hosting
+* managed PostgreSQL
+* object storage
+* CDN
+
+---
+
+# 44. DATABASE ARCHITECTURE
+
+Design a normalized relational database.
+
+Core models should include approximately:
+
+```text
+User
+Profile
+Role
+Permission
+
+Exam
+ExamSession
+Subject
+Unit
+Topic
+Subtopic
+
+Book
+BookChapter
+Document
+
+Note
+CheatSheet
+Article
+Resource
+
+Question
+QuestionOption
+QuestionExplanation
+PYQ
+MockTest
+MockTestQuestion
+QuizAttempt
+QuestionAttempt
+
+Bookmark
+BookmarkFolder
+
+UserNote
+StudyPlan
+StudyTask
+
+StudySession
+UserProgress
+TopicProgress
+SubjectProgress
+
+Achievement
+Streak
+
+Notification
+Report
+ContentTag
+
+File
+FilePermission
+
+SearchIndex / SearchMetadata
+AuditLog
+```
+
+Use foreign keys and appropriate indexes.
+
+---
+
+# 45. ROLE SYSTEM
+
+Support:
+
+### Student
+
+Can study and track their own progress.
+
+### Content Editor
+
+Can manage educational content.
+
+### Moderator
+
+Can review reports and content issues.
+
+### Admin
+
+Full platform access.
+
+### Super Admin
+
+Full system and configuration access.
+
+Use role-based access control throughout the application.
+
+---
+
+# 46. SECURITY
+
+Implement production-grade security.
+
+Include:
+
+* secure authentication
+* password hashing
+* session protection
+* CSRF protections where applicable
+* input validation
+* output sanitization
+* rate limiting
+* authorization checks
+* secure file uploads
+* file type validation
+* upload size limits
+* protection against malicious filenames
+* audit logs
+* admin route protection
+
+Never trust client-side permissions.
+
+---
+
+# 47. API DESIGN
+
+Create clean APIs/service boundaries.
+
+Examples:
+
+```text
+GET    /api/subjects
+GET    /api/subjects/:slug
+GET    /api/topics/:slug
+
+GET    /api/books
+GET    /api/notes
+GET    /api/cheat-sheets
+
+GET    /api/questions
+POST   /api/questions/:id/attempt
+
+GET    /api/mock-tests
+POST   /api/mock-tests/:id/start
+POST   /api/mock-tests/:id/submit
+
+GET    /api/progress
+GET    /api/analytics
+
+GET    /api/search
+
+POST   /api/bookmarks
+DELETE /api/bookmarks/:id
+```
+
+Use consistent validation and error handling.
+
+---
+
+# 48. ERROR / EMPTY / LOADING STATES
+
+Every page must handle:
+
+* loading
+* empty
+* error
+* offline-like failures
+* unauthorized
+* not found
+
+Do not leave blank screens.
+
+Create useful empty states.
+
+Example:
+
+> You haven't bookmarked anything yet.
+
+> Save important questions and resources here for quick revision.
+
+---
+
+# 49. UI DESIGN SYSTEM
+
+Create a coherent visual design system.
+
+Use:
+
+* modern typography
+* spacious layout
+* cards
+* tabs
+* badges
+* progress indicators
+* charts
+* command/search interface
+* modals
+* drawers
+* breadcrumbs
+* tooltips
+
+Avoid excessive gradients, excessive animations, and visual clutter.
+
+Animations should be subtle and purposeful.
+
+---
+
+# 50. DARK MODE
+
+Provide:
+
+* light mode
+* dark mode
+* system preference
+
+The reading experience should have an especially comfortable dark mode.
+
+---
+
+# 51. HOME PAGE CONTENT PERSONALIZATION
+
+For logged-in users, the homepage can change slightly based on their preparation.
+
+Example:
+
+> Continue Computer Science Paper II
+
+instead of:
+
+> Explore UGC NET.
+
+But public SEO pages must remain crawlable and accessible.
+
+---
+
+# 52. DAILY STUDY EXPERIENCE
+
+Create a dedicated:
+
+**Study Mode**
+
+When activated, the interface should remove distractions.
+
+Study session could contain:
+
+```text
+TODAY'S PLAN
+
+1. Read Research Aptitude Notes
+2. Complete 20 MCQs
+3. Review Mistakes
+4. Read Cheat Sheet
+5. Take Mini Test
+```
+
+Track time spent.
+
+At the end:
+
+> Study session complete.
+
+Show:
+
+* time studied
+* topics covered
+* questions attempted
+* accuracy
+* progress gained
+
+---
+
+# 53. REVISION ENGINE
+
+Create a revision system based on user activity.
+
+Track questions that are:
+
+* incorrect
+* uncertain
+* bookmarked
+* repeatedly missed
+* not studied recently
+
+Create:
+
+**Revision Center**
+
+with:
+
+### Revise Today
+
+### Mistakes
+
+### Bookmarked
+
+### Due for Review
+
+### Weak Topics
+
+Use spaced-repetition-friendly architecture without requiring a complex algorithm initially.
+
+---
+
+# 54. QUESTION BANK QUALITY SYSTEM
+
+Questions must have metadata:
+
+```text
+Subject
+Unit
+Topic
+Difficulty
+Question Type
+Year
+Source
+Explanation
+Concept
+Tags
+```
+
+Difficulty:
+
+* Easy
+* Medium
+* Hard
+
+Question status:
+
+* Draft
+* Review
+* Published
+* Archived
+
+Admins should be able to review questions before publication.
+
+---
+
+# 55. DATA VISUALIZATION
+
+Use charts when they actually help.
+
+Recommended:
+
+* progress rings
+* bar charts
+* line charts
+* heatmaps
+* topic performance tables
+* study activity calendar
+
+Do not turn the dashboard into a chart museum.
+
+Every chart should answer a useful question.
+
+---
+
+# 56. FREE VS PREMIUM ARCHITECTURE
+
+Design the product so monetization can be added later.
+
+Possible plans:
+
+### Free
+
+* selected notes
+* limited quizzes
+* selected PYQs
+* selected cheat sheets
+
+### Premium
+
+* complete library
+* advanced mock tests
+* analytics
+* advanced revision
+* premium notes
+
+Do not implement intrusive monetization unless requested.
+
+The architecture must support:
+
+```text
+Subscription
+Plan
+Entitlement
+Payment
+Invoice
+```
+
+later.
+
+---
+
+# 57. ADMIN ANALYTICS
+
+Admin analytics should show:
+
+* registered users
+* active users
+* resource views
+* downloads
+* questions attempted
+* quiz completions
+* mock test attempts
+* popular subjects
+* popular resources
+* search queries
+* failed searches
+* reported content
+
+Especially track:
+
+**What are students searching for but not finding?**
+
+This should inform future content creation.
+
+---
+
+# 58. SEARCH ANALYTICS
+
+Store anonymized search analytics where appropriate.
+
+Examples:
+
+```text
+"research aptitude"
+"ugc net computer science notes"
+"teaching aptitude mcq"
+"python"
+"research methodology"
+```
+
+Admin can see:
+
+* popular searches
+* searches with no results
+* search trends
+
+Use this to identify content gaps.
+
+---
+
+# 59. CONTENT QUALITY
+
+The platform must prioritize quality over quantity.
+
+Every educational resource should aim to provide:
+
+* clear explanation
+* correct information
+* source/reference when appropriate
+* syllabus mapping
+* useful examples
+* exam relevance
+
+Avoid generating large amounts of low-quality filler content.
+
+---
+
+# 60. AI-READY ARCHITECTURE
+
+Do not make AI mandatory for version 1.
+
+However, build the architecture so future features can include:
+
+### AI Study Assistant
+
+Ask:
+
+> Explain correlation in simple terms.
+
+### AI Quiz Generator
+
+Generate questions from authorized notes.
+
+### AI Revision Assistant
+
+Create a revision plan.
+
+### AI Doubt Solver
+
+Explain difficult topics.
+
+### AI Personalized Tutor
+
+Recommend what to study next.
+
+The future AI layer must have strict controls around source grounding and content quality.
+
+---
+
+# 61. FUTURE AI STUDY ASSISTANT
+
+Prepare an interface such as:
+
+```text
+Ask your Study Assistant
+
+"What should I revise today?"
+
+"Explain this topic simply."
+
+"Give me 10 questions on Research Aptitude."
+
+"Why was my answer wrong?"
+```
+
+For generated answers, clearly distinguish AI-generated explanations from verified editorial content.
+
+---
+
+# 62. ADMIN CONTENT IMPORT
+
+Build a content import architecture.
+
+Potential import formats:
+
+* CSV
+* JSON
+* Markdown
+* PDF metadata
+* bulk question imports
+
+Example:
+
+```csv
+subject,unit,topic,question,option_a,option_b,option_c,option_d,answer,explanation
+```
+
+Validate imports before publishing.
+
+Provide preview + validation errors.
+
+---
+
+# 63. BACKUP / RECOVERY
+
+Design for:
+
+* automated database backups
+* object storage backups
+* migration files
+* seed data
+* environment configuration documentation
+
+---
+
+# 64. TESTING
+
+Create:
+
+### Unit Tests
+
+For:
+
+* scoring
+* progress calculations
+* recommendation rules
+* validation
+* permissions
+
+### Integration Tests
+
+For:
+
+* authentication
+* mock tests
+* question attempts
+* bookmarks
+* study plans
+
+### End-to-End Tests
+
+Important user journey:
+
+```text
+Register
+→ Select Subject
+→ Open Syllabus
+→ Open Topic
+→ Read Notes
+→ Attempt MCQs
+→ Take Mock Test
+→ View Analytics
+→ Return to Dashboard
+```
+
+---
+
+# 65. SEED DATA
+
+Create meaningful seed data.
+
+Do not leave the application looking empty.
+
+Create sample:
+
+* Paper I
+* multiple subjects
+* units
+* topics
+* notes
+* cheat sheets
+* books metadata
+* questions
+* PYQs
+* quizzes
+* mock tests
+* articles
+
+Clearly label sample/demo content where necessary.
+
+---
+
+# 66. DEMO EXPERIENCE
+
+When running the application locally for the first time, the developer should be able to:
+
+```bash
+npm install
+npm run dev
+```
+
+or equivalent.
+
+Provide:
+
+```bash
+npm run db:seed
+npm run test
+npm run build
+```
+
+Document environment variables.
+
+Create a `.env.example`.
+
+---
+
+# 67. PROJECT STRUCTURE
+
+Use a clean scalable architecture.
+
+Suggested structure:
+
+```text
+app/
+  (public)/
+  (auth)/
+  dashboard/
+  study/
+  subjects/
+  books/
+  notes/
+  cheat-sheets/
+  pyq/
+  practice/
+  mock-tests/
+  planner/
+  analytics/
+  bookmarks/
+  admin/
+
+components/
+  ui/
+  layout/
+  dashboard/
+  study/
+  questions/
+  reader/
+  charts/
+
+lib/
+  auth/
+  db/
+  search/
+  analytics/
+  recommendations/
+  scoring/
+  validation/
+  storage/
+
+prisma/
+  schema.prisma
+  seed.ts
+
+public/
+
+tests/
+```
+
+Adapt this structure to the chosen framework where necessary.
+
+---
+
+# 68. ROUTING
+
+Create clean routes.
+
+Public:
+
+```text
+/
+/about
+/exam
+/syllabus
+/subjects
+/books
+/notes
+/cheat-sheets
+/pyq
+/practice
+/mock-tests
+/articles
+/resources
+/faq
+/contact
+```
+
+Authenticated:
+
+```text
+/dashboard
+/study
+/planner
+/progress
+/analytics
+/bookmarks
+/my-notes
+/revision
+/profile
+/settings
+```
+
+Admin:
+
+```text
+/admin
+/admin/users
+/admin/subjects
+/admin/topics
+/admin/books
+/admin/notes
+/admin/cheat-sheets
+/admin/questions
+/admin/mock-tests
+/admin/articles
+/admin/reports
+/admin/analytics
+/admin/settings
+```
+
+---
+
+# 69. USER EXPERIENCE DETAILS
+
+Important:
+
+Do not make users repeatedly navigate through many pages to find something.
+
+Example:
+
+If someone opens a topic, they should immediately see:
+
+```text
+Topic
+
+Quick Explanation
+
+Detailed Notes
+
+Recommended Book
+
+Cheat Sheet
+
+PYQs
+
+Practice Questions
+
+Mini Test
+
+Related Topics
+```
+
+This creates a unified preparation ecosystem.
+
+---
+
+# 70. CONTENT DISCOVERY
+
+Create sections such as:
+
+### Recommended
+
+### Trending
+
+### Recently Added
+
+### Most Popular
+
+### Continue Learning
+
+### Study Again
+
+### Weak Areas
+
+### Exam Essentials
+
+### Last-Minute Revision
+
+---
+
+# 71. LAST-MINUTE REVISION MODE
+
+Create a special experience for students close to the exam.
+
+Show:
+
+* high-priority topics
+* cheat sheets
+* frequently tested areas
+* previously incorrect questions
+* short notes
+* rapid quizzes
+
+Design it around speed and clarity.
+
+---
+
+# 72. EXAM COUNTDOWN
+
+Allow users to enter their target exam date.
+
+Show:
+
+```text
+UGC NET
+
+42 DAYS LEFT
+```
+
+Use this to influence recommendations and study plans.
+
+Do not hard-code dates.
+
+---
+
+# 73. PERSONALIZATION
+
+The platform should remember:
+
+* chosen subject
+* current unit
+* reading position
+* progress
+* questions
+* weak topics
+* bookmarks
+* study plan
+* recent resources
+
+A returning user should feel:
+
+> "The platform remembers where I am."
+
+---
+
+# 74. LEGAL / TRUST PAGES
+
+Create:
+
+* Privacy Policy
+* Terms of Use
+* Copyright / Content Policy
+* Disclaimer
+* Data Deletion
+* Contact
+
+Clearly state that the platform is independently operated unless officially affiliated.
+
+---
+
+# 75. FOOTER
+
+Include:
+
+### Platform
+
+* About
+* Subjects
+* Resources
+* Articles
+* Contact
+
+### Preparation
+
+* Paper I
+* Paper II
+* PYQs
+* Mock Tests
+* Cheat Sheets
+
+### Legal
+
+* Privacy
+* Terms
+* Copyright
+* Disclaimer
+
+### Social
+
+Allow configurable links.
+
+---
+
+# 76. QUALITY BAR
+
+The final product should feel like a **real educational SaaS product**, not an AI-generated template.
+
+Avoid:
+
+* generic hero sections
+* meaningless testimonials
+* fake statistics
+* fake users
+* placeholder buttons
+* dead links
+* empty dashboard cards
+* excessive animations
+* excessive gradients
+* generic stock imagery
+* hard-coded fake data presented as real
+
+Every major button should perform a useful action.
+
+---
+
+# 77. DESIGN LANGUAGE
+
+Use a visual hierarchy that communicates:
+
+**Trust → Clarity → Learning → Progress**
+
+The platform should feel:
+
+* academic
+* modern
+* reliable
+* calm
+* focused
+* organized
+* motivating
+
+Typography must be highly readable.
+
+Content-heavy pages should prioritize readability over decoration.
+
+---
+
+# 78. RESPONSIVE BREAKPOINTS
+
+Ensure polished layouts for:
+
+* 320px mobile
+* 375px mobile
+* 430px mobile
+* tablet
+* laptop
+* 1440px desktop
+* large desktop
+
+Prevent:
+
+* horizontal overflow
+* tiny text
+* unusable tables
+* broken question layouts
+* oversized cards
+
+---
+
+# 79. IMPLEMENTATION PRIORITY
+
+Build in this order:
+
+### Phase 1 — Foundation
+
+* project setup
+* database
+* authentication
+* design system
+* routing
+* roles
+
+### Phase 2 — Educational Core
+
+* subjects
+* syllabus
+* units
+* topics
+* notes
+* books
+* cheat sheets
+
+### Phase 3 — Practice
+
+* question bank
+* PYQs
+* quizzes
+* mock tests
+* scoring
+
+### Phase 4 — Personalization
+
+* dashboard
+* progress
+* bookmarks
+* planner
+* revision
+* analytics
+
+### Phase 5 — Admin
+
+* CMS
+* content management
+* reports
+* analytics
+* file management
+
+### Phase 6 — Optimization
+
+* SEO
+* performance
+* accessibility
+* security
+* testing
+* deployment
+
+---
+
+# 80. MOST IMPORTANT USER JOURNEY
+
+A student should be able to complete this journey naturally:
+
+```text
+LAND ON WEBSITE
+        ↓
+SELECT UGC NET
+        ↓
+SELECT PAPER II SUBJECT
+        ↓
+VIEW SYLLABUS
+        ↓
+CHOOSE UNIT
+        ↓
+CHOOSE TOPIC
+        ↓
+READ NOTES
+        ↓
+VIEW RECOMMENDED BOOK
+        ↓
+REVISE CHEAT SHEET
+        ↓
+SOLVE PYQs
+        ↓
+PRACTICE MCQs
+        ↓
+TAKE MINI TEST
+        ↓
+VIEW PERFORMANCE
+        ↓
+IDENTIFY WEAK AREAS
+        ↓
+REVISE
+        ↓
+TAKE MOCK TEST
+        ↓
+ANALYZE PERFORMANCE
+        ↓
+FOLLOW PERSONALIZED STUDY PLAN
+```
+
+Design the application around this loop.
+
+---
+
+# 81. SUCCESS CRITERIA
+
+The project is successful only if a student can use the platform to:
+
+1. Understand what they need to study.
+2. Find the right resources quickly.
+3. Study the topic.
+4. Revise it.
+5. Practice questions.
+6. Test themselves.
+7. Understand their mistakes.
+8. Track their progress.
+9. Identify weak areas.
+10. Know what to study next.
+
+---
+
+# 82. FINAL DEVELOPMENT INSTRUCTION
+
+Do not build this as a collection of disconnected pages.
+
+Build a **single integrated UGC NET preparation ecosystem**.
+
+Every content entity should connect logically to other educational entities.
+
+For example:
+
+```text
+Subject
+ ↓
+Unit
+ ↓
+Topic
+ ↓
+Notes
+ ↓
+Book
+ ↓
+Cheat Sheet
+ ↓
+PYQs
+ ↓
+MCQs
+ ↓
+Mock Test
+ ↓
+Analytics
+ ↓
+Revision
+```
+
+The student should always have a clear **next action**.
+
+When generating the application:
+
+* use realistic educational sample data
+* create reusable components
+* maintain clean architecture
+* write production-quality TypeScript
+* validate all data
+* implement real interactions
+* avoid fake functionality
+* avoid placeholder-only screens
+* make the application deployable
+* make the database scalable
+* make content manageable without code changes
+* prioritize accessibility and performance
+* keep exam information configurable and updateable
+* keep copyrighted-resource distribution compliant
+* document setup and deployment
+
+Do not stop at UI generation.
+
+Implement the **frontend, backend, database, authentication, APIs, CMS, file architecture, search, progress system, practice engine, mock-test engine, analytics, and deployment configuration** required to make this a genuinely usable application.
+
+At the end, provide:
+
+1. Complete project structure.
+2. Database schema.
+3. Seed data.
+4. Environment variable documentation.
+5. Setup instructions.
+6. Test instructions.
+7. Build instructions.
+8. Deployment instructions.
+9. Admin credentials for local demo, using clearly marked demo credentials.
+10. A concise explanation of all major features implemented.
+
+The finished product should feel like a platform a serious UGC NET aspirant could return to every day—not merely a website that advertises study material.

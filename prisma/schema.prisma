@@ -1,0 +1,332 @@
+// Prisma schema for NETPrep Hub — UGC NET Preparation Platform
+// SQLite backend (single file DB)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Content hierarchy: Subject -> Unit -> Topic
+// ---------------------------------------------------------------------------
+
+model Subject {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  code        String   @unique // UGC NET subject code (e.g. "08" for Computer Science)
+  paper       String   @default("II") // "I" or "II"
+  description String
+  icon        String?  // lucide icon name
+  color       String?  // tailwind gradient classes
+  sortOrder   Int      @default(0)
+  units       Unit[]
+  books       Book[]
+  notes       Note[]
+  cheatsheets CheatSheet[]
+  pyqs        PYQ[]
+  articles    Article[]
+  mockTests   MockTest[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Unit {
+  id          String   @id @default(cuid())
+  slug        String
+  subjectId   String
+  subject     Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  name        String
+  number      Int
+  description String?
+  topics      Topic[]
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([subjectId, slug])
+}
+
+model Topic {
+  id          String   @id @default(cuid())
+  slug        String
+  unitId      String
+  unit        Unit     @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  importance  String   @default("medium") // low | medium | high
+  notes       Note[]
+  cheatsheets CheatSheet[]
+  questions   Question[]
+  pyqs        PYQ[]
+  progress    TopicProgress[]
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([unitId, slug])
+}
+
+// ---------------------------------------------------------------------------
+// Study resources: Notes, Cheat Sheets, Books
+// ---------------------------------------------------------------------------
+
+model Note {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String   // markdown
+  readingTime Int      @default(5) // minutes
+  difficulty  String   @default("medium") // easy | medium | hard
+  subjectId   String?
+  subject     Subject? @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  topicId     String?
+  topic       Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  tags        String   @default("") // comma separated
+  featured    Boolean  @default(false)
+  views       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model CheatSheet {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  summary     String
+  content     String   // markdown (tables, formulas, key points)
+  subjectId   String?
+  subject     Subject? @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  topicId     String?
+  topic       Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  tags        String   @default("")
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Book {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  author          String
+  publisher       String?
+  year            Int?
+  subjectId       String?
+  subject         Subject? @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  description     String
+  coverUrl        String?
+  distribution    String   @default("reference-only") // owned | licensed | public-domain | permission | user-uploaded | restricted | reference-only
+  downloadEnabled Boolean  @default(false)
+  rating          Float    @default(4.0)
+  tags            String   @default("")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Question bank: MCQs + PYQs + Mock Tests
+// ---------------------------------------------------------------------------
+
+model Question {
+  id            String   @id @default(cuid())
+  topicId       String?
+  topic         Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  questionText  String
+  optionA       String
+  optionB       String
+  optionC       String
+  optionD       String
+  correctAnswer String   @default("A") // A | B | C | D
+  explanation   String
+  difficulty    String   @default("medium") // easy | medium | hard
+  questionType  String   @default("mcq") // mcq | assertion-reason | match
+  isPYQ         Boolean  @default(false)
+  pyqYear       Int?
+  source        String?
+  tags          String   @default("")
+  status        String   @default("published") // draft | review | published | archived
+  mockTests     MockTestQuestion[]
+  attempts      Attempt[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model PYQ {
+  id            String   @id @default(cuid())
+  subjectId     String?
+  subject       Subject? @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  topicId       String?
+  topic         Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  year          Int
+  session       String?  // e.g. "June", "December"
+  questionText  String
+  optionA       String
+  optionB       String
+  optionC       String
+  optionD       String
+  correctAnswer String   @default("A")
+  explanation   String
+  difficulty    String   @default("medium")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model MockTest {
+  id            String              @id @default(cuid())
+  slug          String              @unique
+  title         String
+  description   String
+  subjectId     String?
+  subject       Subject?            @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  paper         String              @default("II") // I | II | full
+  durationMin   Int                 @default(60)
+  totalMarks    Int                 @default(100)
+  questions     MockTestQuestion[]
+  attempts      MockTestAttempt[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+}
+
+model MockTestQuestion {
+  id          String    @id @default(cuid())
+  mockTestId  String
+  mockTest    MockTest  @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+  questionId  String
+  question    Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  sortOrder   Int       @default(0)
+}
+
+// ---------------------------------------------------------------------------
+// Student activity & progress (single demo user; expandable to multi-user)
+// ---------------------------------------------------------------------------
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String   @default("demo-user")
+  itemType  String   // note | question | cheatsheet | book | pyq | mocktest
+  itemId    String
+  folder    String   @default("Favorites") // Important | Revise Later | Weak Topics | Exam Week | Favorites
+  note      String?
+  createdAt DateTime @default(now())
+
+  @@unique([userId, itemType, itemId])
+}
+
+model Attempt {
+  id            String   @id @default(cuid())
+  userId        String   @default("demo-user")
+  questionId    String
+  question      Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  selectedAnswer String  // A | B | C | D
+  isCorrect     Boolean
+  timeSpentSec  Int      @default(0)
+  mode          String   @default("practice") // practice | exam | revision | mock
+  createdAt     DateTime @default(now())
+}
+
+model MockTestAttempt {
+  id            String   @id @default(cuid())
+  userId        String   @default("demo-user")
+  mockTestId    String
+  mockTest      MockTest @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+  answers       String   // JSON: { questionId: selectedAnswer }
+  score         Int      @default(0)
+  totalQuestions Int
+  correctCount  Int      @default(0)
+  incorrectCount Int     @default(0)
+  skippedCount  Int      @default(0)
+  timeSpentSec  Int      @default(0)
+  completedAt   DateTime @default(now())
+}
+
+model TopicProgress {
+  id          String   @id @default(cuid())
+  userId      String   @default("demo-user")
+  topicId     String
+  topic       Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  status      String   @default("not-started") // not-started | studying | completed | needs-revision
+  confidence  Int      @default(0) // 0-100
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, topicId])
+}
+
+model StudySession {
+  id          String   @id @default(cuid())
+  userId      String   @default("demo-user")
+  date        DateTime @default(now())
+  durationMin Int
+  topic       String?
+  activity    String   // read | practice | mock | revise
+}
+
+model StudyTask {
+  id          String   @id @default(cuid())
+  userId      String   @default("demo-user")
+  title       String
+  description String?
+  scheduledDate String
+  startTime   String?  // "09:00"
+  duration    Int      @default(60) // minutes
+  priority    String   @default("medium") // low | medium | high
+  completed   Boolean  @default(false)
+  category    String   @default("study") // study | practice | revise | test
+  createdAt   DateTime @default(now())
+}
+
+model UserProfile {
+  id              String   @id @default(cuid())
+  userId          String   @unique @default("demo-user")
+  name            String   @default("Kamraan")
+  targetExam      String   @default("UGC NET JRF")
+  paperTwoSubject String   @default("Computer Science")
+  dailyHours      Int      @default(3)
+  prepLevel       String   @default("Intermediate")
+  examDate        String?  // ISO date
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Editorial / articles / FAQ
+// ---------------------------------------------------------------------------
+
+model Article {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String   // markdown
+  category    String   @default("Strategy") // Strategy | Subject | Revision | PYQ Analysis | Productivity
+  subjectId   String?
+  subject     Subject? @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  tags        String   @default("")
+  published   Boolean  @default(true)
+  featured    Boolean  @default(false)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Faq {
+  id        String   @id @default(cuid())
+  category  String   @default("General")
+  question  String
+  answer    String
+  sortOrder Int      @default(0)
+}
+
+model Resource {
+  id          String   @id @default(cuid())
+  title       String
+  url         String
+  category    String   @default("Official") // Official | Guide | Tool | Reference
+  description String?
+  sortOrder   Int      @default(0)
+}

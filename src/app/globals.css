@@ -1,0 +1,222 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.75rem;
+  /* NETPrep Hub brand: warm academic emerald + amber accents */
+  --background: oklch(0.99 0.005 95);
+  --foreground: oklch(0.18 0.01 95);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.01 95);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.01 95);
+  --primary: oklch(0.45 0.13 165);
+  --primary-foreground: oklch(0.99 0.005 95);
+  --secondary: oklch(0.96 0.012 95);
+  --secondary-foreground: oklch(0.25 0.01 95);
+  --muted: oklch(0.965 0.008 95);
+  --muted-foreground: oklch(0.52 0.012 95);
+  --accent: oklch(0.94 0.03 75);
+  --accent-foreground: oklch(0.3 0.06 50);
+  --destructive: oklch(0.58 0.24 27);
+  --border: oklch(0.91 0.008 95);
+  --input: oklch(0.91 0.008 95);
+  --ring: oklch(0.45 0.13 165);
+  --chart-1: oklch(0.55 0.13 165);
+  --chart-2: oklch(0.6 0.15 75);
+  --chart-3: oklch(0.5 0.18 250);
+  --chart-4: oklch(0.65 0.2 30);
+  --chart-5: oklch(0.55 0.16 305);
+  --sidebar: oklch(0.985 0.005 95);
+  --sidebar-foreground: oklch(0.18 0.01 95);
+  --sidebar-primary: oklch(0.45 0.13 165);
+  --sidebar-primary-foreground: oklch(0.99 0.005 95);
+  --sidebar-accent: oklch(0.94 0.03 75);
+  --sidebar-accent-foreground: oklch(0.3 0.06 50);
+  --sidebar-border: oklch(0.91 0.008 95);
+  --sidebar-ring: oklch(0.45 0.13 165);
+}
+
+.dark {
+  --background: oklch(0.16 0.01 95);
+  --foreground: oklch(0.96 0.005 95);
+  --card: oklch(0.21 0.012 95);
+  --card-foreground: oklch(0.96 0.005 95);
+  --popover: oklch(0.21 0.012 95);
+  --popover-foreground: oklch(0.96 0.005 95);
+  --primary: oklch(0.7 0.15 165);
+  --primary-foreground: oklch(0.16 0.01 95);
+  --secondary: oklch(0.27 0.012 95);
+  --secondary-foreground: oklch(0.96 0.005 95);
+  --muted: oklch(0.25 0.012 95);
+  --muted-foreground: oklch(0.7 0.012 95);
+  --accent: oklch(0.3 0.04 75);
+  --accent-foreground: oklch(0.92 0.04 75);
+  --destructive: oklch(0.7 0.19 22);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.7 0.15 165);
+  --chart-1: oklch(0.65 0.16 165);
+  --chart-2: oklch(0.72 0.17 75);
+  --chart-3: oklch(0.65 0.2 250);
+  --chart-4: oklch(0.72 0.22 30);
+  --chart-5: oklch(0.7 0.2 305);
+  --sidebar: oklch(0.21 0.012 95);
+  --sidebar-foreground: oklch(0.96 0.005 95);
+  --sidebar-primary: oklch(0.7 0.15 165);
+  --sidebar-primary-foreground: oklch(0.16 0.01 95);
+  --sidebar-accent: oklch(0.3 0.04 75);
+  --sidebar-accent-foreground: oklch(0.92 0.04 75);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.7 0.15 165);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+}
+
+/* Custom scrollbar */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--muted-foreground) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: var(--muted-foreground);
+    border-radius: 3px;
+    opacity: 0.5;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bg-grid-pattern {
+    background-image:
+      linear-gradient(to right, var(--border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .bg-dot-pattern {
+    background-image: radial-gradient(var(--border) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+}
+
+/* Markdown prose styling */
+.prose-netprep {
+  @apply text-foreground leading-relaxed;
+}
+.prose-netprep h1 {
+  @apply text-3xl font-bold tracking-tight mt-8 mb-4 text-foreground;
+}
+.prose-netprep h2 {
+  @apply text-2xl font-semibold tracking-tight mt-6 mb-3 text-foreground border-b border-border pb-2;
+}
+.prose-netprep h3 {
+  @apply text-xl font-semibold mt-5 mb-2 text-foreground;
+}
+.prose-netprep p {
+  @apply my-3 text-muted-foreground;
+}
+.prose-netprep ul {
+  @apply my-3 ml-6 list-disc space-y-1 text-muted-foreground;
+}
+.prose-netprep ol {
+  @apply my-3 ml-6 list-decimal space-y-1 text-muted-foreground;
+}
+.prose-netprep li {
+  @apply leading-relaxed;
+}
+.prose-netprep strong {
+  @apply font-semibold text-foreground;
+}
+.prose-netprep em {
+  @apply italic text-foreground;
+}
+.prose-netprep code {
+  @apply bg-muted px-1.5 py-0.5 rounded-md text-xs font-mono text-foreground;
+}
+.prose-netprep pre {
+  @apply bg-muted/70 rounded-lg p-4 my-4 overflow-x-auto;
+}
+.prose-netprep pre code {
+  @apply bg-transparent p-0 text-sm;
+}
+.prose-netprep blockquote {
+  @apply border-l-4 border-primary bg-accent/40 px-4 py-2 my-4 rounded-r-lg italic text-foreground;
+}
+.prose-netprep table {
+  @apply w-full my-4 border-collapse text-sm;
+}
+.prose-netprep th {
+  @apply bg-muted text-foreground font-semibold px-3 py-2 border border-border text-left;
+}
+.prose-netprep td {
+  @apply px-3 py-2 border border-border text-muted-foreground;
+}
+.prose-netprep tr:nth-child(even) td {
+  @apply bg-muted/30;
+}
+.prose-netprep a {
+  @apply text-primary underline underline-offset-2 hover:text-primary/80;
+}
+.prose-netprep hr {
+  @apply my-6 border-border;
+}
