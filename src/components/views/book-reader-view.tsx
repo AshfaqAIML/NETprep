@@ -166,32 +166,43 @@ export function BookReaderView() {
               className="flex items-center justify-center min-h-[600px] p-8"
               style={{ fontSize: `${zoom}%` }}
             >
-              <div className={cn('max-w-prose w-full space-y-4', darkMode ? 'text-slate-200' : 'text-foreground')}>
-                {/* Placeholder content — in production this would render the PDF */}
-                <div className="text-center mb-8">
-                  <div className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 mb-4">
-                    <FileText className="h-8 w-8" />
+              {book.fileUrl ? (
+                /* Full PDF reader when file is uploaded */
+                <div className="w-full h-[700px]">
+                  <iframe
+                    src={book.fileUrl}
+                    className="w-full h-full rounded-lg border border-border"
+                    title={book.title}
+                    style={{ filter: darkMode ? 'invert(0.9) hue-rotate(180deg)' : 'none' }}
+                  />
+                </div>
+              ) : (
+                /* Placeholder when no PDF uploaded */
+                <div className={cn('max-w-prose w-full space-y-4', darkMode ? 'text-slate-200' : 'text-foreground')}>
+                  <div className="text-center mb-8">
+                    <div className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 mb-4">
+                      <FileText className="h-8 w-8" />
+                    </div>
+                    <h2 className="text-2xl font-bold">{book.title}</h2>
+                    <p className="text-sm text-muted-foreground mt-1">by {book.author}</p>
                   </div>
-                  <h2 className="text-2xl font-bold">{book.title}</h2>
-                  <p className="text-sm text-muted-foreground mt-1">by {book.author}</p>
-                </div>
 
-                <div className={cn('rounded-lg border p-4 text-sm', darkMode ? 'bg-slate-900 border-slate-700' : 'bg-muted/30 border-border')}>
-                  <p className="font-semibold mb-2">Book Description</p>
-                  <p className="text-muted-foreground">{book.description}</p>
-                </div>
+                  <div className={cn('rounded-lg border p-4 text-sm', darkMode ? 'bg-slate-900 border-slate-700' : 'bg-muted/30 border-border')}>
+                    <p className="font-semibold mb-2">Book Description</p>
+                    <p className="text-muted-foreground">{book.description}</p>
+                  </div>
 
-                <div className={cn('rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 text-sm')}>
-                  <div className="flex items-start gap-2">
-                    <ShieldCheck className="h-5 w-5 text-amber-600 mt-0.5 shrink-0" />
-                    <div>
-                      <p className="font-semibold text-amber-700 dark:text-amber-300">Content Rights</p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        This book is listed as <strong>{book.distribution}</strong>.
-                        {book.distribution === 'reference-only'
-                          ? ' The full PDF is not available for online reading due to copyright. Please purchase from authorised sellers.'
-                          : ' Download may be available where permitted.'}
-                      </p>
+                  <div className={cn('rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 text-sm')}>
+                    <div className="flex items-start gap-2">
+                      <ShieldCheck className="h-5 w-5 text-amber-600 mt-0.5 shrink-0" />
+                      <div>
+                        <p className="font-semibold text-amber-700 dark:text-amber-300">Content Rights</p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          This book is listed as <strong>{book.distribution}</strong>.
+                          {book.distribution === 'reference-only'
+                            ? ' The full PDF is not available for online reading due to copyright. Please purchase from authorised sellers.'
+                            : ' Download may be available where permitted.'}
+                        </p>
                       {book.publisher && (
                         <p className="text-xs text-muted-foreground mt-1">Publisher: {book.publisher}</p>
                       )}
@@ -221,13 +232,16 @@ export function BookReaderView() {
                       ? ' Full PDF reader requires distribution rights.'
                       : ' Full reader will be available when the PDF is uploaded.'}
                   </p>
-                  {book.distribution !== 'reference-only' && book.downloadEnabled && (
-                    <Button variant="outline" size="sm" className="mt-3 gap-1.5" onClick={() => toast.info('Download will be available when PDF is uploaded.')}>
-                      <FileText className="h-3.5 w-3.5" /> Download PDF
+                  {book.distribution !== 'reference-only' && book.downloadEnabled && book.fileUrl && (
+                    <Button variant="outline" size="sm" className="mt-3 gap-1.5" asChild>
+                      <a href={book.fileUrl} download>
+                        <FileText className="h-3.5 w-3.5" /> Download PDF
+                      </a>
                     </Button>
                   )}
                 </div>
               </div>
+              )}
             </div>
           </CardContent>
         </Card>

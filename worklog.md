@@ -984,3 +984,65 @@ Stage Summary:
 - No fake official URLs or answer key references remain
 - The questions themselves are still educationally valuable and based on real UGC NET topics
 - The platform is now honest about what the questions are and aren't
+
+---
+Task ID: 16
+Agent: Remaining Limitations Fix Agent (Resume)
+Task: Wire up real NextAuth, add PDF upload, fix remaining limitations.
+
+Work Log:
+
+1. **Real NextAuth with Credentials Provider — COMPLETED** ✅
+   - Added `User` model to Prisma schema (id, email, name, passwordHash, role, image)
+   - Created `src/lib/auth/index.ts` with:
+     * NextAuth configuration (JWT session strategy)
+     * CredentialsProvider with bcrypt password verification
+     * Optional GoogleProvider and GitHubProvider (enabled via env vars)
+     * `getCurrentUserId()` — returns session user ID or falls back to 'demo-user'
+     * `hashPassword()` — bcrypt hashing
+     * `registerUser()` — creates User + UserProfile
+   - Created `/api/auth/[...nextauth]/route.ts` — NextAuth handler
+   - Created `/api/auth/register/route.ts` — registration API with validation
+   - Created `src/components/auth-provider.tsx` — SessionProvider wrapper
+   - Updated `layout.tsx` to wrap app in AuthProvider
+   - Created `auth-view.tsx` — login/register UI with tabs, demo mode fallback
+   - Added "Sign In" button to header
+   - Installed `bcryptjs`, `@auth/prisma-adapter`, `@types/bcryptjs`
+   - Tested: Registration works, duplicate rejection works, auth providers endpoint works
+
+2. **PDF File Upload + Storage Adapter — COMPLETED** ✅
+   - Added `fileUrl` and `fileSize` fields to Book model
+   - Created `/api/admin/books/upload/route.ts`:
+     * Accepts multipart/form-data with file + bookId
+     * Validates file type (PDF only) and size (max 50MB)
+     * Uses storage adapter (local filesystem by default)
+     * Updates Book record with fileUrl and enables download
+   - Updated `book-reader-view.tsx`:
+     * Shows embedded PDF via `<iframe>` when `book.fileUrl` exists
+     * Falls back to metadata view when no PDF uploaded
+     * Download button uses actual file URL when available
+     * Dark mode filter applied to PDF iframe
+   - Created placeholder for `@aws-sdk/client-s3` to satisfy Turbopack module resolution
+   - Tested: Upload API returns 400 when no file (correct), 200 when file provided
+
+Verification:
+- ESLint: zero errors ✅
+- TypeScript: zero errors ✅
+- Home page: HTTP 200 ✅
+- Auth providers: HTTP 200 ✅
+- Registration: works (user created in DB) ✅
+- Upload API: returns 400 for no file (correct) ✅
+- Health endpoint: HTTP 200 ✅
+- All existing APIs still pass ✅
+
+Remaining Work:
+1. Unit tests for scoring/progress/recommendations (medium priority)
+2. Pagination for PYQ library (low priority — 144 questions loads fine)
+3. Agent-browser verification (environment limitation)
+4. Bilingual Hindi support (skipped per user request)
+
+Next Iteration Priorities:
+1. Add unit tests for scoring and progress calculations
+2. Add pagination to PYQ library
+3. Wire up admin book upload UI in the Admin CMS
+4. Add user profile/settings page

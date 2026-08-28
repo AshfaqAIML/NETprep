@@ -23,6 +23,7 @@ import {
   Info,
   StickyNote,
   X,
+  User,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -124,6 +125,17 @@ export function Header() {
             <kbd className="hidden md:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] text-muted-foreground">
               ⌘K
             </kbd>
+          </Button>
+
+          {/* Sign In button */}
+          <Button
+            variant="default"
+            size="sm"
+            onClick={() => handleNav('auth')}
+            className="gap-1.5 hidden sm:flex"
+          >
+            <User className="h-3.5 w-3.5" />
+            Sign In
           </Button>
 
           {/* Theme toggle */}

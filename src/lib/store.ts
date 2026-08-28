@@ -36,6 +36,7 @@ export type ViewKey =
   | 'coverage-matrix'
   | 'admin'
   | 'book-reader'
+  | 'auth'
 
 interface AppState {
   // Navigation

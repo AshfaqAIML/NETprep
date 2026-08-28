@@ -36,6 +36,7 @@ import { CoverageMatrixView } from '@/components/views/coverage-matrix-view'
 import { AdminView } from '@/components/views/admin-view'
 import { OnboardingView } from '@/components/views/onboarding-view'
 import { BookReaderView } from '@/components/views/book-reader-view'
+import { AuthView } from '@/components/views/auth-view'
 
 // Initialise bookmark cache on mount
 function useInitBookmarks() {
@@ -132,6 +133,8 @@ function ViewRouter({ view }: { view: string }) {
       return <OnboardingView />
     case 'book-reader':
       return <BookReaderView />
+    case 'auth':
+      return <AuthView />
     default:
       return <HomeView />
   }
