@@ -24,6 +24,7 @@ import {
   BarChart3,
   Repeat,
   Settings,
+  Grid3x3,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -563,6 +564,9 @@ export function PyqDashboardView() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
             <Button variant="outline" size="sm" onClick={() => navigate('pyqs')} className="justify-start gap-2">
               <FileText className="h-3.5 w-3.5" /> All PYQs
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => navigate('coverage-matrix')} className="justify-start gap-2">
+              <Grid3x3 className="h-3.5 w-3.5" /> Coverage Matrix
             </Button>
             <Button variant="outline" size="sm" onClick={() => navigate('pyqs', { paper: 'I' })} className="justify-start gap-2">
               <GraduationCap className="h-3.5 w-3.5" /> Paper 1 PYQs

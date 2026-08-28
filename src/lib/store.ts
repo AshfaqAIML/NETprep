@@ -33,6 +33,7 @@ export type ViewKey =
   | 'user-notes'
   | 'onboarding'
   | 'pyq-dashboard'
+  | 'coverage-matrix'
 
 interface AppState {
   // Navigation

@@ -40,16 +40,26 @@ export function PyqsView() {
   const [stats, setStats] = React.useState<any>(null)
   const [loading, setLoading] = React.useState(true)
 
-  // Active filters
+  // Active filters — initialize from viewParams (passed from PYQ Dashboard)
   const [subject, setSubject] = React.useState<string>(viewParams.subject ?? 'all')
-  const [year, setYear] = React.useState<string>('all')
+  const [year, setYear] = React.useState<string>(viewParams.year ?? 'all')
+  const [paper, setPaper] = React.useState<string>(viewParams.paper ?? 'all')
   const [session, setSession] = React.useState<string>('all')
   const [shift, setShift] = React.useState<string>('all')
   const [difficulty, setDifficulty] = React.useState<string>('all')
-  const [sourceType, setSourceType] = React.useState<string>('all')
+  const [sourceType, setSourceType] = React.useState<string>(viewParams.sourceType ?? 'all')
   const [search, setSearch] = React.useState('')
   const [showFilters, setShowFilters] = React.useState(false)
   const [expandedIds, setExpandedIds] = React.useState<Set<string>>(new Set())
+  const [showYearTree, setShowYearTree] = React.useState(false)
+
+  // Update paper when viewParams change
+  React.useEffect(() => {
+    if (viewParams.paper) setPaper(viewParams.paper)
+    if (viewParams.subject) setSubject(viewParams.subject)
+    if (viewParams.year) setYear(String(viewParams.year))
+    if (viewParams.sourceType) setSourceType(viewParams.sourceType)
+  }, [viewParams.paper, viewParams.subject, viewParams.year, viewParams.sourceType])
 
   // Load stats once
   React.useEffect(() => {
@@ -62,6 +72,7 @@ export function PyqsView() {
     const params: any = { limit: 200 }
     if (subject !== 'all') params.subject = subject
     if (year !== 'all') params.year = year
+    if (paper !== 'all') params.paper = paper
     if (session !== 'all') params.session = session
     if (shift !== 'all') params.shift = shift
     if (difficulty !== 'all') params.difficulty = difficulty
@@ -74,7 +85,7 @@ export function PyqsView() {
         setFilters(r.filters)
       })
       .finally(() => setLoading(false))
-  }, [subject, year, session, shift, difficulty, sourceType, search])
+  }, [subject, year, paper, session, shift, difficulty, sourceType, search])
 
   const toggleExpand = (id: string) => {
     setExpandedIds((prev) => {
@@ -88,6 +99,7 @@ export function PyqsView() {
   const clearFilters = () => {
     setSubject('all')
     setYear('all')
+    setPaper('all')
     setSession('all')
     setShift('all')
     setDifficulty('all')
@@ -95,7 +107,7 @@ export function PyqsView() {
     setSearch('')
   }
 
-  const activeFilterCount = [subject, year, session, shift, difficulty, sourceType].filter((f) => f !== 'all').length + (search ? 1 : 0)
+  const activeFilterCount = [subject, year, paper, session, shift, difficulty, sourceType].filter((f) => f !== 'all').length + (search ? 1 : 0)
 
   // Group by year for display
   const byYear = questions.reduce((acc, q) => {
@@ -115,7 +127,18 @@ export function PyqsView() {
             <FileText className="h-4 w-4" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight">UGC NET PYQs</h1>
-          {stats?.latestYear && (
+          {paper !== 'all' && (
+            <Badge variant="secondary" className="ml-2">
+              {paper === 'I' ? 'Paper 1 — Teaching & Research Aptitude' : 'Paper 2 — Computer Science'}
+            </Badge>
+          )}
+          {year !== 'all' && (
+            <Badge variant="outline" className="gap-1">
+              <Calendar className="h-3 w-3" />
+              {year}
+            </Badge>
+          )}
+          {stats?.latestYear && paper === 'all' && (
             <Badge variant="secondary" className="ml-2 gap-1">
               <Calendar className="h-3 w-3" />
               Latest: {stats.latestYear}
@@ -191,6 +214,16 @@ export function PyqsView() {
           <Card>
             <CardContent className="p-4">
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+                <FilterSelect
+                  label="Paper"
+                  value={paper}
+                  onChange={setPaper}
+                  options={[
+                    { value: 'all', label: 'All papers' },
+                    { value: 'I', label: 'Paper 1 — Teaching & Research Aptitude' },
+                    { value: 'II', label: 'Paper 2 — Computer Science & Applications' },
+                  ]}
+                />
                 <FilterSelect
                   label="Subject"
                   value={subject}
