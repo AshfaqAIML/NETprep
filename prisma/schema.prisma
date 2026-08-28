@@ -193,6 +193,13 @@ model Question {
   answerKeyRef    String?  // Official answer key reference
   verified        Boolean  @default(false) // True only after editorial verification
   verifiedAt      DateTime?
+  // --- Verification & dedup fields (PYQ research system) ---
+  verificationStatus String? @default("unverified") // officially_verified | cross_verified | expert_verified | unverified | disputed
+  answerConfidence String?  // high | medium | low | disputed
+  answerSource    String?  // Where the answer was verified from
+  fingerprint     String?  @unique // Normalized question hash for dedup
+  isCurrentSyllabus Boolean @default(true) // Maps to current syllabus version
+  syllabusVersion String?  @default("2024")
   // --- Educational metadata ---
   learningObjective String? // What concept this question tests
   tags            String   @default("")
@@ -437,3 +444,63 @@ model ExamInfo {
   updatedAt   DateTime @updatedAt
 }
 
+// ---------------------------------------------------------------------------
+// PYQ Source Registry — provenance tracking for every imported question
+// ---------------------------------------------------------------------------
+
+model PYQSource {
+  id                  String   @id @default(cuid())
+  title               String   // e.g. "UGC NET CS December 2023 Paper II — Shift 1"
+  url                 String?  // Source URL
+  domain              String?  // e.g. "ugcnet.nta.ac.in"
+  sourceType          String   @default("official") // official | archive | coaching | community
+  authorityLevel      String   @default("tier1") // tier1 (official) | tier2 (reliable) | tier3 (secondary) | tier4 (unverified)
+  examYear            Int?
+  examCycle           String?  // June | December | merged
+  subjectCode         String   @default("87")
+  paper               String   @default("II") // I | II
+  session             String?  // Shift 1 | Shift 2
+  publishedDate       String?  // When the exam was conducted
+  retrievedAt         DateTime @default(now())
+  verificationStatus  String   @default("verified") // verified | unverified | disputed
+  questionCount       Int      @default(0) // How many questions extracted from this source
+  answerKeyAvailable  Boolean  @default(false)
+  questionPaperAvailable Boolean @default(true)
+  notes               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@index([examYear, examCycle])
+  @@index([subjectCode])
+}
+
+// ---------------------------------------------------------------------------
+// Exam Paper — represents a specific examination paper (year × cycle × shift)
+// ---------------------------------------------------------------------------
+
+model ExamPaper {
+  id              String   @id @default(cuid())
+  paperId         String   @unique // e.g. "2024-06-cs-p2-s1"
+  examYear        Int
+  examCycle       String   // June | December | merged
+  examDate        String?  // ISO date
+  shift           String?  // Shift 1 | Shift 2
+  paper           String   @default("II") // I | II
+  subjectCode     String   @default("87")
+  subjectName     String   @default("Computer Science & Applications")
+  totalQuestions  Int      @default(100)
+  totalMarks      Int      @default(200)
+  duration        Int      @default(180) // minutes
+  negativeMarking Float    @default(0.0)
+  answerKeyAvailable Boolean @default(false)
+  questionPaperAvailable Boolean @default(true)
+  verificationStatus String @default("verified") // verified | partial | unverified | missing
+  sourceId        String?  // Reference to PYQSource
+  importedQuestions Int    @default(0) // Count of imported questions
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([examYear, examCycle])
+  @@index([paper, subjectCode])
+}

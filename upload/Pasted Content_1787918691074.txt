@@ -1,0 +1,1841 @@
+# MASTER PROMPT — UGC NET COMPUTER SCIENCE & APPLICATIONS COMPLETE PYQ RESEARCH, EXTRACTION, VERIFICATION & IMPORT SYSTEM
+
+The UGC NET preparation platform already contains a PYQ/question-bank system.
+
+Your task now is to transform it into a **comprehensive, verified, structured historical database of UGC NET Computer Science & Applications previous-year questions**.
+
+The objective is NOT merely to collect PDF files.
+
+The objective is:
+
+> Find as many genuine UGC NET Computer Science & Applications (Subject Code 087) examination papers and reliable answer keys as can be located, extract the individual questions, verify them, normalize them into the existing question-bank architecture, and organize them by year, exam cycle, paper/session, unit, topic, difficulty, and question type.
+
+The final system should allow a student to explore:
+
+**All PYQs → Year → Exam Cycle → Paper → Unit → Topic → Question**
+
+and also:
+
+**Topic → All Questions Ever Asked**
+
+---
+
+# 1. CRITICAL RESEARCH REQUIREMENT
+
+Perform actual internet research.
+
+Do NOT rely solely on:
+
+* model memory
+* already existing seed data
+* one website
+* one PDF collection
+* one coaching website
+* one search result
+
+Search broadly and systematically.
+
+Prioritize authoritative sources.
+
+Use official sources wherever available, especially:
+
+* UGC
+* NTA
+* official UGC-NET archives
+* official examination notices
+* official final answer keys
+* official question-paper/recorded-response materials where publicly available
+
+The official UGC-NET archive contains historical examination material, and older UGC pages expose previous-question-paper collections. Recent NTA material also contains question-paper/response and final-answer-key information.
+
+Use reputable secondary sources only to fill gaps.
+
+Never treat an unofficial source as authoritative merely because it appears high in search results.
+
+---
+
+# 2. SCOPE
+
+Focus specifically on:
+
+**UGC NET Computer Science and Applications**
+
+Subject Code:
+
+**087**
+
+Do not accidentally import:
+
+* CSIR-NET Computer Science
+* GATE Computer Science
+* SET/SLET
+* university examinations
+* NTA unrelated subjects
+* generic computer science MCQs
+* coaching-created questions presented as PYQs
+
+Only genuine UGC NET Computer Science & Applications examination questions should enter the verified PYQ database.
+
+---
+
+# 3. HISTORICAL COVERAGE
+
+Search for **all available historical UGC NET Computer Science & Applications examination cycles**, as far back as reliable source material can be located.
+
+Do not assume that the first available online PDF represents the beginning of the subject.
+
+Build a coverage matrix:
+
+```text
+Year
+Cycle
+Subject
+Paper
+Session / Shift
+Source
+Question Count
+Answer Key Available
+Question Paper Available
+Verified
+Imported
+```
+
+The goal is maximum historical coverage.
+
+However:
+
+> Never invent missing papers or fabricate questions to make a year appear complete.
+
+If a particular year or cycle cannot be verified, record it as:
+
+**Unavailable / Not Verified**
+
+rather than creating fake data.
+
+---
+
+# 4. EXAM-CYCLE NORMALIZATION
+
+Historical UGC-NET terminology changed over time.
+
+Do NOT flatten all historical exams into a single modern structure.
+
+Store historical metadata separately.
+
+Examples may include:
+
+* June
+* December
+* merged cycles
+* rescheduled examinations
+* phase-based examinations
+* multiple shifts
+* multiple sessions
+
+For every source determine:
+
+```text
+Exam Year
+Exam Cycle
+Original Exam Date
+Phase
+Shift
+Session
+Paper
+Subject
+Subject Code
+```
+
+If one cycle was conducted over multiple dates/phases, preserve that information.
+
+---
+
+# 5. CURRENT EXAM PATTERN VS HISTORICAL PATTERN
+
+This is extremely important.
+
+Do NOT rewrite historical questions as though they were originally asked under the latest exam pattern.
+
+Instead, preserve two concepts:
+
+### Historical Metadata
+
+The question's original:
+
+* year
+* cycle
+* paper
+* phase
+* shift
+* session
+* original numbering/context
+* original marks/pattern where known
+
+### Current Mapping
+
+Additionally map that question to the **current UGC NET Computer Science & Applications syllabus and current preparation taxonomy**.
+
+This allows the platform to answer both:
+
+> What was actually asked in 2014?
+
+and:
+
+> Which current syllabus topic does this historical question relate to?
+
+Do not falsely imply that a historical question followed today's exam structure.
+
+---
+
+# 6. DETERMINE THE SOURCE HIERARCHY
+
+Create a source reliability ranking.
+
+### Tier 1 — Official
+
+* NTA
+* UGC
+* official question papers
+* official final answer keys
+* official archival documents
+
+### Tier 2 — Highly Reliable
+
+Established educational publishers/repositories that preserve complete original papers.
+
+### Tier 3 — Secondary
+
+Coaching websites or educational blogs.
+
+### Tier 4 — Community / Unverified
+
+Forums, social media, user uploads, discussion posts.
+
+Use lower-tier sources primarily to locate missing papers, then attempt to verify against stronger sources.
+
+---
+
+# 7. SOURCE REGISTRY
+
+Create a database/model for source provenance.
+
+Example:
+
+```text
+PYQSource
+---------
+id
+title
+url
+domain
+source_type
+authority_level
+exam_year
+exam_cycle
+subject_code
+paper
+session
+published_date
+retrieved_at
+checksum
+notes
+verification_status
+```
+
+For every imported question retain its source reference.
+
+A user should eventually be able to see:
+
+> Source: UGC/NTA archive / verified paper
+
+or:
+
+> Source: Secondary archive — independently cross-verified
+
+---
+
+# 8. SEARCH STRATEGY
+
+Perform systematic searches such as:
+
+```text
+UGC NET Computer Science 087 previous year question paper
+UGC NET Computer Science June 2025 question paper
+UGC NET Computer Science December 2024 question paper
+UGC NET Computer Science 2023 PYQ
+UGC NET Computer Science 2022 PYQ
+UGC NET Computer Science 2021 PYQ
+UGC NET Computer Science 2020 PYQ
+UGC NET Computer Science 2019 PYQ
+UGC NET Computer Science 2018 PYQ
+UGC NET Computer Science old paper
+UGC NET Computer Science previous question papers
+UGC NET Computer Science final answer key
+```
+
+Also search older terminology and archived UGC sources.
+
+Search by:
+
+* year
+* cycle
+* subject code
+* exact subject name
+* exam date
+* paper
+* phase
+* shift
+
+Do not stop after finding a handful of PDFs.
+
+---
+
+# 9. BUILD A COVERAGE MATRIX BEFORE IMPORTING
+
+Before importing questions, create a structured inventory.
+
+Example:
+
+```text
+| Year | Cycle | Paper | Session | Source | Questions | Verified |
+|------|-------|-------|---------|--------|-----------|----------|
+| 2025 | June  | II    | ...     | ...    | ...       | YES      |
+| 2024 | Dec   | II    | ...     | ...    | ...       | YES      |
+| 2024 | June  | II    | ...     | ...    | ...       | YES      |
+```
+
+This matrix is critical.
+
+Use it to detect:
+
+* missing years
+* missing cycles
+* duplicate papers
+* multiple shifts
+* incomplete papers
+
+---
+
+# 10. PAPER DISCOVERY IS NOT QUESTION IMPORT
+
+Do not immediately import every PDF you find.
+
+First determine:
+
+1. Is this genuinely a UGC NET paper?
+2. Is it Computer Science & Applications?
+3. What year is it?
+4. What cycle?
+5. Which paper?
+6. Which shift/session?
+7. Is it complete?
+8. Is the answer key available?
+9. Is another copy already present?
+
+Only then extract it.
+
+---
+
+# 11. PDF / DOCUMENT EXTRACTION
+
+For every valid question paper:
+
+* download or access the source legally
+* preserve source metadata
+* extract the text
+* preserve question ordering
+* preserve options
+* preserve diagrams where necessary
+* preserve mathematical notation
+* preserve code snippets
+* preserve tables
+* preserve images where they are part of the question
+
+Do not destroy important formatting during extraction.
+
+---
+
+# 12. OCR / IMAGE-BASED PAPERS
+
+Some historical documents may be scanned.
+
+Use OCR only when necessary.
+
+For OCR-derived questions:
+
+1. extract text
+2. manually/algorithmically check likely OCR errors
+3. compare against another source where possible
+4. preserve mathematical notation correctly
+5. verify code snippets
+6. verify options
+
+Do not trust OCR blindly.
+
+---
+
+# 13. QUESTION EXTRACTION
+
+Convert every question into a structured object.
+
+Example:
+
+```text
+PYQQuestion
+-----------
+question_id
+source_id
+exam_id
+year
+cycle
+exam_date
+phase
+shift
+session
+paper
+subject
+subject_code
+original_question_number
+
+question_text
+
+option_a
+option_b
+option_c
+option_d
+
+correct_answer
+
+explanation
+
+unit
+topic
+subtopic
+
+difficulty
+question_type
+
+source_url
+verification_status
+```
+
+For questions with more than four options, preserve the actual structure.
+
+Do not force historical questions into an incorrect four-option structure.
+
+---
+
+# 14. PRESERVE ORIGINAL QUESTION NUMBER
+
+Never renumber historical questions solely for database convenience.
+
+Store:
+
+```text
+original_question_number
+internal_question_id
+```
+
+The original number should remain visible when appropriate.
+
+---
+
+# 15. ANSWER KEY VERIFICATION
+
+Do not assume an answer printed on a coaching website is correct.
+
+For every question:
+
+### Preferred verification
+
+Official final answer key.
+
+### Secondary verification
+
+Multiple highly credible independent sources.
+
+### Further verification
+
+Conceptual analysis by an expert/model where necessary.
+
+Store:
+
+```text
+answer_source
+answer_confidence
+verification_status
+```
+
+Possible status:
+
+* Officially Verified
+* Cross-Verified
+* Expert Verified
+* Unverified
+* Disputed
+
+---
+
+# 16. DO NOT FORCE AMBIGUOUS ANSWERS
+
+Some historical questions may have:
+
+* ambiguous wording
+* disputed answer
+* incorrect official key
+* multiple plausible answers
+* defective options
+
+Do NOT silently "correct" history.
+
+Instead record:
+
+```text
+official_answer
+platform_consensus_answer
+answer_status
+notes
+```
+
+If necessary show:
+
+> Official key: B
+
+> Note: This question has historically been disputed.
+
+This protects the credibility of the platform.
+
+---
+
+# 17. DEDUPLICATION
+
+The same question may appear:
+
+* in multiple websites
+* in multiple PDFs
+* in solved-question books
+* in different formatting
+* across mirrors
+
+Create duplicate detection.
+
+Compare normalized:
+
+* question text
+* options
+* year
+* paper
+* source
+
+Do not delete legitimate repeated questions merely because the text is similar.
+
+If the same question genuinely appeared again in another exam cycle, preserve each occurrence.
+
+---
+
+# 18. QUESTION FINGERPRINTING
+
+Create a normalized question fingerprint.
+
+For example:
+
+```text
+normalized_question_text
++
+normalized_options
++
+subject
+```
+
+Use a deterministic hash.
+
+Store:
+
+```text
+question_fingerprint
+```
+
+This helps identify duplicate copies without destroying legitimate historical occurrences.
+
+---
+
+# 19. YEAR-WISE ORGANIZATION
+
+The platform must allow:
+
+```text
+PYQs
+→ 2025
+→ 2024
+→ 2023
+→ 2022
+...
+```
+
+Selecting a year should show all available Computer Science & Applications papers for that year.
+
+---
+
+# 20. CYCLE-WISE ORGANIZATION
+
+Within each year:
+
+```text
+2025
+
+June
+December
+```
+
+or the historically correct cycle naming.
+
+If a merged or unusual cycle existed, preserve the actual historical naming.
+
+---
+
+# 21. PAPER / SESSION ORGANIZATION
+
+Allow users to explore:
+
+```text
+Year
+→ Cycle
+→ Paper
+→ Phase
+→ Shift / Session
+→ Questions
+```
+
+Only display dimensions that actually existed for that exam.
+
+Do not fabricate session information.
+
+---
+
+# 22. SUBJECT-WISE ORGANIZATION
+
+The current initial scope is Computer Science & Applications.
+
+However, architect the database so the same PYQ system can eventually support every UGC NET subject.
+
+Use:
+
+```text
+Subject
+ → Exam Cycle
+   → Paper
+     → Questions
+```
+
+Do not hard-code "Computer Science" throughout the application.
+
+---
+
+# 23. UNIT-WISE CLASSIFICATION
+
+Map every question to the current UGC NET Computer Science & Applications syllabus.
+
+Each question should have:
+
+```text
+unit
+```
+
+Use the platform's existing syllabus taxonomy.
+
+If the historical wording does not perfectly correspond to current units:
+
+* map it to the closest valid current concept
+* preserve original historical context
+* mark mapping confidence
+
+Do not invent a topic merely to force a mapping.
+
+---
+
+# 24. TOPIC-WISE CLASSIFICATION
+
+Go beyond unit-level classification.
+
+Map each question to:
+
+```text
+Unit
+→ Topic
+→ Subtopic
+```
+
+Examples may include areas such as:
+
+* Algorithms
+* Data Structures
+* Operating Systems
+* DBMS
+* Computer Networks
+* Compiler Design
+* Theory of Computation
+* Artificial Intelligence
+* Computer Architecture
+* Programming Languages
+* Software Engineering
+* Discrete Mathematics
+* Digital Logic
+* etc.
+
+Use the platform's current syllabus taxonomy as the authoritative mapping framework.
+
+---
+
+# 25. MULTI-TOPIC QUESTIONS
+
+Some questions genuinely involve multiple concepts.
+
+Support:
+
+```text
+primary_topic
+secondary_topics[]
+```
+
+Do not force every question into exactly one topic if that would be educationally misleading.
+
+---
+
+# 26. QUESTION TYPE CLASSIFICATION
+
+Classify questions where meaningful.
+
+Examples:
+
+* Conceptual
+* Numerical
+* Code / Programming
+* Output Prediction
+* Trace / Dry Run
+* Matching
+* Assertion / Reasoning
+* Statement-based
+* Graph / Diagram
+* Algorithm Analysis
+* Logical Reasoning
+* Theoretical
+* Applied
+
+Do not invent categories unnecessarily.
+
+---
+
+# 27. DIFFICULTY CLASSIFICATION
+
+Assign:
+
+* Easy
+* Medium
+* Hard
+
+But distinguish:
+
+```text
+historical_difficulty
+estimated_current_difficulty
+```
+
+when useful.
+
+Do not pretend there is an objective difficulty value if it was not officially provided.
+
+---
+
+# 28. EXPLANATIONS
+
+The original question should remain identifiable as a PYQ.
+
+Add a helpful explanation where possible.
+
+For every explanation:
+
+* explain the correct answer
+* explain reasoning
+* include relevant concept
+* avoid unnecessary verbosity
+* correct obvious misconceptions
+
+Where options are meaningful, explain why incorrect options are wrong.
+
+Do not fabricate source explanations.
+
+Clearly distinguish:
+
+**Platform Explanation**
+
+from:
+
+**Official Answer Key**
+
+---
+
+# 29. CODE QUESTIONS
+
+For programming/code questions:
+
+* preserve formatting
+* preserve indentation where relevant
+* preserve symbols
+* use code blocks
+* do not allow markdown formatting to change code meaning
+
+If explaining output:
+
+* reason step-by-step
+* verify the logic
+* avoid changing the original code
+
+---
+
+# 30. NUMERICAL QUESTIONS
+
+For numerical questions:
+
+* preserve equations
+* preserve units
+* preserve diagrams
+* ensure calculations are verified
+* do not round incorrectly
+
+Where appropriate, include:
+
+```text
+Formula
+Calculation
+Answer
+```
+
+---
+
+# 31. IMAGE / DIAGRAM QUESTIONS
+
+If the original question contains an image/diagram:
+
+* preserve the original asset where legally permissible
+* associate it with the question
+* do not replace it with an inaccurate textual description
+* provide alt text where possible
+
+---
+
+# 32. PYQ DETAIL PAGE
+
+Redesign the existing PYQ question experience so each question clearly displays:
+
+```text
+UGC NET Computer Science & Applications
+
+June 2024
+Paper II
+Question 37
+
+[Question]
+
+A
+B
+C
+D
+
+Answer: B
+
+Explanation
+
+Unit 4
+Operating Systems
+
+Topic:
+Process Scheduling
+
+Difficulty:
+Medium
+
+Source:
+Verified
+
+Related Resources:
+Notes
+Cheat Sheet
+Books
+Practice Questions
+```
+
+---
+
+# 33. PYQ YEAR PAGE
+
+Create an excellent yearly archive.
+
+Example:
+
+```text
+UGC NET Computer Science PYQs
+
+2025
+├── June
+├── December
+
+2024
+├── June
+├── December
+
+2023
+├── June
+├── December
+```
+
+Show:
+
+* number of questions
+* number of papers
+* verification status
+* available answer keys
+
+---
+
+# 34. PYQ TOPIC PAGE
+
+This should be one of the strongest features.
+
+Example:
+
+```text
+Operating Systems
+
+Questions Asked Historically: 247
+
+By Year
+2025 — 18
+2024 — 21
+2023 — 19
+...
+
+Practice All
+Practice Recent
+Practice Weak Questions
+```
+
+Allow students to solve:
+
+> All questions ever asked from this topic.
+
+---
+
+# 35. PYQ ANALYTICS
+
+Once enough verified data exists, calculate:
+
+* questions by year
+* questions by unit
+* questions by topic
+* topic frequency
+* year-over-year frequency
+* repeated concepts
+* difficulty distribution
+
+Example:
+
+```text
+Most Frequently Tested Topics
+
+Operating Systems        8.4%
+DBMS                     7.9%
+Computer Networks        7.6%
+Algorithms               7.1%
+```
+
+Do not present statistical claims until the underlying dataset is sufficiently complete and verified.
+
+---
+
+# 36. HISTORICAL TREND ANALYSIS
+
+Build analytics to identify:
+
+* frequently tested topics
+* increasingly common topics
+* declining topics
+* recurring concepts
+* concept repetition
+* changes in question style
+
+Clearly label these as:
+
+**Historical Analysis**
+
+not predictions.
+
+Do not claim:
+
+> This topic WILL appear next exam.
+
+Use language such as:
+
+> This topic has appeared frequently in the available historical dataset.
+
+---
+
+# 37. CURRENT-PATTERN FILTER
+
+Add a useful feature:
+
+**Current Pattern Relevant**
+
+A historical question can be tagged based on whether its concept maps to the current syllabus.
+
+This allows:
+
+```text
+All Historical Questions
+```
+
+or:
+
+```text
+Questions Relevant to Current Syllabus
+```
+
+This is much better than deleting older questions simply because the exam pattern changed.
+
+---
+
+# 38. CURRENT SYLLABUS MAPPING VERSIONING
+
+Do not permanently hard-code mappings.
+
+Create:
+
+```text
+SyllabusVersion
+```
+
+Example:
+
+```text
+syllabus_version
+effective_from
+effective_to
+source
+```
+
+Questions can then be mapped to different syllabus versions.
+
+This will make the PYQ database durable when UGC NET changes its syllabus again.
+
+---
+
+# 39. QUESTION OCCURRENCE VS QUESTION ENTITY
+
+Separate:
+
+### Question Entity
+
+The underlying conceptual question.
+
+### Question Occurrence
+
+Its appearance in a specific examination.
+
+Example:
+
+```text
+QuestionEntity
+    ↓
+QuestionOccurrence
+    ├── June 2018
+    └── December 2021
+```
+
+This allows the system to identify repeated or equivalent questions while preserving every historical occurrence.
+
+---
+
+# 40. SEMANTIC DUPLICATE / REPEATED CONCEPT DETECTION
+
+Where practical, identify:
+
+* exact repeats
+* near repeats
+* same concept with altered numbers
+* same question with changed options
+* repeated conceptual pattern
+
+Do NOT automatically merge them.
+
+Store the relationship:
+
+```text
+related_question_id
+repeat_type
+```
+
+Examples:
+
+* Exact Repeat
+* Modified Repeat
+* Same Concept
+* Similar Pattern
+
+---
+
+# 41. IMPORT PIPELINE
+
+Create an ingestion workflow:
+
+```text
+DISCOVER SOURCE
+↓
+REGISTER SOURCE
+↓
+DOWNLOAD / ACCESS
+↓
+EXTRACT
+↓
+NORMALIZE
+↓
+PARSE QUESTIONS
+↓
+MATCH ANSWERS
+↓
+VERIFY
+↓
+CLASSIFY
+↓
+DEDUPLICATE
+↓
+QUALITY CHECK
+↓
+IMPORT
+↓
+PUBLISH
+```
+
+Do not import directly from raw scraped text into production.
+
+---
+
+# 42. ADMIN IMPORT DASHBOARD
+
+Create an admin interface for PYQ ingestion.
+
+It should show:
+
+### Sources
+
+### Discovered Papers
+
+### Extraction Status
+
+### Verification Status
+
+### Classification Status
+
+### Duplicate Detection
+
+### Import Queue
+
+### Published Questions
+
+Example:
+
+```text
+2024 June
+Paper II
+Questions: 100
+
+Extracted: 100
+Verified: 100
+Classified: 100
+Duplicates: 0
+Ready to Publish: 100
+```
+
+---
+
+# 43. BULK IMPORT
+
+Support bulk insertion of questions.
+
+Use:
+
+* CSV
+* JSON
+* structured import files
+
+Example schema:
+
+```csv
+year,cycle,paper,question_number,question,option_a,option_b,option_c,option_d,answer,unit,topic,difficulty,source
+```
+
+Validate before insertion.
+
+Show row-level errors.
+
+---
+
+# 44. QUALITY-CONTROL QUEUE
+
+Create an admin review queue.
+
+Flag questions when:
+
+* answer missing
+* source missing
+* OCR confidence low
+* topic missing
+* duplicate suspected
+* answer conflict
+* malformed options
+* incomplete text
+* diagram missing
+* uncertain year
+
+Do not automatically publish flagged questions.
+
+---
+
+# 45. VERIFICATION DASHBOARD
+
+Create overall metrics:
+
+```text
+Total discovered papers
+Total verified papers
+Total extracted questions
+Verified questions
+Unverified questions
+Questions needing review
+Duplicate candidates
+Missing answer keys
+Missing metadata
+```
+
+---
+
+# 46. COVERAGE DASHBOARD
+
+Create a heatmap/table:
+
+```text
+Year | June | December | Other / Special | Status
+```
+
+Use statuses:
+
+* Complete
+* Partial
+* Missing
+* Unverified
+
+This should make dataset gaps immediately visible.
+
+---
+
+# 47. NO FABRICATION POLICY
+
+This is mandatory.
+
+Never:
+
+* invent a question
+* invent a year
+* invent an exam date
+* invent an answer
+* invent a paper
+* invent a source
+* reconstruct missing questions and present them as originals
+* turn coaching-created questions into PYQs
+
+When uncertain:
+
+**Mark uncertain.**
+
+---
+
+# 48. SOURCE TRACEABILITY
+
+Every published PYQ should be traceable.
+
+A student/admin should be able to determine:
+
+```text
+Where did this question come from?
+Which exam?
+Which year?
+Which paper?
+Which source?
+How was the answer verified?
+```
+
+---
+
+# 49. COPYRIGHT / CONTENT RIGHTS
+
+Be careful about redistributing complete copyrighted exam papers.
+
+The system should prioritize:
+
+* official/publicly accessible material
+* legally permitted resources
+* metadata
+* references
+* links to original sources where appropriate
+
+Do not circumvent access controls, paywalls, CAPTCHA, authentication, robots restrictions, or technical protections.
+
+Do not scrape websites in ways that violate their terms.
+
+If a complete paper cannot legally be redistributed, store appropriate metadata/reference information instead of blindly mirroring the file.
+
+---
+
+# 50. SOURCE LINKS
+
+Where permitted, show:
+
+**View Source**
+
+rather than duplicating content unnecessarily.
+
+Store:
+
+```text
+source_url
+source_title
+source_domain
+accessed_at
+```
+
+---
+
+# 51. RATE LIMITING / POLITE RESEARCH
+
+When fetching public sources:
+
+* respect site limitations
+* avoid excessive concurrent requests
+* cache downloads
+* avoid repeated downloads
+* identify yourself appropriately where applicable
+* do not bypass restrictions
+
+The research/import pipeline should be robust and respectful.
+
+---
+
+# 52. DATA MODEL EXTENSIONS
+
+Extend the existing schema rather than creating a disconnected second PYQ database.
+
+Suggested models:
+
+```text
+ExamCycle
+ExamPaper
+PYQSource
+PYQQuestionEntity
+PYQQuestionOccurrence
+PYQQuestionOption
+PYQAnswer
+PYQVerification
+PYQClassification
+PYQTopicMapping
+PYQImportJob
+PYQImportItem
+PYQDuplicateMatch
+SyllabusVersion
+PYQSourceSnapshot
+```
+
+Adapt names to the application's existing conventions.
+
+---
+
+# 53. SEARCH FILTERS
+
+The PYQ system must support filtering by:
+
+### Year
+
+### Cycle
+
+### Paper
+
+### Phase
+
+### Shift
+
+### Unit
+
+### Topic
+
+### Difficulty
+
+### Question Type
+
+### Verification Status
+
+### Current Syllabus Relevance
+
+### Repeated / Similar Questions
+
+---
+
+# 54. SORTING
+
+Support:
+
+* newest first
+* oldest first
+* topic
+* difficulty
+* question number
+* most frequently repeated concept
+
+---
+
+# 55. PRACTICE MODES
+
+Integrate PYQs into the existing practice engine.
+
+Add:
+
+### Solve by Year
+
+### Solve by Cycle
+
+### Solve by Unit
+
+### Solve by Topic
+
+### Solve All Historical PYQs
+
+### Solve Recent PYQs
+
+### Solve Current-Syllabus PYQs
+
+### Solve Weak PYQs
+
+### Solve Incorrect PYQs
+
+---
+
+# 56. MOCK TEST INTEGRATION
+
+Allow admins to create mock tests from historical questions.
+
+But clearly label:
+
+**Historical PYQ-based Mock**
+
+versus:
+
+**Original Platform Mock**
+
+Never make students believe a generated test was an actual historical paper.
+
+---
+
+# 57. PROGRESS INTEGRATION
+
+When a user solves a PYQ:
+
+record:
+
+* attempt
+* answer
+* correct/incorrect
+* time
+* confidence if supported
+* topic
+* year
+* paper
+
+This should contribute to analytics.
+
+---
+
+# 58. PERSONALIZED PYQ RECOMMENDATIONS
+
+Use the historical database to recommend:
+
+* weak topics
+* unattempted years
+* important historical areas
+* recently missed concepts
+* current-syllabus relevant PYQs
+
+Do not use crude frequency alone.
+
+---
+
+# 59. PYQ EXPERIENCE SHOULD FEEL LIKE A PRODUCT
+
+Do not create a giant table of hundreds of questions.
+
+Create a polished learning experience.
+
+Students should be able to move naturally:
+
+```text
+Year
+↓
+Paper
+↓
+Question
+↓
+Explanation
+↓
+Topic
+↓
+Notes
+↓
+Related PYQs
+↓
+Practice
+```
+
+---
+
+# 60. PERFORMANCE
+
+The database may eventually contain tens of thousands of question records.
+
+Use:
+
+* proper indexes
+* pagination
+* server-side filtering
+* efficient full-text search
+* caching where appropriate
+* optimized joins
+
+Do not load thousands of questions into the browser at once.
+
+---
+
+# 61. DATA INTEGRITY
+
+Enforce:
+
+* foreign keys
+* unique constraints
+* valid references
+* no orphaned occurrences
+* valid subject codes
+* valid syllabus mappings
+
+---
+
+# 62. IMPORT IDEMPOTENCY
+
+Running the import process twice must NOT create duplicate question records.
+
+Use stable identifiers/fingerprints.
+
+The import system should be safe to rerun.
+
+---
+
+# 63. VERSIONING
+
+Preserve historical source data.
+
+Do not silently overwrite previously imported information.
+
+Track:
+
+* source version
+* extraction version
+* classification version
+* answer verification changes
+* editorial corrections
+
+---
+
+# 64. ADMIN EDIT HISTORY
+
+For manually changed questions, record:
+
+* what changed
+* old value
+* new value
+* admin/editor
+* timestamp
+* reason
+
+---
+
+# 65. FINAL DATA QUALITY CHECK
+
+Before publishing a paper, verify:
+
+```text
+✓ Correct subject
+✓ Correct year
+✓ Correct cycle
+✓ Correct paper
+✓ Complete question sequence
+✓ Options present
+✓ Answer available or explicitly unavailable
+✓ Source recorded
+✓ Unit mapped
+✓ Topic mapped
+✓ No accidental duplicate
+✓ Question text readable
+✓ Code/math preserved
+✓ Historical metadata preserved
+```
+
+---
+
+# 66. COMPLETENESS TARGET
+
+Do not promise:
+
+> "Every question ever asked"
+
+unless the research actually demonstrates that coverage.
+
+Instead calculate:
+
+**Verified Historical Coverage**
+
+Example:
+
+```text
+Available verified papers: 86
+Imported papers: 82
+Verified questions: 8,200
+Partial papers: 3
+Unverified papers: 1
+```
+
+The platform should expose coverage honestly.
+
+---
+
+# 67. FINAL USER-FACING PYQ HUB
+
+Create a premium PYQ landing page.
+
+Show:
+
+### Complete Computer Science & Applications PYQs
+
+Statistics:
+
+* papers
+* questions
+* years covered
+* verified questions
+* syllabus units
+* topics
+
+Then:
+
+```text
+Browse by Year
+Browse by Unit
+Browse by Topic
+Browse by Exam Cycle
+Practice All PYQs
+Explore Repeated Concepts
+```
+
+---
+
+# 68. CURRENT-SYLLABUS PYQ MODE
+
+Add:
+
+**Prepare for Today's Exam**
+
+This mode should filter historical questions through the latest active syllabus version.
+
+The historical question remains unchanged.
+
+Only its relevance mapping changes.
+
+---
+
+# 69. HISTORICAL ARCHIVE MODE
+
+Also provide:
+
+**Explore Complete Historical Archive**
+
+This includes older questions even when they are no longer directly aligned with the current syllabus.
+
+This preserves the historical record and gives researchers/students access to the full dataset.
+
+---
+
+# 70. SOURCE / VERIFICATION BADGES
+
+Use clear badges:
+
+```text
+Officially Verified
+Cross-Verified
+Needs Review
+Unverified
+Disputed Answer
+```
+
+Do not hide uncertainty.
+
+---
+
+# 71. FINAL RESEARCH LOOP
+
+The work must follow this repeated process:
+
+```text
+SEARCH
+↓
+DISCOVER
+↓
+VERIFY SOURCE
+↓
+REGISTER PAPER
+↓
+EXTRACT
+↓
+CHECK COMPLETENESS
+↓
+MATCH ANSWER KEY
+↓
+CLASSIFY
+↓
+DEDUPLICATE
+↓
+QUALITY CHECK
+↓
+IMPORT
+↓
+AUDIT
+↓
+SEARCH AGAIN FOR MISSING MATERIAL
+↓
+REPEAT
+```
+
+After importing the first complete batch, perform another internet search specifically for missing years, cycles, shifts, and papers.
+
+Do not assume the first search was sufficient.
+
+---
+
+# 72. FINAL INDEPENDENT AUDIT
+
+After the database is populated, perform a fresh audit.
+
+Ask:
+
+> Which exam cycles might still be missing?
+
+> Which papers have incomplete question sets?
+
+> Which questions have uncertain answers?
+
+> Which topics have poor classification?
+
+> Which historical questions are not mapped to the current syllabus?
+
+> Which sources conflict?
+
+> Which apparent duplicates are actually repeated questions?
+
+> Which pages provide misleading coverage claims?
+
+Fix discovered issues.
+
+---
+
+# 73. FINAL REPORT
+
+At completion provide:
+
+### Research Summary
+
+* number of sources searched
+* authoritative sources found
+* secondary sources used
+* years covered
+* exam cycles covered
+
+### Dataset Summary
+
+* total papers
+* total questions
+* verified questions
+* unverified questions
+* disputed questions
+* duplicate candidates
+* questions mapped to current syllabus
+
+### Coverage Gaps
+
+Explicitly list years/cycles/papers that could not be reliably obtained.
+
+### Quality Report
+
+* extraction issues
+* answer-key conflicts
+* classification uncertainties
+* remaining review items
+
+### Technical Changes
+
+* database changes
+* import pipeline
+* admin tooling
+* PYQ UI
+* search/filtering
+* analytics
+
+---
+
+# 74. ABSOLUTE FINAL INSTRUCTION
+
+Do not treat this as a simple web-scraping task.
+
+Treat it as building a **high-quality historical examination dataset**.
+
+Accuracy is more important than speed.
+
+Completeness is more important than superficial volume.
+
+Source provenance is more important than convenience.
+
+Do not fabricate missing information.
+
+Do not silently alter historical questions.
+
+Do not confuse historical exam patterns with the current exam pattern.
+
+Preserve the original question while creating a modern syllabus mapping.
+
+Integrate the resulting dataset into the **already existing PYQ system** rather than creating a separate disconnected feature.
+
+The final experience should let a UGC NET Computer Science & Applications aspirant answer:
+
+> "Show me every verified question asked on this topic, in every available UGC NET exam cycle, tell me when it was asked, show the official/verified answer, explain it, and let me practice it."
+
+And it should also let the student answer:
+
+> "Show me all historical PYQs that are relevant to the latest syllabus."
+
+Build the system so that new UGC NET papers can be added later without redesigning the database.
+
+After the historical import is complete, make the ingestion workflow reusable so that a future exam paper can be added through:
+
+**Discover → Verify → Import → Classify → Review → Publish**
+
+without manually modifying application code.
