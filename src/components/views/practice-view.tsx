@@ -226,6 +226,22 @@ export function PracticeView() {
     return () => window.removeEventListener('keydown', handler)
   }, [started, completed, loading, currentIdx, selected, revealed])
 
+  // Live elapsed timer (must be before early returns for hooks rules)
+  const [elapsed, setElapsed] = React.useState(0)
+  React.useEffect(() => {
+    if (!started || completed) return
+    const t = setInterval(() => {
+      setElapsed(Math.floor((Date.now() - startTime) / 1000))
+    }, 1000)
+    return () => clearInterval(t)
+  }, [started, completed, startTime])
+
+  const formatElapsed = (s: number) => {
+    const m = Math.floor(s / 60)
+    const sec = s % 60
+    return `${m}:${String(sec).padStart(2, '0')}`
+  }
+
   // Setup screen
   if (!started) {
     return (
@@ -462,8 +478,14 @@ export function PracticeView() {
               <Badge variant="outline" className="text-[10px]">{q.topic.name}</Badge>
             )}
           </div>
-          <div className="text-xs text-muted-foreground">
-            Question <span className="font-semibold text-foreground">{currentIdx + 1}</span> / {questions.length}
+          <div className="flex items-center gap-3">
+            <div className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+              <Clock className="h-3.5 w-3.5" />
+              <span className="font-mono font-semibold">{formatElapsed(elapsed)}</span>
+            </div>
+            <div className="text-xs text-muted-foreground">
+              Q <span className="font-semibold text-foreground">{currentIdx + 1}</span>/{questions.length}
+            </div>
           </div>
         </div>
         <Progress value={((currentIdx + 1) / questions.length) * 100} className="h-1" />

@@ -114,6 +114,9 @@ export function AdminView() {
           <TabsTrigger value="questions" className="gap-1.5">
             <FileQuestion className="h-3.5 w-3.5" /> Questions
           </TabsTrigger>
+          <TabsTrigger value="papers" className="gap-1.5">
+            <Layers className="h-3.5 w-3.5" /> Exam Papers
+          </TabsTrigger>
           <TabsTrigger value="reports" className="gap-1.5">
             <Flag className="h-3.5 w-3.5" /> Reports ({totals.openReports})
           </TabsTrigger>
@@ -125,6 +128,11 @@ export function AdminView() {
         {/* Questions management */}
         <TabsContent value="questions">
           <QuestionManager />
+        </TabsContent>
+
+        {/* Exam Papers management */}
+        <TabsContent value="papers">
+          <ExamPaperManager />
         </TabsContent>
 
         {/* Reports management */}
@@ -716,5 +724,111 @@ function AdminAnalytics({ stats }: { stats: any }) {
         </CardContent>
       </Card>
     </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Exam Paper Manager
+// ---------------------------------------------------------------------------
+
+function ExamPaperManager() {
+  const [papers, setPapers] = React.useState<any[]>([])
+  const [loading, setLoading] = React.useState(true)
+
+  React.useEffect(() => {
+    api.pyqCoverage()
+      .then((r) => {
+        // Flatten the matrix into a paper list
+        const allPapers: any[] = []
+        for (const yearData of r.matrix) {
+          for (const cycleData of yearData.cycles) {
+            for (const paper of cycleData.papers) {
+              allPapers.push({
+                ...paper,
+                year: yearData.year,
+                cycle: cycleData.cycle,
+              })
+            }
+          }
+        }
+        setPapers(allPapers)
+      })
+      .finally(() => setLoading(false))
+  }, [])
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base flex items-center gap-2">
+          <Layers className="h-4 w-4" /> Exam Papers Registry
+          <Badge variant="outline" className="text-[10px]">{papers.length}</Badge>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        {loading ? (
+          <div className="space-y-2">{[...Array(5)].map((_, i) => <Skeleton key={i} className="h-16" />)}</div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border text-[10px] text-muted-foreground uppercase tracking-wider">
+                  <th className="text-left py-2 px-2">Year</th>
+                  <th className="text-left py-2 px-2">Cycle</th>
+                  <th className="text-left py-2 px-2">Paper</th>
+                  <th className="text-left py-2 px-2">Shift</th>
+                  <th className="text-center py-2 px-2">Imported</th>
+                  <th className="text-center py-2 px-2">Expected</th>
+                  <th className="text-center py-2 px-2">Complete</th>
+                  <th className="text-center py-2 px-2">Status</th>
+                  <th className="text-left py-2 px-2">Exam Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {papers.map((p, i) => (
+                  <tr key={i} className="border-b border-border/50 hover:bg-muted/20">
+                    <td className="py-2 px-2 font-medium">{p.year}</td>
+                    <td className="py-2 px-2">{p.cycle}</td>
+                    <td className="py-2 px-2">Paper {p.paper}</td>
+                    <td className="py-2 px-2">{p.shift || '—'}</td>
+                    <td className="text-center py-2 px-2">
+                      <Badge variant="secondary" className="text-[9px]">{p.importedQuestions}</Badge>
+                    </td>
+                    <td className="text-center py-2 px-2 text-xs text-muted-foreground">{p.expectedQuestions}</td>
+                    <td className="text-center py-2 px-2">
+                      <div className="flex items-center gap-1">
+                        <div className="w-16 bg-muted rounded-full h-1.5 overflow-hidden">
+                          <div
+                            className={cn(
+                              'h-full rounded-full',
+                              p.completeness >= 80 ? 'bg-emerald-500' : p.completeness >= 40 ? 'bg-amber-500' : 'bg-rose-500',
+                            )}
+                            style={{ width: `${p.completeness}%` }}
+                          />
+                        </div>
+                        <span className="text-[9px] text-muted-foreground">{p.completeness}%</span>
+                      </div>
+                    </td>
+                    <td className="text-center py-2 px-2">
+                      <Badge
+                        variant="outline"
+                        className={cn(
+                          'text-[9px] capitalize',
+                          p.status === 'verified' && 'border-emerald-500/30 text-emerald-600',
+                          p.status === 'partial' && 'border-amber-500/30 text-amber-600',
+                          p.status === 'missing' && 'border-rose-500/30 text-rose-600',
+                        )}
+                      >
+                        {p.status}
+                      </Badge>
+                    </td>
+                    <td className="py-2 px-2 text-xs text-muted-foreground">{p.examDate || '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </CardContent>
+    </Card>
   )
 }

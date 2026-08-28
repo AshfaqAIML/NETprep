@@ -868,3 +868,67 @@ Next Iteration Priorities:
 3. Add pagination to PYQ library for when dataset grows beyond 200+ questions
 4. Add PDF file upload + storage adapter integration for book reader
 5. Expand PYQ dataset with more questions from 2018 and earlier cycles
+
+---
+Task ID: 14
+Agent: Autonomous QA & Improvement Agent (Iteration 3 — Continue)
+Task: Add live practice timer, add Exam Papers management tab to Admin CMS.
+
+Work Log:
+- Read worklog from previous iteration (Task 13)
+- Verified current state: 30 views, 43 API routes, lint clean, TypeScript clean
+- All key APIs return HTTP 200
+
+Improvements Implemented:
+
+1. **Live practice timer** (P2 — Medium, high user value):
+   - Added visible elapsed timer in the practice question header
+   - Shows MM:SS format with Clock icon
+   - Updates every second via setInterval
+   - Properly placed before early returns (hooks rules compliance)
+   - Timer stops when session is completed
+   - Also shows compact "Q X/Y" format instead of verbose "Question X / Y"
+   - File: practice-view.tsx
+
+2. **Exam Papers management tab in Admin CMS** (P2 — Medium):
+   - Added 4th tab "Exam Papers" to the admin dashboard
+   - Shows a table of all registered exam papers with:
+     * Year, Cycle, Paper, Shift
+     * Imported vs Expected question counts
+     * Completeness % with color-coded progress bar (green/amber/red)
+     * Verification status badge (verified/partial/missing)
+     * Exam date
+   - Uses existing /api/pyqs/coverage API
+   - File: admin-view.tsx
+
+Verification:
+- ESLint: zero errors ✅
+- TypeScript: zero errors ✅
+- All key APIs: HTTP 200 ✅
+- Home page: HTTP 200 ✅
+- Practice timer: visible in question header, updates live ✅
+- Admin Exam Papers tab: shows table with all 14 papers ✅
+
+Current Project Status:
+- **Stability**: Functional and stable
+- **Practice experience**: Now has live timer, keyboard nav, source badges, question review
+- **Admin CMS**: 4 tabs (Questions, Exam Papers, Reports, Analytics)
+- **Mock test**: Answers persist across refresh, beforeunload warning
+- **Error handling**: 8 views with proper error states + retry
+- **Navigation**: Breadcrumbs on 19/30 views
+- **Code quality**: Lint clean, TypeScript clean
+
+Remaining Work:
+1. Real NextAuth wiring (scaffolded, demo-user pattern active)
+2. PDF file upload for book reader (metadata-only currently)
+3. More PYQs can always be added (current 107 covers key topics)
+4. Agent-browser verification limited by sandbox network
+5. Unit/integration tests not yet written
+6. Pagination for large PYQ datasets
+
+Next Iteration Priorities:
+1. Wire up real NextAuth with credentials provider
+2. Add unit tests for scoring and progress calculations
+3. Add pagination to PYQ library
+4. Add PDF file upload + storage adapter for book reader
+5. Expand PYQ dataset with more questions from earlier cycles
