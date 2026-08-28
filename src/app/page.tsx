@@ -33,6 +33,9 @@ import { UserNotesView } from '@/components/views/user-notes-view'
 import { AnalyticsView } from '@/components/views/analytics-view'
 import { PyqDashboardView } from '@/components/views/pyq-dashboard-view'
 import { CoverageMatrixView } from '@/components/views/coverage-matrix-view'
+import { AdminView } from '@/components/views/admin-view'
+import { OnboardingView } from '@/components/views/onboarding-view'
+import { BookReaderView } from '@/components/views/book-reader-view'
 
 // Initialise bookmark cache on mount
 function useInitBookmarks() {
@@ -123,6 +126,12 @@ function ViewRouter({ view }: { view: string }) {
       return <PyqDashboardView />
     case 'coverage-matrix':
       return <CoverageMatrixView />
+    case 'admin':
+      return <AdminView />
+    case 'onboarding':
+      return <OnboardingView />
+    case 'book-reader':
+      return <BookReaderView />
     default:
       return <HomeView />
   }

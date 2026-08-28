@@ -10,6 +10,7 @@ const PLATFORM_LINKS: { label: string; view: ViewKey }[] = [
   { label: 'Articles', view: 'articles' },
   { label: 'Exam Info', view: 'exam-info' },
   { label: 'FAQ', view: 'faq' },
+  { label: 'Admin', view: 'admin' },
 ]
 
 const PREP_LINKS: { label: string; view: ViewKey }[] = [

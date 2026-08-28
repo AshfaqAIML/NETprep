@@ -34,6 +34,8 @@ export type ViewKey =
   | 'onboarding'
   | 'pyq-dashboard'
   | 'coverage-matrix'
+  | 'admin'
+  | 'book-reader'
 
 interface AppState {
   // Navigation

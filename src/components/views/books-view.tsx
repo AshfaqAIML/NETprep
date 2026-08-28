@@ -82,9 +82,10 @@ export function BooksView() {
             <div
               key={b.id}
               ref={b.slug === highlightSlug ? highlightRef : undefined}
+              onClick={() => navigate('book-reader', { slug: b.slug })}
               className={cn(
-                'rounded-xl border bg-card p-5 transition-all',
-                b.slug === highlightSlug ? 'border-primary ring-2 ring-primary/30' : 'border-border hover:border-primary/40',
+                'rounded-xl border bg-card p-5 transition-all cursor-pointer',
+                b.slug === highlightSlug ? 'border-primary ring-2 ring-primary/30' : 'border-border hover:border-primary/40 hover:shadow-md',
               )}
             >
               <div className="flex items-start gap-3">

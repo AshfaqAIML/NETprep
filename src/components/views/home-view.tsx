@@ -98,7 +98,7 @@ export function HomeView() {
             </p>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <Button size="lg" onClick={() => navigate('dashboard')} className="gap-2">
+              <Button size="lg" onClick={() => navigate('onboarding')} className="gap-2">
                 Start Preparing
                 <ArrowRight className="h-4 w-4" />
               </Button>

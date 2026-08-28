@@ -165,6 +165,27 @@ export const api = {
   // Reports
   createReport: (body: any) =>
     fetchJson<{ report: any }>(`/api/reports`, { method: 'POST', body: JSON.stringify(body) }),
+
+  // Admin
+  adminStats: () => fetchJson<any>('/api/admin/stats'),
+  adminQuestions: (params?: { sourceType?: string; paper?: string; status?: string; search?: string; limit?: number }) => {
+    const qs = new URLSearchParams()
+    if (params?.sourceType) qs.set('sourceType', params.sourceType)
+    if (params?.paper) qs.set('paper', params.paper)
+    if (params?.status) qs.set('status', params.status)
+    if (params?.search) qs.set('search', params.search)
+    if (params?.limit) qs.set('limit', String(params.limit))
+    return fetchJson<{ questions: any[]; count: number }>(`/api/admin/questions?${qs.toString()}`)
+  },
+  adminCreateQuestion: (body: any) =>
+    fetchJson<{ question: any }>(`/api/admin/questions`, { method: 'POST', body: JSON.stringify(body) }),
+  adminUpdateQuestion: (id: string, body: any) =>
+    fetchJson<{ question: any }>(`/api/admin/questions/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  adminDeleteQuestion: (id: string) =>
+    fetchJson<{ deleted: boolean }>(`/api/admin/questions/${id}`, { method: 'DELETE' }),
+  adminReports: () => fetchJson<any>('/api/admin/reports'),
+  adminUpdateReport: (id: string, status: string) =>
+    fetchJson<any>(`/api/admin/reports`, { method: 'PATCH', body: JSON.stringify({ id, status }) }),
 }
 
 export type NavigateFn = (view: ViewKey, params?: Record<string, any>) => void
