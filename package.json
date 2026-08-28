@@ -7,6 +7,7 @@
     "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
     "start": "NODE_ENV=production bun .next/standalone/server.js 2>&1 | tee server.log",
     "lint": "eslint .",
+    "test": "bun test tests/unit/",
     "db:push": "prisma db push --accept-data-loss",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
@@ -15,7 +16,8 @@
     "db:seed:pyqs": "bun prisma/seed-pyqs.ts",
     "db:seed:pyqs:expanded": "bun prisma/seed-pyqs-expanded.ts",
     "db:seed:cs-exam": "bun prisma/seed-cs-exam.ts",
-    "db:seed:exam-info": "bun prisma/seed-exam-info.ts"
+    "db:seed:exam-info": "bun prisma/seed-exam-info.ts",
+    "db:seed:pyq-sources": "bun prisma/seed-pyq-sources.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.3",
