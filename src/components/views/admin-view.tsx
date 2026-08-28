@@ -18,11 +18,14 @@ import {
   Database,
   Users,
   BookOpen,
+  BookMarked,
   Layers,
   Eye,
   EyeOff,
   Save,
   X,
+  Upload,
+  Loader2,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -117,6 +120,9 @@ export function AdminView() {
           <TabsTrigger value="papers" className="gap-1.5">
             <Layers className="h-3.5 w-3.5" /> Exam Papers
           </TabsTrigger>
+          <TabsTrigger value="books" className="gap-1.5">
+            <BookMarked className="h-3.5 w-3.5" /> Books
+          </TabsTrigger>
           <TabsTrigger value="reports" className="gap-1.5">
             <Flag className="h-3.5 w-3.5" /> Reports ({totals.openReports})
           </TabsTrigger>
@@ -128,6 +134,11 @@ export function AdminView() {
         {/* Questions management */}
         <TabsContent value="questions">
           <QuestionManager />
+        </TabsContent>
+
+        {/* Books management */}
+        <TabsContent value="books">
+          <BookManager />
         </TabsContent>
 
         {/* Exam Papers management */}
@@ -826,6 +837,134 @@ function ExamPaperManager() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Book Manager (with PDF upload)
+// ---------------------------------------------------------------------------
+
+function BookManager() {
+  const [books, setBooks] = React.useState<any[]>([])
+  const [loading, setLoading] = React.useState(true)
+  const [uploading, setUploading] = React.useState<string | null>(null)
+  const fileInputRef = React.useRef<HTMLInputElement>(null)
+  const [selectedBookId, setSelectedBookId] = React.useState<string | null>(null)
+
+  const load = React.useCallback(() => {
+    setLoading(true)
+    api.books()
+      .then((r) => setBooks(r.books))
+      .finally(() => setLoading(false))
+  }, [])
+
+  React.useEffect(() => { load() }, [load])
+
+  const handleFileSelect = (bookId: string) => {
+    setSelectedBookId(bookId)
+    fileInputRef.current?.click()
+  }
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file || !selectedBookId) return
+
+    setUploading(selectedBookId)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('bookId', selectedBookId)
+
+      const res = await fetch('/api/admin/books/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (res.ok) {
+        toast.success('PDF uploaded successfully!')
+        load()
+      } else {
+        const data = await res.json()
+        toast.error(data.error || 'Upload failed')
+      }
+    } catch (e: any) {
+      toast.error('Upload failed: ' + e.message)
+    } finally {
+      setUploading(null)
+      setSelectedBookId(null)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base flex items-center gap-2">
+          <BookMarked className="h-4 w-4" /> Book Library
+          <Badge variant="outline" className="text-[10px]">{books.length}</Badge>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".pdf,application/pdf"
+          onChange={handleFileChange}
+          className="hidden"
+        />
+        {loading ? (
+          <div className="space-y-2">{[...Array(3)].map((_, i) => <Skeleton key={i} className="h-16" />)}</div>
+        ) : (
+          <div className="space-y-2">
+            {books.map((b) => (
+              <div key={b.id} className="rounded-lg border border-border p-3">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-8 shrink-0 items-center justify-center rounded-md bg-amber-500/10 text-amber-600">
+                    <BookMarked className="h-4 w-4" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      <span className="font-medium text-sm line-clamp-1">{b.title}</span>
+                      {b.fileUrl && (
+                        <Badge variant="secondary" className="text-[9px] bg-emerald-500/10 text-emerald-600">PDF Uploaded</Badge>
+                      )}
+                      <Badge variant="outline" className="text-[9px]">{b.distribution}</Badge>
+                    </div>
+                    <div className="text-xs text-muted-foreground">{b.author}</div>
+                    {b.fileSize && (
+                      <div className="text-[10px] text-muted-foreground mt-0.5">
+                        {(b.fileSize / 1024 / 1024).toFixed(2)} MB
+                      </div>
+                    )}
+                  </div>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleFileSelect(b.id)}
+                    disabled={uploading === b.id}
+                    className="gap-1.5 shrink-0"
+                  >
+                    {uploading === b.id ? (
+                      <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Uploading...</>
+                    ) : b.fileUrl ? (
+                      <><Upload className="h-3.5 w-3.5" /> Replace PDF</>
+                    ) : (
+                      <><Upload className="h-3.5 w-3.5" /> Upload PDF</>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            ))}
+            {books.length === 0 && (
+              <div className="text-center py-8">
+                <BookMarked className="h-8 w-8 mx-auto text-muted-foreground/40 mb-2" />
+                <p className="text-sm text-muted-foreground">No books found.</p>
+              </div>
+            )}
           </div>
         )}
       </CardContent>
