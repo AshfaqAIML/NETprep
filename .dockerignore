@@ -1,0 +1,73 @@
+# =============================================================================
+# NETPrep Hub — .dockerignore
+# =============================================================================
+# Keeps Docker build context small and caches fast.
+# =============================================================================
+
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Dependencies (will be installed inside the container)
+node_modules
+**/node_modules
+
+# Build artifacts
+.next
+out
+build
+dist
+coverage
+*.tsbuildinfo
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+docker/
+
+# Environment (must be provided at runtime)
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.swp
+
+# Logs
+*.log
+dev.log
+server.log
+
+# Database / uploads (created at runtime)
+db/
+*.db
+*.db-journal
+public/uploads/
+uploads/
+
+# Documentation (not needed in image)
+README.md
+LICENSE
+docs/
+
+# Tests (not needed in production image)
+tests/
+__tests__/
+*.test.ts
+*.spec.ts
+
+# Examples
+examples/
+
+# Skills (internal tooling, not part of the app)
+skills/
+
+# Misc
+.tool-versions
+.nvmrc
