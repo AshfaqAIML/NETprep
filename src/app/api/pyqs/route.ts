@@ -48,18 +48,14 @@ export async function GET(req: NextRequest) {
       where.sourceType = { in: ['official_pyq', 'verified_pyq'] }
     }
 
+    // Paper filter (I or II)
+    if (paper && paper !== 'all') {
+      where.paper = paper
+    }
+
     // Subject filter
     if (subjectSlug && subjectSlug !== 'all') {
       where.topic = { unit: { subject: { slug: subjectSlug } } }
-    }
-
-    // Paper filter
-    if (paper) {
-      if (paper === '1') {
-        where.topic = { ...where.topic, unit: { ...where.topic?.unit, subject: { slug: 'paper-1' } } }
-      } else if (paper === '2') {
-        where.topic = { ...where.topic, unit: { ...where.topic?.unit, subject: { paper: 'II' } } }
-      }
     }
 
     // Year filter

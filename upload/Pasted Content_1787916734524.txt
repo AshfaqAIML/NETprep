@@ -1,0 +1,1997 @@
+# UGC NET COMPUTER SCIENCE & APPLICATIONS — COMPLETE PYQ, PRACTICE & MOCK TEST SYSTEM
+
+Transform the existing exam-preparation module into a **complete production-ready UGC NET Computer Science & Applications preparation system** focused specifically on:
+
+* **Paper 1 — Teaching & Research Aptitude**
+* **Paper 2 — Computer Science & Applications**
+* **Authentic Previous Year Questions (PYQs)**
+* **Original Practice Questions**
+* **Full-Length Mock Tests**
+* **Topic/Unit Tests**
+* **Performance Analytics**
+* **Mistake Book**
+* **Personalized Practice**
+* **Historical Exam Analysis**
+
+The experience should feel like a serious, premium exam-preparation platform designed specifically for UGC NET Computer Science candidates.
+
+---
+
+# 1. EXAM CONFIGURATION
+
+Use the following configuration as the initial exam model, but build the architecture so that exam rules can be updated by cycle/version when official NTA notifications change.
+
+## Exam
+
+**UGC NET — Computer Science & Applications**
+
+**Subject Code:** 87
+
+**Conducting Body:** NTA
+
+**Mode:** Computer-Based Test
+
+**Total Duration:** 3 hours combined
+
+## Current Target Structure
+
+### Paper 1
+
+* 50 questions
+* 100 marks
+* Teaching & Research Aptitude
+
+### Paper 2
+
+* 100 questions
+* 200 marks
+* Computer Science & Applications
+
+### Combined
+
+* 150 questions
+* 300 marks
+* 3 hours
+
+### Marking
+
+* No negative marking under the configured exam pattern
+
+### Language
+
+* English
+* Hindi
+
+IMPORTANT:
+
+Do not hardcode these rules into business logic.
+
+Create an **Exam Pattern / Exam Cycle configuration layer** so the system can represent historical and future changes.
+
+---
+
+# 2. QUICK ACCESS
+
+Add a prominent Quick Access card:
+
+## UGC NET PYQs
+
+Subtitle:
+
+**Paper 1 + Computer Science Paper 2**
+
+Supporting text:
+
+> Practice authentic previous-year UGC NET questions and exam-style questions.
+
+Show:
+
+* Total PYQs
+* Paper 1 PYQs
+* Paper 2 PYQs
+* Years Covered
+* Mock Tests
+* Practice Questions
+
+Quick actions:
+
+**Practice PYQs**
+
+**Paper 1**
+
+**Paper 2 — Computer Science**
+
+**Mock Tests**
+
+---
+
+# 3. MAIN EXAM PREPARATION HUB
+
+Create a dedicated:
+
+# UGC NET Computer Science
+
+dashboard.
+
+At the top display:
+
+### Exam Overview
+
+```text
+Paper 1       50 Questions     100 Marks
+Paper 2      100 Questions     200 Marks
+Total        150 Questions     300 Marks
+Duration      3 Hours
+Negative Marking: None
+```
+
+Also display:
+
+**Paper 1**
+Teaching & Research Aptitude
+
+**Paper 2**
+Computer Science & Applications
+
+---
+
+# 4. PAPER 1 — COMPLETE STRUCTURE
+
+Create Paper 1 with these 10 units:
+
+## Unit I — Teaching Aptitude
+
+Topics should include the applicable concepts under Teaching Aptitude.
+
+## Unit II — Research Aptitude
+
+Include:
+
+* Research fundamentals
+* Research methods
+* Research design
+* Sampling
+* Data collection
+* Research ethics
+* Referencing
+* Academic integrity
+* Research tools
+
+## Unit III — Comprehension
+
+Support passage-based questions.
+
+## Unit IV — Communication
+
+Include:
+
+* Communication models
+* Types of communication
+* Barriers
+* Effective communication
+* Classroom communication
+* Mass communication
+
+## Unit V — Mathematical Reasoning
+
+Include applicable mathematical reasoning concepts.
+
+## Unit VI — Logical Reasoning
+
+Include:
+
+* Arguments
+* Deduction
+* Induction
+* Propositions
+* Logical relationships
+* Fallacies
+
+## Unit VII — Data Interpretation
+
+Include:
+
+* Tables
+* Bar charts
+* Pie charts
+* Line graphs
+* Data analysis
+* Ratio
+* Percentage
+* Average
+* Interpretation
+
+## Unit VIII — ICT
+
+Include:
+
+* Computer fundamentals
+* Internet
+* Networking basics
+* Digital technologies
+* Communication technologies
+* Information systems
+* Emerging ICT
+
+## Unit IX — People, Development & Environment
+
+Include the applicable environmental and development concepts.
+
+## Unit X — Higher Education System
+
+Include:
+
+* Indian higher education
+* Institutions
+* Policies
+* Governance
+* Regulatory framework
+* Education initiatives
+
+Map each PYQ and practice question to:
+
+```text
+Paper 1
+→ Unit
+→ Topic
+→ Subtopic
+```
+
+---
+
+# 5. PAPER 2 — COMPUTER SCIENCE & APPLICATIONS
+
+Create a dedicated 10-unit Computer Science taxonomy.
+
+## UNIT 1 — DISCRETE STRUCTURES & OPTIMIZATION
+
+Topics:
+
+* Sets
+* Relations
+* Functions
+* Propositional logic
+* Predicate logic
+* Boolean reasoning
+* Graph theory
+* Trees
+* Spanning trees
+* Shortest path
+* Graph algorithms
+* Combinatorics
+* Recurrence relations
+* Optimization
+* Linear programming
+* Simplex method
+
+Suggested historical question range:
+
+**6–8 questions**
+
+Do not force exactly this number in every examination. Store observed distributions from actual papers.
+
+---
+
+# UNIT 2 — COMPUTER SYSTEM ARCHITECTURE
+
+Topics:
+
+* Number systems
+* Binary arithmetic
+* Boolean algebra
+* Logic gates
+* Combinational circuits
+* Sequential circuits
+* CPU organization
+* Instruction sets
+* Control unit
+* Memory hierarchy
+* Cache
+* Virtual memory
+* Pipelining
+* RISC
+* CISC
+* I/O organization
+
+---
+
+# UNIT 3 — PROGRAMMING LANGUAGES & COMPUTER GRAPHICS
+
+Topics:
+
+* C
+* C++
+* Java
+* Programming paradigms
+* OOP
+* Inheritance
+* Polymorphism
+* Encapsulation
+* Abstraction
+* Recursion
+* Algorithm paradigms
+* Greedy algorithms
+* Dynamic programming
+* Backtracking
+* Complexity
+* Big-O
+* Computer graphics
+* 2D transformations
+* 3D transformations
+* Viewing
+* Clipping
+* Rendering fundamentals
+
+---
+
+# UNIT 4 — DATABASE MANAGEMENT SYSTEMS
+
+Topics:
+
+* ER model
+* Relational model
+* Relational algebra
+* Relational calculus
+* SQL
+* Functional dependencies
+* Normalization
+* 1NF
+* 2NF
+* 3NF
+* BCNF
+* Transactions
+* ACID properties
+* Serializability
+* Concurrency control
+* Two-phase locking
+* Deadlocks
+* Recovery
+* Indexing
+* B-tree
+* B+ tree
+* Hashing
+* Query processing
+* Query optimization
+* Distributed databases
+* NoSQL
+
+Priority topics:
+
+**SQL**
+
+**Normalization**
+
+**Transactions**
+
+**Concurrency**
+
+**Indexing**
+
+---
+
+# UNIT 5 — SYSTEM SOFTWARE & OPERATING SYSTEMS
+
+Topics:
+
+* Processes
+* Threads
+* Process states
+* CPU scheduling
+* FCFS
+* SJF
+* SRTF
+* Priority
+* Round Robin
+* Synchronization
+* Critical section
+* Semaphores
+* Monitors
+* Deadlocks
+* Banker’s algorithm
+* Memory allocation
+* Paging
+* Segmentation
+* Virtual memory
+* Page replacement
+* FIFO
+* LRU
+* Optimal
+* Thrashing
+* File systems
+* Disk scheduling
+* System software
+* Assemblers
+* Loaders
+* Linkers
+
+High-value calculation categories:
+
+* CPU scheduling
+* Page faults
+* Deadlock
+* Memory allocation
+* Disk scheduling
+
+---
+
+# UNIT 6 — SOFTWARE ENGINEERING
+
+Topics:
+
+* SDLC
+* Waterfall
+* Incremental models
+* Spiral
+* Prototype model
+* Agile
+* Scrum
+* Requirements engineering
+* UML
+* Software architecture
+* Design patterns
+* Cohesion
+* Coupling
+* Testing
+* Black-box testing
+* White-box testing
+* Integration testing
+* Regression testing
+* COCOMO
+* Software metrics
+* Reliability
+* Risk management
+* Maintenance
+
+---
+
+# UNIT 7 — DATA STRUCTURES & ALGORITHMS
+
+Topics:
+
+* Arrays
+* Linked lists
+* Stacks
+* Queues
+* Trees
+* Binary trees
+* BST
+* AVL
+* B-tree
+* B+ tree
+* Red-Black trees
+* Heaps
+* Graphs
+* BFS
+* DFS
+* Dijkstra
+* Prim
+* Kruskal
+* Hashing
+* Collision handling
+* Sorting
+* Searching
+* Divide and conquer
+* Greedy algorithms
+* Dynamic programming
+* Backtracking
+* Complexity analysis
+
+High-priority areas:
+
+**Tree traversals**
+
+**Graph algorithms**
+
+**Sorting**
+
+**Complexity**
+
+**Hashing**
+
+---
+
+# UNIT 8 — THEORY OF COMPUTATION & COMPILERS
+
+Topics:
+
+* Formal languages
+* Finite automata
+* DFA
+* NFA
+* ε-NFA
+* Regular expressions
+* Regular languages
+* Context-free grammars
+* CFG
+* PDA
+* Parse trees
+* Ambiguity
+* Chomsky hierarchy
+* Pumping lemma
+* Turing machines
+* Decidability
+* Undecidability
+* Complexity
+* Compiler phases
+* Lexical analysis
+* Syntax analysis
+* Parsing
+* Semantic analysis
+* Intermediate code
+* Code generation
+* Optimization
+
+High-priority:
+
+**DFA/NFA conversion**
+
+**Regular expressions**
+
+**CFG**
+
+**PDA**
+
+**Pumping lemma**
+
+**Turing machines**
+
+**Compiler parsing**
+
+---
+
+# UNIT 9 — DATA COMMUNICATION & COMPUTER NETWORKS
+
+Topics:
+
+* Data communication
+* Network topologies
+* Transmission media
+* OSI model
+* TCP/IP
+* Ethernet
+* MAC
+* ARP
+* IP
+* IPv4
+* IPv6
+* Subnetting
+* CIDR
+* Routing
+* RIP
+* OSPF
+* BGP
+* TCP
+* UDP
+* Flow control
+* Congestion control
+* HTTP
+* HTTPS
+* FTP
+* DNS
+* SMTP
+* DHCP
+* Wireless networks
+* Cloud networking
+* Network security basics
+
+High-priority:
+
+**Subnetting**
+
+**CIDR**
+
+**OSI/TCP-IP**
+
+**Routing**
+
+**TCP vs UDP**
+
+**Application protocols**
+
+---
+
+# UNIT 10 — ARTIFICIAL INTELLIGENCE
+
+Topics:
+
+* AI fundamentals
+* Problem solving
+* State-space search
+* BFS
+* DFS
+* Uniform-cost search
+* A*
+* Heuristics
+* Minimax
+* Alpha-beta pruning
+* Knowledge representation
+* Logic
+* Expert systems
+* Machine learning
+* Supervised learning
+* Unsupervised learning
+* Reinforcement learning
+* Decision trees
+* k-NN
+* SVM
+* Neural networks
+* NLP
+* Learning concepts
+
+Do not assume every subtopic has equal historical weight. Analyze the actual PYQ dataset.
+
+---
+
+# 6. AUTHENTIC PYQ LIBRARY
+
+Create a complete historical PYQ repository.
+
+Every question must have provenance.
+
+Required metadata:
+
+```text
+id
+exam
+subject_code
+paper
+year
+session
+exam_date
+shift
+question_number
+unit
+topic
+subtopic
+question_text
+options
+correct_answer
+answer_key_reference
+source_type
+source_url
+source_reference
+difficulty
+language
+explanation
+```
+
+Source types:
+
+```text
+OFFICIAL_PYQ
+VERIFIED_PYQ
+AI_PRACTICE
+AI_MOCK
+```
+
+---
+
+# 7. PAPER 1 + PAPER 2 PYQ BROWSING
+
+Allow users to select:
+
+### Paper
+
+* Paper 1
+* Paper 2 — Computer Science & Applications
+
+### Year
+
+All verified available years.
+
+### Session
+
+Use the actual session terminology applicable to each historical examination cycle.
+
+### Shift
+
+Where applicable.
+
+### Unit
+
+Paper-specific unit list.
+
+### Topic
+
+Topic list dynamically filtered by selected unit.
+
+### Difficulty
+
+* Easy
+* Medium
+* Hard
+
+### Status
+
+* Unattempted
+* Attempted
+* Correct
+* Incorrect
+* Bookmarked
+
+---
+
+# 8. HISTORICAL COVERAGE
+
+Build the system to ingest and organize historical examination material across available cycles.
+
+IMPORTANT:
+
+Do not only collect recent years.
+
+Create a historical corpus wherever legitimate source material is available.
+
+For Computer Science, support historical paper structures and preserve year/session/paper metadata.
+
+Where applicable, include older Computer Science examination material that provides useful historical coverage, but clearly label the original examination structure and year.
+
+Do not relabel an old paper as a modern Paper 2.
+
+---
+
+# 9. PAPER 2 HISTORICAL PAPER STRUCTURE
+
+Because historical UGC NET Computer Science examinations may have used different paper structures, the database must preserve:
+
+* Historical paper identity
+* Original paper number
+* Question numbering
+* Session
+* Year
+* Shift
+* Source
+
+Where older Computer Science examination material is relevant to current preparation, allow it to be used for practice while clearly showing its historical origin.
+
+Do not merge historically distinct papers into one fake modern paper.
+
+---
+
+# 10. PYQ QUICK PRACTICE
+
+Provide:
+
+### Practice All PYQs
+
+### Paper 1 PYQs
+
+### Paper 2 PYQs
+
+### Computer Science Unit-wise PYQs
+
+### Year-wise PYQs
+
+### Topic-wise PYQs
+
+### Random PYQs
+
+### Incorrect PYQs
+
+### Bookmarked PYQs
+
+### Weak Topic PYQs
+
+### High-Frequency Topic PYQs
+
+---
+
+# 11. QUESTION INTERFACE
+
+Design a premium question-solving interface.
+
+Header:
+
+```text
+UGC NET
+Paper 2 — Computer Science & Applications
+
+Unit 4 — DBMS
+Topic — Normalization
+
+2024 | Shift 1 | Question 42
+```
+
+Then:
+
+### Question
+
+Display the verified question.
+
+### Options
+
+Display all options.
+
+User can select an answer.
+
+Controls:
+
+* Previous
+* Next
+* Clear
+* Mark for Review
+* Bookmark
+* Submit
+
+Show:
+
+**Question 42 of 100**
+
+and a visual progress indicator.
+
+---
+
+# 12. QUESTION EXPLANATION
+
+After answer submission:
+
+Display:
+
+**Your Answer**
+
+**Correct Answer**
+
+**Result**
+
+Then:
+
+### Detailed Explanation
+
+For Computer Science questions, explain the underlying concept.
+
+For calculation questions, show the reasoning step-by-step.
+
+For code/output questions, explain execution.
+
+For algorithms, explain complexity where relevant.
+
+For DBMS questions, explain relational/transactional reasoning.
+
+For OS questions, explain scheduling/memory calculations.
+
+For networking questions, explain protocol behavior.
+
+For TOC questions, explain the formal reasoning.
+
+Never provide a vague one-line explanation for difficult technical questions.
+
+---
+
+# 13. ORIGINAL PRACTICE QUESTION ENGINE
+
+Create a completely separate bank of original questions.
+
+Label:
+
+**AI Practice**
+
+Never call these PYQs.
+
+Generate questions based on:
+
+* Official syllabus
+* Historical concepts
+* Historical difficulty
+* Common misconceptions
+* Topic importance
+* User weaknesses
+* Exam-style reasoning
+
+Never directly copy official questions.
+
+---
+
+# 14. QUESTION DIFFICULTY
+
+Use:
+
+### Easy
+
+Basic concept recognition.
+
+### Medium
+
+Concept application and moderate reasoning.
+
+### Hard
+
+Multi-step reasoning, calculation, code tracing, algorithmic analysis, or subtle conceptual distinctions.
+
+Difficulty must be based on actual question characteristics, not arbitrary labels.
+
+---
+
+# 15. COMPUTER SCIENCE-SPECIFIC PRACTICE GENERATION
+
+Generate realistic questions such as:
+
+### DBMS
+
+SQL queries, normalization, transaction schedules, indexing.
+
+### OS
+
+CPU scheduling, page replacement, deadlock.
+
+### Algorithms
+
+Complexity, recursion, sorting, graph algorithms.
+
+### Networks
+
+Subnetting, routing, protocol behavior.
+
+### TOC
+
+DFA/NFA, CFG, pumping lemma, Turing machines.
+
+### Architecture
+
+Cache, pipeline, Boolean logic, CPU organization.
+
+### Software Engineering
+
+Testing, COCOMO, UML, design principles.
+
+### Discrete Mathematics
+
+Graphs, logic, relations, combinatorics.
+
+### AI
+
+Search, heuristics, ML concepts, knowledge representation.
+
+### Programming
+
+C/C++/Java concepts, OOP, recursion, output prediction.
+
+---
+
+# 16. FULL MOCK TEST
+
+Create a full UGC NET simulation.
+
+Default configured structure:
+
+```text
+Paper 1
+50 Questions
+100 Marks
+
+Paper 2
+100 Questions
+200 Marks
+
+Total
+150 Questions
+300 Marks
+
+Duration
+3 Hours
+```
+
+No negative marking under the configured pattern.
+
+But make all of this configurable per exam cycle.
+
+---
+
+# 17. MOCK TEST TYPES
+
+Provide:
+
+### Full-Length Mock
+
+Paper 1 + Paper 2
+
+### Paper 1 Mock
+
+50 questions
+
+### Paper 2 Computer Science Mock
+
+100 questions
+
+### Unit Mock
+
+Example:
+
+DBMS only
+
+### Topic Mock
+
+Example:
+
+SQL only
+
+### PYQ Mock
+
+Authentic PYQs where permitted.
+
+### PYQ-Based Mock
+
+Questions inspired by historical concepts and structure, but clearly labeled.
+
+### Weak Area Mock
+
+Generated around the user's weak topics.
+
+### Adaptive Mock
+
+Generated based on performance history.
+
+---
+
+# 18. FULL EXAM SIMULATION EXPERIENCE
+
+The mock test should behave like a serious CBT platform.
+
+Include:
+
+* Countdown timer
+* Question palette
+* Answer status
+* Mark for review
+* Clear response
+* Previous
+* Next
+* Section navigation
+* Auto-save
+* Submit test
+* Submission confirmation
+* Prevent accidental data loss
+
+For the full test:
+
+**Paper 1 + Paper 2 should be treated as one 3-hour examination experience**, unless the selected historical exam pattern specifies otherwise.
+
+---
+
+# 19. QUESTION PALETTE
+
+Use intuitive visual states:
+
+* Not Visited
+* Visited
+* Answered
+* Marked for Review
+* Answered + Marked for Review
+
+Ensure the palette works well on desktop and mobile.
+
+---
+
+# 20. MOCK QUESTION DISTRIBUTION
+
+Do not always generate an arbitrary random distribution.
+
+Allow the mock engine to consider:
+
+* Official syllabus
+* Historical PYQ frequency
+* Unit importance
+* Difficulty distribution
+* User weak areas
+* Previously seen questions
+* Question-type distribution
+
+Example Paper 2 configuration:
+
+```text
+Unit 1 → historical distribution
+Unit 2 → historical distribution
+Unit 3 → historical distribution
+Unit 4 → historical distribution
+...
+Unit 10 → historical distribution
+```
+
+The system should calculate these distributions from the real question bank whenever enough verified historical data exists.
+
+---
+
+# 21. NEGATIVE MARKING CONFIGURATION
+
+The current configured target pattern uses:
+
+**Negative Marking = None**
+
+However, do not hardcode this globally.
+
+Store:
+
+```text
+correct_marks
+negative_marks
+```
+
+inside:
+
+**ExamPattern / ExamCycle**
+
+This prevents the application from becoming incorrect if the official pattern changes.
+
+---
+
+# 22. RESULT SCREEN
+
+After completing the test:
+
+## Overall Score
+
+Display:
+
+**Score / Maximum Marks**
+
+**Percentage**
+
+**Accuracy**
+
+**Attempt Rate**
+
+**Correct**
+
+**Incorrect**
+
+**Skipped**
+
+**Time Used**
+
+---
+
+# 23. PAPER-WISE RESULT
+
+Show:
+
+| Metric    | Paper 1 | Paper 2 |
+| --------- | ------: | ------: |
+| Questions |      50 |     100 |
+| Marks     |     100 |     200 |
+| Attempted |       — |       — |
+| Correct   |       — |       — |
+| Incorrect |       — |       — |
+| Accuracy  |       — |       — |
+| Time      |       — |       — |
+
+Use exam-cycle configuration rather than hardcoded values.
+
+---
+
+# 24. PAPER 2 UNIT ANALYSIS
+
+Display:
+
+| Unit                         | Solved | Correct | Accuracy |
+| ---------------------------- | -----: | ------: | -------: |
+| Discrete Structures          |      — |       — |        — |
+| Architecture                 |      — |       — |        — |
+| Programming & Graphics       |      — |       — |        — |
+| DBMS                         |      — |       — |        — |
+| OS & System Software         |      — |       — |        — |
+| Software Engineering         |      — |       — |        — |
+| Data Structures & Algorithms |      — |       — |        — |
+| TOC & Compilers              |      — |       — |        — |
+| Networks                     |      — |       — |        — |
+| AI                           |      — |       — |        — |
+
+---
+
+# 25. HIGH-YIELD ANALYTICS
+
+Do not hardcode claims such as:
+
+> "DBMS always has 10 questions."
+
+Instead calculate actual historical statistics from the stored PYQ dataset.
+
+Show:
+
+**DBMS**
+
+Questions observed:
+**X**
+
+Years analyzed:
+**Y**
+
+Average questions/exam:
+**Z**
+
+Most frequent topics:
+
+* SQL
+* Normalization
+* Transactions
+* Concurrency
+
+Do the same for:
+
+* OS
+* Data Structures & Algorithms
+* Networks
+* TOC
+* Discrete Structures
+* Architecture
+* Software Engineering
+* Programming
+* AI
+
+---
+
+# 26. HISTORICAL TREND ANALYTICS
+
+Create charts for:
+
+* Questions by year
+* Questions by unit
+* Questions by topic
+* Difficulty distribution
+* Repeated concepts
+* Unit frequency
+* Topic frequency
+
+Allow toggling between:
+
+**Paper 1**
+
+**Paper 2**
+
+---
+
+# 27. REPEATED CONCEPT ANALYSIS
+
+Identify concepts that appear repeatedly across verified PYQs.
+
+Example:
+
+**Normalization**
+
+Seen in:
+2019, 2020, 2021, 2023, 2024...
+
+But only show such claims when the dataset actually supports them.
+
+Provide:
+
+**Frequency**
+
+**Years Appeared**
+
+**Number of Questions**
+
+**Last Seen**
+
+---
+
+# 28. MISTAKE BOOK
+
+Automatically save every incorrect response.
+
+Create:
+
+# My Mistakes
+
+Filters:
+
+* Paper 1
+* Paper 2
+* Unit
+* Topic
+* Difficulty
+* Attempt count
+
+Actions:
+
+**Retry**
+
+**Review Explanation**
+
+**Bookmark**
+
+**Practice Similar Questions**
+
+---
+
+# 29. PERSONALIZED PRACTICE
+
+Use performance data to generate:
+
+### Weak Topic Practice
+
+Example:
+
+> You have 54% accuracy in Theory of Computation.
+
+Generate:
+
+**15 TOC practice questions**
+
+### Revision Practice
+
+Questions the user has previously answered incorrectly.
+
+### Speed Practice
+
+Questions designed to improve time efficiency.
+
+### Concept Reinforcement
+
+Original questions around concepts repeatedly answered incorrectly.
+
+---
+
+# 30. BOOKMARKS
+
+Allow bookmarking from:
+
+* PYQ
+* Practice
+* Mock review
+
+Create:
+
+# Saved Questions
+
+Categories:
+
+* PYQs
+* Practice
+* Mock
+* Difficult
+* Revision
+
+---
+
+# 31. ATTEMPT HISTORY
+
+Track every question attempt.
+
+Example:
+
+```text
+DBMS — Normalization
+
+Attempt 1 → Incorrect
+Attempt 2 → Incorrect
+Attempt 3 → Correct
+```
+
+Store:
+
+* Date
+* Answer
+* Result
+* Time
+* Source
+* Test/session
+
+Use this history for personalized recommendations.
+
+---
+
+# 32. SEARCH
+
+Global search should support:
+
+```text
+SQL
+normalization
+deadlock
+Dijkstra
+TCP
+subnetting
+DFA
+pumping lemma
+COCOMO
+cache
+A*
+research design
+sampling
+ICT
+```
+
+Display:
+
+* Question
+* Paper
+* Unit
+* Topic
+* Year
+* Source Type
+
+---
+
+# 33. BILINGUAL SUPPORT
+
+Support:
+
+**English**
+
+**Hindi**
+
+The interface should support language switching.
+
+Where bilingual official question content is legitimately available, store both versions.
+
+Data model:
+
+```text
+question_text_en
+question_text_hi
+
+option_a_en
+option_a_hi
+...
+```
+
+Do not machine-translate an official question and present it as an official source without clear provenance.
+
+---
+
+# 34. ADMIN QUESTION MANAGEMENT
+
+Build an admin panel.
+
+Admin capabilities:
+
+* Import historical papers
+* Import answer keys
+* Create questions
+* Edit questions
+* Verify questions
+* Assign units
+* Assign topics
+* Set difficulty
+* Add explanation
+* Add source
+* Publish
+* Unpublish
+* Review duplicates
+* Review AI-generated questions
+* Mark disputed answers
+* Track provenance
+
+---
+
+# 35. OFFICIAL PYQ VERIFICATION WORKFLOW
+
+Create a workflow:
+
+```text
+Imported
+↓
+Parsed
+↓
+Source Attached
+↓
+Answer Key Attached
+↓
+Unit Assigned
+↓
+Topic Assigned
+↓
+Human Review
+↓
+Verified
+↓
+Published
+```
+
+Only verified questions can receive:
+
+**OFFICIAL_PYQ**
+
+Do not bypass this workflow.
+
+---
+
+# 36. SOURCE / PROVENANCE SYSTEM
+
+Every PYQ must retain provenance.
+
+Example:
+
+```text
+Source Type:
+OFFICIAL_PYQ
+
+Exam:
+UGC NET
+
+Year:
+2024
+
+Session:
+[session]
+
+Paper:
+Paper 2
+
+Subject Code:
+87
+
+Shift:
+Shift 1
+
+Question:
+42
+
+Source:
+Official examination paper
+
+Source Reference:
+[...]
+
+Answer Key:
+[...]
+
+Verification:
+Verified
+```
+
+Do not fabricate source URLs or official answer keys.
+
+---
+
+# 37. COPYRIGHT / CONTENT RIGHTS
+
+Do not assume all historical examination content can automatically be redistributed.
+
+Build the system so that:
+
+* Sources are attributed
+* Rights are respected
+* Official documents can be referenced appropriately
+* Content with unclear redistribution rights can be handled through permitted storage/reference workflows
+
+Never invent official NTA material.
+
+---
+
+# 38. DATABASE DESIGN
+
+Create scalable entities:
+
+```text
+Exam
+ExamCycle
+ExamPattern
+SyllabusVersion
+
+Paper
+Subject
+Unit
+Topic
+Subtopic
+
+ExamSession
+ExamShift
+
+Question
+QuestionOption
+QuestionSource
+AnswerKey
+QuestionVerification
+
+QuestionAttempt
+Bookmark
+Mistake
+
+MockTest
+MockTestQuestion
+MockTestAttempt
+
+UserPerformance
+UserTopicPerformance
+UserPaperPerformance
+```
+
+Question model:
+
+```text
+id
+exam_id
+exam_cycle_id
+paper_id
+subject_id
+syllabus_version_id
+
+session_id
+shift_id
+year
+exam_date
+question_number
+
+unit_id
+topic_id
+subtopic_id
+
+question_text_en
+question_text_hi
+
+question_type
+difficulty
+
+source_type
+source_url
+source_reference
+
+correct_answer
+explanation
+
+verification_status
+
+created_at
+updated_at
+```
+
+---
+
+# 39. EXAM-CYCLE VERSIONING
+
+This is critical.
+
+Do not treat the examination pattern and syllabus as permanently static.
+
+Create:
+
+```text
+ExamCycle
+├── year
+├── session
+├── pattern_version
+├── syllabus_version
+├── question_count
+├── marks
+├── duration
+├── negative_marking
+└── language_rules
+```
+
+Historical questions should always point to the relevant exam cycle/version.
+
+---
+
+# 40. QUICK ACCESS DESIGN
+
+Create premium Quick Access cards:
+
+### PYQs
+
+**Practice authentic previous-year questions**
+
+### Practice
+
+**Build skill with original questions**
+
+### Mock Tests
+
+**Simulate the UGC NET exam**
+
+### Mistakes
+
+**Review questions you got wrong**
+
+### Analytics
+
+**Understand your preparation**
+
+Make these visually consistent with the existing application's design system.
+
+---
+
+# 41. DASHBOARD STATISTICS
+
+Display:
+
+**PYQs Solved**
+
+**Paper 1 Accuracy**
+
+**Paper 2 Accuracy**
+
+**Computer Science PYQs**
+
+**Practice Questions**
+
+**Mock Tests**
+
+**Weak Units**
+
+**Study Streak**
+
+**Average Score**
+
+**Best Score**
+
+---
+
+# 42. PREPARATION PRIORITY ENGINE
+
+Use actual historical data + user performance to recommend priorities.
+
+For example:
+
+```text
+Priority 1
+DBMS
+Reason:
+High historical frequency + low user accuracy
+
+Priority 2
+OS
+Reason:
+High calculation-error rate
+
+Priority 3
+TOC
+Reason:
+Low accuracy in recent attempts
+```
+
+Do not rely only on generic assumptions such as "DBMS is always high priority."
+
+Combine:
+
+**Historical Frequency**
+
+*
+
+**User Accuracy**
+
+*
+
+**User Error Rate**
+
+*
+
+**Time Taken**
+
+---
+
+# 43. PYQ → PRACTICE → MOCK PIPELINE
+
+The system should connect all three learning modes.
+
+Example:
+
+```text
+User struggles with:
+DBMS → Normalization
+
+↓
+Show 10 verified DBMS PYQs
+
+↓
+
+Analyze mistakes
+
+↓
+
+Generate 15 original practice questions
+
+↓
+
+Generate a Normalization mini-test
+
+↓
+
+Add related questions to mistake book
+
+↓
+
+Recommend full DBMS mock
+
+↓
+
+Eventually include DBMS questions in personalized full mock
+```
+
+This should become the core preparation loop.
+
+---
+
+# 44. VISUAL / UX DIRECTION
+
+The entire experience should feel:
+
+**Premium**
+**Academic**
+**Professional**
+**Modern**
+**Focused**
+**Trustworthy**
+
+Think:
+
+**Top-tier EdTech + Professional CBT Platform + Modern SaaS**
+
+Use:
+
+* Excellent typography
+* Strong hierarchy
+* Clean spacing
+* Refined cards
+* Clear states
+* Subtle animations
+* Responsive layouts
+* Accessible contrast
+* Minimal visual noise
+
+Avoid:
+
+* Generic quiz UI
+* Cheap-looking cards
+* Excessive gradients
+* Excessive glassmorphism
+* Excessive rounded elements
+* Too many badges
+* Too many icons
+* Distracting animations
+* Cluttered analytics
+
+---
+
+# 45. MOBILE-FIRST QUESTION EXPERIENCE
+
+Ensure questions work perfectly on mobile.
+
+Optimize:
+
+* Question text
+* Options
+* Timer
+* Navigation
+* Bookmark
+* Review
+* Explanation
+* Question palette
+* Results
+
+Controls must be large enough for touch interaction.
+
+---
+
+# 46. CONTENT QUALITY REQUIREMENTS
+
+For official PYQs:
+
+* Preserve original wording
+* Preserve options
+* Preserve question number
+* Preserve exam metadata
+* Verify answer
+* Maintain source
+* Track disputes/revisions
+
+For AI practice:
+
+* Validate the correct answer
+* Validate explanation
+* Check ambiguity
+* Check syllabus relevance
+* Check difficulty
+* Check duplicate similarity
+* Check technical accuracy
+
+For Computer Science questions additionally validate:
+
+* Code
+* SQL
+* Algorithms
+* Mathematical calculations
+* Complexity
+* Automata
+* Parsing
+* Networking
+* OS scheduling
+* Data structures
+
+---
+
+# 47. IMPORTANT DISTINCTION
+
+Always visually and semantically distinguish:
+
+## OFFICIAL PYQ
+
+A real question from a historical examination.
+
+## VERIFIED PYQ
+
+A question verified against reliable archival evidence.
+
+## AI PRACTICE
+
+A newly generated question.
+
+## AI MOCK
+
+A newly generated question used for simulated testing.
+
+Never blur these categories.
+
+---
+
+# 48. FINAL USER FLOW
+
+The ideal user journey should be:
+
+```text
+Dashboard
+   ↓
+Quick Access
+   ↓
+UGC NET PYQs
+   ↓
+Choose Paper
+   ↓
+Choose Year / Session / Unit / Topic
+   ↓
+Practice Real PYQs
+   ↓
+View Detailed Explanation
+   ↓
+Analyze Weak Areas
+   ↓
+Practice Original Questions
+   ↓
+Retry Mistakes
+   ↓
+Take Topic Test
+   ↓
+Take Paper 1 Mock
+   ↓
+Take Paper 2 Computer Science Mock
+   ↓
+Take Full 3-Hour UGC NET Mock
+   ↓
+Analyze Results
+   ↓
+Personalized Recommendations
+   ↓
+Repeat
+```
+
+---
+
+# 49. FINAL IMPLEMENTATION REQUIREMENT
+
+Before implementing anything:
+
+1. Inspect the existing application architecture.
+2. Inspect the current exam/question system.
+3. Inspect the database schema.
+4. Inspect authentication and user-progress tracking.
+5. Inspect the dashboard.
+6. Inspect Quick Access.
+7. Inspect existing mock/test functionality.
+8. Inspect the existing design system.
+9. Reuse existing components where appropriate.
+10. Avoid breaking existing functionality.
+
+Do not create only a front-end mockup.
+
+Implement the complete underlying architecture necessary for:
+
+* PYQ storage
+* Source verification
+* Paper/unit/topic classification
+* Search
+* Filtering
+* Practice
+* Attempts
+* Bookmarks
+* Mistake tracking
+* Mock generation
+* Exam simulation
+* Analytics
+* Historical trend analysis
+* Personalized practice
+* Admin verification
+* Exam-cycle versioning
+
+The final product should feel like a **complete UGC NET Computer Science preparation ecosystem**, with **authentic PYQs as the foundation, original practice questions for mastery, and mock tests for exam readiness**.
+
+## Core principle
+
+**REAL PYQs → CONCEPT MASTERY → TARGETED PRACTICE → MISTAKE REVIEW → MOCK TEST → ANALYTICS → PERSONALIZED PREPARATION**

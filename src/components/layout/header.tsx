@@ -14,6 +14,7 @@ import {
   Library,
   PenTool,
   FileQuestion,
+  FileText,
   Timer,
   CalendarDays,
   Sparkles,
@@ -40,13 +41,14 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { key: 'home', label: 'Home', icon: GraduationCap, group: 'study' },
   { key: 'subjects', label: 'Subjects', icon: Library, group: 'study' },
+  { key: 'pyq-dashboard', label: 'PYQs', icon: FileText, group: 'study' },
   { key: 'notes', label: 'Notes', icon: PenTool, group: 'study' },
   { key: 'cheat-sheets', label: 'Cheat Sheets', icon: Sparkles, group: 'study' },
   { key: 'books', label: 'Books', icon: BookMarked, group: 'study' },
   { key: 'articles', label: 'Articles', icon: PenTool, group: 'study' },
   { key: 'exam-info', label: 'Exam Info', icon: Info, group: 'study' },
   { key: 'practice', label: 'Practice', icon: FileQuestion, group: 'practice' },
-  { key: 'pyqs', label: 'PYQs', icon: FileQuestion, group: 'practice' },
+  { key: 'pyqs', label: 'PYQ Library', icon: FileText, group: 'practice' },
   { key: 'mock-tests', label: 'Mock Tests', icon: Timer, group: 'practice' },
   { key: 'revision', label: 'Revision', icon: RotateCcw, group: 'practice' },
   { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, group: 'personal' },
@@ -88,7 +90,7 @@ export function Header() {
 
         {/* Desktop nav — primary items only, rest in mobile menu */}
         <nav className="hidden lg:flex items-center gap-0.5 ml-2">
-          {NAV_ITEMS.filter((i) => ['home', 'subjects', 'notes', 'practice', 'mock-tests', 'dashboard', 'revision', 'planner'].includes(i.key)).map((item) => {
+          {NAV_ITEMS.filter((i) => ['home', 'subjects', 'pyq-dashboard', 'notes', 'practice', 'mock-tests', 'dashboard', 'revision', 'planner'].includes(i.key)).map((item) => {
             const Icon = item.icon
             const active = view === item.key
             return (

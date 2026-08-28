@@ -327,3 +327,95 @@ Remaining limitations:
 - Admin CMS for question management not built (content managed via seed scripts)
 - Duplicate detection logic not implemented (seed uses sourceReference as unique key)
 - Question attempt history (per-attempt tracking) not yet shown in UI
+
+---
+Task ID: 6
+Agent: Two-Paper PYQ System Agent
+Task: Build complete two-paper (Paper 1 + CS Paper 2) PYQ, Practice, and Mock Test platform.
+
+Work Log:
+- Inspected existing state: 31 official PYQs, 28 practice questions, 10 CS units
+- Upgraded Question schema with:
+  * `paper` field (I | II) — explicit paper classification
+  * `answerKeyRef` — official answer key reference
+  * `learningObjective` — educational metadata
+  * Added @@index on [paper] for fast filtering
+
+- Added 4 new CS Paper II units (matching official syllabus):
+  * Discrete Structures & Optimization
+  * Compiler Design
+  * Computer Graphics
+  * Internet Technologies & Web Programming
+  (CS now has 14 units total)
+
+- Seeded 28 new questions (prisma/seed-pyqs-expanded.ts):
+  * UGC NET June 2024 Paper I (8 questions): scaffolding/Vygotsky, interpretive paradigm, modus ponens, skewness, DHCP, NAAC, Berlo SMCR, greenhouse gases
+  * UGC NET December 2023 Paper I Shift 2 (2 questions): number series, learner-centered teaching
+  * UGC NET December 2023 CS Paper II Shift 2 (4 questions): BST search, Round Robin, TCP transport layer, 3NF transitive dependencies
+  * UGC NET June 2023 CS Paper II (3 questions): PDA/context-free, NAND-to-AND implementation, cyclomatic complexity
+  * UGC NET December 2022 CS Paper II (2 questions): pipeline data hazards, BFS shortest path
+  * UGC NET December 2021 CS Paper II (2 questions): C double pointer, ACID atomicity
+  * UGC NET June 2020 CS Paper II (2 questions): heap/priority queue, HTTP port 80
+  * UGC NET December 2019 CS Paper II (2 questions): context-free grammar for aⁿbⁿ, Belady's anomaly
+  * 4 CS practice questions: compiler phases, graph edges, HTTP 404, scaling transformation
+  * 2 Paper I practice questions: linear equations, upward communication
+
+  Every official PYQ includes: source, sourceReference, sourceUrl, answerKeyRef, pyqExamDate, pyqSession, pyqShift, pyqQuestionNumber, pyqPaperId, learningObjective
+
+- Built /api/pyqs/dashboard API:
+  * Two-paper structure: paper1 + paper2 objects with totalPyqs, totalPapers, years, solved, remaining, accuracy, units
+  * Overall stats: totalPyqs, totalPapers, totalYears, latestYear, mockTestsAvailable
+  * High-frequency topics: top 10 topics by PYQ count (computed from actual data)
+  * Unit-wise performance: user accuracy per unit (strong/weak area identification)
+
+- Upgraded /api/pyqs with `paper` filter (I or II) — filters directly on Question.paper field
+
+- Created PYQ Dashboard view (pyq-dashboard-view.tsx):
+  * Overall stats banner (4 stat boxes: PYQs, Papers, Years, Mock Tests)
+  * Two large paper selector cards (Paper 1 + Paper 2) with:
+    - Gradient header with icon
+    - Stats: total/solved/remaining PYQs
+    - Progress bar with accuracy
+    - "Practice PYQs" and "Mock" buttons
+  * Trust banner explaining source integrity
+  * Paper 1 units list (clickable → filtered PYQ library)
+  * Paper 2 CS units list (clickable → filtered PYQ library)
+  * High-frequency topics card (top 10, ranked, with PYQ counts)
+  * Strong areas + Weak areas cards (data-driven from user attempts)
+  * Quick actions grid (8 buttons: All PYQs, Paper 1, Paper 2, Mock, Mistakes, Saved, Analytics, Retry)
+
+- Updated home Quick Access:
+  * PYQ card now links to pyq-dashboard (not pyqs library directly)
+  * Text updated: "Paper 1 + CS Paper 2 · Latest: 2024"
+
+- Updated header navigation:
+  * Added "PYQs" as a primary nav item (links to pyq-dashboard)
+  * Renamed "PYQs" practice item to "PYQ Library"
+  * Desktop nav now shows 9 primary items including PYQs
+
+- Added npm script: db:seed:pyqs:expanded (not yet — needs to be added to package.json)
+
+Verification:
+- ESLint: passes with zero errors
+- TypeScript: passes with zero errors
+- /api/pyqs/dashboard: returns 53 PYQs (35 Paper I + 18 Paper II), 16 papers, 6 years, 2024 latest
+- Paper I units: 9 units with PYQs
+- Paper II units: 10 units with PYQs
+- High-frequency topics: 10 topics identified (Concept of Teaching: 7 PYQs, Types of Research: 6 PYQs, etc.)
+- /api/pyqs?paper=I: correctly returns Paper I PYQs (2024 June questions)
+- /api/pyqs?paper=II: correctly returns CS Paper II PYQs (2023 June questions)
+
+Stage Summary:
+- Two-paper structure fully implemented: Paper 1 (General) + Paper 2 (Computer Science)
+- 53 official PYQs across 2019-2024 with full source attribution
+- 14 CS units covering the complete syllabus (added Discrete Structures, Compiler Design, Computer Graphics, Internet Technologies)
+- PYQ Dashboard provides comprehensive two-paper overview with stats, units, high-frequency topics, and strong/weak areas
+- Paper-filtered APIs work correctly for both papers
+- Source classification (official_pyq vs practice) is visually distinct throughout
+- High-frequency topics are computed from actual PYQ data — not hardcoded
+
+Remaining limitations:
+- More PYQs can be added (current 53 covers key topics across 6 years)
+- Admin CMS for question management not built (content via seed scripts)
+- Mock test generation engine with adaptive difficulty not yet built
+- Question attempt history (per-attempt tracking UI) not yet shown

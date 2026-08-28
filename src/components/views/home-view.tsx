@@ -33,7 +33,7 @@ import { cn } from '@/lib/utils'
 const QUICK_ACCESS = [
   { label: 'Paper I', icon: GraduationCap, view: 'subject-detail' as const, params: { slug: 'paper-1' }, color: 'from-emerald-500 to-teal-600' },
   { label: 'Paper II', icon: Library, view: 'subjects' as const, color: 'from-violet-500 to-purple-600' },
-  { label: 'UGC NET PYQs', icon: FileText, view: 'pyqs' as const, color: 'from-lime-500 to-emerald-600', featured: true },
+  { label: 'UGC NET PYQs', icon: FileText, view: 'pyq-dashboard' as const, color: 'from-lime-500 to-emerald-600', featured: true },
   { label: 'Notes', icon: PenTool, view: 'notes' as const, color: 'from-rose-500 to-pink-600' },
   { label: 'Cheat Sheets', icon: Sparkles, view: 'cheat-sheets' as const, color: 'from-cyan-500 to-blue-500' },
   { label: 'Practice', icon: FileQuestion, view: 'practice' as const, color: 'from-fuchsia-500 to-pink-600' },
@@ -170,7 +170,7 @@ export function HomeView() {
                 <div className="mt-3 font-semibold text-sm">{qa.label}</div>
                 {isPyq && pyqStats?.latestYear ? (
                   <div className="mt-0.5 text-[10px] text-muted-foreground">
-                    Real official questions · Latest: {pyqStats.latestYear}
+                    Paper 1 + CS Paper 2 · Latest: {pyqStats.latestYear}
                   </div>
                 ) : (
                   <div className="mt-0.5 text-xs text-muted-foreground flex items-center gap-0.5">

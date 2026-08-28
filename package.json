@@ -13,6 +13,7 @@
     "db:reset": "prisma migrate reset",
     "db:seed": "bun prisma/seed.ts",
     "db:seed:pyqs": "bun prisma/seed-pyqs.ts",
+    "db:seed:pyqs:expanded": "bun prisma/seed-pyqs-expanded.ts",
     "db:seed:exam-info": "bun prisma/seed-exam-info.ts"
   },
   "dependencies": {

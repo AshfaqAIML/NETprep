@@ -146,6 +146,8 @@ model Question {
   explanation     String
   difficulty      String   @default("medium") // easy | medium | hard
   questionType    String   @default("mcq") // mcq | assertion-reason | match | sequence | case-based
+  // --- Paper classification (Paper I vs Paper II) ---
+  paper           String   @default("I") // I | II
   // --- Source classification (CRITICAL for trust) ---
   sourceType      String   @default("practice") // official_pyq | verified_pyq | practice | mock
   // --- PYQ metadata (only populated for official_pyq / verified_pyq) ---
@@ -160,9 +162,11 @@ model Question {
   source          String?  // Human-readable source name
   sourceUrl       String?  // Official URL if available
   sourceReference String?  // Citation / paper reference code
+  answerKeyRef    String?  // Official answer key reference
   verified        Boolean  @default(false) // True only after editorial verification
   verifiedAt      DateTime?
-  // --- General metadata ---
+  // --- Educational metadata ---
+  learningObjective String? // What concept this question tests
   tags            String   @default("")
   status          String   @default("published") // draft | review | published | archived
   mockTests       MockTestQuestion[]
@@ -171,6 +175,7 @@ model Question {
   updatedAt       DateTime @updatedAt
 
   @@index([sourceType])
+  @@index([paper])
   @@index([pyqYear, pyqSession])
   @@index([pyqPaperId])
   @@index([topicId])

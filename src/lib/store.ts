@@ -32,6 +32,7 @@ export type ViewKey =
   | 'exam-info'
   | 'user-notes'
   | 'onboarding'
+  | 'pyq-dashboard'
 
 interface AppState {
   // Navigation

@@ -31,6 +31,7 @@ import { RevisionView } from '@/components/views/revision-view'
 import { ExamInfoView } from '@/components/views/exam-info-view'
 import { UserNotesView } from '@/components/views/user-notes-view'
 import { AnalyticsView } from '@/components/views/analytics-view'
+import { PyqDashboardView } from '@/components/views/pyq-dashboard-view'
 
 // Initialise bookmark cache on mount
 function useInitBookmarks() {
@@ -117,6 +118,8 @@ function ViewRouter({ view }: { view: string }) {
       return <UserNotesView />
     case 'analytics':
       return <AnalyticsView />
+    case 'pyq-dashboard':
+      return <PyqDashboardView />
     default:
       return <HomeView />
   }
