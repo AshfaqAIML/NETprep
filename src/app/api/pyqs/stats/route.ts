@@ -14,7 +14,7 @@ export async function GET() {
   try {
     const totalPyqs = await db.question.count({
       where: {
-        sourceType: { in: ['official_pyq', 'verified_pyq'] },
+        sourceType: { in: ['verified_pyq'] },
         pyqYear: { gt: 0 },
         status: 'published',
       },
@@ -23,7 +23,7 @@ export async function GET() {
     const distinctPapers = await db.question.groupBy({
       by: ['pyqPaperId'],
       where: {
-        sourceType: { in: ['official_pyq', 'verified_pyq'] },
+        sourceType: { in: ['verified_pyq'] },
         pyqPaperId: { not: '' },
       },
       _count: true,
@@ -31,7 +31,7 @@ export async function GET() {
 
     const latestYearResult = await db.question.findFirst({
       where: {
-        sourceType: { in: ['official_pyq', 'verified_pyq'] },
+        sourceType: { in: ['verified_pyq'] },
         pyqYear: { gt: 0 },
       },
       orderBy: { pyqYear: 'desc' },
@@ -49,7 +49,7 @@ export async function GET() {
                   select: {
                     questions: {
                       where: {
-                        sourceType: { in: ['official_pyq', 'verified_pyq'] },
+                        sourceType: { in: ['verified_pyq'] },
                         pyqYear: { gt: 0 },
                       },
                     },
@@ -77,7 +77,7 @@ export async function GET() {
     const yearGroups = await db.question.groupBy({
       by: ['pyqYear'],
       where: {
-        sourceType: { in: ['official_pyq', 'verified_pyq'] },
+        sourceType: { in: ['verified_pyq'] },
         pyqYear: { gt: 0 },
       },
       _count: true,

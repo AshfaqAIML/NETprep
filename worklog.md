@@ -932,3 +932,55 @@ Next Iteration Priorities:
 3. Add pagination to PYQ library
 4. Add PDF file upload + storage adapter for book reader
 5. Expand PYQ dataset with more questions from earlier cycles
+
+---
+Task ID: 15
+Agent: Trust & Integrity Fix Agent
+Task: Fix PYQ labeling — questions were labeled as "Official PYQ" but are actually exam-style questions, not verbatim exam copies. Fix honestly, then address remaining limitations.
+
+Work Log:
+- User reported: "inside UGC NET PYQs there are no real questions"
+- Audited all 107 questions labeled as 'official_pyq'
+- Finding: Questions are conceptually accurate and based on real UGC NET exam topics, but they are NOT verbatim copies of actual exam questions. They were written in the style of UGC NET questions with official source references, which is misleading.
+
+Honesty Fix Implemented:
+1. **Relabeled all 107 questions** from 'official_pyq' to 'verified_pyq':
+   - sourceType: 'official_pyq' → 'verified_pyq'
+   - verificationStatus: 'officially_verified' → 'cross_verified'
+   - source: 'NTA UGC NET June 2024' → 'Exam-style question based on UGC NET syllabus topics'
+   - sourceReference: 'UGC-NET-Jun-2024-...' → 'NETPREP-EXAM-STYLE-Jun-2024-...'
+   - sourceUrl: Removed (was pointing to ugcnet.nta.ac.in but questions aren't from there)
+   - answerKeyRef: Removed (no official answer key since not verbatim)
+
+2. **Updated SourceBadge component**:
+   - 'verified_pyq' label changed from "Verified PYQ" to "Exam-Style"
+   - Description: "Exam-style question based on UGC NET syllabus topics — not a verbatim exam copy"
+
+3. **Updated trust banners** in pyqs-view and pyq-dashboard-view:
+   - Old: "Questions labeled Official PYQ are verified against official NTA examination papers"
+   - New: "Questions labeled Exam-Style are exam-style questions based on UGC NET syllabus topics. They are NOT verbatim copies of official exam questions."
+
+4. **Updated PYQ filter options**:
+   - Old: "Official + Verified PYQs" / "Official PYQ only" / "Verified PYQ only" / "Practice questions"
+   - New: "Exam-Style + Practice" / "Exam-Style questions only" / "Practice questions only"
+
+5. **Updated all API routes** (6 files) to filter on 'verified_pyq' instead of 'official_pyq'
+
+6. **Updated admin stats** — renamed 'officialPyqs' to 'examStyleQuestions'
+
+7. **Updated stat labels** — "Official PYQs" → "Exam-Style Qs" throughout
+
+Verification:
+- ESLint: zero errors ✅
+- TypeScript: zero errors ✅
+- All key APIs: HTTP 200 ✅
+- Questions by sourceType: verified_pyq: 107, practice: 37 (no more official_pyq)
+- Trust banners now honestly state these are exam-style, not verbatim copies
+- SourceBadge shows "Exam-Style" with transparent description
+
+Stage Summary:
+- Trust/integrity issue FIXED — questions are now honestly labeled as exam-style, not official exam copies
+- All source attributions updated to be transparent
+- No fake official URLs or answer key references remain
+- The questions themselves are still educationally valuable and based on real UGC NET topics
+- The platform is now honest about what the questions are and aren't

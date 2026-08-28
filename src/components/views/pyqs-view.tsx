@@ -159,7 +159,7 @@ export function PyqsView() {
       {/* Stats banner */}
       {stats && (
         <div className="mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <StatBox icon={FileText} label="Official PYQs" value={stats.totalPyqs ?? 0} color="text-emerald-600" />
+          <StatBox icon={FileText} label="Exam-Style Qs" value={stats.totalPyqs ?? 0} color="text-emerald-600" />
           <StatBox icon={Layers} label="Exam Papers" value={stats.totalPapers ?? 0} color="text-blue-600" />
           <StatBox icon={Calendar} label="Latest Year" value={stats.latestYear ?? '—'} color="text-violet-600" />
           <StatBox icon={BookOpen} label="Subjects" value={stats.subjectBreakdown?.length ?? 0} color="text-amber-600" />
@@ -173,8 +173,8 @@ export function PyqsView() {
           <div className="flex-1">
             <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">Source Integrity</p>
             <p className="text-xs text-muted-foreground mt-1">
-              Questions labeled <SourceBadge sourceType="official_pyq" /> are verified against official NTA examination papers and answer keys.
-              Questions labeled <SourceBadge sourceType="practice" /> are original questions created for additional practice — they are NOT represented as official PYQs.
+              Questions labeled <SourceBadge sourceType="verified_pyq" /> are exam-style questions based on UGC NET syllabus topics. They are NOT verbatim copies of official exam questions.
+              Questions labeled <SourceBadge sourceType="practice" /> are original questions for additional practice.
             </p>
           </div>
         </div>
@@ -282,10 +282,9 @@ export function PyqsView() {
                   value={sourceType}
                   onChange={setSourceType}
                   options={[
-                    { value: 'all', label: 'Official + Verified PYQs' },
-                    { value: 'official_pyq', label: 'Official PYQ only' },
-                    { value: 'verified_pyq', label: 'Verified PYQ only' },
-                    { value: 'practice', label: 'Practice questions' },
+                    { value: 'all', label: 'Exam-Style + Practice' },
+                    { value: 'verified_pyq', label: 'Exam-Style questions only' },
+                    { value: 'practice', label: 'Practice questions only' },
                   ]}
                 />
               </div>
@@ -301,7 +300,7 @@ export function PyqsView() {
         </div>
         <Button
           size="sm"
-          onClick={() => navigate('practice', { sourceType: sourceType === 'all' ? 'official_pyq' : sourceType, subject, year })}
+          onClick={() => navigate('practice', { sourceType: sourceType === 'all' ? 'verified_pyq' : sourceType, subject, year })}
           disabled={questions.length === 0}
           className="gap-1.5"
         >

@@ -17,7 +17,7 @@ export async function GET() {
     // Get all official PYQs with topic/unit info
     const pyqs = await db.question.findMany({
       where: {
-        sourceType: { in: ['official_pyq', 'verified_pyq'] },
+        sourceType: { in: ['verified_pyq'] },
         pyqYear: { gt: 0 },
         status: 'published',
       },

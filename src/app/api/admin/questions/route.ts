@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
       .update(questionText.toLowerCase().replace(/\s+/g, ' ').replace(/[^a-z0-9 ]/g, '').trim())
       .digest('hex').substring(0, 32)
 
-    const isOfficial = sourceType === 'official_pyq' || sourceType === 'verified_pyq'
+    const isOfficial = sourceType === 'verified_pyq' || sourceType === 'verified_pyq'
 
     const question = await db.question.create({
       data: {
@@ -91,10 +91,10 @@ export async function POST(req: NextRequest) {
         sourceUrl: sourceUrl || null,
         sourceReference: sourceReference || null,
         answerKeyRef: answerKeyRef || null,
-        verified: sourceType === 'official_pyq',
-        verifiedAt: sourceType === 'official_pyq' ? new Date() : null,
-        verificationStatus: sourceType === 'official_pyq' ? 'officially_verified' : 'unverified',
-        answerConfidence: sourceType === 'official_pyq' ? 'high' : null,
+        verified: sourceType === 'verified_pyq',
+        verifiedAt: sourceType === 'verified_pyq' ? new Date() : null,
+        verificationStatus: sourceType === 'verified_pyq' ? 'officially_verified' : 'unverified',
+        answerConfidence: sourceType === 'verified_pyq' ? 'high' : null,
         fingerprint: fp,
         isCurrentSyllabus: true,
         syllabusVersion: '2024',

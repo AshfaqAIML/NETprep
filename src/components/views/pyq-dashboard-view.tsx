@@ -137,8 +137,8 @@ export function PyqDashboardView() {
           <div className="flex-1">
             <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">Source Integrity</p>
             <p className="text-xs text-muted-foreground mt-1">
-              All PYQs labeled <SourceBadge sourceType="official_pyq" /> are verified against official NTA examination papers with full source attribution.
-              Practice questions are clearly labeled <SourceBadge sourceType="practice" /> and are never represented as official PYQs.
+              Questions labeled <SourceBadge sourceType="verified_pyq" /> are exam-style questions based on UGC NET syllabus topics. They are NOT verbatim copies of official exam questions.
+              Practice questions are clearly labeled <SourceBadge sourceType="practice" /> and are original questions for additional practice.
             </p>
           </div>
         </div>

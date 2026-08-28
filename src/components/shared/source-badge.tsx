@@ -21,10 +21,10 @@ const SOURCE_CONFIG: Record<SourceType, { label: string; icon: React.ElementType
     description: 'Verified official examination question',
   },
   verified_pyq: {
-    label: 'Verified PYQ',
+    label: 'Exam-Style',
     icon: BadgeCheck,
     className: 'bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/30',
-    description: 'Cross-checked against available official material',
+    description: 'Exam-style question based on UGC NET syllabus topics — not a verbatim exam copy',
   },
   practice: {
     label: 'Practice',

@@ -41,11 +41,11 @@ export async function GET(req: NextRequest) {
     // Build the where clause
     const where: any = { status: 'published' }
 
-    // Source type filter — default to official + verified PYQs
+    // Source type filter — default to verified_pyq (exam-style questions)
     if (sourceType) {
       where.sourceType = sourceType
     } else {
-      where.sourceType = { in: ['official_pyq', 'verified_pyq'] }
+      where.sourceType = { in: ['verified_pyq', 'practice'] }
     }
 
     // Paper filter (I or II)
@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
       where.pyqYear = parseInt(year, 10)
     } else {
       // Only show questions that have a pyqYear when no specific filter
-      if (!sourceType || sourceType === 'official_pyq' || sourceType === 'verified_pyq') {
+      if (!sourceType || sourceType === 'verified_pyq') {
         where.pyqYear = { gt: 0 }
       }
     }

@@ -99,7 +99,7 @@ export function AdminView() {
       {/* Stats grid */}
       <div className="mb-6 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
         <AdminStat icon={FileQuestion} label="Questions" value={totals.questions} color="text-blue-600" />
-        <AdminStat icon={ShieldCheck} label="Official PYQs" value={totals.officialPyqs} color="text-emerald-600" />
+        <AdminStat icon={ShieldCheck} label="Exam-Style Qs" value={totals.examStyleQuestions ?? totals.officialPyqs ?? 0} color="text-emerald-600" />
         <AdminStat icon={FileText} label="Practice Qs" value={totals.practiceQuestions} color="text-violet-600" />
         <AdminStat icon={BookOpen} label="Notes" value={totals.notes} color="text-rose-600" />
         <AdminStat icon={FileText} label="Articles" value={totals.articles} color="text-amber-600" />
