@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
@@ -16,12 +17,14 @@ export function SubjectsView() {
   const navigate = useAppStore((s) => s.navigate)
   const [subjects, setSubjects] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(false)
   const [query, setQuery] = React.useState('')
   const [filter, setFilter] = React.useState<'all' | 'I' | 'II'>('all')
 
   React.useEffect(() => {
     api.subjects()
       .then((r) => setSubjects(r.subjects))
+      .catch(() => setError(true))
       .finally(() => setLoading(false))
   }, [])
 

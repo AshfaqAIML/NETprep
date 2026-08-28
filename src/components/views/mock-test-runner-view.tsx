@@ -55,21 +55,93 @@ export function MockTestRunnerView() {
   const [submitting, setSubmitting] = React.useState(false)
   const [startTime, setStartTime] = React.useState<number>(0)
 
+  // Persistence key for localStorage
+  const storageKey = `mocktest-${slug}`
+
+  // Load saved state from localStorage on mount
   React.useEffect(() => {
     if (!slug) return
     setLoading(true)
+    
+    // Try to restore saved answers from localStorage
+    let savedState: any = null
+    try {
+      const saved = localStorage.getItem(storageKey)
+      if (saved) {
+        savedState = JSON.parse(saved)
+      }
+    } catch (e) {
+      // localStorage might be unavailable
+    }
+    
     api.mockTest(slug)
       .then((r) => {
         setMockTest(r.mockTest)
-        setTimeLeft(r.mockTest.durationMin * 60)
         setStartTime(Date.now())
-        // mark first question visited
-        if (r.mockTest.questions[0]) {
-          setVisited(new Set([r.mockTest.questions[0].question.id]))
+        
+        if (savedState && savedState.answers) {
+          // Restore saved answers
+          setAnswers(savedState.answers)
+          setMarked(new Set(savedState.marked || []))
+          setVisited(new Set(savedState.visited || []))
+          setCurrentIdx(savedState.currentIdx || 0)
+          // Restore remaining time (cap at original duration)
+          const elapsed = Math.floor((Date.now() - savedState.savedAt) / 1000)
+          const remaining = Math.max(0, savedState.timeLeft - elapsed)
+          if (remaining > 0) {
+            setTimeLeft(remaining)
+          } else {
+            // Time expired while away — auto-submit
+            setTimeLeft(0)
+          }
+        } else {
+          // Fresh start
+          setTimeLeft(r.mockTest.durationMin * 60)
+          if (r.mockTest.questions[0]) {
+            setVisited(new Set([r.mockTest.questions[0].question.id]))
+          }
         }
       })
       .finally(() => setLoading(false))
-  }, [slug])
+  }, [slug, storageKey])
+
+  // Save state to localStorage whenever answers/marked/visited/timeLeft change
+  React.useEffect(() => {
+    if (!mockTest) return
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({
+        answers,
+        marked: Array.from(marked),
+        visited: Array.from(visited),
+        currentIdx,
+        timeLeft,
+        savedAt: Date.now(),
+      }))
+    } catch (e) {
+      // localStorage might be full or unavailable
+    }
+  }, [answers, marked, visited, currentIdx, timeLeft, mockTest, storageKey])
+
+  // Clear localStorage on submit
+  const clearSavedState = () => {
+    try {
+      localStorage.removeItem(storageKey)
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  // Warn before leaving the page during a test
+  React.useEffect(() => {
+    if (!mockTest || submitting) return
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault()
+      e.returnValue = 'Your mock test progress will be lost. Are you sure?'
+      return e.returnValue
+    }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [mockTest, submitting])
 
   // countdown
   React.useEffect(() => {
@@ -161,6 +233,7 @@ export function MockTestRunnerView() {
         answers,
         timeSpentSec: timeSpent,
       })
+      clearSavedState()
       toast.success('Mock test submitted!')
       navigate('mock-test-result', { result, mockTestTitle: mockTest.title })
     } catch (e: any) {

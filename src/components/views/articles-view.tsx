@@ -5,6 +5,7 @@ import { Newspaper, ArrowRight, Calendar, Tag } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
@@ -17,12 +18,14 @@ export function ArticlesView() {
   const navigate = useAppStore((s) => s.navigate)
   const [articles, setArticles] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(false)
   const [category, setCategory] = React.useState('All')
 
   React.useEffect(() => {
     setLoading(true)
     api.articles(category === 'All' ? undefined : category)
       .then((r) => setArticles(r.articles))
+      .catch(() => setError(true))
       .finally(() => setLoading(false))
   }, [category])
 

@@ -5,6 +5,7 @@ import { HelpCircle, ChevronDown } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Button } from '@/components/ui/button'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
@@ -14,10 +15,12 @@ export function FaqView() {
   const navigate = useAppStore((s) => s.navigate)
   const [faqs, setFaqs] = React.useState<Record<string, any[]>>({})
   const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(false)
 
   React.useEffect(() => {
     api.faqs()
       .then((r) => setFaqs(r.faqs))
+      .catch(() => setError(true))
       .finally(() => setLoading(false))
   }, [])
 

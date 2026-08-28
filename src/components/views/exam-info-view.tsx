@@ -36,6 +36,7 @@ export function ExamInfoView() {
   const navigate = useAppStore((s) => s.navigate)
   const [infos, setInfos] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(false)
   const [activeKey, setActiveKey] = React.useState<string>('')
 
   React.useEffect(() => {

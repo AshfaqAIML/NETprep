@@ -25,6 +25,7 @@ export function NotesView() {
   const [notes, setNotes] = React.useState<any[]>([])
   const [subjects, setSubjects] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(false)
   const [query, setQuery] = React.useState('')
   const [subjectFilter, setSubjectFilter] = React.useState<string>('all')
 

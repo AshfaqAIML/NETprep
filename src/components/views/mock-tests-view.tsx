@@ -16,10 +16,12 @@ export function MockTestsView() {
   const viewParams = useAppStore((s) => s.viewParams)
   const [mockTests, setMockTests] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(false)
 
   React.useEffect(() => {
     api.mockTests()
       .then((r) => setMockTests(r.mockTests))
+      .catch(() => setError(true))
       .finally(() => setLoading(false))
   }, [])
 

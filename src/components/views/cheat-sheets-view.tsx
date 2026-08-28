@@ -16,10 +16,12 @@ export function CheatSheetsView() {
   const navigate = useAppStore((s) => s.navigate)
   const [cheatSheets, setCheatSheets] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(false)
 
   React.useEffect(() => {
     api.cheatSheets()
       .then((r) => setCheatSheets(r.cheatSheets))
+      .catch(() => setError(true))
       .finally(() => setLoading(false))
   }, [])
 

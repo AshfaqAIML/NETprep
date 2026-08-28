@@ -20,11 +20,13 @@ export function BooksView() {
 
   const [books, setBooks] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(false)
   const [query, setQuery] = React.useState('')
 
   React.useEffect(() => {
     api.books()
       .then((r) => setBooks(r.books))
+      .catch(() => setError(true))
       .finally(() => setLoading(false))
   }, [])
 
