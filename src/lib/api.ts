@@ -56,6 +56,8 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(body),
     }),
+  questionHistory: (questionId: string) =>
+    fetchJson<any>(`/api/questions/${questionId}/history`),
 
   pyqs: (params?: {
     subject?: string

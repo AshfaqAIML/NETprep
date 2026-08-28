@@ -478,3 +478,48 @@ Stage Summary:
 - Repeated concepts identified: "Concept of Teaching" (5 years), "ER Model & Normalization" (4 years), etc.
 - Preparation priority engine generates data-driven, explainable recommendations
 - CS Paper II has good coverage: DBMS 6, Algorithms 6, OS 6, Networks 5, TOC 4, COA 4, AI 4, Programming 3, SE 3, Discrete 3
+
+---
+Task ID: 8
+Agent: CS NET Exam Enhancement — Complete Remaining Todos
+Task: Complete items 7-9 from the CS NET exam todo list (PYQ Dashboard UI enhancement, attempt history API, verification).
+
+Work Log:
+- Item 7: Enhanced PYQ Dashboard view (pyq-dashboard-view.tsx) with high-yield analytics:
+  * Now fetches both pyqDashboard() and pyqAnalytics() data in parallel
+  * Added Exam Pattern Configuration card showing:
+    - Paper 1: 50 questions / 100 marks
+    - Paper 2: 100 questions / 200 marks
+    - Duration: 180 min (3h 0m)
+    - Negative marking: None (with +2 per correct)
+    - Language, syllabus version badges
+    - "Configurable per exam cycle — not hardcoded" label
+  * Added High-Yield Analytics section with 3 tabs:
+    1. Preparation Priorities — ranked CS units with priority scores, historical PYQ counts, user accuracy, and explainable reasons. Top 3 highlighted with amber border. Each has "Practice" button.
+    2. Repeated Concepts — topics appearing in 2+ exam years with year badges and "Last seen" indicator. Clickable to filter PYQ library.
+    3. CS Unit Stats — table with Unit, PYQs count, Years covered, Avg/Exam, and Top Topics (with counts). Sortable by PYQ count.
+  * Header shows "Computed from X verified PYQs across Y years — Not hardcoded"
+
+- Item 8: Built attempt history API (/api/questions/[id]/history):
+  * Returns all attempts for a specific question by the demo user
+  * Per-attempt: attempt number, selected answer, correctness, time spent, mode, date
+  * Stats: total attempts, correct/incorrect counts, accuracy, avg time per attempt
+  * First and latest attempt details
+  * Improvement calculation: "Improved from incorrect to correct" / "Still incorrect — needs revision" / "Consistently correct" etc.
+  * Added questionHistory() method to client API helper
+
+- Item 9: Verification:
+  * ESLint: zero errors
+  * TypeScript (tsc --noEmit): zero errors
+  * /api/pyqs/dashboard: 81 PYQs (35 P1 + 46 P2), 17 papers, latest 2024
+  * /api/pyqs/analytics: Exam pattern (50+100 Qs, 300 marks, 180min, no negative), 21 units, 15 repeated concepts, 10 priorities
+  * /api/questions/[id]/history: Returns attempt history with stats and improvement calculation
+  * Home page: HTTP 200
+
+Stage Summary:
+- All 9 todos from the CS NET exam enhancement list are now COMPLETED
+- PYQ Dashboard now displays exam pattern configuration, high-yield analytics, repeated concepts, and preparation priorities
+- Attempt history API tracks per-question improvement over time
+- 81 official PYQs with full source attribution across 2019-2024
+- Exam pattern is configurable via ExamCycle model (not hardcoded)
+- Preparation priority engine combines historical frequency + user accuracy for data-driven recommendations
