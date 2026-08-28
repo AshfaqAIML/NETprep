@@ -117,3 +117,107 @@ Unresolved issues / risks:
 - agent-browser cannot reach localhost:3000 from its network namespace; verification done via curl instead
 - For production PostgreSQL deployment, the prisma/schema.prisma datasource provider needs to be changed from "sqlite" to "postgresql" (documented in README)
 - NextAuth configuration for real multi-user auth is scaffolded but not wired up (demo-user pattern used currently); documented in README for production setup
+
+---
+Task ID: 4
+Agent: Deep Audit & Improvement Agent
+Task: Deep product audit, gap analysis, and systematic improvements.
+
+Work Log:
+- Performed comprehensive audit of all 22 views, 18 API routes, schema, services, and infrastructure
+- Identified critical gaps:
+  * No Revision Center (bookmarks existed but no dedicated revision workflow)
+  * No Exam Information page (UGC NET pattern, eligibility, dates missing)
+  * No Analytics view (view key existed but no component)
+  * No Personal Notes feature
+  * No Reporting system for content issues
+  * Dashboard recommendations were static, not data-driven
+  * Topic page lacked PYQs and related topics sections
+  * Mobile nav missing key items
+  * No breadcrumbs for deep navigation
+
+- Added 3 new Prisma models: UserNote, Report, ExamInfo (with indexes)
+- Created seed-exam-info.ts with 6 comprehensive exam info entries:
+  * Exam Pattern (150 questions, 300 marks, no negative marking)
+  * Eligibility Criteria (55% general, 50% reserved, age limits)
+  * Important Dates (June/December cycles, timeline)
+  * JRF vs Assistant Professor difference
+  * Application Process (steps, fees, documents)
+  * Result & Cut-off (qualifying marks, cut-off lists)
+
+- Created 5 new API routes:
+  * /api/exam-info — admin-editable exam information
+  * /api/user-notes — CRUD for personal notes (with color, pin, tags)
+  * /api/reports — report content issues (wrong answer, typo, etc.)
+  * /api/revision — aggregates mistakes, bookmarked Qs, weak topics, due-for-review
+  * /api/analytics — accuracy over time, study trends, topic performance, difficulty breakdown, mock score trend, auto-generated insights
+
+- Created 4 new view components:
+  * revision-view.tsx — Revision Center with 4 tabs (Mistakes, Bookmarked, Weak Topics, Due for Review)
+  * exam-info-view.tsx — sidebar nav + markdown content for 6 exam info topics
+  * user-notes-view.tsx — sticky-note grid with markdown editor, color coding, pin/unpin
+  * analytics-view.tsx — 4 charts (accuracy area, study hours bar, topic performance, difficulty breakdown) + mock score trend + auto insights
+
+- Enhanced topic-detail-view.tsx:
+  * Added breadcrumbs (Subjects > Subject > Topic)
+  * Added PYQs section with year badges
+  * Added Related Topics section
+  * Added "Add Note" button linking to user-notes
+  * Added study tip card
+  * Status badge now uses semantic colors
+
+- Enhanced dashboard API:
+  * Generates 7 types of data-driven recommendations based on actual user data
+  * Recommendations are prioritized (high/medium/low) and explainable
+  * Examples: "4 topics need revision" (high), "Take more mock tests" (medium), "Review your 12 mistakes" (medium)
+
+- Enhanced practice-view.tsx:
+  * Added ReportButton component with dialog (issue type select + description)
+  * Users can report wrong answers, incorrect explanations, typos, duplicates, etc.
+
+- Updated header navigation:
+  * Added Revision, Analytics, Exam Info, My Notes, Articles to nav items
+  * Desktop nav shows 8 primary items; mobile sheet shows all 16 grouped by category
+
+- Updated home view:
+  * Quick access cards now include Revision and Exam Info
+  * Replaced redundant cards (Books, PYQs) with higher-value entries
+
+- Updated footer:
+  * Added Exam Info and Revision links
+
+- Updated api.ts client helper:
+  * Added revision(), analytics(), examInfo(), userNotes(), createUserNote(), updateUserNote(), deleteUserNote(), createReport() methods
+
+- Updated store.ts:
+  * Added 4 new ViewKey values: revision, exam-info, user-notes, onboarding
+
+- Updated page.tsx router:
+  * Added cases for revision, exam-info, user-notes, analytics views
+
+Verification:
+- ESLint: passes with zero errors
+- TypeScript (tsc --noEmit): passes with zero errors
+- All 18 API endpoints return HTTP 200
+- Dashboard recommendations are data-driven (3 recommendations generated for demo user)
+- Revision center shows 4 due-for-review topics
+- Analytics shows 14 study days, 39.6 study hours, 1 insight
+- Exam info returns 6 entries
+- User notes CRUD works (tested create + fetch)
+- Reports creation works (tested POST)
+
+Stage Summary:
+- 5 critical gaps fixed: Revision Center, Exam Info, Analytics, Personal Notes, Reporting
+- Dashboard personalization is now data-driven with explainable recommendations
+- Topic page is now a complete learning hub (notes + cheat sheets + MCQs + PYQs + related topics + study tip)
+- Navigation expanded from 11 to 16 items covering all platform features
+- 4 new views, 5 new APIs, 3 new schema models added
+- Total view count: 22 → 26
+- Total API route count: 18 → 23
+- All code passes lint and TypeScript checks
+
+Remaining limitations:
+- Dev server memory usage (1-2GB) requires NODE_OPTIONS=--max-old-space-size=1024
+- Onboarding wizard view key added but component not yet built (low priority — dashboard serves as landing)
+- Admin CMS not built (content is managed via Prisma seed scripts currently)
+- Real NextAuth not wired up (demo-user pattern used; documented in README for production)

@@ -314,39 +314,24 @@ export function DashboardView() {
               <CardTitle className="text-base flex items-center gap-2">
                 <Lightbulb className="h-4 w-4 text-amber-500" />
                 Recommended for You
+                <Badge variant="outline" className="ml-auto text-[10px]">{data.recommendations?.length ?? 0}</Badge>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              {summary.accuracy < 75 && (
-                <RecommendationCard
-                  title="Improve your accuracy"
-                  desc={`Your accuracy is ${summary.accuracy}%. Revise topics where you scored below 60%.`}
-                  action="Start revision"
-                  onClick={() => navigate('practice', { mode: 'revision' })}
-                />
+              {data.recommendations && data.recommendations.length > 0 ? (
+                data.recommendations.map((rec: any, i: number) => (
+                  <RecommendationCard
+                    key={i}
+                    title={rec.title}
+                    desc={rec.description}
+                    action={rec.action}
+                    priority={rec.priority}
+                    onClick={() => navigate(rec.actionTarget.view, rec.actionTarget.params)}
+                  />
+                ))
+              ) : (
+                <p className="text-xs text-muted-foreground">Start practicing to get personalized recommendations.</p>
               )}
-              {data.weakTopics && data.weakTopics.length > 0 && (
-                <RecommendationCard
-                  title="Practice weak topics"
-                  desc={`You have ${data.weakTopics.length} weak topics. Focus on them today.`}
-                  action="Practice weak"
-                  onClick={() => navigate('practice', { mode: 'weak' })}
-                />
-              )}
-              {summary.mockAttempts < 3 && (
-                <RecommendationCard
-                  title="Take more mock tests"
-                  desc={`You've attempted ${summary.mockAttempts} mock test(s). Aim for at least 1 per week.`}
-                  action="Take a mock"
-                  onClick={() => navigate('mock-tests')}
-                />
-              )}
-              <RecommendationCard
-                title="Revise with cheat sheets"
-                desc="Quick 10-minute revision of formulas and definitions."
-                action="Open cheat sheets"
-                onClick={() => navigate('cheat-sheets')}
-              />
             </CardContent>
           </Card>
 
@@ -404,16 +389,24 @@ function RecommendationCard({
   title,
   desc,
   action,
+  priority,
   onClick,
 }: {
   title: string
   desc: string
   action: string
+  priority?: 'high' | 'medium' | 'low'
   onClick: () => void
 }) {
   return (
-    <div className="rounded-lg border border-border p-3">
-      <div className="font-medium text-sm">{title}</div>
+    <div className={cn(
+      'rounded-lg border p-3',
+      priority === 'high' ? 'border-rose-500/30 bg-rose-500/5' : priority === 'medium' ? 'border-amber-500/30 bg-amber-500/5' : 'border-border',
+    )}>
+      <div className="flex items-center gap-2 mb-1">
+        <div className="font-medium text-sm">{title}</div>
+        {priority === 'high' && <Badge variant="secondary" className="text-[9px] bg-rose-500/15 text-rose-700 dark:text-rose-300">High priority</Badge>}
+      </div>
       <p className="text-xs text-muted-foreground mt-0.5 mb-2">{desc}</p>
       <Button size="sm" variant="outline" onClick={onClick} className="gap-1.5">
         {action}

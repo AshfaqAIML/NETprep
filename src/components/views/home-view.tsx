@@ -18,6 +18,8 @@ import {
   Target,
   Clock,
   ChevronRight,
+  RotateCcw,
+  Info,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -31,12 +33,12 @@ import { cn } from '@/lib/utils'
 const QUICK_ACCESS = [
   { label: 'Paper I', icon: GraduationCap, view: 'subject-detail' as const, params: { slug: 'paper-1' }, color: 'from-emerald-500 to-teal-600' },
   { label: 'Paper II', icon: Library, view: 'subjects' as const, color: 'from-violet-500 to-purple-600' },
-  { label: 'Books', icon: BookOpen, view: 'books' as const, color: 'from-amber-500 to-orange-600' },
   { label: 'Notes', icon: PenTool, view: 'notes' as const, color: 'from-rose-500 to-pink-600' },
   { label: 'Cheat Sheets', icon: Sparkles, view: 'cheat-sheets' as const, color: 'from-cyan-500 to-blue-500' },
-  { label: 'PYQs', icon: FileText, view: 'pyqs' as const, color: 'from-lime-500 to-emerald-600' },
-  { label: 'MCQ Practice', icon: FileQuestion, view: 'practice' as const, color: 'from-fuchsia-500 to-pink-600' },
+  { label: 'Practice', icon: FileQuestion, view: 'practice' as const, color: 'from-fuchsia-500 to-pink-600' },
   { label: 'Mock Tests', icon: Timer, view: 'mock-tests' as const, color: 'from-orange-500 to-red-600' },
+  { label: 'Revision', icon: RotateCcw, view: 'revision' as const, color: 'from-amber-500 to-orange-600' },
+  { label: 'Exam Info', icon: Info, view: 'exam-info' as const, color: 'from-blue-500 to-indigo-600' },
 ]
 
 export function HomeView() {

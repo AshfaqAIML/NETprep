@@ -28,6 +28,10 @@ export type ViewKey =
   | 'faq'
   | 'search-results'
   | 'topic-detail'
+  | 'revision'
+  | 'exam-info'
+  | 'user-notes'
+  | 'onboarding'
 
 interface AppState {
   // Navigation

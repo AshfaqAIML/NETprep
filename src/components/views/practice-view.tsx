@@ -16,6 +16,7 @@ import {
   Sparkles,
   Trophy,
   AlertCircle,
+  Flag,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -25,6 +26,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Progress } from '@/components/ui/progress'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
@@ -484,6 +494,7 @@ export function PracticeView() {
           <ArrowLeft className="h-3.5 w-3.5" /> Previous
         </Button>
         <div className="flex items-center gap-2">
+          <ReportButton questionId={q.id} />
           <BookmarkButton itemType="question" itemId={q.id} showLabel={false} variant="ghost" />
           <Button onClick={goNext} disabled={!selected} className="gap-1.5">
             {currentIdx + 1 >= questions.length ? 'Finish' : 'Next'}
@@ -492,5 +503,84 @@ export function PracticeView() {
         </div>
       </div>
     </div>
+  )
+}
+
+function ReportButton({ questionId }: { questionId: string }) {
+  const [open, setOpen] = React.useState(false)
+  const [issueType, setIssueType] = React.useState('wrong-answer')
+  const [description, setDescription] = React.useState('')
+  const [submitting, setSubmitting] = React.useState(false)
+
+  const handleSubmit = async () => {
+    setSubmitting(true)
+    try {
+      await api.createReport({
+        itemType: 'question',
+        itemId: questionId,
+        issueType,
+        description: description.trim() || undefined,
+      })
+      toast.success('Report submitted. Thank you!')
+      setOpen(false)
+      setDescription('')
+      setIssueType('wrong-answer')
+    } catch (e: any) {
+      toast.error(e.message || 'Failed to submit report')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  return (
+    <>
+      <Button variant="ghost" size="sm" onClick={() => setOpen(true)} className="gap-1.5 text-muted-foreground">
+        <Flag className="h-3.5 w-3.5" />
+        <span className="hidden sm:inline">Report</span>
+      </Button>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Report this question</DialogTitle>
+            <DialogDescription>
+              Help us improve the platform. Reports are reviewed by our content team.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 py-2">
+            <div>
+              <Label className="text-xs mb-1.5 block">Issue type</Label>
+              <Select value={issueType} onValueChange={setIssueType}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="wrong-answer">Wrong answer</SelectItem>
+                  <SelectItem value="incorrect-explanation">Incorrect explanation</SelectItem>
+                  <SelectItem value="outdated-info">Outdated information</SelectItem>
+                  <SelectItem value="typo">Typo / formatting</SelectItem>
+                  <SelectItem value="duplicate">Duplicate question</SelectItem>
+                  <SelectItem value="inappropriate">Inappropriate content</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label className="text-xs mb-1.5 block">Description (optional)</Label>
+              <Textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Explain the issue..."
+                rows={3}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button onClick={handleSubmit} disabled={submitting}>
+              {submitting ? 'Submitting...' : 'Submit Report'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }

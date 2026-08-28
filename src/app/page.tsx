@@ -27,6 +27,10 @@ import { ArticleReaderView } from '@/components/views/article-reader-view'
 import { ResourcesView } from '@/components/views/resources-view'
 import { FaqView } from '@/components/views/faq-view'
 import { TopicDetailView } from '@/components/views/topic-detail-view'
+import { RevisionView } from '@/components/views/revision-view'
+import { ExamInfoView } from '@/components/views/exam-info-view'
+import { UserNotesView } from '@/components/views/user-notes-view'
+import { AnalyticsView } from '@/components/views/analytics-view'
 
 // Initialise bookmark cache on mount
 function useInitBookmarks() {
@@ -105,6 +109,14 @@ function ViewRouter({ view }: { view: string }) {
       return <ResourcesView />
     case 'faq':
       return <FaqView />
+    case 'revision':
+      return <RevisionView />
+    case 'exam-info':
+      return <ExamInfoView />
+    case 'user-notes':
+      return <UserNotesView />
+    case 'analytics':
+      return <AnalyticsView />
     default:
       return <HomeView />
   }

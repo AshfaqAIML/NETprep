@@ -330,3 +330,58 @@ model Resource {
   description String?
   sortOrder   Int      @default(0)
 }
+
+// ---------------------------------------------------------------------------
+// Personal notes (user-created private notes)
+// ---------------------------------------------------------------------------
+
+model UserNote {
+  id          String   @id @default(cuid())
+  userId      String   @default("demo-user")
+  title       String
+  content     String   @default("") // markdown
+  tags        String   @default("")
+  subjectId   String?
+  topicId     String?
+  color       String   @default("default") // default | yellow | green | blue | pink | purple
+  pinned      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([topicId])
+}
+
+// ---------------------------------------------------------------------------
+// Content reporting (users flag issues)
+// ---------------------------------------------------------------------------
+
+model Report {
+  id          String   @id @default(cuid())
+  userId      String   @default("demo-user")
+  itemType    String   // question | note | cheatsheet | book | pyq | article
+  itemId      String
+  issueType   String   // wrong-answer | incorrect-explanation | broken-resource | outdated-info | typo | inappropriate | duplicate
+  description String?
+  status      String   @default("open") // open | investigating | resolved | rejected
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@index([itemType, itemId])
+}
+
+// ---------------------------------------------------------------------------
+// Exam information (admin-editable, not hard-coded)
+// ---------------------------------------------------------------------------
+
+model ExamInfo {
+  id          String   @id @default(cuid())
+  key         String   @unique // pattern | eligibility | dates | syllabus-link | application | result | jrf
+  title       String
+  content     String   // markdown
+  category    String   @default("General") // General | Pattern | Eligibility | Dates | Application | Result
+  sortOrder   Int      @default(0)
+  updatedAt   DateTime @updatedAt
+}
+

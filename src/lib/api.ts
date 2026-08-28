@@ -105,6 +105,28 @@ export const api = {
   profile: () => fetchJson<{ profile: any }>('/api/profile'),
   updateProfile: (body: any) =>
     fetchJson<{ profile: any }>(`/api/profile`, { method: 'PATCH', body: JSON.stringify(body) }),
+
+  // Revision center
+  revision: () => fetchJson<any>('/api/revision'),
+
+  // Analytics
+  analytics: () => fetchJson<any>('/api/analytics'),
+
+  // Exam info
+  examInfo: () => fetchJson<{ examInfo: any[] }>('/api/exam-info'),
+
+  // Personal notes
+  userNotes: () => fetchJson<{ notes: any[] }>('/api/user-notes'),
+  createUserNote: (body: any) =>
+    fetchJson<{ note: any }>(`/api/user-notes`, { method: 'POST', body: JSON.stringify(body) }),
+  updateUserNote: (body: any) =>
+    fetchJson<{ note: any }>(`/api/user-notes`, { method: 'PATCH', body: JSON.stringify(body) }),
+  deleteUserNote: (id: string) =>
+    fetchJson<{ deleted: boolean }>(`/api/user-notes/${id}`, { method: 'DELETE' }),
+
+  // Reports
+  createReport: (body: any) =>
+    fetchJson<{ report: any }>(`/api/reports`, { method: 'POST', body: JSON.stringify(body) }),
 }
 
 export type NavigateFn = (view: ViewKey, params?: Record<string, any>) => void

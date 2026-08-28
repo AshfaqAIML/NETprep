@@ -9,11 +9,15 @@ import {
   FileQuestion,
   FileText,
   ChevronRight,
+  ChevronLeft,
   Target,
   Circle,
   CircleDot,
   CheckCircle2,
   AlertCircle,
+  StickyNote,
+  Plus,
+  Lightbulb,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -41,30 +45,41 @@ export function TopicDetailView() {
   const [notes, setNotes] = React.useState<any[]>([])
   const [cheatSheets, setCheatSheets] = React.useState<any[]>([])
   const [questions, setQuestions] = React.useState<any[]>([])
+  const [pyqs, setPyqs] = React.useState<any[]>([])
+  const [relatedTopics, setRelatedTopics] = React.useState<any[]>([])
   const [progress, setProgress] = React.useState<any>(null)
   const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
     if (!subjectSlug) return
+    setLoading(true)
     api.subject(subjectSlug)
       .then((r) => {
         setSubject(r.subject)
         const t = r.subject.units.flatMap((u: any) => u.topics).find((t: any) => t.id === topicId)
         setTopic(t)
         setProgress(t?.progress ?? null)
-        // fetch related notes, cheat sheets, questions for this topic
+
+        // Find related topics (same unit, different topic)
+        if (t) {
+          const unit = r.subject.units.find((u: any) => u.id === t.unitId)
+          if (unit) {
+            setRelatedTopics(unit.topics.filter((rt: any) => rt.id !== topicId).slice(0, 4))
+          }
+        }
+
         return Promise.all([
           api.notes({ topicId }),
           api.questions({ topicId, limit: 10 }),
+          api.pyqs({ subject: subjectSlug }),
+          api.cheatSheets(),
         ])
       })
-      .then(([n, q]) => {
+      .then(([n, q, p, cs]) => {
         setNotes(n.notes)
         setQuestions(q.questions)
-        // cheat sheets filtered client-side via subject + topicId
-        return api.cheatSheets()
-      })
-      .then((cs) => {
+        // Filter PYQs for this topic
+        setPyqs((p.pyqQuestions || []).filter((pyq: any) => pyq.topicId === topicId))
         setCheatSheets(cs.cheatSheets.filter((c: any) => c.topicId === topicId))
       })
       .finally(() => setLoading(false))
@@ -105,10 +120,14 @@ export function TopicDetailView() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-8">
-      <Button variant="ghost" size="sm" onClick={() => navigate('subject-detail', { slug: subject.slug })} className="mb-4 gap-1 text-muted-foreground">
-        <ArrowLeft className="h-3.5 w-3.5" />
-        Back to {subject.name}
-      </Button>
+      {/* Breadcrumb */}
+      <nav className="flex items-center gap-1 text-xs text-muted-foreground mb-4 flex-wrap">
+        <button onClick={() => navigate('subjects')} className="hover:text-foreground">Subjects</button>
+        <ChevronRight className="h-3 w-3" />
+        <button onClick={() => navigate('subject-detail', { slug: subject.slug })} className="hover:text-foreground">{subject.name}</button>
+        <ChevronRight className="h-3 w-3" />
+        <span className="text-foreground font-medium">{topic.name}</span>
+      </nav>
 
       {/* Topic header */}
       <Card className="mb-6">
@@ -118,17 +137,29 @@ export function TopicDetailView() {
               <BookOpen className="h-6 w-6" />
             </div>
             <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
                 <Badge variant="outline" className="text-[10px]">{subject.name}</Badge>
                 <Badge variant="outline" className="text-[10px] capitalize">{topic.importance} importance</Badge>
+                <Badge variant={meta.color.includes('emerald') ? 'default' : meta.color.includes('rose') ? 'destructive' : 'secondary'} className="text-[10px] capitalize">
+                  {meta.label}
+                </Badge>
               </div>
               <h1 className="text-2xl font-bold tracking-tight">{topic.name}</h1>
               <p className="mt-1 text-sm text-muted-foreground">{topic.description ?? 'Core topic for UGC NET preparation.'}</p>
 
-              <div className="mt-4 flex items-center gap-2">
+              <div className="mt-4 flex items-center gap-2 flex-wrap">
                 <Button onClick={cycleStatus} variant="outline" size="sm" className={cn('gap-1.5', meta.color)}>
                   <Icon className="h-3.5 w-3.5" />
                   {meta.label} · {meta.next}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => navigate('user-notes', { topicId })}
+                  className="gap-1.5"
+                >
+                  <StickyNote className="h-3.5 w-3.5" />
+                  Add Note
                 </Button>
               </div>
             </div>
@@ -243,16 +274,26 @@ export function TopicDetailView() {
           </CardContent>
         </Card>
 
-        {/* Test: Mock / PYQ */}
+        {/* PYQs + Test */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
               <FileText className="h-4 w-4 text-amber-500" />
-              Test · Mini Mock
+              Past Questions & Test
+              {pyqs.length > 0 && <Badge variant="outline" className="ml-auto text-[10px]">{pyqs.length} PYQs</Badge>}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
+              {pyqs.slice(0, 2).map((pyq: any) => (
+                <div key={pyq.id} className="rounded-md border border-border p-3 text-xs">
+                  <div className="flex items-center gap-1 mb-1">
+                    <Badge variant="secondary" className="text-[9px]">{pyq.pyqYear}</Badge>
+                    {pyq.source && <span className="text-[10px] text-muted-foreground">{pyq.source}</span>}
+                  </div>
+                  <div className="font-medium line-clamp-2">{pyq.questionText}</div>
+                </div>
+              ))}
               <Button
                 variant="outline"
                 size="sm"
@@ -260,7 +301,7 @@ export function TopicDetailView() {
                 className="w-full justify-start gap-1.5"
               >
                 <FileText className="h-3.5 w-3.5" />
-                Previous Year Questions
+                View All PYQs
                 <ChevronRight className="h-3.5 w-3.5 ml-auto" />
               </Button>
               <Button
@@ -273,19 +314,52 @@ export function TopicDetailView() {
                 Take a Mock Test
                 <ChevronRight className="h-3.5 w-3.5 ml-auto" />
               </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => navigate('practice', { mode: 'weak' })}
-                className="w-full justify-start gap-1.5"
-              >
-                <AlertCircle className="h-3.5 w-3.5" />
-                Practice Weak Areas
-                <ChevronRight className="h-3.5 w-3.5 ml-auto" />
-              </Button>
             </div>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Related topics */}
+      {relatedTopics.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base flex items-center gap-2">
+              <BookOpen className="h-4 w-4 text-muted-foreground" />
+              Related Topics
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {relatedTopics.map((rt: any) => (
+                <button
+                  key={rt.id}
+                  onClick={() => navigate('topic-detail', { topicId: rt.id, subjectSlug: subject.slug })}
+                  className="flex items-center gap-2 rounded-md border border-border p-3 text-left hover:border-primary/40 hover:bg-muted/30 transition-colors"
+                >
+                  <BookOpen className="h-3.5 w-3.5 text-primary shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-sm line-clamp-1">{rt.name}</div>
+                    <div className="text-[10px] text-muted-foreground capitalize">{rt.importance} importance</div>
+                  </div>
+                  <ChevronRight className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                </button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Study tip */}
+      <div className="mt-6 rounded-lg border border-primary/20 bg-primary/5 p-4">
+        <div className="flex items-start gap-2">
+          <Lightbulb className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+          <div>
+            <p className="text-sm font-medium">Study tip</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Read the notes first, then attempt the practice questions. If your accuracy is below 60%, review the cheat sheet and reattempt. Mark this topic as completed only when you can consistently answer 75%+ correctly.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )

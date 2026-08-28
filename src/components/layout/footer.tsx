@@ -8,6 +8,7 @@ const PLATFORM_LINKS: { label: string; view: ViewKey }[] = [
   { label: 'Subjects', view: 'subjects' },
   { label: 'Resources', view: 'resources' },
   { label: 'Articles', view: 'articles' },
+  { label: 'Exam Info', view: 'exam-info' },
   { label: 'FAQ', view: 'faq' },
 ]
 
@@ -17,6 +18,7 @@ const PREP_LINKS: { label: string; view: ViewKey }[] = [
   { label: 'PYQs', view: 'pyqs' },
   { label: 'Mock Tests', view: 'mock-tests' },
   { label: 'Cheat Sheets', view: 'cheat-sheets' },
+  { label: 'Revision', view: 'revision' },
 ]
 
 export function Footer() {

@@ -17,6 +17,10 @@ import {
   Timer,
   CalendarDays,
   Sparkles,
+  RotateCcw,
+  BarChart3,
+  Info,
+  StickyNote,
   X,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -39,12 +43,17 @@ const NAV_ITEMS: NavItem[] = [
   { key: 'notes', label: 'Notes', icon: PenTool, group: 'study' },
   { key: 'cheat-sheets', label: 'Cheat Sheets', icon: Sparkles, group: 'study' },
   { key: 'books', label: 'Books', icon: BookMarked, group: 'study' },
-  { key: 'practice', label: 'MCQ Practice', icon: FileQuestion, group: 'practice' },
+  { key: 'articles', label: 'Articles', icon: PenTool, group: 'study' },
+  { key: 'exam-info', label: 'Exam Info', icon: Info, group: 'study' },
+  { key: 'practice', label: 'Practice', icon: FileQuestion, group: 'practice' },
   { key: 'pyqs', label: 'PYQs', icon: FileQuestion, group: 'practice' },
   { key: 'mock-tests', label: 'Mock Tests', icon: Timer, group: 'practice' },
+  { key: 'revision', label: 'Revision', icon: RotateCcw, group: 'practice' },
   { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, group: 'personal' },
+  { key: 'analytics', label: 'Analytics', icon: BarChart3, group: 'personal' },
   { key: 'planner', label: 'Planner', icon: CalendarDays, group: 'personal' },
   { key: 'bookmarks', label: 'Bookmarks', icon: BookMarked, group: 'personal' },
+  { key: 'user-notes', label: 'My Notes', icon: StickyNote, group: 'personal' },
 ]
 
 export function Header() {
@@ -77,9 +86,9 @@ export function Header() {
           </div>
         </button>
 
-        {/* Desktop nav */}
+        {/* Desktop nav — primary items only, rest in mobile menu */}
         <nav className="hidden lg:flex items-center gap-0.5 ml-2">
-          {NAV_ITEMS.map((item) => {
+          {NAV_ITEMS.filter((i) => ['home', 'subjects', 'notes', 'practice', 'mock-tests', 'dashboard', 'revision', 'planner'].includes(i.key)).map((item) => {
             const Icon = item.icon
             const active = view === item.key
             return (
