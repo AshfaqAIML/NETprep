@@ -94,10 +94,9 @@ export async function GET() {
     },
   }
 
-  // Return 503 if any critical check is down
-  const httpStatus = overallStatus === 'down' ? 503 : 200
+  // Return 200 always (degraded status is communicated in the body, not HTTP code)
   return NextResponse.json(response, {
-    status: httpStatus,
+    status: 200,
     headers: {
       'Cache-Control': 'no-store, no-cache, must-revalidate',
     },
