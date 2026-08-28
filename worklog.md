@@ -595,3 +595,65 @@ Stage Summary:
 - Coverage matrix shows dataset gaps transparently (completeness % per paper)
 - Source hierarchy: tier1 (official) for all registered sources
 - Historical papers (2015-2017) labeled as "Paper III" (CBSE era structure) — not relabeled as modern Paper 2
+
+---
+Task ID: 10
+Agent: Final Audit & Polish Agent
+Task: Continuous audit, improvement, and perfection loop — find and fix UI/UX, accessibility, navigation, and polish issues.
+
+Work Log:
+- Performed comprehensive audit of all 27 views, 39 API routes, 26 schema models
+- All 39 APIs verified HTTP 200
+- All views have loading skeletons (26/26)
+- Key issues identified and fixed:
+
+1. Created shared UI state components (src/components/shared/states.tsx):
+   * EmptyState — icon, title, description, action button
+   * ErrorState — with retry button and proper ARIA role="alert"
+   * Breadcrumbs — accessible nav with aria-label="Breadcrumb"
+
+2. Added breadcrumbs to 6 key views:
+   * Notes Library: Home → Notes Library
+   * Practice: Home → Practice
+   * Mock Tests: Home → Mock Tests
+   * PYQ Library: Home → PYQ Dashboard → PYQ Library
+   * Dashboard: Home → Dashboard
+   * Revision Center: Home → Revision Center
+
+3. Added keyboard navigation to Practice engine:
+   * Arrow Left → Previous question
+   * Arrow Right → Next question
+   * Keys 1-4 → Select options A-D
+   * Properly handles hooks rules (placed before early returns)
+   * Ignores key events when typing in inputs/textareas
+   * Added keyboard shortcut hints (kbd elements) in the action bar
+
+4. Improved error states:
+   * Dashboard error now shows centered message instead of bare text
+   * Created reusable ErrorState component with retry button
+
+5. Accessibility improvements:
+   * Added aria-label to practice question options (e.g., "Option A: [text] (selected)")
+   * Breadcrumbs use semantic <nav> with aria-label
+   * Error states use role="alert"
+
+6. Improved dashboard error handling:
+   * Replaced bare "Failed to load dashboard." with centered error UI
+   * Added retry button
+
+Verification:
+- ESLint: zero errors
+- TypeScript: zero errors
+- All 39 APIs return HTTP 200
+- Home page: HTTP 200
+- Breadcrumbs visible on 6 key views
+- Keyboard navigation works in practice mode
+- Accessibility improved with aria-labels and semantic HTML
+
+Stage Summary:
+- Created 3 reusable shared components (EmptyState, ErrorState, Breadcrumbs)
+- Added breadcrumbs to 6 views for navigation context
+- Added full keyboard navigation to practice engine (arrows + number keys)
+- Improved accessibility with aria-labels and semantic HTML
+- Improved error states with retry buttons
+- All code passes lint and TypeScript checks

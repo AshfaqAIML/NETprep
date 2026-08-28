@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { Breadcrumbs } from '@/components/shared/states'
 
 export function MockTestsView() {
   const navigate = useAppStore((s) => s.navigate)
@@ -24,6 +25,10 @@ export function MockTestsView() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[
+        { label: 'Home', onClick: () => navigate('home') },
+        { label: 'Mock Tests' },
+      ]} />
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-1">
           <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500 to-red-600 text-white">

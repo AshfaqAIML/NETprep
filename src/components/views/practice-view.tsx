@@ -40,6 +40,7 @@ import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { BookmarkButton } from '@/components/shared/bookmark-button'
 import { SourceBadge } from '@/components/shared/source-badge'
+import { Breadcrumbs } from '@/components/shared/states'
 import { toast } from 'sonner'
 
 type Mode = 'practice' | 'exam' | 'revision' | 'weak'
@@ -52,7 +53,7 @@ const MODE_META: Record<Mode, { label: string; description: string; icon: React.
 }
 
 export function PracticeView() {
-  const { viewParams } = useAppStore()
+  const { viewParams, navigate } = useAppStore()
   const [mode, setMode] = React.useState<Mode>('practice')
   const [subject, setSubject] = React.useState<string>(viewParams.subject ?? 'all')
   const [difficulty, setDifficulty] = React.useState<string>('all')
@@ -201,10 +202,38 @@ export function PracticeView() {
     setRevealed(answers[prevQ?.id] != null && mode === 'practice')
   }
 
+  // Keyboard navigation (must be before early returns for hooks rules)
+  React.useEffect(() => {
+    if (!started || completed || loading) return
+    const handler = (e: KeyboardEvent) => {
+      // Don't intercept if user is typing in an input
+      const target = e.target as HTMLElement
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT') return
+
+      if (e.key === 'ArrowLeft' && currentIdx > 0) {
+        e.preventDefault()
+        goPrev()
+      } else if (e.key === 'ArrowRight' && selected) {
+        e.preventDefault()
+        goNext()
+      } else if (['1', '2', '3', '4'].includes(e.key) && !revealed) {
+        const opt = ['A', 'B', 'C', 'D'][parseInt(e.key) - 1]
+        e.preventDefault()
+        handleSelect(opt)
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [started, completed, loading, currentIdx, selected, revealed])
+
   // Setup screen
   if (!started) {
     return (
       <div className="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+        <Breadcrumbs items={[
+          { label: 'Home', onClick: () => navigate('home') },
+          { label: 'Practice' },
+        ]} />
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1">
             <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-fuchsia-500 to-pink-600 text-white">
@@ -454,6 +483,7 @@ export function PracticeView() {
                   key={opt}
                   onClick={() => handleSelect(opt)}
                   disabled={showFeedback}
+                  aria-label={`Option ${opt}: ${q[`option${opt}`]}${isSelected ? ' (selected)' : ''}`}
                   className={cn(
                     'flex w-full items-start gap-3 rounded-lg border p-3 text-left text-sm transition-all',
                     !showFeedback && 'hover:border-primary/40 hover:bg-muted/30',
@@ -509,6 +539,11 @@ export function PracticeView() {
         <Button variant="outline" size="sm" onClick={goPrev} disabled={currentIdx === 0} className="gap-1.5">
           <ArrowLeft className="h-3.5 w-3.5" /> Previous
         </Button>
+        <div className="hidden sm:flex items-center gap-1 text-[10px] text-muted-foreground">
+          <kbd className="px-1.5 py-0.5 rounded border bg-muted font-mono">←</kbd>
+          <kbd className="px-1.5 py-0.5 rounded border bg-muted font-mono">1-4</kbd>
+          <kbd className="px-1.5 py-0.5 rounded border bg-muted font-mono">→</kbd>
+        </div>
         <div className="flex items-center gap-2">
           <ReportButton questionId={q.id} />
           <BookmarkButton itemType="question" itemId={q.id} showLabel={false} variant="ghost" />

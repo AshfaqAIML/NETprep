@@ -26,6 +26,7 @@ import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
+import { Breadcrumbs } from '@/components/shared/states'
 
 export function RevisionView() {
   const navigate = useAppStore((s) => s.navigate)
@@ -56,6 +57,10 @@ export function RevisionView() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[
+        { label: 'Home', onClick: () => navigate('home') },
+        { label: 'Revision Center' },
+      ]} />
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-1">

@@ -31,6 +31,7 @@ import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { BookmarkButton } from '@/components/shared/bookmark-button'
 import { SourceBadge } from '@/components/shared/source-badge'
+import { Breadcrumbs } from '@/components/shared/states'
 
 export function PyqsView() {
   const { viewParams, navigate } = useAppStore()
@@ -120,6 +121,11 @@ export function PyqsView() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+      <Breadcrumbs items={[
+        { label: 'Home', onClick: () => navigate('home') },
+        { label: 'PYQ Dashboard', onClick: () => navigate('pyq-dashboard') },
+        { label: 'PYQ Library' },
+      ]} />
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-1">

@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { Breadcrumbs } from '@/components/shared/states'
 
 const DIFFICULTY_COLORS: Record<string, string> = {
   easy: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300',
@@ -57,6 +58,11 @@ export function NotesView() {
           Back to Subjects
         </Button>
       )}
+
+      <Breadcrumbs items={[
+        { label: 'Home', onClick: () => navigate('home') },
+        { label: 'Notes Library' },
+      ]} />
 
       <div className="mb-6">
         <h1 className="text-3xl font-bold tracking-tight">Notes Library</h1>

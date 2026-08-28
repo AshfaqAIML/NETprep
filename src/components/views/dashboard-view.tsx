@@ -40,6 +40,7 @@ import {
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { ProgressRing } from '@/components/shared/progress-ring'
+import { Breadcrumbs } from '@/components/shared/states'
 import { cn } from '@/lib/utils'
 
 export function DashboardView() {
@@ -70,7 +71,13 @@ export function DashboardView() {
     )
   }
 
-  if (!data || !progress) return <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">Failed to load dashboard.</div>
+  if (!data || !progress) return (
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      <div className="text-center py-12">
+        <p className="text-muted-foreground">Failed to load dashboard. Please try again.</p>
+      </div>
+    </div>
+  )
 
   const hour = new Date().getHours()
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening'
