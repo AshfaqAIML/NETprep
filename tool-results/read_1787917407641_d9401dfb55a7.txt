@@ -1,0 +1,1998 @@
+     1→     1→# UGC NET COMPUTER SCIENCE & APPLICATIONS — COMPLETE PYQ, PRACTICE & MOCK TEST SYSTEM
+     2→     2→
+     3→     3→Transform the existing exam-preparation module into a **complete production-ready UGC NET Computer Science & Applications preparation system** focused specifically on:
+     4→     4→
+     5→     5→* **Paper 1 — Teaching & Research Aptitude**
+     6→     6→* **Paper 2 — Computer Science & Applications**
+     7→     7→* **Authentic Previous Year Questions (PYQs)**
+     8→     8→* **Original Practice Questions**
+     9→     9→* **Full-Length Mock Tests**
+    10→    10→* **Topic/Unit Tests**
+    11→    11→* **Performance Analytics**
+    12→    12→* **Mistake Book**
+    13→    13→* **Personalized Practice**
+    14→    14→* **Historical Exam Analysis**
+    15→    15→
+    16→    16→The experience should feel like a serious, premium exam-preparation platform designed specifically for UGC NET Computer Science candidates.
+    17→    17→
+    18→    18→---
+    19→    19→
+    20→    20→# 1. EXAM CONFIGURATION
+    21→    21→
+    22→    22→Use the following configuration as the initial exam model, but build the architecture so that exam rules can be updated by cycle/version when official NTA notifications change.
+    23→    23→
+    24→    24→## Exam
+    25→    25→
+    26→    26→**UGC NET — Computer Science & Applications**
+    27→    27→
+    28→    28→**Subject Code:** 87
+    29→    29→
+    30→    30→**Conducting Body:** NTA
+    31→    31→
+    32→    32→**Mode:** Computer-Based Test
+    33→    33→
+    34→    34→**Total Duration:** 3 hours combined
+    35→    35→
+    36→    36→## Current Target Structure
+    37→    37→
+    38→    38→### Paper 1
+    39→    39→
+    40→    40→* 50 questions
+    41→    41→* 100 marks
+    42→    42→* Teaching & Research Aptitude
+    43→    43→
+    44→    44→### Paper 2
+    45→    45→
+    46→    46→* 100 questions
+    47→    47→* 200 marks
+    48→    48→* Computer Science & Applications
+    49→    49→
+    50→    50→### Combined
+    51→    51→
+    52→    52→* 150 questions
+    53→    53→* 300 marks
+    54→    54→* 3 hours
+    55→    55→
+    56→    56→### Marking
+    57→    57→
+    58→    58→* No negative marking under the configured exam pattern
+    59→    59→
+    60→    60→### Language
+    61→    61→
+    62→    62→* English
+    63→    63→* Hindi
+    64→    64→
+    65→    65→IMPORTANT:
+    66→    66→
+    67→    67→Do not hardcode these rules into business logic.
+    68→    68→
+    69→    69→Create an **Exam Pattern / Exam Cycle configuration layer** so the system can represent historical and future changes.
+    70→    70→
+    71→    71→---
+    72→    72→
+    73→    73→# 2. QUICK ACCESS
+    74→    74→
+    75→    75→Add a prominent Quick Access card:
+    76→    76→
+    77→    77→## UGC NET PYQs
+    78→    78→
+    79→    79→Subtitle:
+    80→    80→
+    81→    81→**Paper 1 + Computer Science Paper 2**
+    82→    82→
+    83→    83→Supporting text:
+    84→    84→
+    85→    85→> Practice authentic previous-year UGC NET questions and exam-style questions.
+    86→    86→
+    87→    87→Show:
+    88→    88→
+    89→    89→* Total PYQs
+    90→    90→* Paper 1 PYQs
+    91→    91→* Paper 2 PYQs
+    92→    92→* Years Covered
+    93→    93→* Mock Tests
+    94→    94→* Practice Questions
+    95→    95→
+    96→    96→Quick actions:
+    97→    97→
+    98→    98→**Practice PYQs**
+    99→    99→
+   100→   100→**Paper 1**
+   101→   101→
+   102→   102→**Paper 2 — Computer Science**
+   103→   103→
+   104→   104→**Mock Tests**
+   105→   105→
+   106→   106→---
+   107→   107→
+   108→   108→# 3. MAIN EXAM PREPARATION HUB
+   109→   109→
+   110→   110→Create a dedicated:
+   111→   111→
+   112→   112→# UGC NET Computer Science
+   113→   113→
+   114→   114→dashboard.
+   115→   115→
+   116→   116→At the top display:
+   117→   117→
+   118→   118→### Exam Overview
+   119→   119→
+   120→   120→```text
+   121→   121→Paper 1       50 Questions     100 Marks
+   122→   122→Paper 2      100 Questions     200 Marks
+   123→   123→Total        150 Questions     300 Marks
+   124→   124→Duration      3 Hours
+   125→   125→Negative Marking: None
+   126→   126→```
+   127→   127→
+   128→   128→Also display:
+   129→   129→
+   130→   130→**Paper 1**
+   131→   131→Teaching & Research Aptitude
+   132→   132→
+   133→   133→**Paper 2**
+   134→   134→Computer Science & Applications
+   135→   135→
+   136→   136→---
+   137→   137→
+   138→   138→# 4. PAPER 1 — COMPLETE STRUCTURE
+   139→   139→
+   140→   140→Create Paper 1 with these 10 units:
+   141→   141→
+   142→   142→## Unit I — Teaching Aptitude
+   143→   143→
+   144→   144→Topics should include the applicable concepts under Teaching Aptitude.
+   145→   145→
+   146→   146→## Unit II — Research Aptitude
+   147→   147→
+   148→   148→Include:
+   149→   149→
+   150→   150→* Research fundamentals
+   151→   151→* Research methods
+   152→   152→* Research design
+   153→   153→* Sampling
+   154→   154→* Data collection
+   155→   155→* Research ethics
+   156→   156→* Referencing
+   157→   157→* Academic integrity
+   158→   158→* Research tools
+   159→   159→
+   160→   160→## Unit III — Comprehension
+   161→   161→
+   162→   162→Support passage-based questions.
+   163→   163→
+   164→   164→## Unit IV — Communication
+   165→   165→
+   166→   166→Include:
+   167→   167→
+   168→   168→* Communication models
+   169→   169→* Types of communication
+   170→   170→* Barriers
+   171→   171→* Effective communication
+   172→   172→* Classroom communication
+   173→   173→* Mass communication
+   174→   174→
+   175→   175→## Unit V — Mathematical Reasoning
+   176→   176→
+   177→   177→Include applicable mathematical reasoning concepts.
+   178→   178→
+   179→   179→## Unit VI — Logical Reasoning
+   180→   180→
+   181→   181→Include:
+   182→   182→
+   183→   183→* Arguments
+   184→   184→* Deduction
+   185→   185→* Induction
+   186→   186→* Propositions
+   187→   187→* Logical relationships
+   188→   188→* Fallacies
+   189→   189→
+   190→   190→## Unit VII — Data Interpretation
+   191→   191→
+   192→   192→Include:
+   193→   193→
+   194→   194→* Tables
+   195→   195→* Bar charts
+   196→   196→* Pie charts
+   197→   197→* Line graphs
+   198→   198→* Data analysis
+   199→   199→* Ratio
+   200→   200→* Percentage
+   201→   201→* Average
+   202→   202→* Interpretation
+   203→   203→
+   204→   204→## Unit VIII — ICT
+   205→   205→
+   206→   206→Include:
+   207→   207→
+   208→   208→* Computer fundamentals
+   209→   209→* Internet
+   210→   210→* Networking basics
+   211→   211→* Digital technologies
+   212→   212→* Communication technologies
+   213→   213→* Information systems
+   214→   214→* Emerging ICT
+   215→   215→
+   216→   216→## Unit IX — People, Development & Environment
+   217→   217→
+   218→   218→Include the applicable environmental and development concepts.
+   219→   219→
+   220→   220→## Unit X — Higher Education System
+   221→   221→
+   222→   222→Include:
+   223→   223→
+   224→   224→* Indian higher education
+   225→   225→* Institutions
+   226→   226→* Policies
+   227→   227→* Governance
+   228→   228→* Regulatory framework
+   229→   229→* Education initiatives
+   230→   230→
+   231→   231→Map each PYQ and practice question to:
+   232→   232→
+   233→   233→```text
+   234→   234→Paper 1
+   235→   235→→ Unit
+   236→   236→→ Topic
+   237→   237→→ Subtopic
+   238→   238→```
+   239→   239→
+   240→   240→---
+   241→   241→
+   242→   242→# 5. PAPER 2 — COMPUTER SCIENCE & APPLICATIONS
+   243→   243→
+   244→   244→Create a dedicated 10-unit Computer Science taxonomy.
+   245→   245→
+   246→   246→## UNIT 1 — DISCRETE STRUCTURES & OPTIMIZATION
+   247→   247→
+   248→   248→Topics:
+   249→   249→
+   250→   250→* Sets
+   251→   251→* Relations
+   252→   252→* Functions
+   253→   253→* Propositional logic
+   254→   254→* Predicate logic
+   255→   255→* Boolean reasoning
+   256→   256→* Graph theory
+   257→   257→* Trees
+   258→   258→* Spanning trees
+   259→   259→* Shortest path
+   260→   260→* Graph algorithms
+   261→   261→* Combinatorics
+   262→   262→* Recurrence relations
+   263→   263→* Optimization
+   264→   264→* Linear programming
+   265→   265→* Simplex method
+   266→   266→
+   267→   267→Suggested historical question range:
+   268→   268→
+   269→   269→**6–8 questions**
+   270→   270→
+   271→   271→Do not force exactly this number in every examination. Store observed distributions from actual papers.
+   272→   272→
+   273→   273→---
+   274→   274→
+   275→   275→# UNIT 2 — COMPUTER SYSTEM ARCHITECTURE
+   276→   276→
+   277→   277→Topics:
+   278→   278→
+   279→   279→* Number systems
+   280→   280→* Binary arithmetic
+   281→   281→* Boolean algebra
+   282→   282→* Logic gates
+   283→   283→* Combinational circuits
+   284→   284→* Sequential circuits
+   285→   285→* CPU organization
+   286→   286→* Instruction sets
+   287→   287→* Control unit
+   288→   288→* Memory hierarchy
+   289→   289→* Cache
+   290→   290→* Virtual memory
+   291→   291→* Pipelining
+   292→   292→* RISC
+   293→   293→* CISC
+   294→   294→* I/O organization
+   295→   295→
+   296→   296→---
+   297→   297→
+   298→   298→# UNIT 3 — PROGRAMMING LANGUAGES & COMPUTER GRAPHICS
+   299→   299→
+   300→   300→Topics:
+   301→   301→
+   302→   302→* C
+   303→   303→* C++
+   304→   304→* Java
+   305→   305→* Programming paradigms
+   306→   306→* OOP
+   307→   307→* Inheritance
+   308→   308→* Polymorphism
+   309→   309→* Encapsulation
+   310→   310→* Abstraction
+   311→   311→* Recursion
+   312→   312→* Algorithm paradigms
+   313→   313→* Greedy algorithms
+   314→   314→* Dynamic programming
+   315→   315→* Backtracking
+   316→   316→* Complexity
+   317→   317→* Big-O
+   318→   318→* Computer graphics
+   319→   319→* 2D transformations
+   320→   320→* 3D transformations
+   321→   321→* Viewing
+   322→   322→* Clipping
+   323→   323→* Rendering fundamentals
+   324→   324→
+   325→   325→---
+   326→   326→
+   327→   327→# UNIT 4 — DATABASE MANAGEMENT SYSTEMS
+   328→   328→
+   329→   329→Topics:
+   330→   330→
+   331→   331→* ER model
+   332→   332→* Relational model
+   333→   333→* Relational algebra
+   334→   334→* Relational calculus
+   335→   335→* SQL
+   336→   336→* Functional dependencies
+   337→   337→* Normalization
+   338→   338→* 1NF
+   339→   339→* 2NF
+   340→   340→* 3NF
+   341→   341→* BCNF
+   342→   342→* Transactions
+   343→   343→* ACID properties
+   344→   344→* Serializability
+   345→   345→* Concurrency control
+   346→   346→* Two-phase locking
+   347→   347→* Deadlocks
+   348→   348→* Recovery
+   349→   349→* Indexing
+   350→   350→* B-tree
+   351→   351→* B+ tree
+   352→   352→* Hashing
+   353→   353→* Query processing
+   354→   354→* Query optimization
+   355→   355→* Distributed databases
+   356→   356→* NoSQL
+   357→   357→
+   358→   358→Priority topics:
+   359→   359→
+   360→   360→**SQL**
+   361→   361→
+   362→   362→**Normalization**
+   363→   363→
+   364→   364→**Transactions**
+   365→   365→
+   366→   366→**Concurrency**
+   367→   367→
+   368→   368→**Indexing**
+   369→   369→
+   370→   370→---
+   371→   371→
+   372→   372→# UNIT 5 — SYSTEM SOFTWARE & OPERATING SYSTEMS
+   373→   373→
+   374→   374→Topics:
+   375→   375→
+   376→   376→* Processes
+   377→   377→* Threads
+   378→   378→* Process states
+   379→   379→* CPU scheduling
+   380→   380→* FCFS
+   381→   381→* SJF
+   382→   382→* SRTF
+   383→   383→* Priority
+   384→   384→* Round Robin
+   385→   385→* Synchronization
+   386→   386→* Critical section
+   387→   387→* Semaphores
+   388→   388→* Monitors
+   389→   389→* Deadlocks
+   390→   390→* Banker’s algorithm
+   391→   391→* Memory allocation
+   392→   392→* Paging
+   393→   393→* Segmentation
+   394→   394→* Virtual memory
+   395→   395→* Page replacement
+   396→   396→* FIFO
+   397→   397→* LRU
+   398→   398→* Optimal
+   399→   399→* Thrashing
+   400→   400→* File systems
+   401→   401→* Disk scheduling
+   402→   402→* System software
+   403→   403→* Assemblers
+   404→   404→* Loaders
+   405→   405→* Linkers
+   406→   406→
+   407→   407→High-value calculation categories:
+   408→   408→
+   409→   409→* CPU scheduling
+   410→   410→* Page faults
+   411→   411→* Deadlock
+   412→   412→* Memory allocation
+   413→   413→* Disk scheduling
+   414→   414→
+   415→   415→---
+   416→   416→
+   417→   417→# UNIT 6 — SOFTWARE ENGINEERING
+   418→   418→
+   419→   419→Topics:
+   420→   420→
+   421→   421→* SDLC
+   422→   422→* Waterfall
+   423→   423→* Incremental models
+   424→   424→* Spiral
+   425→   425→* Prototype model
+   426→   426→* Agile
+   427→   427→* Scrum
+   428→   428→* Requirements engineering
+   429→   429→* UML
+   430→   430→* Software architecture
+   431→   431→* Design patterns
+   432→   432→* Cohesion
+   433→   433→* Coupling
+   434→   434→* Testing
+   435→   435→* Black-box testing
+   436→   436→* White-box testing
+   437→   437→* Integration testing
+   438→   438→* Regression testing
+   439→   439→* COCOMO
+   440→   440→* Software metrics
+   441→   441→* Reliability
+   442→   442→* Risk management
+   443→   443→* Maintenance
+   444→   444→
+   445→   445→---
+   446→   446→
+   447→   447→# UNIT 7 — DATA STRUCTURES & ALGORITHMS
+   448→   448→
+   449→   449→Topics:
+   450→   450→
+   451→   451→* Arrays
+   452→   452→* Linked lists
+   453→   453→* Stacks
+   454→   454→* Queues
+   455→   455→* Trees
+   456→   456→* Binary trees
+   457→   457→* BST
+   458→   458→* AVL
+   459→   459→* B-tree
+   460→   460→* B+ tree
+   461→   461→* Red-Black trees
+   462→   462→* Heaps
+   463→   463→* Graphs
+   464→   464→* BFS
+   465→   465→* DFS
+   466→   466→* Dijkstra
+   467→   467→* Prim
+   468→   468→* Kruskal
+   469→   469→* Hashing
+   470→   470→* Collision handling
+   471→   471→* Sorting
+   472→   472→* Searching
+   473→   473→* Divide and conquer
+   474→   474→* Greedy algorithms
+   475→   475→* Dynamic programming
+   476→   476→* Backtracking
+   477→   477→* Complexity analysis
+   478→   478→
+   479→   479→High-priority areas:
+   480→   480→
+   481→   481→**Tree traversals**
+   482→   482→
+   483→   483→**Graph algorithms**
+   484→   484→
+   485→   485→**Sorting**
+   486→   486→
+   487→   487→**Complexity**
+   488→   488→
+   489→   489→**Hashing**
+   490→   490→
+   491→   491→---
+   492→   492→
+   493→   493→# UNIT 8 — THEORY OF COMPUTATION & COMPILERS
+   494→   494→
+   495→   495→Topics:
+   496→   496→
+   497→   497→* Formal languages
+   498→   498→* Finite automata
+   499→   499→* DFA
+   500→   500→* NFA
+   501→   501→* ε-NFA
+   502→   502→* Regular expressions
+   503→   503→* Regular languages
+   504→   504→* Context-free grammars
+   505→   505→* CFG
+   506→   506→* PDA
+   507→   507→* Parse trees
+   508→   508→* Ambiguity
+   509→   509→* Chomsky hierarchy
+   510→   510→* Pumping lemma
+   511→   511→* Turing machines
+   512→   512→* Decidability
+   513→   513→* Undecidability
+   514→   514→* Complexity
+   515→   515→* Compiler phases
+   516→   516→* Lexical analysis
+   517→   517→* Syntax analysis
+   518→   518→* Parsing
+   519→   519→* Semantic analysis
+   520→   520→* Intermediate code
+   521→   521→* Code generation
+   522→   522→* Optimization
+   523→   523→
+   524→   524→High-priority:
+   525→   525→
+   526→   526→**DFA/NFA conversion**
+   527→   527→
+   528→   528→**Regular expressions**
+   529→   529→
+   530→   530→**CFG**
+   531→   531→
+   532→   532→**PDA**
+   533→   533→
+   534→   534→**Pumping lemma**
+   535→   535→
+   536→   536→**Turing machines**
+   537→   537→
+   538→   538→**Compiler parsing**
+   539→   539→
+   540→   540→---
+   541→   541→
+   542→   542→# UNIT 9 — DATA COMMUNICATION & COMPUTER NETWORKS
+   543→   543→
+   544→   544→Topics:
+   545→   545→
+   546→   546→* Data communication
+   547→   547→* Network topologies
+   548→   548→* Transmission media
+   549→   549→* OSI model
+   550→   550→* TCP/IP
+   551→   551→* Ethernet
+   552→   552→* MAC
+   553→   553→* ARP
+   554→   554→* IP
+   555→   555→* IPv4
+   556→   556→* IPv6
+   557→   557→* Subnetting
+   558→   558→* CIDR
+   559→   559→* Routing
+   560→   560→* RIP
+   561→   561→* OSPF
+   562→   562→* BGP
+   563→   563→* TCP
+   564→   564→* UDP
+   565→   565→* Flow control
+   566→   566→* Congestion control
+   567→   567→* HTTP
+   568→   568→* HTTPS
+   569→   569→* FTP
+   570→   570→* DNS
+   571→   571→* SMTP
+   572→   572→* DHCP
+   573→   573→* Wireless networks
+   574→   574→* Cloud networking
+   575→   575→* Network security basics
+   576→   576→
+   577→   577→High-priority:
+   578→   578→
+   579→   579→**Subnetting**
+   580→   580→
+   581→   581→**CIDR**
+   582→   582→
+   583→   583→**OSI/TCP-IP**
+   584→   584→
+   585→   585→**Routing**
+   586→   586→
+   587→   587→**TCP vs UDP**
+   588→   588→
+   589→   589→**Application protocols**
+   590→   590→
+   591→   591→---
+   592→   592→
+   593→   593→# UNIT 10 — ARTIFICIAL INTELLIGENCE
+   594→   594→
+   595→   595→Topics:
+   596→   596→
+   597→   597→* AI fundamentals
+   598→   598→* Problem solving
+   599→   599→* State-space search
+   600→   600→* BFS
+   601→   601→* DFS
+   602→   602→* Uniform-cost search
+   603→   603→* A*
+   604→   604→* Heuristics
+   605→   605→* Minimax
+   606→   606→* Alpha-beta pruning
+   607→   607→* Knowledge representation
+   608→   608→* Logic
+   609→   609→* Expert systems
+   610→   610→* Machine learning
+   611→   611→* Supervised learning
+   612→   612→* Unsupervised learning
+   613→   613→* Reinforcement learning
+   614→   614→* Decision trees
+   615→   615→* k-NN
+   616→   616→* SVM
+   617→   617→* Neural networks
+   618→   618→* NLP
+   619→   619→* Learning concepts
+   620→   620→
+   621→   621→Do not assume every subtopic has equal historical weight. Analyze the actual PYQ dataset.
+   622→   622→
+   623→   623→---
+   624→   624→
+   625→   625→# 6. AUTHENTIC PYQ LIBRARY
+   626→   626→
+   627→   627→Create a complete historical PYQ repository.
+   628→   628→
+   629→   629→Every question must have provenance.
+   630→   630→
+   631→   631→Required metadata:
+   632→   632→
+   633→   633→```text
+   634→   634→id
+   635→   635→exam
+   636→   636→subject_code
+   637→   637→paper
+   638→   638→year
+   639→   639→session
+   640→   640→exam_date
+   641→   641→shift
+   642→   642→question_number
+   643→   643→unit
+   644→   644→topic
+   645→   645→subtopic
+   646→   646→question_text
+   647→   647→options
+   648→   648→correct_answer
+   649→   649→answer_key_reference
+   650→   650→source_type
+   651→   651→source_url
+   652→   652→source_reference
+   653→   653→difficulty
+   654→   654→language
+   655→   655→explanation
+   656→   656→```
+   657→   657→
+   658→   658→Source types:
+   659→   659→
+   660→   660→```text
+   661→   661→OFFICIAL_PYQ
+   662→   662→VERIFIED_PYQ
+   663→   663→AI_PRACTICE
+   664→   664→AI_MOCK
+   665→   665→```
+   666→   666→
+   667→   667→---
+   668→   668→
+   669→   669→# 7. PAPER 1 + PAPER 2 PYQ BROWSING
+   670→   670→
+   671→   671→Allow users to select:
+   672→   672→
+   673→   673→### Paper
+   674→   674→
+   675→   675→* Paper 1
+   676→   676→* Paper 2 — Computer Science & Applications
+   677→   677→
+   678→   678→### Year
+   679→   679→
+   680→   680→All verified available years.
+   681→   681→
+   682→   682→### Session
+   683→   683→
+   684→   684→Use the actual session terminology applicable to each historical examination cycle.
+   685→   685→
+   686→   686→### Shift
+   687→   687→
+   688→   688→Where applicable.
+   689→   689→
+   690→   690→### Unit
+   691→   691→
+   692→   692→Paper-specific unit list.
+   693→   693→
+   694→   694→### Topic
+   695→   695→
+   696→   696→Topic list dynamically filtered by selected unit.
+   697→   697→
+   698→   698→### Difficulty
+   699→   699→
+   700→   700→* Easy
+   701→   701→* Medium
+   702→   702→* Hard
+   703→   703→
+   704→   704→### Status
+   705→   705→
+   706→   706→* Unattempted
+   707→   707→* Attempted
+   708→   708→* Correct
+   709→   709→* Incorrect
+   710→   710→* Bookmarked
+   711→   711→
+   712→   712→---
+   713→   713→
+   714→   714→# 8. HISTORICAL COVERAGE
+   715→   715→
+   716→   716→Build the system to ingest and organize historical examination material across available cycles.
+   717→   717→
+   718→   718→IMPORTANT:
+   719→   719→
+   720→   720→Do not only collect recent years.
+   721→   721→
+   722→   722→Create a historical corpus wherever legitimate source material is available.
+   723→   723→
+   724→   724→For Computer Science, support historical paper structures and preserve year/session/paper metadata.
+   725→   725→
+   726→   726→Where applicable, include older Computer Science examination material that provides useful historical coverage, but clearly label the original examination structure and year.
+   727→   727→
+   728→   728→Do not relabel an old paper as a modern Paper 2.
+   729→   729→
+   730→   730→---
+   731→   731→
+   732→   732→# 9. PAPER 2 HISTORICAL PAPER STRUCTURE
+   733→   733→
+   734→   734→Because historical UGC NET Computer Science examinations may have used different paper structures, the database must preserve:
+   735→   735→
+   736→   736→* Historical paper identity
+   737→   737→* Original paper number
+   738→   738→* Question numbering
+   739→   739→* Session
+   740→   740→* Year
+   741→   741→* Shift
+   742→   742→* Source
+   743→   743→
+   744→   744→Where older Computer Science examination material is relevant to current preparation, allow it to be used for practice while clearly showing its historical origin.
+   745→   745→
+   746→   746→Do not merge historically distinct papers into one fake modern paper.
+   747→   747→
+   748→   748→---
+   749→   749→
+   750→   750→# 10. PYQ QUICK PRACTICE
+   751→   751→
+   752→   752→Provide:
+   753→   753→
+   754→   754→### Practice All PYQs
+   755→   755→
+   756→   756→### Paper 1 PYQs
+   757→   757→
+   758→   758→### Paper 2 PYQs
+   759→   759→
+   760→   760→### Computer Science Unit-wise PYQs
+   761→   761→
+   762→   762→### Year-wise PYQs
+   763→   763→
+   764→   764→### Topic-wise PYQs
+   765→   765→
+   766→   766→### Random PYQs
+   767→   767→
+   768→   768→### Incorrect PYQs
+   769→   769→
+   770→   770→### Bookmarked PYQs
+   771→   771→
+   772→   772→### Weak Topic PYQs
+   773→   773→
+   774→   774→### High-Frequency Topic PYQs
+   775→   775→
+   776→   776→---
+   777→   777→
+   778→   778→# 11. QUESTION INTERFACE
+   779→   779→
+   780→   780→Design a premium question-solving interface.
+   781→   781→
+   782→   782→Header:
+   783→   783→
+   784→   784→```text
+   785→   785→UGC NET
+   786→   786→Paper 2 — Computer Science & Applications
+   787→   787→
+   788→   788→Unit 4 — DBMS
+   789→   789→Topic — Normalization
+   790→   790→
+   791→   791→2024 | Shift 1 | Question 42
+   792→   792→```
+   793→   793→
+   794→   794→Then:
+   795→   795→
+   796→   796→### Question
+   797→   797→
+   798→   798→Display the verified question.
+   799→   799→
+   800→   800→### Options
+   801→   801→
+   802→   802→Display all options.
+   803→   803→
+   804→   804→User can select an answer.
+   805→   805→
+   806→   806→Controls:
+   807→   807→
+   808→   808→* Previous
+   809→   809→* Next
+   810→   810→* Clear
+   811→   811→* Mark for Review
+   812→   812→* Bookmark
+   813→   813→* Submit
+   814→   814→
+   815→   815→Show:
+   816→   816→
+   817→   817→**Question 42 of 100**
+   818→   818→
+   819→   819→and a visual progress indicator.
+   820→   820→
+   821→   821→---
+   822→   822→
+   823→   823→# 12. QUESTION EXPLANATION
+   824→   824→
+   825→   825→After answer submission:
+   826→   826→
+   827→   827→Display:
+   828→   828→
+   829→   829→**Your Answer**
+   830→   830→
+   831→   831→**Correct Answer**
+   832→   832→
+   833→   833→**Result**
+   834→   834→
+   835→   835→Then:
+   836→   836→
+   837→   837→### Detailed Explanation
+   838→   838→
+   839→   839→For Computer Science questions, explain the underlying concept.
+   840→   840→
+   841→   841→For calculation questions, show the reasoning step-by-step.
+   842→   842→
+   843→   843→For code/output questions, explain execution.
+   844→   844→
+   845→   845→For algorithms, explain complexity where relevant.
+   846→   846→
+   847→   847→For DBMS questions, explain relational/transactional reasoning.
+   848→   848→
+   849→   849→For OS questions, explain scheduling/memory calculations.
+   850→   850→
+   851→   851→For networking questions, explain protocol behavior.
+   852→   852→
+   853→   853→For TOC questions, explain the formal reasoning.
+   854→   854→
+   855→   855→Never provide a vague one-line explanation for difficult technical questions.
+   856→   856→
+   857→   857→---
+   858→   858→
+   859→   859→# 13. ORIGINAL PRACTICE QUESTION ENGINE
+   860→   860→
+   861→   861→Create a completely separate bank of original questions.
+   862→   862→
+   863→   863→Label:
+   864→   864→
+   865→   865→**AI Practice**
+   866→   866→
+   867→   867→Never call these PYQs.
+   868→   868→
+   869→   869→Generate questions based on:
+   870→   870→
+   871→   871→* Official syllabus
+   872→   872→* Historical concepts
+   873→   873→* Historical difficulty
+   874→   874→* Common misconceptions
+   875→   875→* Topic importance
+   876→   876→* User weaknesses
+   877→   877→* Exam-style reasoning
+   878→   878→
+   879→   879→Never directly copy official questions.
+   880→   880→
+   881→   881→---
+   882→   882→
+   883→   883→# 14. QUESTION DIFFICULTY
+   884→   884→
+   885→   885→Use:
+   886→   886→
+   887→   887→### Easy
+   888→   888→
+   889→   889→Basic concept recognition.
+   890→   890→
+   891→   891→### Medium
+   892→   892→
+   893→   893→Concept application and moderate reasoning.
+   894→   894→
+   895→   895→### Hard
+   896→   896→
+   897→   897→Multi-step reasoning, calculation, code tracing, algorithmic analysis, or subtle conceptual distinctions.
+   898→   898→
+   899→   899→Difficulty must be based on actual question characteristics, not arbitrary labels.
+   900→   900→
+   901→   901→---
+   902→   902→
+   903→   903→# 15. COMPUTER SCIENCE-SPECIFIC PRACTICE GENERATION
+   904→   904→
+   905→   905→Generate realistic questions such as:
+   906→   906→
+   907→   907→### DBMS
+   908→   908→
+   909→   909→SQL queries, normalization, transaction schedules, indexing.
+   910→   910→
+   911→   911→### OS
+   912→   912→
+   913→   913→CPU scheduling, page replacement, deadlock.
+   914→   914→
+   915→   915→### Algorithms
+   916→   916→
+   917→   917→Complexity, recursion, sorting, graph algorithms.
+   918→   918→
+   919→   919→### Networks
+   920→   920→
+   921→   921→Subnetting, routing, protocol behavior.
+   922→   922→
+   923→   923→### TOC
+   924→   924→
+   925→   925→DFA/NFA, CFG, pumping lemma, Turing machines.
+   926→   926→
+   927→   927→### Architecture
+   928→   928→
+   929→   929→Cache, pipeline, Boolean logic, CPU organization.
+   930→   930→
+   931→   931→### Software Engineering
+   932→   932→
+   933→   933→Testing, COCOMO, UML, design principles.
+   934→   934→
+   935→   935→### Discrete Mathematics
+   936→   936→
+   937→   937→Graphs, logic, relations, combinatorics.
+   938→   938→
+   939→   939→### AI
+   940→   940→
+   941→   941→Search, heuristics, ML concepts, knowledge representation.
+   942→   942→
+   943→   943→### Programming
+   944→   944→
+   945→   945→C/C++/Java concepts, OOP, recursion, output prediction.
+   946→   946→
+   947→   947→---
+   948→   948→
+   949→   949→# 16. FULL MOCK TEST
+   950→   950→
+   951→   951→Create a full UGC NET simulation.
+   952→   952→
+   953→   953→Default configured structure:
+   954→   954→
+   955→   955→```text
+   956→   956→Paper 1
+   957→   957→50 Questions
+   958→   958→100 Marks
+   959→   959→
+   960→   960→Paper 2
+   961→   961→100 Questions
+   962→   962→200 Marks
+   963→   963→
+   964→   964→Total
+   965→   965→150 Questions
+   966→   966→300 Marks
+   967→   967→
+   968→   968→Duration
+   969→   969→3 Hours
+   970→   970→```
+   971→   971→
+   972→   972→No negative marking under the configured pattern.
+   973→   973→
+   974→   974→But make all of this configurable per exam cycle.
+   975→   975→
+   976→   976→---
+   977→   977→
+   978→   978→# 17. MOCK TEST TYPES
+   979→   979→
+   980→   980→Provide:
+   981→   981→
+   982→   982→### Full-Length Mock
+   983→   983→
+   984→   984→Paper 1 + Paper 2
+   985→   985→
+   986→   986→### Paper 1 Mock
+   987→   987→
+   988→   988→50 questions
+   989→   989→
+   990→   990→### Paper 2 Computer Science Mock
+   991→   991→
+   992→   992→100 questions
+   993→   993→
+   994→   994→### Unit Mock
+   995→   995→
+   996→   996→Example:
+   997→   997→
+   998→   998→DBMS only
+   999→   999→
+  1000→  1000→### Topic Mock
+  1001→  1001→
+  1002→  1002→Example:
+  1003→  1003→
+  1004→  1004→SQL only
+  1005→  1005→
+  1006→  1006→### PYQ Mock
+  1007→  1007→
+  1008→  1008→Authentic PYQs where permitted.
+  1009→  1009→
+  1010→  1010→### PYQ-Based Mock
+  1011→  1011→
+  1012→  1012→Questions inspired by historical concepts and structure, but clearly labeled.
+  1013→  1013→
+  1014→  1014→### Weak Area Mock
+  1015→  1015→
+  1016→  1016→Generated around the user's weak topics.
+  1017→  1017→
+  1018→  1018→### Adaptive Mock
+  1019→  1019→
+  1020→  1020→Generated based on performance history.
+  1021→  1021→
+  1022→  1022→---
+  1023→  1023→
+  1024→  1024→# 18. FULL EXAM SIMULATION EXPERIENCE
+  1025→  1025→
+  1026→  1026→The mock test should behave like a serious CBT platform.
+  1027→  1027→
+  1028→  1028→Include:
+  1029→  1029→
+  1030→  1030→* Countdown timer
+  1031→  1031→* Question palette
+  1032→  1032→* Answer status
+  1033→  1033→* Mark for review
+  1034→  1034→* Clear response
+  1035→  1035→* Previous
+  1036→  1036→* Next
+  1037→  1037→* Section navigation
+  1038→  1038→* Auto-save
+  1039→  1039→* Submit test
+  1040→  1040→* Submission confirmation
+  1041→  1041→* Prevent accidental data loss
+  1042→  1042→
+  1043→  1043→For the full test:
+  1044→  1044→
+  1045→  1045→**Paper 1 + Paper 2 should be treated as one 3-hour examination experience**, unless the selected historical exam pattern specifies otherwise.
+  1046→  1046→
+  1047→  1047→---
+  1048→  1048→
+  1049→  1049→# 19. QUESTION PALETTE
+  1050→  1050→
+  1051→  1051→Use intuitive visual states:
+  1052→  1052→
+  1053→  1053→* Not Visited
+  1054→  1054→* Visited
+  1055→  1055→* Answered
+  1056→  1056→* Marked for Review
+  1057→  1057→* Answered + Marked for Review
+  1058→  1058→
+  1059→  1059→Ensure the palette works well on desktop and mobile.
+  1060→  1060→
+  1061→  1061→---
+  1062→  1062→
+  1063→  1063→# 20. MOCK QUESTION DISTRIBUTION
+  1064→  1064→
+  1065→  1065→Do not always generate an arbitrary random distribution.
+  1066→  1066→
+  1067→  1067→Allow the mock engine to consider:
+  1068→  1068→
+  1069→  1069→* Official syllabus
+  1070→  1070→* Historical PYQ frequency
+  1071→  1071→* Unit importance
+  1072→  1072→* Difficulty distribution
+  1073→  1073→* User weak areas
+  1074→  1074→* Previously seen questions
+  1075→  1075→* Question-type distribution
+  1076→  1076→
+  1077→  1077→Example Paper 2 configuration:
+  1078→  1078→
+  1079→  1079→```text
+  1080→  1080→Unit 1 → historical distribution
+  1081→  1081→Unit 2 → historical distribution
+  1082→  1082→Unit 3 → historical distribution
+  1083→  1083→Unit 4 → historical distribution
+  1084→  1084→...
+  1085→  1085→Unit 10 → historical distribution
+  1086→  1086→```
+  1087→  1087→
+  1088→  1088→The system should calculate these distributions from the real question bank whenever enough verified historical data exists.
+  1089→  1089→
+  1090→  1090→---
+  1091→  1091→
+  1092→  1092→# 21. NEGATIVE MARKING CONFIGURATION
+  1093→  1093→
+  1094→  1094→The current configured target pattern uses:
+  1095→  1095→
+  1096→  1096→**Negative Marking = None**
+  1097→  1097→
+  1098→  1098→However, do not hardcode this globally.
+  1099→  1099→
+  1100→  1100→Store:
+  1101→  1101→
+  1102→  1102→```text
+  1103→  1103→correct_marks
+  1104→  1104→negative_marks
+  1105→  1105→```
+  1106→  1106→
+  1107→  1107→inside:
+  1108→  1108→
+  1109→  1109→**ExamPattern / ExamCycle**
+  1110→  1110→
+  1111→  1111→This prevents the application from becoming incorrect if the official pattern changes.
+  1112→  1112→
+  1113→  1113→---
+  1114→  1114→
+  1115→  1115→# 22. RESULT SCREEN
+  1116→  1116→
+  1117→  1117→After completing the test:
+  1118→  1118→
+  1119→  1119→## Overall Score
+  1120→  1120→
+  1121→  1121→Display:
+  1122→  1122→
+  1123→  1123→**Score / Maximum Marks**
+  1124→  1124→
+  1125→  1125→**Percentage**
+  1126→  1126→
+  1127→  1127→**Accuracy**
+  1128→  1128→
+  1129→  1129→**Attempt Rate**
+  1130→  1130→
+  1131→  1131→**Correct**
+  1132→  1132→
+  1133→  1133→**Incorrect**
+  1134→  1134→
+  1135→  1135→**Skipped**
+  1136→  1136→
+  1137→  1137→**Time Used**
+  1138→  1138→
+  1139→  1139→---
+  1140→  1140→
+  1141→  1141→# 23. PAPER-WISE RESULT
+  1142→  1142→
+  1143→  1143→Show:
+  1144→  1144→
+  1145→  1145→| Metric    | Paper 1 | Paper 2 |
+  1146→  1146→| --------- | ------: | ------: |
+  1147→  1147→| Questions |      50 |     100 |
+  1148→  1148→| Marks     |     100 |     200 |
+  1149→  1149→| Attempted |       — |       — |
+  1150→  1150→| Correct   |       — |       — |
+  1151→  1151→| Incorrect |       — |       — |
+  1152→  1152→| Accuracy  |       — |       — |
+  1153→  1153→| Time      |       — |       — |
+  1154→  1154→
+  1155→  1155→Use exam-cycle configuration rather than hardcoded values.
+  1156→  1156→
+  1157→  1157→---
+  1158→  1158→
+  1159→  1159→# 24. PAPER 2 UNIT ANALYSIS
+  1160→  1160→
+  1161→  1161→Display:
+  1162→  1162→
+  1163→  1163→| Unit                         | Solved | Correct | Accuracy |
+  1164→  1164→| ---------------------------- | -----: | ------: | -------: |
+  1165→  1165→| Discrete Structures          |      — |       — |        — |
+  1166→  1166→| Architecture                 |      — |       — |        — |
+  1167→  1167→| Programming & Graphics       |      — |       — |        — |
+  1168→  1168→| DBMS                         |      — |       — |        — |
+  1169→  1169→| OS & System Software         |      — |       — |        — |
+  1170→  1170→| Software Engineering         |      — |       — |        — |
+  1171→  1171→| Data Structures & Algorithms |      — |       — |        — |
+  1172→  1172→| TOC & Compilers              |      — |       — |        — |
+  1173→  1173→| Networks                     |      — |       — |        — |
+  1174→  1174→| AI                           |      — |       — |        — |
+  1175→  1175→
+  1176→  1176→---
+  1177→  1177→
+  1178→  1178→# 25. HIGH-YIELD ANALYTICS
+  1179→  1179→
+  1180→  1180→Do not hardcode claims such as:
+  1181→  1181→
+  1182→  1182→> "DBMS always has 10 questions."
+  1183→  1183→
+  1184→  1184→Instead calculate actual historical statistics from the stored PYQ dataset.
+  1185→  1185→
+  1186→  1186→Show:
+  1187→  1187→
+  1188→  1188→**DBMS**
+  1189→  1189→
+  1190→  1190→Questions observed:
+  1191→  1191→**X**
+  1192→  1192→
+  1193→  1193→Years analyzed:
+  1194→  1194→**Y**
+  1195→  1195→
+  1196→  1196→Average questions/exam:
+  1197→  1197→**Z**
+  1198→  1198→
+  1199→  1199→Most frequent topics:
+  1200→  1200→
+  1201→  1201→* SQL
+  1202→  1202→* Normalization
+  1203→  1203→* Transactions
+  1204→  1204→* Concurrency
+  1205→  1205→
+  1206→  1206→Do the same for:
+  1207→  1207→
+  1208→  1208→* OS
+  1209→  1209→* Data Structures & Algorithms
+  1210→  1210→* Networks
+  1211→  1211→* TOC
+  1212→  1212→* Discrete Structures
+  1213→  1213→* Architecture
+  1214→  1214→* Software Engineering
+  1215→  1215→* Programming
+  1216→  1216→* AI
+  1217→  1217→
+  1218→  1218→---
+  1219→  1219→
+  1220→  1220→# 26. HISTORICAL TREND ANALYTICS
+  1221→  1221→
+  1222→  1222→Create charts for:
+  1223→  1223→
+  1224→  1224→* Questions by year
+  1225→  1225→* Questions by unit
+  1226→  1226→* Questions by topic
+  1227→  1227→* Difficulty distribution
+  1228→  1228→* Repeated concepts
+  1229→  1229→* Unit frequency
+  1230→  1230→* Topic frequency
+  1231→  1231→
+  1232→  1232→Allow toggling between:
+  1233→  1233→
+  1234→  1234→**Paper 1**
+  1235→  1235→
+  1236→  1236→**Paper 2**
+  1237→  1237→
+  1238→  1238→---
+  1239→  1239→
+  1240→  1240→# 27. REPEATED CONCEPT ANALYSIS
+  1241→  1241→
+  1242→  1242→Identify concepts that appear repeatedly across verified PYQs.
+  1243→  1243→
+  1244→  1244→Example:
+  1245→  1245→
+  1246→  1246→**Normalization**
+  1247→  1247→
+  1248→  1248→Seen in:
+  1249→  1249→2019, 2020, 2021, 2023, 2024...
+  1250→  1250→
+  1251→  1251→But only show such claims when the dataset actually supports them.
+  1252→  1252→
+  1253→  1253→Provide:
+  1254→  1254→
+  1255→  1255→**Frequency**
+  1256→  1256→
+  1257→  1257→**Years Appeared**
+  1258→  1258→
+  1259→  1259→**Number of Questions**
+  1260→  1260→
+  1261→  1261→**Last Seen**
+  1262→  1262→
+  1263→  1263→---
+  1264→  1264→
+  1265→  1265→# 28. MISTAKE BOOK
+  1266→  1266→
+  1267→  1267→Automatically save every incorrect response.
+  1268→  1268→
+  1269→  1269→Create:
+  1270→  1270→
+  1271→  1271→# My Mistakes
+  1272→  1272→
+  1273→  1273→Filters:
+  1274→  1274→
+  1275→  1275→* Paper 1
+  1276→  1276→* Paper 2
+  1277→  1277→* Unit
+  1278→  1278→* Topic
+  1279→  1279→* Difficulty
+  1280→  1280→* Attempt count
+  1281→  1281→
+  1282→  1282→Actions:
+  1283→  1283→
+  1284→  1284→**Retry**
+  1285→  1285→
+  1286→  1286→**Review Explanation**
+  1287→  1287→
+  1288→  1288→**Bookmark**
+  1289→  1289→
+  1290→  1290→**Practice Similar Questions**
+  1291→  1291→
+  1292→  1292→---
+  1293→  1293→
+  1294→  1294→# 29. PERSONALIZED PRACTICE
+  1295→  1295→
+  1296→  1296→Use performance data to generate:
+  1297→  1297→
+  1298→  1298→### Weak Topic Practice
+  1299→  1299→
+  1300→  1300→Example:
+  1301→  1301→
+  1302→  1302→> You have 54% accuracy in Theory of Computation.
+  1303→  1303→
+  1304→  1304→Generate:
+  1305→  1305→
+  1306→  1306→**15 TOC practice questions**
+  1307→  1307→
+  1308→  1308→### Revision Practice
+  1309→  1309→
+  1310→  1310→Questions the user has previously answered incorrectly.
+  1311→  1311→
+  1312→  1312→### Speed Practice
+  1313→  1313→
+  1314→  1314→Questions designed to improve time efficiency.
+  1315→  1315→
+  1316→  1316→### Concept Reinforcement
+  1317→  1317→
+  1318→  1318→Original questions around concepts repeatedly answered incorrectly.
+  1319→  1319→
+  1320→  1320→---
+  1321→  1321→
+  1322→  1322→# 30. BOOKMARKS
+  1323→  1323→
+  1324→  1324→Allow bookmarking from:
+  1325→  1325→
+  1326→  1326→* PYQ
+  1327→  1327→* Practice
+  1328→  1328→* Mock review
+  1329→  1329→
+  1330→  1330→Create:
+  1331→  1331→
+  1332→  1332→# Saved Questions
+  1333→  1333→
+  1334→  1334→Categories:
+  1335→  1335→
+  1336→  1336→* PYQs
+  1337→  1337→* Practice
+  1338→  1338→* Mock
+  1339→  1339→* Difficult
+  1340→  1340→* Revision
+  1341→  1341→
+  1342→  1342→---
+  1343→  1343→
+  1344→  1344→# 31. ATTEMPT HISTORY
+  1345→  1345→
+  1346→  1346→Track every question attempt.
+  1347→  1347→
+  1348→  1348→Example:
+  1349→  1349→
+  1350→  1350→```text
+  1351→  1351→DBMS — Normalization
+  1352→  1352→
+  1353→  1353→Attempt 1 → Incorrect
+  1354→  1354→Attempt 2 → Incorrect
+  1355→  1355→Attempt 3 → Correct
+  1356→  1356→```
+  1357→  1357→
+  1358→  1358→Store:
+  1359→  1359→
+  1360→  1360→* Date
+  1361→  1361→* Answer
+  1362→  1362→* Result
+  1363→  1363→* Time
+  1364→  1364→* Source
+  1365→  1365→* Test/session
+  1366→  1366→
+  1367→  1367→Use this history for personalized recommendations.
+  1368→  1368→
+  1369→  1369→---
+  1370→  1370→
+  1371→  1371→# 32. SEARCH
+  1372→  1372→
+  1373→  1373→Global search should support:
+  1374→  1374→
+  1375→  1375→```text
+  1376→  1376→SQL
+  1377→  1377→normalization
+  1378→  1378→deadlock
+  1379→  1379→Dijkstra
+  1380→  1380→TCP
+  1381→  1381→subnetting
+  1382→  1382→DFA
+  1383→  1383→pumping lemma
+  1384→  1384→COCOMO
+  1385→  1385→cache
+  1386→  1386→A*
+  1387→  1387→research design
+  1388→  1388→sampling
+  1389→  1389→ICT
+  1390→  1390→```
+  1391→  1391→
+  1392→  1392→Display:
+  1393→  1393→
+  1394→  1394→* Question
+  1395→  1395→* Paper
+  1396→  1396→* Unit
+  1397→  1397→* Topic
+  1398→  1398→* Year
+  1399→  1399→* Source Type
+  1400→  1400→
+  1401→  1401→---
+  1402→  1402→
+  1403→  1403→# 33. BILINGUAL SUPPORT
+  1404→  1404→
+  1405→  1405→Support:
+  1406→  1406→
+  1407→  1407→**English**
+  1408→  1408→
+  1409→  1409→**Hindi**
+  1410→  1410→
+  1411→  1411→The interface should support language switching.
+  1412→  1412→
+  1413→  1413→Where bilingual official question content is legitimately available, store both versions.
+  1414→  1414→
+  1415→  1415→Data model:
+  1416→  1416→
+  1417→  1417→```text
+  1418→  1418→question_text_en
+  1419→  1419→question_text_hi
+  1420→  1420→
+  1421→  1421→option_a_en
+  1422→  1422→option_a_hi
+  1423→  1423→...
+  1424→  1424→```
+  1425→  1425→
+  1426→  1426→Do not machine-translate an official question and present it as an official source without clear provenance.
+  1427→  1427→
+  1428→  1428→---
+  1429→  1429→
+  1430→  1430→# 34. ADMIN QUESTION MANAGEMENT
+  1431→  1431→
+  1432→  1432→Build an admin panel.
+  1433→  1433→
+  1434→  1434→Admin capabilities:
+  1435→  1435→
+  1436→  1436→* Import historical papers
+  1437→  1437→* Import answer keys
+  1438→  1438→* Create questions
+  1439→  1439→* Edit questions
+  1440→  1440→* Verify questions
+  1441→  1441→* Assign units
+  1442→  1442→* Assign topics
+  1443→  1443→* Set difficulty
+  1444→  1444→* Add explanation
+  1445→  1445→* Add source
+  1446→  1446→* Publish
+  1447→  1447→* Unpublish
+  1448→  1448→* Review duplicates
+  1449→  1449→* Review AI-generated questions
+  1450→  1450→* Mark disputed answers
+  1451→  1451→* Track provenance
+  1452→  1452→
+  1453→  1453→---
+  1454→  1454→
+  1455→  1455→# 35. OFFICIAL PYQ VERIFICATION WORKFLOW
+  1456→  1456→
+  1457→  1457→Create a workflow:
+  1458→  1458→
+  1459→  1459→```text
+  1460→  1460→Imported
+  1461→  1461→↓
+  1462→  1462→Parsed
+  1463→  1463→↓
+  1464→  1464→Source Attached
+  1465→  1465→↓
+  1466→  1466→Answer Key Attached
+  1467→  1467→↓
+  1468→  1468→Unit Assigned
+  1469→  1469→↓
+  1470→  1470→Topic Assigned
+  1471→  1471→↓
+  1472→  1472→Human Review
+  1473→  1473→↓
+  1474→  1474→Verified
+  1475→  1475→↓
+  1476→  1476→Published
+  1477→  1477→```
+  1478→  1478→
+  1479→  1479→Only verified questions can receive:
+  1480→  1480→
+  1481→  1481→**OFFICIAL_PYQ**
+  1482→  1482→
+  1483→  1483→Do not bypass this workflow.
+  1484→  1484→
+  1485→  1485→---
+  1486→  1486→
+  1487→  1487→# 36. SOURCE / PROVENANCE SYSTEM
+  1488→  1488→
+  1489→  1489→Every PYQ must retain provenance.
+  1490→  1490→
+  1491→  1491→Example:
+  1492→  1492→
+  1493→  1493→```text
+  1494→  1494→Source Type:
+  1495→  1495→OFFICIAL_PYQ
+  1496→  1496→
+  1497→  1497→Exam:
+  1498→  1498→UGC NET
+  1499→  1499→
+  1500→  1500→Year:
+  1501→  1501→2024
+  1502→  1502→
+  1503→  1503→Session:
+  1504→  1504→[session]
+  1505→  1505→
+  1506→  1506→Paper:
+  1507→  1507→Paper 2
+  1508→  1508→
+  1509→  1509→Subject Code:
+  1510→  1510→87
+  1511→  1511→
+  1512→  1512→Shift:
+  1513→  1513→Shift 1
+  1514→  1514→
+  1515→  1515→Question:
+  1516→  1516→42
+  1517→  1517→
+  1518→  1518→Source:
+  1519→  1519→Official examination paper
+  1520→  1520→
+  1521→  1521→Source Reference:
+  1522→  1522→[...]
+  1523→  1523→
+  1524→  1524→Answer Key:
+  1525→  1525→[...]
+  1526→  1526→
+  1527→  1527→Verification:
+  1528→  1528→Verified
+  1529→  1529→```
+  1530→  1530→
+  1531→  1531→Do not fabricate source URLs or official answer keys.
+  1532→  1532→
+  1533→  1533→---
+  1534→  1534→
+  1535→  1535→# 37. COPYRIGHT / CONTENT RIGHTS
+  1536→  1536→
+  1537→  1537→Do not assume all historical examination content can automatically be redistributed.
+  1538→  1538→
+  1539→  1539→Build the system so that:
+  1540→  1540→
+  1541→  1541→* Sources are attributed
+  1542→  1542→* Rights are respected
+  1543→  1543→* Official documents can be referenced appropriately
+  1544→  1544→* Content with unclear redistribution rights can be handled through permitted storage/reference workflows
+  1545→  1545→
+  1546→  1546→Never invent official NTA material.
+  1547→  1547→
+  1548→  1548→---
+  1549→  1549→
+  1550→  1550→# 38. DATABASE DESIGN
+  1551→  1551→
+  1552→  1552→Create scalable entities:
+  1553→  1553→
+  1554→  1554→```text
+  1555→  1555→Exam
+  1556→  1556→ExamCycle
+  1557→  1557→ExamPattern
+  1558→  1558→SyllabusVersion
+  1559→  1559→
+  1560→  1560→Paper
+  1561→  1561→Subject
+  1562→  1562→Unit
+  1563→  1563→Topic
+  1564→  1564→Subtopic
+  1565→  1565→
+  1566→  1566→ExamSession
+  1567→  1567→ExamShift
+  1568→  1568→
+  1569→  1569→Question
+  1570→  1570→QuestionOption
+  1571→  1571→QuestionSource
+  1572→  1572→AnswerKey
+  1573→  1573→QuestionVerification
+  1574→  1574→
+  1575→  1575→QuestionAttempt
+  1576→  1576→Bookmark
+  1577→  1577→Mistake
+  1578→  1578→
+  1579→  1579→MockTest
+  1580→  1580→MockTestQuestion
+  1581→  1581→MockTestAttempt
+  1582→  1582→
+  1583→  1583→UserPerformance
+  1584→  1584→UserTopicPerformance
+  1585→  1585→UserPaperPerformance
+  1586→  1586→```
+  1587→  1587→
+  1588→  1588→Question model:
+  1589→  1589→
+  1590→  1590→```text
+  1591→  1591→id
+  1592→  1592→exam_id
+  1593→  1593→exam_cycle_id
+  1594→  1594→paper_id
+  1595→  1595→subject_id
+  1596→  1596→syllabus_version_id
+  1597→  1597→
+  1598→  1598→session_id
+  1599→  1599→shift_id
+  1600→  1600→year
+  1601→  1601→exam_date
+  1602→  1602→question_number
+  1603→  1603→
+  1604→  1604→unit_id
+  1605→  1605→topic_id
+  1606→  1606→subtopic_id
+  1607→  1607→
+  1608→  1608→question_text_en
+  1609→  1609→question_text_hi
+  1610→  1610→
+  1611→  1611→question_type
+  1612→  1612→difficulty
+  1613→  1613→
+  1614→  1614→source_type
+  1615→  1615→source_url
+  1616→  1616→source_reference
+  1617→  1617→
+  1618→  1618→correct_answer
+  1619→  1619→explanation
+  1620→  1620→
+  1621→  1621→verification_status
+  1622→  1622→
+  1623→  1623→created_at
+  1624→  1624→updated_at
+  1625→  1625→```
+  1626→  1626→
+  1627→  1627→---
+  1628→  1628→
+  1629→  1629→# 39. EXAM-CYCLE VERSIONING
+  1630→  1630→
+  1631→  1631→This is critical.
+  1632→  1632→
+  1633→  1633→Do not treat the examination pattern and syllabus as permanently static.
+  1634→  1634→
+  1635→  1635→Create:
+  1636→  1636→
+  1637→  1637→```text
+  1638→  1638→ExamCycle
+  1639→  1639→├── year
+  1640→  1640→├── session
+  1641→  1641→├── pattern_version
+  1642→  1642→├── syllabus_version
+  1643→  1643→├── question_count
+  1644→  1644→├── marks
+  1645→  1645→├── duration
+  1646→  1646→├── negative_marking
+  1647→  1647→└── language_rules
+  1648→  1648→```
+  1649→  1649→
+  1650→  1650→Historical questions should always point to the relevant exam cycle/version.
+  1651→  1651→
+  1652→  1652→---
+  1653→  1653→
+  1654→  1654→# 40. QUICK ACCESS DESIGN
+  1655→  1655→
+  1656→  1656→Create premium Quick Access cards:
+  1657→  1657→
+  1658→  1658→### PYQs
+  1659→  1659→
+  1660→  1660→**Practice authentic previous-year questions**
+  1661→  1661→
+  1662→  1662→### Practice
+  1663→  1663→
+  1664→  1664→**Build skill with original questions**
+  1665→  1665→
+  1666→  1666→### Mock Tests
+  1667→  1667→
+  1668→  1668→**Simulate the UGC NET exam**
+  1669→  1669→
+  1670→  1670→### Mistakes
+  1671→  1671→
+  1672→  1672→**Review questions you got wrong**
+  1673→  1673→
+  1674→  1674→### Analytics
+  1675→  1675→
+  1676→  1676→**Understand your preparation**
+  1677→  1677→
+  1678→  1678→Make these visually consistent with the existing application's design system.
+  1679→  1679→
+  1680→  1680→---
+  1681→  1681→
+  1682→  1682→# 41. DASHBOARD STATISTICS
+  1683→  1683→
+  1684→  1684→Display:
+  1685→  1685→
+  1686→  1686→**PYQs Solved**
+  1687→  1687→
+  1688→  1688→**Paper 1 Accuracy**
+  1689→  1689→
+  1690→  1690→**Paper 2 Accuracy**
+  1691→  1691→
+  1692→  1692→**Computer Science PYQs**
+  1693→  1693→
+  1694→  1694→**Practice Questions**
+  1695→  1695→
+  1696→  1696→**Mock Tests**
+  1697→  1697→
+  1698→  1698→**Weak Units**
+  1699→  1699→
+  1700→  1700→**Study Streak**
+  1701→  1701→
+  1702→  1702→**Average Score**
+  1703→  1703→
+  1704→  1704→**Best Score**
+  1705→  1705→
+  1706→  1706→---
+  1707→  1707→
+  1708→  1708→# 42. PREPARATION PRIORITY ENGINE
+  1709→  1709→
+  1710→  1710→Use actual historical data + user performance to recommend priorities.
+  1711→  1711→
+  1712→  1712→For example:
+  1713→  1713→
+  1714→  1714→```text
+  1715→  1715→Priority 1
+  1716→  1716→DBMS
+  1717→  1717→Reason:
+  1718→  1718→High historical frequency + low user accuracy
+  1719→  1719→
+  1720→  1720→Priority 2
+  1721→  1721→OS
+  1722→  1722→Reason:
+  1723→  1723→High calculation-error rate
+  1724→  1724→
+  1725→  1725→Priority 3
+  1726→  1726→TOC
+  1727→  1727→Reason:
+  1728→  1728→Low accuracy in recent attempts
+  1729→  1729→```
+  1730→  1730→
+  1731→  1731→Do not rely only on generic assumptions such as "DBMS is always high priority."
+  1732→  1732→
+  1733→  1733→Combine:
+  1734→  1734→
+  1735→  1735→**Historical Frequency**
+  1736→  1736→
+  1737→  1737→*
+  1738→  1738→
+  1739→  1739→**User Accuracy**
+  1740→  1740→
+  1741→  1741→*
+  1742→  1742→
+  1743→  1743→**User Error Rate**
+  1744→  1744→
+  1745→  1745→*
+  1746→  1746→
+  1747→  1747→**Time Taken**
+  1748→  1748→
+  1749→  1749→---
+  1750→  1750→
+  1751→  1751→# 43. PYQ → PRACTICE → MOCK PIPELINE
+  1752→  1752→
+  1753→  1753→The system should connect all three learning modes.
+  1754→  1754→
+  1755→  1755→Example:
+  1756→  1756→
+  1757→  1757→```text
+  1758→  1758→User struggles with:
+  1759→  1759→DBMS → Normalization
+  1760→  1760→
+  1761→  1761→↓
+  1762→  1762→Show 10 verified DBMS PYQs
+  1763→  1763→
+  1764→  1764→↓
+  1765→  1765→
+  1766→  1766→Analyze mistakes
+  1767→  1767→
+  1768→  1768→↓
+  1769→  1769→
+  1770→  1770→Generate 15 original practice questions
+  1771→  1771→
+  1772→  1772→↓
+  1773→  1773→
+  1774→  1774→Generate a Normalization mini-test
+  1775→  1775→
+  1776→  1776→↓
+  1777→  1777→
+  1778→  1778→Add related questions to mistake book
+  1779→  1779→
+  1780→  1780→↓
+  1781→  1781→
+  1782→  1782→Recommend full DBMS mock
+  1783→  1783→
+  1784→  1784→↓
+  1785→  1785→
+  1786→  1786→Eventually include DBMS questions in personalized full mock
+  1787→  1787→```
+  1788→  1788→
+  1789→  1789→This should become the core preparation loop.
+  1790→  1790→
+  1791→  1791→---
+  1792→  1792→
+  1793→  1793→# 44. VISUAL / UX DIRECTION
+  1794→  1794→
+  1795→  1795→The entire experience should feel:
+  1796→  1796→
+  1797→  1797→**Premium**
+  1798→  1798→**Academic**
+  1799→  1799→**Professional**
+  1800→  1800→**Modern**
+  1801→  1801→**Focused**
+  1802→  1802→**Trustworthy**
+  1803→  1803→
+  1804→  1804→Think:
+  1805→  1805→
+  1806→  1806→**Top-tier EdTech + Professional CBT Platform + Modern SaaS**
+  1807→  1807→
+  1808→  1808→Use:
+  1809→  1809→
+  1810→  1810→* Excellent typography
+  1811→  1811→* Strong hierarchy
+  1812→  1812→* Clean spacing
+  1813→  1813→* Refined cards
+  1814→  1814→* Clear states
+  1815→  1815→* Subtle animations
+  1816→  1816→* Responsive layouts
+  1817→  1817→* Accessible contrast
+  1818→  1818→* Minimal visual noise
+  1819→  1819→
+  1820→  1820→Avoid:
+  1821→  1821→
+  1822→  1822→* Generic quiz UI
+  1823→  1823→* Cheap-looking cards
+  1824→  1824→* Excessive gradients
+  1825→  1825→* Excessive glassmorphism
+  1826→  1826→* Excessive rounded elements
+  1827→  1827→* Too many badges
+  1828→  1828→* Too many icons
+  1829→  1829→* Distracting animations
+  1830→  1830→* Cluttered analytics
+  1831→  1831→
+  1832→  1832→---
+  1833→  1833→
+  1834→  1834→# 45. MOBILE-FIRST QUESTION EXPERIENCE
+  1835→  1835→
+  1836→  1836→Ensure questions work perfectly on mobile.
+  1837→  1837→
+  1838→  1838→Optimize:
+  1839→  1839→
+  1840→  1840→* Question text
+  1841→  1841→* Options
+  1842→  1842→* Timer
+  1843→  1843→* Navigation
+  1844→  1844→* Bookmark
+  1845→  1845→* Review
+  1846→  1846→* Explanation
+  1847→  1847→* Question palette
+  1848→  1848→* Results
+  1849→  1849→
+  1850→  1850→Controls must be large enough for touch interaction.
+  1851→  1851→
+  1852→  1852→---
+  1853→  1853→
+  1854→  1854→# 46. CONTENT QUALITY REQUIREMENTS
+  1855→  1855→
+  1856→  1856→For official PYQs:
+  1857→  1857→
+  1858→  1858→* Preserve original wording
+  1859→  1859→* Preserve options
+  1860→  1860→* Preserve question number
+  1861→  1861→* Preserve exam metadata
+  1862→  1862→* Verify answer
+  1863→  1863→* Maintain source
+  1864→  1864→* Track disputes/revisions
+  1865→  1865→
+  1866→  1866→For AI practice:
+  1867→  1867→
+  1868→  1868→* Validate the correct answer
+  1869→  1869→* Validate explanation
+  1870→  1870→* Check ambiguity
+  1871→  1871→* Check syllabus relevance
+  1872→  1872→* Check difficulty
+  1873→  1873→* Check duplicate similarity
+  1874→  1874→* Check technical accuracy
+  1875→  1875→
+  1876→  1876→For Computer Science questions additionally validate:
+  1877→  1877→
+  1878→  1878→* Code
+  1879→  1879→* SQL
+  1880→  1880→* Algorithms
+  1881→  1881→* Mathematical calculations
+  1882→  1882→* Complexity
+  1883→  1883→* Automata
+  1884→  1884→* Parsing
+  1885→  1885→* Networking
+  1886→  1886→* OS scheduling
+  1887→  1887→* Data structures
+  1888→  1888→
+  1889→  1889→---
+  1890→  1890→
+  1891→  1891→# 47. IMPORTANT DISTINCTION
+  1892→  1892→
+  1893→  1893→Always visually and semantically distinguish:
+  1894→  1894→
+  1895→  1895→## OFFICIAL PYQ
+  1896→  1896→
+  1897→  1897→A real question from a historical examination.
+  1898→  1898→
+  1899→  1899→## VERIFIED PYQ
+  1900→  1900→
+  1901→  1901→A question verified against reliable archival evidence.
+  1902→  1902→
+  1903→  1903→## AI PRACTICE
+  1904→  1904→
+  1905→  1905→A newly generated question.
+  1906→  1906→
+  1907→  1907→## AI MOCK
+  1908→  1908→
+  1909→  1909→A newly generated question used for simulated testing.
+  1910→  1910→
+  1911→  1911→Never blur these categories.
+  1912→  1912→
+  1913→  1913→---
+  1914→  1914→
+  1915→  1915→# 48. FINAL USER FLOW
+  1916→  1916→
+  1917→  1917→The ideal user journey should be:
+  1918→  1918→
+  1919→  1919→```text
+  1920→  1920→Dashboard
+  1921→  1921→   ↓
+  1922→  1922→Quick Access
+  1923→  1923→   ↓
+  1924→  1924→UGC NET PYQs
+  1925→  1925→   ↓
+  1926→  1926→Choose Paper
+  1927→  1927→   ↓
+  1928→  1928→Choose Year / Session / Unit / Topic
+  1929→  1929→   ↓
+  1930→  1930→Practice Real PYQs
+  1931→  1931→   ↓
+  1932→  1932→View Detailed Explanation
+  1933→  1933→   ↓
+  1934→  1934→Analyze Weak Areas
+  1935→  1935→   ↓
+  1936→  1936→Practice Original Questions
+  1937→  1937→   ↓
+  1938→  1938→Retry Mistakes
+  1939→  1939→   ↓
+  1940→  1940→Take Topic Test
+  1941→  1941→   ↓
+  1942→  1942→Take Paper 1 Mock
+  1943→  1943→   ↓
+  1944→  1944→Take Paper 2 Computer Science Mock
+  1945→  1945→   ↓
+  1946→  1946→Take Full 3-Hour UGC NET Mock
+  1947→  1947→   ↓
+  1948→  1948→Analyze Results
+  1949→  1949→   ↓
+  1950→  1950→Personalized Recommendations
+  1951→  1951→   ↓
+  1952→  1952→Repeat
+  1953→  1953→```
+  1954→  1954→
+  1955→  1955→---
+  1956→  1956→
+  1957→  1957→# 49. FINAL IMPLEMENTATION REQUIREMENT
+  1958→  1958→
+  1959→  1959→Before implementing anything:
+  1960→  1960→
+  1961→  1961→1. Inspect the existing application architecture.
+  1962→  1962→2. Inspect the current exam/question system.
+  1963→  1963→3. Inspect the database schema.
+  1964→  1964→4. Inspect authentication and user-progress tracking.
+  1965→  1965→5. Inspect the dashboard.
+  1966→  1966→6. Inspect Quick Access.
+  1967→  1967→7. Inspect existing mock/test functionality.
+  1968→  1968→8. Inspect the existing design system.
+  1969→  1969→9. Reuse existing components where appropriate.
+  1970→  1970→10. Avoid breaking existing functionality.
+  1971→  1971→
+  1972→  1972→Do not create only a front-end mockup.
+  1973→  1973→
+  1974→  1974→Implement the complete underlying architecture necessary for:
+  1975→  1975→
+  1976→  1976→* PYQ storage
+  1977→  1977→* Source verification
+  1978→  1978→* Paper/unit/topic classification
+  1979→  1979→* Search
+  1980→  1980→* Filtering
+  1981→  1981→* Practice
+  1982→  1982→* Attempts
+  1983→  1983→* Bookmarks
+  1984→  1984→* Mistake tracking
+  1985→  1985→* Mock generation
+  1986→  1986→* Exam simulation
+  1987→  1987→* Analytics
+  1988→  1988→* Historical trend analysis
+  1989→  1989→* Personalized practice
+  1990→  1990→* Admin verification
+  1991→  1991→* Exam-cycle versioning
+  1992→  1992→
+  1993→  1993→The final product should feel like a **complete UGC NET Computer Science preparation ecosystem**, with **authentic PYQs as the foundation, original practice questions for mastery, and mock tests for exam readiness**.
+  1994→  1994→
+  1995→  1995→## Core principle
+  1996→  1996→
+  1997→  1997→**REAL PYQs → CONCEPT MASTERY → TARGETED PRACTICE → MISTAKE REVIEW → MOCK TEST → ANALYTICS → PERSONALIZED PREPARATION**
+  1998→  1998→

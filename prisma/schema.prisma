@@ -18,7 +18,7 @@ model Subject {
   id          String   @id @default(cuid())
   slug        String   @unique
   name        String
-  code        String   @unique // UGC NET subject code (e.g. "08" for Computer Science)
+  code        String   @unique // UGC NET subject code (e.g. "87" for Computer Science & Applications)
   paper       String   @default("II") // "I" or "II"
   description String
   icon        String?  // lucide icon name
@@ -33,6 +33,34 @@ model Subject {
   mockTests   MockTest[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Exam Cycle / Pattern Configuration (admin-editable, not hardcoded)
+// ---------------------------------------------------------------------------
+
+model ExamCycle {
+  id              String   @id @default(cuid())
+  name            String   @unique // e.g. "UGC NET CS 2024-Pattern"
+  examName        String   @default("UGC NET")
+  subjectCode     String   @default("87") // CS subject code
+  year            Int
+  session         String   @default("June") // June | December
+  // Paper configuration
+  paper1Questions Int      @default(50)
+  paper1Marks     Int      @default(100)
+  paper2Questions Int      @default(100)
+  paper2Marks     Int      @default(200)
+  totalDuration   Int      @default(180) // minutes (3 hours)
+  // Marking scheme
+  correctMarks    Float    @default(2.0)
+  negativeMarks   Float    @default(0.0) // 0 = no negative marking
+  // Metadata
+  language        String   @default("English") // English | Hindi | Bilingual
+  syllabusVersion String   @default("2024")
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model Unit {

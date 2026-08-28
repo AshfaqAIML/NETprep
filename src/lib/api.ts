@@ -91,6 +91,7 @@ export const api = {
   },
   pyqStats: () => fetchJson<any>('/api/pyqs/stats'),
   pyqDashboard: () => fetchJson<any>('/api/pyqs/dashboard'),
+  pyqAnalytics: () => fetchJson<any>('/api/pyqs/analytics'),
 
   mockTests: () => fetchJson<{ mockTests: any[] }>('/api/mock-tests'),
   mockTest: (slug: string) => fetchJson<{ mockTest: any }>(`/api/mock-tests/${slug}`),
