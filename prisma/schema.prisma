@@ -1,12 +1,13 @@
 // Prisma schema for NETPrep Hub — UGC NET Preparation Platform
-// SQLite backend (single file DB)
+// PostgreSQL backend for Vercel production (Neon / Vercel Postgres / Supabase)
+// For local dev with SQLite, override via DATABASE_URL=file:./db/custom.db and set provider to sqlite temporarily
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
