@@ -36,18 +36,12 @@ export function AuthView() {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await fetch('/api/auth/callback/credentials', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          email: loginEmail,
-          password: loginPassword,
-          csrfToken: '',
-          callbackUrl: '/',
-          json: 'true',
-        }),
+      const res = await signIn('credentials', {
+        email: loginEmail,
+        password: loginPassword,
+        redirect: false,
       })
-      if (res.ok) {
+      if (res?.ok) {
         toast.success('Logged in successfully!')
         navigate('dashboard')
       } else {
@@ -76,24 +70,18 @@ export function AuthView() {
       const data = await res.json()
       if (res.ok) {
         toast.success('Account created! You can now log in.')
-        // Auto-login by switching to login tab
-        setLoginEmail(regEmail)
-        setLoginPassword(regPassword)
-        // Try to sign in
-        const loginRes = await fetch('/api/auth/callback/credentials', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams({
-            email: regEmail,
-            password: regPassword,
-            csrfToken: '',
-            callbackUrl: '/',
-            json: 'true',
-          }),
+        // Auto-login with next-auth
+        const loginRes = await signIn('credentials', {
+          email: regEmail,
+          password: regPassword,
+          redirect: false,
         })
-        if (loginRes.ok) {
+        if (loginRes?.ok) {
           toast.success('Welcome to NETPrep Hub!')
           navigate('onboarding')
+        } else {
+          setLoginEmail(regEmail)
+          setLoginPassword(regPassword)
         }
       } else {
         toast.error(data.error || 'Registration failed')
