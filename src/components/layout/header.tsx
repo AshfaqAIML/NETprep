@@ -31,6 +31,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { useAppStore, type ViewKey } from '@/lib/store'
+import { useSession, signOut } from 'next-auth/react'
 
 interface NavItem {
   key: ViewKey
@@ -63,6 +64,7 @@ export function Header() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
   const { navigate, view, setSearchOpen, mobileNavOpen, setMobileNavOpen } = useAppStore()
+  const { data: session, status } = useSession()
 
   React.useEffect(() => setMounted(true), [])
 
@@ -127,16 +129,38 @@ export function Header() {
             </kbd>
           </Button>
 
-          {/* Sign In button */}
-          <Button
-            variant="default"
-            size="sm"
-            onClick={() => handleNav('auth')}
-            className="gap-1.5 hidden sm:flex"
-          >
-            <User className="h-3.5 w-3.5" />
-            Sign In
-          </Button>
+          {/* Auth button: session-aware */}
+          {status === 'authenticated' && session?.user ? (
+            <div className="hidden sm:flex items-center gap-2">
+              <button
+                onClick={() => handleNav('dashboard')}
+                className="flex items-center gap-2 rounded-full border border-border bg-muted/30 px-2 py-1 text-sm hover:bg-muted transition-colors"
+              >
+                {session.user.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={session.user.image} alt={session.user.name ?? 'User'} className="h-6 w-6 rounded-full" />
+                ) : (
+                  <div className="h-6 w-6 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-[10px] font-bold">
+                    {(session.user.name ?? session.user.email ?? 'U')[0].toUpperCase()}
+                  </div>
+                )}
+                <span className="max-w-[100px] truncate text-xs font-medium">{session.user.name ?? session.user.email}</span>
+              </button>
+              <Button variant="ghost" size="sm" onClick={() => signOut({ callbackUrl: '/' })} className="gap-1.5">
+                Sign Out
+              </Button>
+            </div>
+          ) : (
+            <Button
+              variant="default"
+              size="sm"
+              onClick={() => handleNav('auth')}
+              className="gap-1.5 hidden sm:flex"
+            >
+              <User className="h-3.5 w-3.5" />
+              Sign In
+            </Button>
+          )}
 
           {/* Theme toggle */}
           <Button
