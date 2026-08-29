@@ -22,9 +22,6 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
-  pages: {
-    signIn: '/api/auth/demo', // Handled client-side
-  },
   providers: [
     CredentialsProvider({
       name: 'credentials',
