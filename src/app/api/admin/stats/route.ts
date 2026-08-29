@@ -25,7 +25,7 @@ export async function GET() {
       totalExamPapers,
     ] = await Promise.all([
       db.question.count(),
-      db.question.count({ where: { sourceType: 'verified_pyq' } }),
+      db.question.count({ where: { sourceType: { in: ['verified_pyq', 'official_pyq'] } } }),
       db.question.count({ where: { sourceType: 'practice' } }),
       db.note.count(),
       db.article.count(),
@@ -63,7 +63,7 @@ export async function GET() {
     // PYQs by year
     const pyqsByYear = await db.question.groupBy({
       by: ['pyqYear'],
-      where: { sourceType: 'verified_pyq', pyqYear: { gt: 0 } },
+      where: { sourceType: { in: ['verified_pyq', 'official_pyq'] }, pyqYear: { gt: 0 } },
       _count: true,
       orderBy: { pyqYear: 'desc' },
     })

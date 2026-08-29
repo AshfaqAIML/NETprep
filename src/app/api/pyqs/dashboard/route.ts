@@ -14,7 +14,7 @@ export async function GET() {
   try {
     // Paper I stats
     const p1Pyqs = await db.question.findMany({
-      where: { sourceType: { in: ['verified_pyq'] }, paper: 'I', pyqYear: { gt: 0 } },
+      where: { sourceType: { in: ['verified_pyq', 'official_pyq'] }, paper: 'I', pyqYear: { gt: 0 } },
       include: { topic: { include: { unit: true } } },
     })
     const p1Years = Array.from(new Set(p1Pyqs.map((q) => q.pyqYear).filter(Boolean) as number[])).sort((a, b) => b - a)
@@ -39,7 +39,7 @@ export async function GET() {
             _count: {
               select: {
                 questions: {
-                  where: { sourceType: { in: ['verified_pyq'] }, pyqYear: { gt: 0 } },
+                  where: { sourceType: { in: ['verified_pyq', 'official_pyq'] }, pyqYear: { gt: 0 } },
                 },
               },
             },
@@ -56,7 +56,7 @@ export async function GET() {
 
     // Paper II (CS) stats
     const p2Pyqs = await db.question.findMany({
-      where: { sourceType: { in: ['verified_pyq'] }, paper: 'II', pyqYear: { gt: 0 } },
+      where: { sourceType: { in: ['verified_pyq', 'official_pyq'] }, paper: 'II', pyqYear: { gt: 0 } },
       include: { topic: { include: { unit: true } } },
     })
     const p2Years = Array.from(new Set(p2Pyqs.map((q) => q.pyqYear).filter(Boolean) as number[])).sort((a, b) => b - a)
@@ -80,7 +80,7 @@ export async function GET() {
             _count: {
               select: {
                 questions: {
-                  where: { sourceType: { in: ['verified_pyq'] }, pyqYear: { gt: 0 } },
+                  where: { sourceType: { in: ['verified_pyq', 'official_pyq'] }, pyqYear: { gt: 0 } },
                 },
               },
             },
@@ -99,7 +99,7 @@ export async function GET() {
     const allPyqTopics = await db.topic.findMany({
       where: {
         questions: {
-          some: { sourceType: { in: ['verified_pyq'] }, pyqYear: { gt: 0 } },
+          some: { sourceType: { in: ['verified_pyq', 'official_pyq'] }, pyqYear: { gt: 0 } },
         },
       },
       include: {
@@ -107,7 +107,7 @@ export async function GET() {
         _count: {
           select: {
             questions: {
-              where: { sourceType: { in: ['verified_pyq'] }, pyqYear: { gt: 0 } },
+              where: { sourceType: { in: ['verified_pyq', 'official_pyq'] }, pyqYear: { gt: 0 } },
             },
           },
         },
