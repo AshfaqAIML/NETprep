@@ -37,9 +37,11 @@ export async function GET() {
     })
     const progressMap = new Map(progress.map((p) => [p.bookId, p]))
 
-    // Build subject cards with progress
+    // Build subject cards with progress — hide legacy Paper I cards without PDF (trueman/kvs) per request
+    const HIDDEN_SLUGS = ['trueman-paper-1', 'kvs-madaan-paper-1']
     const library = subjects.map((s) => {
-      const booksWithProgress = s.books.map((b) => ({
+      const visibleBooks = s.books.filter((b) => !HIDDEN_SLUGS.includes(b.slug) && !!b.fileUrl)
+      const booksWithProgress = visibleBooks.map((b) => ({
         ...b,
         progress: progressMap.get(b.id) ?? null,
       }))
@@ -55,12 +57,12 @@ export async function GET() {
         code: s.code,
         icon: s.icon,
         color: s.color,
-        bookCount: s.books.length,
+        bookCount: visibleBooks.length,
         books: booksWithProgress,
         lastReadBook: lastRead ?? null,
         hasProgress: readingBooks.length > 0,
       }
-    })
+    }).filter((s) => s.bookCount > 0)
 
     return NextResponse.json({ subjects: library })
   } catch (e) {
