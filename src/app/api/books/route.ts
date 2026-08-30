@@ -5,6 +5,8 @@ export async function GET() {
   try {
     const books = await db.book.findMany({
       orderBy: [{ rating: 'desc' }, { title: 'asc' }],
+      // Exclude fileData (large PDF bytes) from list — use /api/books/:id/file to stream
+      omit: { fileData: true } as any,
       include: {
         subject: { select: { slug: true, name: true, color: true, icon: true } },
       },
