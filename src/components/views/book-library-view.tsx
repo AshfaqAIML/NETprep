@@ -13,6 +13,7 @@ import {
   Library,
   ChevronRight,
   Sparkles,
+  FileText,
 } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
