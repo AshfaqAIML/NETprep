@@ -143,21 +143,169 @@ model Book {
   id              String   @id @default(cuid())
   slug            String   @unique
   title           String
+  subtitle        String?
   author          String
   publisher       String?
+  edition         String?
   year            Int?
+  language        String   @default("English")
   subjectId       String?
   subject         Subject? @relation(fields: [subjectId], references: [id], onDelete: SetNull)
-  description     String
+  description     String   @default("")
   coverUrl        String?
   fileUrl         String?  // URL to uploaded PDF (if distribution permits)
+  filePath        String?  // Internal filesystem path — never exposed to client
+  fileType        String?  // pdf | epub | other
   fileSize        Int?     // File size in bytes
+  pageCount       Int?
+  chapterCount    Int?
   distribution    String   @default("reference-only") // owned | licensed | public-domain | permission | user-uploaded | restricted | reference-only
+  accessLevel     String   @default("free") // free | premium | restricted | admin
   downloadEnabled Boolean  @default(false)
   rating          Float    @default(4.0)
   tags            String   @default("")
+  subjectOrder    Int      @default(0)
+  bookOrder       Int      @default(0)
+  chapters        BookChapter[]
+  readingProgress ReadingProgress[]
+  highlights      BookHighlight[]
+  notes           BookNote[]
+  bookmarks       BookBookmark[]
+  history         ReadingHistory[]
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  @@index([subjectId])
+  @@index([accessLevel])
+}
+
+// ---------------------------------------------------------------------------
+// Books & Reading — Professional Digital Library Models
+// ---------------------------------------------------------------------------
+
+model BookChapter {
+  id        String   @id @default(cuid())
+  bookId    String
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  title     String
+  slug      String
+  number    Int
+  pageStart Int?
+  pageEnd   Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([bookId, slug])
+  @@index([bookId])
+}
+
+model ReadingProgress {
+  id             String   @id @default(cuid())
+  userId         String
+  bookId         String
+  book           Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  subjectId      String?
+  currentPage    Int      @default(1)
+  totalPages     Int?
+  percentage     Float    @default(0)
+  lastChapterId  String?
+  scrollPosition String?  // JSON: { x, y, zoom } where applicable
+  completed      Boolean  @default(false)
+  lastReadAt     DateTime @default(now())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([userId, bookId])
+  @@index([userId])
+  @@index([bookId])
+  @@index([subjectId])
+}
+
+model BookHighlight {
+  id           String   @id @default(cuid())
+  userId       String
+  bookId       String
+  book         Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  subjectId    String?
+  pageNumber   Int
+  selectedText String   @db.Text
+  color        String   @default("yellow") // yellow | green | blue | pink | orange
+  positionData String?  @db.Text // JSON: { rects, range, CFI, etc. }
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId, bookId])
+  @@index([userId])
+  @@index([bookId])
+  @@index([subjectId])
+  @@index([pageNumber])
+}
+
+model BookNote {
+  id          String   @id @default(cuid())
+  userId      String
+  bookId      String
+  book        Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  subjectId   String?
+  pageNumber  Int?
+  chapterId   String?
+  highlightId String?
+  content     String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId, bookId])
+  @@index([userId])
+  @@index([bookId])
+  @@index([highlightId])
+}
+
+model BookBookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  bookId    String
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  subjectId String?
+  pageNumber Int
+  label     String?
+  createdAt DateTime @default(now())
+
+  @@index([userId, bookId])
+  @@index([userId])
+  @@index([bookId])
+  @@index([pageNumber])
+}
+
+model ReadingHistory {
+  id        String   @id @default(cuid())
+  userId    String
+  bookId    String
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  subjectId String?
+  durationMin Int    @default(0)
+  activity  String   @default("read") // read | highlight | note | bookmark
+  startedAt DateTime @default(now())
+  endedAt   DateTime?
+
+  @@index([userId])
+  @@index([bookId])
+  @@index([startedAt])
+}
+
+model ReaderPreference {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  theme        String   @default("light") // light | dark | sepia
+  fontSize     Int      @default(16)
+  lineSpacing  Float    @default(1.6)
+  contentWidth String   @default("prose") // narrow | prose | wide | full
+  fontFamily   String   @default("serif") // serif | sans | mono
+  readingMode  String   @default("continuous") // continuous | single | double
+  autoSave     Boolean  @default(true)
+  rememberZoom Boolean  @default(true)
+  zoomLevel    Int      @default(100)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 // ---------------------------------------------------------------------------
