@@ -149,7 +149,9 @@ model Book {
   subject         Subject? @relation(fields: [subjectId], references: [id], onDelete: SetNull)
   description     String
   coverUrl        String?
-  fileUrl         String?  // URL to uploaded PDF (if distribution permits)
+  fileUrl         String?  // Public URL (/api/books/:id/file or S3 URL)
+  filePath        String?  // Original local path — never exposed, for importer
+  fileData        Bytes?   // PDF binary stored in Neon (S3 alternative) — served via /api/books/:id/file
   fileSize        Int?     // File size in bytes
   distribution    String   @default("reference-only") // owned | licensed | public-domain | permission | user-uploaded | restricted | reference-only
   downloadEnabled Boolean  @default(false)

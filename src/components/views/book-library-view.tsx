@@ -124,6 +124,15 @@ export function BookLibraryView() {
   )
 }
 
+function BookCover({ title, author, color }: { title: string; author: string; color?: string }) {
+  return (
+    <div className={cn('h-20 w-14 shrink-0 rounded-md bg-gradient-to-br border flex flex-col items-center justify-center p-1.5 text-center overflow-hidden', color ?? 'from-amber-500/20 to-orange-600/20 border-amber-500/30')}>
+      <div className="text-[7px] font-bold leading-tight line-clamp-3 text-amber-900 dark:text-amber-100">{title.slice(0, 60)}</div>
+      <div className="text-[6px] text-amber-700/70 dark:text-amber-300/70 mt-1 line-clamp-1">{author.slice(0, 20)}</div>
+    </div>
+  )
+}
+
 function SubjectCard({ subject, index, onClick }: { subject: any; index: number; onClick: () => void }) {
   const lastRead = subject.lastReadBook
   const progressPct = lastRead?.progress?.completionPct ?? 0
@@ -137,24 +146,29 @@ function SubjectCard({ subject, index, onClick }: { subject: any; index: number;
     >
       <Card
         onClick={onClick}
-        className="group cursor-pointer relative overflow-hidden transition-all hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5"
+        className="group cursor-pointer relative overflow-hidden bg-card border border-border/60 shadow-sm hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-300"
       >
         <div className={cn('absolute inset-x-0 top-0 h-1 bg-gradient-to-r', subject.color ?? 'from-amber-500 to-orange-600')} />
         <CardContent className="p-5">
-          <div className="flex items-start gap-3 mb-3">
-            <div className={cn('inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-sm', subject.color ?? 'from-amber-500 to-orange-600')}>
+          <div className="flex items-start gap-3.5 mb-4">
+            <div className={cn('inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-md', subject.color ?? 'from-amber-500 to-orange-600')}>
               <BookOpen className="h-6 w-6" />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold leading-tight line-clamp-2">{subject.name}</h3>
-              <div className="flex items-center gap-2 mt-1">
-                <Badge variant="secondary" className="text-[10px]">
+              <h3 className="font-bold text-sm leading-tight line-clamp-2 tracking-tight">{subject.name}</h3>
+              <div className="flex items-center gap-1.5 mt-1.5">
+                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 font-medium bg-muted">
+                  <Library className="h-3 w-3 mr-1" />
                   {subject.bookCount} {subject.bookCount === 1 ? 'book' : 'books'}
                 </Badge>
-                {hasProgress && (
-                  <Badge variant="outline" className="text-[10px] text-emerald-600 border-emerald-500/30">
-                    <BookCheck className="h-2.5 w-2.5 mr-0.5" />
-                    Reading
+                {hasProgress ? (
+                  <Badge variant="outline" className="text-[10px] px-1.5 py-0 text-emerald-700 bg-emerald-50 border-emerald-200 dark:text-emerald-300 dark:bg-emerald-950/30 dark:border-emerald-800">
+                    <Clock className="h-3 w-3 mr-1" />
+                    {Math.round(progressPct)}% reading
+                  </Badge>
+                ) : (
+                  <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+                    New
                   </Badge>
                 )}
               </div>
@@ -163,40 +177,45 @@ function SubjectCard({ subject, index, onClick }: { subject: any; index: number;
 
           {/* Progress section */}
           {hasProgress && lastRead ? (
-            <div className="mb-3">
-              <div className="flex items-center justify-between text-[10px] text-muted-foreground mb-1">
-                <span className="truncate">{lastRead.title}</span>
-                <span className="font-semibold text-foreground">{Math.round(progressPct)}%</span>
+            <div className="mb-4 rounded-lg bg-muted/30 border border-border/50 p-3">
+              <div className="flex items-center justify-between text-[11px] mb-1.5">
+                <span className="truncate font-medium text-foreground pr-2">{lastRead.title}</span>
+                <span className="font-bold text-primary shrink-0">{Math.round(progressPct)}%</span>
               </div>
-              <Progress value={progressPct} className="h-1" />
+              <Progress value={progressPct} className="h-1.5" />
               <div className="mt-2 flex items-center justify-between">
-                <span className="text-[10px] text-muted-foreground">
-                  Page {lastRead.progress?.currentPage ?? 0}{lastRead.progress?.totalPages ? ` / ${lastRead.progress.totalPages}` : ''}
+                <span className="text-[11px] text-muted-foreground inline-flex items-center gap-1">
+                  <BookOpen className="h-3 w-3" /> Page {lastRead.progress?.currentPage ?? 0}{lastRead.progress?.totalPages ? ` / ${lastRead.progress.totalPages}` : ''}
                 </span>
-                <span className="text-[10px] text-primary inline-flex items-center gap-0.5 font-medium">
-                  Continue <ChevronRight className="h-3 w-3" />
+                <span className="text-[11px] text-primary inline-flex items-center gap-1 font-semibold">
+                  Continue <ChevronRight className="h-3.5 w-3.5" />
                 </span>
               </div>
             </div>
           ) : (
-            <div className="mb-3 text-xs text-muted-foreground">
-              {subject.bookCount === 1 ? '1 book available' : `${subject.bookCount} books available`}
+            <div className="mb-4 flex items-center gap-1.5 text-xs text-muted-foreground">
+              <Layers className="h-3.5 w-3.5" />
+              {subject.bookCount === 1 ? 'Single volume' : `${subject.bookCount} volumes`} • Tap to browse
             </div>
           )}
 
-          {/* Book preview thumbnails */}
-          <div className="flex gap-1.5">
+          {/* Book preview with professional covers */}
+          <div className="flex gap-2">
             {subject.books.slice(0, 4).map((book: any) => (
-              <div
-                key={book.id}
-                className="h-16 w-12 shrink-0 rounded-md bg-gradient-to-br from-amber-500/15 to-orange-600/15 border border-amber-500/20 flex items-center justify-center"
-              >
-                <BookMarked className="h-4 w-4 text-amber-600/60" />
+              <div key={book.id} className="relative group/cover">
+                {book.coverUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={book.coverUrl} alt={book.title} className="h-20 w-14 rounded-md object-cover border border-border shadow-sm" />
+                ) : (
+                  <BookCover title={book.title} author={book.author} color={subject.color} />
+                )}
+                {book.fileUrl && <div className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-emerald-500 border border-white shadow-sm" title="PDF ready" />}
               </div>
             ))}
             {subject.books.length > 4 && (
-              <div className="h-16 w-12 shrink-0 rounded-md bg-muted/40 border border-border flex items-center justify-center">
-                <span className="text-[10px] text-muted-foreground font-medium">+{subject.books.length - 4}</span>
+              <div className="h-20 w-14 shrink-0 rounded-md bg-muted border border-dashed border-border flex flex-col items-center justify-center gap-0.5">
+                <span className="text-xs font-bold text-foreground">+{subject.books.length - 4}</span>
+                <span className="text-[9px] text-muted-foreground">more</span>
               </div>
             )}
           </div>
@@ -232,43 +251,56 @@ function SubjectBookSelector({ subject, onBack, onOpenBook }: { subject: any; on
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {subject.books.map((book: any, idx: number) => {
+        {subject.books.map((book: any) => {
           const progress = book.progress
           const pct = progress?.completionPct ?? 0
           return (
             <Card
               key={book.id}
               onClick={() => onOpenBook(book)}
-              className="group cursor-pointer overflow-hidden transition-all hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5"
+              className="group cursor-pointer overflow-hidden bg-card border border-border/60 shadow-sm hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-300"
             >
               <CardContent className="p-5">
-                <div className="flex items-start gap-3 mb-3">
-                  <div className="h-20 w-14 shrink-0 rounded-md bg-gradient-to-br from-amber-500/20 to-orange-600/20 border border-amber-500/30 flex items-center justify-center">
-                    <BookMarked className="h-5 w-5 text-amber-600" />
-                  </div>
+                <div className="flex items-start gap-3.5 mb-4">
+                  {book.coverUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={book.coverUrl} alt={book.title} className="h-24 w-16 rounded-md object-cover border border-border shadow-sm shrink-0" />
+                  ) : (
+                    <div className="h-24 w-16 shrink-0 rounded-md bg-gradient-to-br from-amber-500 to-orange-600 border border-amber-600/20 flex flex-col items-center justify-center p-2 text-center text-white shadow-md">
+                      <BookOpen className="h-5 w-5 mb-1 opacity-90" />
+                      <div className="text-[7px] font-bold leading-tight line-clamp-3">{book.title.slice(0, 50)}</div>
+                    </div>
+                  )}
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-sm leading-tight line-clamp-2">{book.title}</h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">{book.author}</p>
+                    <h3 className="font-bold text-sm leading-tight line-clamp-2 tracking-tight">{book.title}</h3>
+                    <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{book.author}</p>
+                    <div className="flex items-center gap-1.5 mt-2">
+                      <Badge variant="secondary" className="text-[9px] px-1.5 py-0">
+                        <FileText className="h-3 w-3 mr-1" />PDF
+                      </Badge>
+                      {book.pageCount && <Badge variant="outline" className="text-[9px] px-1.5 py-0">{book.pageCount} pages</Badge>}
+                    </div>
                     {book._count?.chapters > 0 && (
-                      <p className="text-[10px] text-muted-foreground mt-1">{book._count.chapters} chapters</p>
+                      <p className="text-[10px] text-muted-foreground mt-1.5">{book._count.chapters} chapters • {book.fileUrl ? 'Ready to read' : 'Reference only'}</p>
                     )}
                   </div>
                 </div>
 
                 {progress ? (
-                  <div>
-                    <div className="flex items-center justify-between text-[10px] mb-1">
-                      <span className="text-muted-foreground">Progress</span>
-                      <span className="font-semibold">{Math.round(pct)}%</span>
+                  <div className="rounded-lg bg-primary/5 border border-primary/10 p-3">
+                    <div className="flex items-center justify-between text-[11px] mb-1.5">
+                      <span className="text-muted-foreground font-medium">Reading progress</span>
+                      <span className="font-bold text-primary">{Math.round(pct)}%</span>
                     </div>
-                    <Progress value={pct} className="h-1" />
-                    <div className="mt-2 text-[10px] text-primary font-medium">
-                      Continue from Page {progress.currentPage} →
+                    <Progress value={pct} className="h-1.5" />
+                    <div className="mt-2 flex items-center justify-between">
+                      <span className="text-[11px] text-muted-foreground">Page {progress.currentPage}{progress.totalPages ? ` / ${progress.totalPages}` : ''}</span>
+                      <span className="text-[11px] text-primary font-semibold inline-flex items-center gap-1">Continue <ChevronRight className="h-3 w-3" /></span>
                     </div>
                   </div>
                 ) : (
-                  <Button size="sm" variant="outline" className="w-full gap-1.5">
-                    <BookOpen className="h-3.5 w-3.5" /> Start Reading
+                  <Button size="sm" className="w-full gap-1.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white border-0">
+                    <BookOpen className="h-3.5 w-3.5" /> {book.fileUrl ? 'Open Book' : 'View Details'}
                   </Button>
                 )}
               </CardContent>
