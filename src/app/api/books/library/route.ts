@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
+import { authOptions, getCurrentUserId } from '@/lib/auth'
 import { db } from '@/lib/db'
 
 /**
@@ -8,6 +10,8 @@ import { db } from '@/lib/db'
  */
 export async function GET() {
   try {
+    const session = await getServerSession(authOptions)
+    const userId = await getCurrentUserId(session)
     const subjects = await db.subject.findMany({
       where: {
         books: { some: {} },
@@ -26,9 +30,9 @@ export async function GET() {
       },
     })
 
-    // Get reading progress for all books
+    // Get reading progress for current user (§22 isolation)
     const progress = await db.readingProgress.findMany({
-      where: { userId: 'demo-user' },
+      where: { userId },
       select: { bookId: true, currentPage: true, totalPages: true, completionPct: true, lastReadAt: true, isCompleted: true },
     })
     const progressMap = new Map(progress.map((p) => [p.bookId, p]))

@@ -1,12 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
+import { authOptions, getCurrentUserId } from '@/lib/auth'
 import { db } from '@/lib/db'
 
+/**
+ * GET /api/books/notes?bookId=xxx — Get notes for a book
+ * POST /api/books/notes — Create a note
+ * §22 user isolation — notes are per-user
+ */
 export async function GET(req: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+    const userId = await getCurrentUserId(session) // §22 isolation — falls back to demo-user if no session
     const { searchParams } = new URL(req.url)
     const bookId = searchParams.get('bookId')
 
-    const where: any = { userId: 'demo-user' }
+    const where: any = { userId }
     if (bookId) where.bookId = bookId
 
     const notes = await db.bookNote.findMany({
@@ -22,6 +31,8 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+    const userId = await getCurrentUserId(session) // §22 isolation — falls back to demo-user if no session
     const body = await req.json()
     const { bookId, title, content, pageNumber, highlightId, tags } = body
 
@@ -31,7 +42,7 @@ export async function POST(req: NextRequest) {
 
     const note = await db.bookNote.create({
       data: {
-        userId: 'demo-user',
+        userId,
         bookId,
         title: title ?? '',
         content,

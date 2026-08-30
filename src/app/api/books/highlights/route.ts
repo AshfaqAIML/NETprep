@@ -1,17 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
+import { authOptions, getCurrentUserId } from '@/lib/auth'
 import { db } from '@/lib/db'
 
 /**
  * GET /api/books/highlights?bookId=xxx — Get highlights for a book
  * POST /api/books/highlights — Create a highlight
+ * §22 user isolation — highlights are per-user
  */
 export async function GET(req: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+    const userId = await getCurrentUserId(session) // §22 isolation — falls back to demo-user if no session
     const { searchParams } = new URL(req.url)
     const bookId = searchParams.get('bookId')
     const all = searchParams.get('all')
 
-    const where: any = { userId: 'demo-user' }
+    const where: any = { userId }
     if (bookId) where.bookId = bookId
 
     const highlights = await db.highlight.findMany({
@@ -29,6 +34,8 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+    const userId = await getCurrentUserId(session) // §22 isolation — falls back to demo-user if no session
     const body = await req.json()
     const { bookId, pageNumber, selectedText, color, positionData } = body
 
@@ -38,7 +45,7 @@ export async function POST(req: NextRequest) {
 
     const highlight = await db.highlight.create({
       data: {
-        userId: 'demo-user',
+        userId,
         bookId,
         pageNumber: pageNumber ?? 1,
         selectedText,

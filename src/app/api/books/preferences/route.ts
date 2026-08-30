@@ -1,11 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
+import { authOptions, getCurrentUserId } from '@/lib/auth'
 import { db } from '@/lib/db'
 
+/**
+ * GET /api/books/preferences — Get reader preferences for current user
+ * PUT /api/books/preferences — Update reader preferences
+ * §22 user isolation — per-user preferences via getCurrentUserId (falls back to demo-user if unauthenticated, no 401)
+ */
 export async function GET() {
   try {
-    let prefs = await db.readerPreference.findUnique({ where: { userId: 'demo-user' } })
+    const session = await getServerSession(authOptions)
+    const userId = await getCurrentUserId(session) // §22 isolation — falls back to demo-user if no session
+    let prefs = await db.readerPreference.findUnique({ where: { userId } })
     if (!prefs) {
-      prefs = await db.readerPreference.create({ data: { userId: 'demo-user' } })
+      prefs = await db.readerPreference.create({ data: { userId } })
     }
     return NextResponse.json({ preferences: prefs })
   } catch (e) {
@@ -15,11 +24,13 @@ export async function GET() {
 
 export async function PUT(req: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+    const userId = await getCurrentUserId(session) // §22 isolation — falls back to demo-user if no session
     const body = await req.json()
     const { theme, fontSize, lineHeight, pageMode, zoomLevel, autoSave, fontFamily, sidebarOpen } = body
 
     const prefs = await db.readerPreference.upsert({
-      where: { userId: 'demo-user' },
+      where: { userId },
       update: {
         ...(theme ? { theme } : {}),
         ...(fontSize ? { fontSize } : {}),
@@ -31,7 +42,7 @@ export async function PUT(req: NextRequest) {
         ...(typeof sidebarOpen === 'boolean' ? { sidebarOpen } : {}),
       },
       create: {
-        userId: 'demo-user',
+        userId,
         theme: theme ?? 'light',
         fontSize: fontSize ?? 16,
         lineHeight: lineHeight ?? 1.6,
