@@ -28,7 +28,9 @@ export function SubjectsView() {
       .finally(() => setLoading(false))
   }, [])
 
+  const HIDDEN = ['commerce', 'management', 'english']
   const filtered = subjects.filter((s) => {
+    if (HIDDEN.includes(s.slug)) return false
     const matchesQuery =
       s.name.toLowerCase().includes(query.toLowerCase()) ||
       s.code.toLowerCase().includes(query.toLowerCase()) ||

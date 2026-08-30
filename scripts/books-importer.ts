@@ -20,9 +20,14 @@ function slugify(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80)
 }
 
-function inferSubjectId(fileName: string, subjects: any[]): string | null {
-  const lower = fileName.toLowerCase()
-  // Try to match subject name in filename
+function inferSubjectId(fileName: string, subjects: any[], filePath?: string): string | null {
+  const lower = (filePath ?? fileName).toLowerCase()
+  // Folder-based: Paper I, Paper 1 -> paper-1
+  if (lower.includes('paper i') || lower.includes('paper-1') || lower.includes('paper_1')) {
+    const p1 = subjects.find((s) => s.slug === 'paper-1')
+    if (p1) return p1.id
+  }
+  // Try to match subject name in filename/path
   for (const s of subjects) {
     if (lower.includes(s.name.toLowerCase().split(' ')[0])) return s.id
   }
@@ -70,7 +75,7 @@ async function main() {
     const stat = fs.statSync(filePath)
     const fileData = fs.readFileSync(filePath)
     const fileSize = stat.size
-    const subjectId = inferSubjectId(title, subjects)
+    const subjectId = inferSubjectId(title, subjects, filePath)
 
     // Check existing by slug
     const existing = await db.book.findUnique({ where: { slug } })

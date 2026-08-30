@@ -51,6 +51,8 @@ export function HomeView() {
   const [pyqStats, setPyqStats] = React.useState<any>(null)
   const [loading, setLoading] = React.useState(true)
 
+  // Hide Commerce/Management/English per request — keep only Paper I + Computer Science for now
+  const HIDDEN_SUBJECTS = ['commerce', 'management', 'english']
   React.useEffect(() => {
     Promise.all([
       api.subjects(),
@@ -60,7 +62,7 @@ export function HomeView() {
       api.pyqStats().catch(() => null),
     ])
       .then(([s, n, c, p, pyqS]) => {
-        setSubjects(s.subjects)
+        setSubjects(s.subjects.filter((sub: any) => !HIDDEN_SUBJECTS.includes(sub.slug)))
         setNotes(n.notes)
         setCheatSheets(c.cheatSheets)
         setProgress(p)
