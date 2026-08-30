@@ -36,6 +36,8 @@ import { CoverageMatrixView } from '@/components/views/coverage-matrix-view'
 import { AdminView } from '@/components/views/admin-view'
 import { OnboardingView } from '@/components/views/onboarding-view'
 import { BookReaderView } from '@/components/views/book-reader-view'
+import { BookLibraryView } from '@/components/views/book-library-view'
+import { BookReaderProView } from '@/components/views/book-reader-pro-view'
 import { AuthView } from '@/components/views/auth-view'
 
 // Initialise bookmark cache on mount
@@ -90,7 +92,11 @@ function ViewRouter({ view }: { view: string }) {
     case 'cheat-sheet-reader':
       return <CheatSheetReaderView />
     case 'books':
-      return <BooksView />
+      return <BookLibraryView />
+    case 'book-library':
+      return <BookLibraryView />
+    case 'book-reader-pro':
+      return <BookReaderProView />
     case 'practice':
       return <PracticeView />
     case 'pyqs':

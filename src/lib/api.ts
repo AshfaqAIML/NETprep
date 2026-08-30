@@ -186,6 +186,35 @@ export const api = {
   adminReports: () => fetchJson<any>('/api/admin/reports'),
   adminUpdateReport: (id: string, status: string) =>
     fetchJson<any>(`/api/admin/reports`, { method: 'PATCH', body: JSON.stringify({ id, status }) }),
+
+  // Books & Reading Module
+  bookLibrary: () => fetchJson<any>('/api/books/library'),
+  bookProgress: (bookId?: string) => fetchJson<any>(`/api/books/progress${bookId ? `?bookId=${bookId}` : ''}`),
+  updateBookProgress: (body: any) =>
+    fetchJson<any>(`/api/books/progress`, { method: 'PUT', body: JSON.stringify(body) }),
+  bookHighlights: (bookId?: string) => fetchJson<any>(`/api/books/highlights${bookId ? `?bookId=${bookId}` : ''}`),
+  createHighlight: (body: any) =>
+    fetchJson<any>(`/api/books/highlights`, { method: 'POST', body: JSON.stringify(body) }),
+  updateHighlight: (id: string, body: any) =>
+    fetchJson<any>(`/api/books/highlights/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  deleteHighlight: (id: string) =>
+    fetchJson<any>(`/api/books/highlights/${id}`, { method: 'DELETE' }),
+  bookNotes: (bookId?: string) => fetchJson<any>(`/api/books/notes${bookId ? `?bookId=${bookId}` : ''}`),
+  createBookNote: (body: any) =>
+    fetchJson<any>(`/api/books/notes`, { method: 'POST', body: JSON.stringify(body) }),
+  updateBookNote: (id: string, body: any) =>
+    fetchJson<any>(`/api/books/notes/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  deleteBookNote: (id: string) =>
+    fetchJson<any>(`/api/books/notes/${id}`, { method: 'DELETE' }),
+  bookBookmarks: (bookId?: string) => fetchJson<any>(`/api/books/bookmarks${bookId ? `?bookId=${bookId}` : ''}`),
+  createBookmark: (body: any) =>
+    fetchJson<any>(`/api/books/bookmarks`, { method: 'POST', body: JSON.stringify(body) }),
+  deleteBookmark: (id: string) =>
+    fetchJson<any>(`/api/books/bookmarks/${id}`, { method: 'DELETE' }),
+  bookHistory: () => fetchJson<any>('/api/books/history'),
+  bookPreferences: () => fetchJson<any>('/api/books/preferences'),
+  updateBookPreferences: (body: any) =>
+    fetchJson<any>(`/api/books/preferences`, { method: 'PUT', body: JSON.stringify(body) }),
 }
 
 export type NavigateFn = (view: ViewKey, params?: Record<string, any>) => void
