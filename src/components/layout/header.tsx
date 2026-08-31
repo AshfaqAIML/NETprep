@@ -132,10 +132,10 @@ export function Header() {
 
           {/* Auth button: session-aware */}
           {status === 'authenticated' && session?.user ? (
-            <div className="hidden sm:flex items-center gap-2">
+            <div className="flex items-center gap-2">
               <button
                 onClick={() => handleNav('dashboard')}
-                className="flex items-center gap-2 rounded-full border border-border bg-muted/30 px-2 py-1 text-sm hover:bg-muted transition-colors"
+                className="hidden sm:flex items-center gap-2 rounded-full border border-border bg-muted/30 px-2 py-1 text-sm hover:bg-muted transition-colors"
               >
                 {session.user.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -145,10 +145,11 @@ export function Header() {
                     {(session.user.name ?? session.user.email ?? 'U')[0].toUpperCase()}
                   </div>
                 )}
-                <span className="max-w-[100px] truncate text-xs font-medium">{session.user.name ?? session.user.email}</span>
+                <span className="max-w-[100px] truncate text-xs font-medium hidden lg:inline">{session.user.name ?? session.user.email}</span>
               </button>
               <Button variant="ghost" size="sm" onClick={() => signOut({ callbackUrl: '/' })} className="gap-1.5">
-                Sign Out
+                <span className="hidden sm:inline">Sign Out</span>
+                <span className="sm:hidden">Out</span>
               </Button>
             </div>
           ) : (
@@ -156,10 +157,11 @@ export function Header() {
               variant="default"
               size="sm"
               onClick={() => handleNav('auth')}
-              className="gap-1.5 hidden sm:flex"
+              className="gap-1.5"
             >
               <User className="h-3.5 w-3.5" />
-              Sign In
+              <span className="hidden sm:inline">Sign In</span>
+              <span className="sm:hidden">In</span>
             </Button>
           )}
 
@@ -218,6 +220,33 @@ export function Header() {
                 <div className="font-medium text-foreground mb-1">Demo Account</div>
                 Signed in as <span className="font-mono text-foreground">Kamraan</span> · preparing for UGC NET JRF (Computer Science)
               </div>
+
+              {/* Mobile auth — shows Sign Out when logged in */}
+              {status === 'authenticated' && session?.user ? (
+                <div className="mt-4 rounded-lg border bg-card p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    {session.user.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={session.user.image} alt={session.user.name ?? 'User'} className="h-8 w-8 rounded-full" />
+                    ) : (
+                      <div className="h-8 w-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-xs font-bold">
+                        {(session.user.name ?? session.user.email ?? 'U')[0].toUpperCase()}
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium truncate">{session.user.name ?? 'User'}</div>
+                      <div className="text-xs text-muted-foreground truncate">{session.user.email}</div>
+                    </div>
+                  </div>
+                  <Button variant="outline" size="sm" className="w-full gap-1.5" onClick={() => { setMobileNavOpen(false); signOut({ callbackUrl: '/' }) }}>
+                    <X className="h-3.5 w-3.5" /> Sign Out
+                  </Button>
+                </div>
+              ) : (
+                <Button variant="default" className="mt-4 w-full gap-1.5" onClick={() => handleNav('auth')}>
+                  <User className="h-3.5 w-3.5" /> Sign In
+                </Button>
+              )}
             </SheetContent>
           </Sheet>
         </div>
