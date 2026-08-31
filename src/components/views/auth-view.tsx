@@ -226,7 +226,7 @@ export function AuthView() {
               <Button
                 variant="outline"
                 className="w-full gap-2"
-                onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+                onClick={() => signIn('google', { callbackUrl: '/' })}
               >
                 <svg className="h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
                   <path
