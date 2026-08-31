@@ -22,16 +22,39 @@ export async function GET(
       data: { views: { increment: 1 } },
     })
 
-    // related: other notes in same subject
-    const related = note.subjectId
-      ? await db.note.findMany({
-          where: { subjectId: note.subjectId, id: { not: note.id } },
-          take: 4,
-          orderBy: { views: 'desc' },
-        })
-      : []
+    // Sequential navigation: order notes by course contents (unit → topic → createdAt) §fix
+    let related: any[] = []
+    let next: any = null
+    let prev: any = null
+    if (note.subjectId) {
+      const allNotes = await db.note.findMany({
+        where: { subjectId: note.subjectId },
+        include: { topic: { include: { unit: true } } },
+        orderBy: [{ createdAt: 'asc' }],
+      })
+      // Sort by unit.sortOrder → topic.sortOrder → slug for deterministic sequence globally
+      allNotes.sort((a: any, b: any) => {
+        const ua = a.topic?.unit?.sortOrder ?? 999
+        const ub = b.topic?.unit?.sortOrder ?? 999
+        if (ua !== ub) return ua - ub
+        const ta = a.topic?.sortOrder ?? 999
+        const tb = b.topic?.sortOrder ?? 999
+        if (ta !== tb) return ta - tb
+        return a.slug.localeCompare(b.slug)
+      })
+      const idx = allNotes.findIndex((n: any) => n.id === note.id)
+      if (idx !== -1) {
+        if (idx > 0) prev = allNotes[idx - 1]
+        if (idx < allNotes.length - 1) next = allNotes[idx + 1]
+        // Related: immediate neighbours + next in sequence (not random by views)
+        const start = Math.max(0, idx - 1)
+        related = allNotes.slice(start, idx + 3).filter((n: any) => n.id !== note.id).slice(0, 4)
+        // Strip heavy topic/unit for related payload
+        related = related.map(({ topic, ...r }: any) => r)
+      }
+    }
 
-    return NextResponse.json({ note, related })
+    return NextResponse.json({ note, related, next, prev })
   } catch (e) {
     console.error('[api/notes/[slug]] error', e)
     return NextResponse.json({ error: 'Failed to fetch note' }, { status: 500 })

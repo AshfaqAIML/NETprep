@@ -35,6 +35,8 @@ export function NoteReaderView() {
   const slug = viewParams.slug as string
   const [note, setNote] = React.useState<any>(null)
   const [related, setRelated] = React.useState<any[]>([])
+  const [next, setNext] = React.useState<any>(null)
+  const [prev, setPrev] = React.useState<any>(null)
   const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
@@ -43,7 +45,9 @@ export function NoteReaderView() {
     api.note(slug)
       .then((r) => {
         setNote(r.note)
-        setRelated(r.related)
+        setRelated(r.related ?? [])
+        setNext((r as any).next ?? null)
+        setPrev((r as any).prev ?? null)
         pushRecentNote({
           slug: r.note.slug,
           title: r.note.title,
@@ -120,6 +124,44 @@ export function NoteReaderView() {
               <Badge key={i} variant="outline" className="text-[10px]">{t.trim()}</Badge>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Sequential Previous / Next — globally correct */}
+      {(prev || next) && (
+        <div className="mt-8 grid sm:grid-cols-2 gap-3">
+          {prev ? (
+            <button
+              onClick={() => navigate('note-reader', { slug: prev.slug })}
+              className="group flex items-center gap-3 rounded-lg border border-border p-4 text-left hover:border-primary/40 hover:bg-muted/30 transition-colors"
+            >
+              <div className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-muted text-muted-foreground shrink-0">
+                <ArrowLeft className="h-4 w-4" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-[10px] text-muted-foreground uppercase tracking-wide">Previous</div>
+                <div className="text-sm font-medium line-clamp-2">{prev.title}</div>
+              </div>
+            </button>
+          ) : (
+            <div className="hidden sm:block" />
+          )}
+          {next ? (
+            <button
+              onClick={() => navigate('note-reader', { slug: next.slug })}
+              className="group flex items-center gap-3 rounded-lg border border-primary/20 bg-primary/5 p-4 text-left hover:bg-primary/10 transition-colors sm:justify-end"
+            >
+              <div className="flex-1 min-w-0 sm:text-right">
+                <div className="text-[10px] text-muted-foreground uppercase tracking-wide">Next</div>
+                <div className="text-sm font-medium line-clamp-2">{next.title}</div>
+              </div>
+              <div className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground shrink-0">
+                <ChevronRight className="h-4 w-4" />
+              </div>
+            </button>
+          ) : (
+            <div className="hidden sm:block" />
+          )}
         </div>
       )}
 
