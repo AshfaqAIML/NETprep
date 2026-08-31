@@ -42,6 +42,7 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { key: 'home', label: 'Home', icon: GraduationCap, group: 'study' },
+  { key: 'about-exam', label: 'About the Exam', icon: Info, group: 'study' },
   { key: 'subjects', label: 'Subjects', icon: Library, group: 'study' },
   { key: 'pyq-dashboard', label: 'PYQs', icon: FileText, group: 'study' },
   { key: 'notes', label: 'Notes', icon: PenTool, group: 'study' },
@@ -93,7 +94,7 @@ export function Header() {
 
         {/* Desktop nav — primary items only, rest in mobile menu */}
         <nav className="hidden lg:flex items-center gap-0.5 ml-2">
-          {NAV_ITEMS.filter((i) => ['home', 'subjects', 'pyq-dashboard', 'book-library', 'notes', 'practice', 'mock-tests', 'dashboard', 'revision', 'planner'].includes(i.key)).map((item) => {
+          {NAV_ITEMS.filter((i) => ['home', 'about-exam', 'subjects', 'pyq-dashboard', 'book-library', 'notes', 'practice', 'mock-tests', 'dashboard', 'revision', 'planner'].includes(i.key)).map((item) => {
             const Icon = item.icon
             const active = view === item.key
             return (

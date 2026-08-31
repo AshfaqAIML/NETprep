@@ -39,6 +39,7 @@ export type ViewKey =
   | 'auth'
   | 'book-library'
   | 'book-reader-pro'
+  | 'about-exam'
 
 interface AppState {
   // Navigation

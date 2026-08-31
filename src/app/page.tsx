@@ -38,6 +38,7 @@ import { OnboardingView } from '@/components/views/onboarding-view'
 import { BookReaderView } from '@/components/views/book-reader-view'
 import { BookLibraryView } from '@/components/views/book-library-view'
 import { BookReaderProView } from '@/components/views/book-reader-pro-view'
+import { AboutExamView } from '@/components/views/about-exam-view'
 import { AuthView } from '@/components/views/auth-view'
 
 // Initialise bookmark cache on mount
@@ -139,6 +140,8 @@ function ViewRouter({ view }: { view: string }) {
       return <OnboardingView />
     case 'book-reader':
       return <BookReaderView />
+    case 'about-exam':
+      return <AboutExamView />
     case 'auth':
       return <AuthView />
     default:
