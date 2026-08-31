@@ -58,6 +58,7 @@ export function AboutExamView() {
             ['papers', 'Papers'],
             ['cs087', 'CS 087'],
             ['exam-pattern', 'Pattern'],
+            ['marks-distribution', 'Marks by Unit'],
             ['eligibility', 'Eligibility'],
             ['outcomes', 'Career'],
             ['process', 'Process'],
@@ -175,6 +176,117 @@ export function AboutExamView() {
             <div><span className="font-semibold">Type:</span> MCQ, 4 options</div>
           </CardContent>
         </Card>
+      </section>
+
+      {/* Marks Distribution Among Units — Latest Syllabus */}
+      <section id="marks-distribution" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+        <SectionTitle title="Marks Distribution Among Units" subtitle="Latest NTA syllabus 2024 — Paper I (10 units) & Paper II Computer Science 087 (10 units)" />
+        <div className="mb-3 flex flex-wrap items-center gap-2 text-[11px]">
+          <Badge variant="outline" className="gap-1.5"><Clock className="h-3 w-3" />3 Hours single session</Badge>
+          <Badge variant="outline" className="gap-1.5"><Award className="h-3 w-3" />+2 per correct, no negative</Badge>
+          <Badge variant="secondary" className="gap-1.5"><Info className="h-3 w-3" />Actual distribution may vary slightly; below is official unit weightage</Badge>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-4">
+          {/* Paper I */}
+          <Card className="overflow-hidden border-emerald-500/20">
+            <CardHeader className="bg-emerald-500/5 border-b border-emerald-500/10 pb-3">
+              <CardTitle className="text-sm flex items-center gap-2">
+                <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 text-white text-xs font-bold">I</span>
+                Paper I — Teaching & Research Aptitude
+                <Badge variant="secondary" className="ml-auto text-[10px]">50 Q → 100 Marks</Badge>
+              </CardTitle>
+              <p className="text-xs text-muted-foreground">10 units × 5 questions × 2 marks = 100 marks (10% each)</p>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="divide-y divide-border">
+                {[
+                  ['Teaching Aptitude', 5, 10],
+                  ['Research Aptitude', 5, 10],
+                  ['Comprehension', 5, 10],
+                  ['Communication', 5, 10],
+                  ['Mathematical Reasoning', 5, 10],
+                  ['Logical Reasoning', 5, 10],
+                  ['Data Interpretation', 5, 10],
+                  ['ICT', 5, 10],
+                  ['People, Development & Environment', 5, 10],
+                  ['Higher Education System', 5, 10],
+                ].map(([name, qs, marks], i) => (
+                  <div key={name as string} className="flex items-center gap-3 px-4 py-2.5 hover:bg-muted/30 transition-colors">
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold shrink-0">{i + 1}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs font-medium truncate">{name as string}</div>
+                      <div className="text-[10px] text-muted-foreground">{qs} Q • {marks} marks • 10%</div>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <div className="text-xs font-bold">{marks} <span className="text-[10px] font-normal text-muted-foreground">marks</span></div>
+                      <div className="w-16 h-1 bg-muted rounded-full overflow-hidden mt-1">
+                        <div className="h-full bg-emerald-500" style={{ width: '10%' }} />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-muted/30 border-t border-border p-3 flex items-center justify-between text-xs">
+                <span className="font-semibold">Total Paper I</span>
+                <span className="font-bold">50 Q • 100 Marks</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Paper II CS 087 */}
+          <Card className="overflow-hidden border-violet-500/20">
+            <CardHeader className="bg-violet-500/5 border-b border-violet-500/10 pb-3">
+              <CardTitle className="text-sm flex items-center gap-2">
+                <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-violet-600 text-white text-xs font-bold">II</span>
+                Paper II — Computer Science 087
+                <Badge variant="secondary" className="ml-auto text-[10px]">100 Q → 200 Marks</Badge>
+              </CardTitle>
+              <p className="text-xs text-muted-foreground">10 units × ~10 questions × 2 marks = 200 marks (10% each, indicative)</p>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="divide-y divide-border">
+                {[
+                  ['Discrete Structures & Optimization', 10, 20],
+                  ['Computer System Architecture', 10, 20],
+                  ['Programming Languages & Computer Graphics', 10, 20],
+                  ['Database Management Systems', 10, 20],
+                  ['System Software & OS', 10, 20],
+                  ['Software Engineering', 10, 20],
+                  ['Data Structures & Algorithms', 10, 20],
+                  ['Theory of Computation & Compilers', 10, 20],
+                  ['Data Communication & Computer Networks', 10, 20],
+                  ['Artificial Intelligence', 10, 20],
+                ].map(([name, qs, marks], i) => (
+                  <div key={name as string} className="flex items-center gap-3 px-4 py-2.5 hover:bg-muted/30 transition-colors">
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-violet-500/10 text-violet-700 dark:text-violet-300 text-[10px] font-bold shrink-0">{i + 1}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs font-medium truncate">{name as string}</div>
+                      <div className="text-[10px] text-muted-foreground">{qs} Q • {marks} marks • 10%</div>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <div className="text-xs font-bold">{marks} <span className="text-[10px] font-normal text-muted-foreground">marks</span></div>
+                      <div className="w-16 h-1 bg-muted rounded-full overflow-hidden mt-1">
+                        <div className="h-full bg-violet-500" style={{ width: '10%' }} />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-muted/30 border-t border-border p-3 flex items-center justify-between text-xs">
+                <span className="font-semibold">Total Paper II</span>
+                <span className="font-bold">100 Q • 200 Marks</span>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="mt-3 rounded-lg border border-amber-500/20 bg-amber-500/5 p-3 flex items-start gap-2 text-xs text-muted-foreground">
+          <Info className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+          <div>
+            <span className="font-semibold text-foreground">Note:</span> NTA does not publish fixed per-unit marks, but the official syllabus lists 10 units per paper. The table above shows the <strong>equal weightage model</strong> (Paper I 10 marks/unit, Paper II 20 marks/unit) widely used for planning — actual yearly variation is ±1–2 questions per unit. Use it for prioritisation, not as a guarantee. Verify the latest NTA notification for your cycle.
+          </div>
+        </div>
       </section>
 
       {/* Eligibility */}
