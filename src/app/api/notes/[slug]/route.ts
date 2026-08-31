@@ -32,7 +32,11 @@ export async function GET(
         include: { topic: { include: { unit: true } } },
         orderBy: [{ createdAt: 'asc' }],
       })
-      // Sort by unit.sortOrder → topic.sortOrder → slug for deterministic sequence globally
+      // Sort by unit.sortOrder → topic.sortOrder → numeric part/title for natural sequence (fixes Part 2 → 3 not 33)
+      const numFrom = (s: string) => {
+        const m = s.match(/(\d+)\s*$/)
+        return m ? parseInt(m[1], 10) : 9999
+      }
       allNotes.sort((a: any, b: any) => {
         const ua = a.topic?.unit?.sortOrder ?? 999
         const ub = b.topic?.unit?.sortOrder ?? 999
@@ -40,6 +44,13 @@ export async function GET(
         const ta = a.topic?.sortOrder ?? 999
         const tb = b.topic?.sortOrder ?? 999
         if (ta !== tb) return ta - tb
+        // Natural numeric sort for Part 2,3,...33 (slug/title may contain number)
+        const na = numFrom(a.slug) !== 9999 ? numFrom(a.slug) : numFrom(a.title)
+        const nb = numFrom(b.slug) !== 9999 ? numFrom(b.slug) : numFrom(b.title)
+        if (na !== 9999 && nb !== 9999 && na !== nb) return na - nb
+        const ca = a.createdAt ? new Date(a.createdAt).getTime() : 0
+        const cb = b.createdAt ? new Date(b.createdAt).getTime() : 0
+        if (ca !== cb) return ca - cb
         return a.slug.localeCompare(b.slug)
       })
       const idx = allNotes.findIndex((n: any) => n.id === note.id)
