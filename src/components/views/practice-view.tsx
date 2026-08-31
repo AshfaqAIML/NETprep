@@ -81,7 +81,7 @@ export function PracticeView() {
   }, [viewParams.sourceType])
 
   React.useEffect(() => {
-    api.subjects().then((r) => setSubjects(r.subjects))
+    api.subjects().then((r) => setSubjects(r.subjects.filter((s: any) => !['commerce', 'management', 'english'].includes(s.slug))))
   }, [])
 
   const startSession = async () => {
