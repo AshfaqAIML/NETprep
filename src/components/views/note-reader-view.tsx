@@ -118,7 +118,11 @@ export function NoteReaderView() {
 
       {/* Hierarchical Paper → Unit → Chapter cards (global, for any hierarchical book) */}
       {note.content.includes('## UNIT') || note.content.includes('## Unit') ? (
-        <PaperOneHierarchical content={note.content} />
+        <PaperOneHierarchical
+          content={note.content}
+          initialPaper={viewParams.paper === 'II' ? 'II' : viewParams.paper === 'I' ? 'I' : undefined}
+          partLabel={viewParams.part ? `Part ${viewParams.part}` : undefined}
+        />
       ) : (
         <Markdown content={note.content} />
       )}
@@ -204,8 +208,17 @@ export function NoteReaderView() {
   )
 }
 
-function PaperOneHierarchical({ content }: { content: string }) {
-  const [paper, setPaper] = React.useState<'I' | 'II' | null>(null)
+function PaperOneHierarchical({
+  content,
+  initialPaper,
+  partLabel,
+}: {
+  content: string
+  initialPaper?: 'I' | 'II'
+  partLabel?: string
+}) {
+  const navigate = useAppStore((s) => s.navigate)
+  const [paper, setPaper] = React.useState<'I' | 'II' | null>(initialPaper ?? null)
   const [unitIdx, setUnitIdx] = React.useState<number | null>(null)
   const [chapterIdx, setChapterIdx] = React.useState<number | null>(null)
 
@@ -340,8 +353,8 @@ function PaperOneHierarchical({ content }: { content: string }) {
   if (unitIdx === null) {
     return (
       <div className="space-y-4">
-        <Button variant="ghost" size="sm" onClick={() => setPaper(null)} className="gap-1.5"><ChevronLeft className="h-3.5 w-3.5" /> Back to Papers</Button>
-        <h2 className="text-xl font-bold">{activePaper.title} — Units</h2>
+        <Button variant="ghost" size="sm" onClick={() => (initialPaper ? navigate('notes', { paper }) : setPaper(null))} className="gap-1.5"><ChevronLeft className="h-3.5 w-3.5" /> {initialPaper ? 'Back to Parts' : 'Back to Papers'}</Button>
+        <h2 className="text-xl font-bold">{activePaper.title} — Units{partLabel ? ` · ${partLabel}` : ''}</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {activePaper.units.map((u: any, i: number) => (
             <Card key={i} onClick={() => setUnitIdx(i)} className="cursor-pointer hover:border-primary/40 hover:shadow-sm transition-all">
