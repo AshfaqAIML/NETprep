@@ -221,38 +221,91 @@ function PaperOneHierarchical({ content }: { content: string }) {
       if (curChapter && buffer.length) { curChapter.content = buffer.join('\n'); buffer = [] }
       else if (curUnit && buffer.length && !curChapter) { curUnit.intro = buffer.join('\n'); buffer = [] }
     }
+    const normalize = (t: string) => t.toUpperCase().replace(/[\s_\-—–:]+/g, ' ').trim()
+    const paperByKey: Record<string, any> = {}
+    const getPaper = (title?: string) => {
+      const key = normalize(title ?? 'UGC NET Paper I')
+      if (paperByKey[key]) return paperByKey[key]
+      const p = { title: title ?? 'UGC NET Paper I', units: [] }
+      paperByKey[key] = p
+      papers.push(p)
+      return p
+    }
+    const unitByPaperKey: Record<string, any> = {}
+    const getUnit = (roman: string) => {
+      const paper = curPaper ?? getPaper()
+      const romanKey = (roman.match(/^unit\s+([ivxlcdm]+)/i) ?? [null, roman.replace(/^unit\s+/i, '')])[1].toUpperCase()
+      const key = `${normalize(paper.title)}.${romanKey}`
+      if (unitByPaperKey[key]) return { paper, unit: unitByPaperKey[key] }
+      const u = { title: roman, intro: '', chapters: [] }
+      unitByPaperKey[key] = u
+      paper.units.push(u)
+      return { paper, unit: u }
+    }
     for (const raw of lines) {
       const line = raw.trim()
+      const lower = line.toLowerCase()
+      // skip clutter lines
+      if (/^#+\s*(end\s+of|paper\s+1\b|paper\s+i\b)/.test(lower) || /^##+\s*##/.test(line)) {
+        continue
+      }
       if (line.startsWith('# ')) {
         flush()
-        curPaper = { title: line.replace(/^#\s+/, ''), units: [] }
-        papers.push(curPaper)
-        curUnit = null; curChapter = null
+        if (/paper\s+(i|ii|1|2)/i.test(line)) {
+          // re-use the paper (do not create a new one on repeated H1)
+          curPaper = getPaper(line.replace(/^#\s+/, ''))
+          curUnit = null; curChapter = null
+        }
       } else if (line.startsWith('## ')) {
-        flush()
-        curUnit = { title: line.replace(/^##\s+/, ''), intro: '', chapters: [] }
-        if (!curPaper) { curPaper = { title: 'UGC NET PAPER I', units: [] }; papers.push(curPaper) }
-        curPaper.units.push(curUnit)
-        curChapter = null
+        const title = line.replace(/^##\s+/, '')
+        const isUnit = /^unit\s+[ivxlci]+/i.test(title) || /^unit\s+\d+/i.test(title)
+        if (isUnit) {
+          flush()
+          const { unit } = getUnit(title)
+          curUnit = unit
+          curChapter = null
+        } else {
+          // a non-unit ## heading directly at unit level -> treat as a chapter
+          flush()
+          curChapter = { title, content: '' }
+          if (!curUnit) { curUnit = { title: 'Unit I', intro: '', chapters: [] }; getPaper().units.push(curUnit) }
+          curUnit.chapters.push(curChapter)
+          buffer = []
+        }
       } else if (line.startsWith('### ')) {
-        flush()
-        curChapter = { title: line.replace(/^###\s+/, ''), content: '' }
-        if (!curUnit) { curUnit = { title: 'Unit I', intro: '', chapters: [] }; if (!curPaper) { curPaper = { title: 'UGC NET PAPER I', units: [] }; papers.push(curPaper) } curPaper.units.push(curUnit) }
-        curUnit.chapters.push(curChapter)
-        buffer = []
-      } else if (line.startsWith('#### ') || line.startsWith('##### ')) {
+        const title = line.replace(/^###\s+/, '')
+        if (/^chapter\s*\d+/i.test(title)) {
+          // start a new chapter
+          flush()
+          curChapter = { title, content: '' }
+          if (!curUnit) { curUnit = { title: 'Unit I', intro: '', chapters: [] }; getPaper().units.push(curUnit) }
+          curUnit.chapters.push(curChapter)
+          buffer = []
+        } else if (curChapter && buffer.length === 0) {
+          // a ### <name> line directly after a CHAPTER header -> append name to chapter title
+          curChapter.title = `${curChapter.title} — ${title}`
+        } else {
+          // standalone ### subtopic line (like 3.1 ...) -> goes into chapter content with heading size
+          buffer.push(line)
+        }
+      } else if (line.startsWith('#### ') || line.startsWith('##### ') || line.startsWith('###### ')) {
         buffer.push(line)
       } else {
         buffer.push(raw)
       }
     }
     flush()
+    // collapse all papers into one Paper I (merged units) — Paper II handled separately in UI
     return papers
   }, [content])
 
-  // Derive Paper I / Paper II
-  const paperI = parsed[0]
-  const paperII = parsed[1] ?? { title: 'Paper II — Subject Specific (087)', units: Array.from({ length: 10 }, (_, i) => ({ title: `Unit ${i + 1}`, intro: 'Content coming soon — see Syllabus for details.', chapters: [] })) }
+  // Derive Paper I / Paper II — merge ALL parsed papers into a single Paper I
+  const paperI = React.useMemo(() => {
+    const allUnits: any[] = []
+    for (const p of parsed) for (const u of p.units) allUnits.push(u)
+    return { title: 'UGC NET Paper I — Teaching & Research Aptitude', units: allUnits }
+  }, [parsed])
+  const paperII = React.useMemo(() => ({ title: 'Paper II — Subject Specific (087)', units: Array.from({ length: 10 }, (_, i) => ({ title: `Unit ${i + 1}`, intro: 'Content coming soon — see Syllabus for details.', chapters: [] })) }), [])
 
   // Level 1: Paper selection
   if (paper === null) {
