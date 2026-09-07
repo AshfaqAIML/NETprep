@@ -12,6 +12,10 @@ import {
   ChevronRight,
   BookOpen,
   FileQuestion,
+  GraduationCap,
+  Layers,
+  Cpu,
+  ChevronLeft,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -112,8 +116,12 @@ export function NoteReaderView() {
 
       <Separator className="mb-6" />
 
-      {/* Content */}
-      <Markdown content={note.content} />
+      {/* Hierarchical Paper I / Paper II → Units → Chapters (for ugc-net-paper-1-part-1) */}
+      {slug === 'ugc-net-paper-1-part-1' ? (
+        <PaperOneHierarchical content={note.content} />
+      ) : (
+        <Markdown content={note.content} />
+      )}
 
       {/* Tags */}
       {note.tags && (
@@ -165,8 +173,8 @@ export function NoteReaderView() {
         </div>
       )}
 
-      {/* Related */}
-      {related.length > 0 && (
+      {/* Hierarchical Paper I — hidden for hierarchical Paper I book, handled above */}
+      {slug !== 'ugc-net-paper-1-part-1' && related.length > 0 && (
         <div className="mt-12">
           <h2 className="text-xl font-bold tracking-tight mb-4">Related Notes</h2>
           <div className="grid sm:grid-cols-2 gap-3">
@@ -193,5 +201,152 @@ export function NoteReaderView() {
         </div>
       )}
     </article>
+  )
+}
+
+function PaperOneHierarchical({ content }: { content: string }) {
+  const [paper, setPaper] = React.useState<'I' | 'II' | null>(null)
+  const [unitIdx, setUnitIdx] = React.useState<number | null>(null)
+  const [chapterIdx, setChapterIdx] = React.useState<number | null>(null)
+
+  // Parse markdown into Paper -> Units -> Chapters
+  const parsed = React.useMemo(() => {
+    const lines = content.split('\n')
+    const papers: any[] = []
+    let curPaper: any = null
+    let curUnit: any = null
+    let curChapter: any = null
+    let buffer: string[] = []
+    const flush = () => {
+      if (curChapter && buffer.length) { curChapter.content = buffer.join('\n'); buffer = [] }
+      else if (curUnit && buffer.length && !curChapter) { curUnit.intro = buffer.join('\n'); buffer = [] }
+    }
+    for (const raw of lines) {
+      const line = raw.trim()
+      if (line.startsWith('# ')) {
+        flush()
+        curPaper = { title: line.replace(/^#\s+/, ''), units: [] }
+        papers.push(curPaper)
+        curUnit = null; curChapter = null
+      } else if (line.startsWith('## ')) {
+        flush()
+        curUnit = { title: line.replace(/^##\s+/, ''), intro: '', chapters: [] }
+        if (!curPaper) { curPaper = { title: 'UGC NET PAPER I', units: [] }; papers.push(curPaper) }
+        curPaper.units.push(curUnit)
+        curChapter = null
+      } else if (line.startsWith('### ')) {
+        flush()
+        curChapter = { title: line.replace(/^###\s+/, ''), content: '' }
+        if (!curUnit) { curUnit = { title: 'Unit I', intro: '', chapters: [] }; if (!curPaper) { curPaper = { title: 'UGC NET PAPER I', units: [] }; papers.push(curPaper) } curPaper.units.push(curUnit) }
+        curUnit.chapters.push(curChapter)
+        buffer = []
+      } else if (line.startsWith('#### ') || line.startsWith('##### ')) {
+        buffer.push(line)
+      } else {
+        buffer.push(raw)
+      }
+    }
+    flush()
+    return papers
+  }, [content])
+
+  // Derive Paper I / Paper II
+  const paperI = parsed[0]
+  const paperII = parsed[1] ?? { title: 'Paper II — Subject Specific (087)', units: Array.from({ length: 10 }, (_, i) => ({ title: `Unit ${i + 1}`, intro: 'Content coming soon — see Syllabus for details.', chapters: [] })) }
+
+  // Level 1: Paper selection
+  if (paper === null) {
+    return (
+      <div className="space-y-4">
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Card onClick={() => setPaper('I')} className="cursor-pointer hover:border-primary/40 hover:shadow-md transition-all group">
+            <CardContent className="p-6 text-center">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-600 text-white mb-3"><GraduationCap className="h-6 w-6" /></div>
+              <h3 className="font-bold">Paper I</h3>
+              <p className="text-xs text-muted-foreground mt-1">Teaching & Research Aptitude — 10 units</p>
+              <Badge variant="secondary" className="mt-2 text-[10px]">{paperI?.units.length ?? 10} units</Badge>
+            </CardContent>
+          </Card>
+          <Card onClick={() => setPaper('II')} className="cursor-pointer hover:border-primary/40 hover:shadow-md transition-all group">
+            <CardContent className="p-6 text-center">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-violet-600 text-white mb-3"><Cpu className="h-6 w-6" /></div>
+              <h3 className="font-bold">Paper II</h3>
+              <p className="text-xs text-muted-foreground mt-1">Computer Science 087 — 10 units</p>
+              <Badge variant="secondary" className="mt-2 text-[10px]">10 units</Badge>
+            </CardContent>
+          </Card>
+        </div>
+        <p className="text-xs text-muted-foreground text-center">Choose a paper to explore its units and chapters with proper headings.</p>
+      </div>
+    )
+  }
+
+  const activePaper = paper === 'I' ? paperI : paperII
+
+  // Level 2: Units
+  if (unitIdx === null) {
+    return (
+      <div className="space-y-4">
+        <Button variant="ghost" size="sm" onClick={() => setPaper(null)} className="gap-1.5"><ChevronLeft className="h-3.5 w-3.5" /> Back to Papers</Button>
+        <h2 className="text-xl font-bold">{activePaper.title} — Units</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {activePaper.units.map((u: any, i: number) => (
+            <Card key={i} onClick={() => setUnitIdx(i)} className="cursor-pointer hover:border-primary/40 hover:shadow-sm transition-all">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 mb-1">
+                  <Layers className="h-4 w-4 text-primary" />
+                  <span className="text-[10px] text-muted-foreground">Unit {i + 1}</span>
+                </div>
+                <h3 className="font-semibold text-sm line-clamp-2">{u.title}</h3>
+                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{u.chapters.length ? `${u.chapters.length} chapters` : 'No chapters yet'}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  const activeUnit = activePaper.units[unitIdx]
+
+  // Level 3: Chapters
+  if (chapterIdx === null) {
+    return (
+      <div className="space-y-4">
+        <Button variant="ghost" size="sm" onClick={() => setUnitIdx(null)} className="gap-1.5"><ChevronLeft className="h-3.5 w-3.5" /> Back to Units</Button>
+        <h2 className="text-xl font-bold">{activeUnit.title}</h2>
+        {activeUnit.intro && <div className="text-sm text-muted-foreground"><Markdown content={activeUnit.intro} /></div>}
+        <div className="grid sm:grid-cols-2 gap-3">
+          {activeUnit.chapters.length ? activeUnit.chapters.map((c: any, i: number) => (
+            <Card key={i} onClick={() => setChapterIdx(i)} className="cursor-pointer hover:border-primary/40 hover:shadow-sm transition-all">
+              <CardContent className="p-4">
+                <div className="text-[10px] text-muted-foreground">Chapter {i + 1}</div>
+                <h3 className="font-semibold text-sm line-clamp-2">{c.title}</h3>
+              </CardContent>
+            </Card>
+          )) : (
+            <Card><CardContent className="p-4 text-sm text-muted-foreground">No chapters yet for this unit.</CardContent></Card>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  const activeChapter = activeUnit.chapters[chapterIdx]
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center gap-2">
+        <Button variant="ghost" size="sm" onClick={() => setChapterIdx(null)} className="gap-1.5"><ChevronLeft className="h-3.5 w-3.5" /> Back to Chapters</Button>
+        <span className="text-xs text-muted-foreground">/ {activeUnit.title} / {activeChapter.title}</span>
+      </div>
+      <Card>
+        <CardHeader><CardTitle className="text-xl">{activeChapter.title}</CardTitle></CardHeader>
+        <CardContent><Markdown content={activeChapter.content} /></CardContent>
+      </Card>
+      <div className="flex justify-between">
+        <Button variant="outline" size="sm" disabled={chapterIdx === 0} onClick={() => setChapterIdx((v) => (v !== null ? Math.max(0, v - 1) : 0))} className="gap-1.5"><ChevronLeft className="h-3.5 w-3.5" /> Previous</Button>
+        <Button variant="outline" size="sm" disabled={chapterIdx === activeUnit.chapters.length - 1} onClick={() => setChapterIdx((v) => (v !== null ? Math.min(activeUnit.chapters.length - 1, v + 1) : 0))} className="gap-1.5">Next <ChevronRight className="h-3.5 w-3.5" /></Button>
+      </div>
+    </div>
   )
 }
