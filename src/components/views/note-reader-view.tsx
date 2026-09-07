@@ -116,8 +116,8 @@ export function NoteReaderView() {
 
       <Separator className="mb-6" />
 
-      {/* Hierarchical Paper I / Paper II → Units → Chapters (for ugc-net-paper-1-part-1) */}
-      {slug === 'ugc-net-paper-1-part-1' ? (
+      {/* Hierarchical Paper → Unit → Chapter cards (global, for any hierarchical book) */}
+      {note.content.includes('## UNIT') || note.content.includes('## Unit') ? (
         <PaperOneHierarchical content={note.content} />
       ) : (
         <Markdown content={note.content} />
@@ -173,8 +173,8 @@ export function NoteReaderView() {
         </div>
       )}
 
-      {/* Hierarchical Paper I — hidden for hierarchical Paper I book, handled above */}
-      {slug !== 'ugc-net-paper-1-part-1' && related.length > 0 && (
+      {/* Related — hidden for hierarchical books (they have chapter nav) */}
+      {!note.content.includes('## UNIT') && related.length > 0 && (
         <div className="mt-12">
           <h2 className="text-xl font-bold tracking-tight mb-4">Related Notes</h2>
           <div className="grid sm:grid-cols-2 gap-3">
