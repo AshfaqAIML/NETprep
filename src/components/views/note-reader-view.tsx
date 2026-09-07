@@ -245,8 +245,8 @@ function PaperOneHierarchical({ content }: { content: string }) {
     for (const raw of lines) {
       const line = raw.trim()
       const lower = line.toLowerCase()
-      // skip clutter lines
-      if (/^#+\s*(end\s+of|paper\s+1\b|paper\s+i\b)/.test(lower) || /^##+\s*##/.test(line)) {
+      // skip clutter lines (careful: do NOT drop '#### n' h4/h5/h6 headings)
+      if (/^#+\s*(end\s+of|paper\s+1\b|paper\s+i\b)/.test(lower) || /^##\s+##$/.test(line)) {
         continue
       }
       if (line.startsWith('# ')) {
