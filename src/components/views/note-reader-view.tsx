@@ -312,13 +312,25 @@ function PaperOneHierarchical({
     return papers
   }, [content])
 
-  // Derive Paper I / Paper II — merge ALL parsed papers into a single Paper I
-  const paperI = React.useMemo(() => {
-    const allUnits: any[] = []
-    for (const p of parsed) for (const u of p.units) allUnits.push(u)
-    return { title: 'UGC NET Paper I — Teaching & Research Aptitude', units: allUnits }
+  // Derive Paper I / Paper II from the parsed papers, with placeholder fallbacks
+  const { paperI, paperII } = React.useMemo(() => {
+    const unitsI: any[] = []
+    const unitsII: any[] = []
+    for (const p of parsed) {
+      if (/paper\s+(2|ii)\b/i.test(p.title ?? '') && !/paper\s+(1|i)\b/i.test(p.title ?? '')) unitsII.push(...p.units)
+      else unitsI.push(...p.units)
+    }
+    return {
+      paperI: {
+        title: 'UGC NET Paper I — Teaching & Research Aptitude',
+        units: unitsI.length ? unitsI : Array.from({ length: 10 }, (_, i) => ({ title: `Unit ${i + 1}`, intro: 'Content coming soon — see Syllabus for details.', chapters: [] })),
+      },
+      paperII: {
+        title: 'Paper II — Computer Science & Applications (087)',
+        units: unitsII.length ? unitsII : Array.from({ length: 10 }, (_, i) => ({ title: `Unit ${i + 1}`, intro: 'Content coming soon — see Syllabus for details.', chapters: [] })),
+      },
+    }
   }, [parsed])
-  const paperII = React.useMemo(() => ({ title: 'Paper II — Subject Specific (087)', units: Array.from({ length: 10 }, (_, i) => ({ title: `Unit ${i + 1}`, intro: 'Content coming soon — see Syllabus for details.', chapters: [] })) }), [])
 
   // Level 1: Paper selection
   if (paper === null) {
