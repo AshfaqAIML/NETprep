@@ -18,9 +18,12 @@ export async function GET(
             },
           },
         },
-        books: { orderBy: { rating: 'desc' } },
-        notes: { orderBy: { createdAt: 'desc' } },
-        cheatsheets: { orderBy: { createdAt: 'desc' } },
+        books: { select: { id: true, slug: true, title: true, author: true, rating: true } },
+        notes: {
+          select: { id: true, slug: true, title: true, excerpt: true, readingTime: true, difficulty: true, tags: true, featured: true, views: true, createdAt: true, updatedAt: true },
+          orderBy: { createdAt: 'desc' },
+        },
+        cheatsheets: { select: { id: true, slug: true, title: true, createdAt: true } },
       },
     })
 
