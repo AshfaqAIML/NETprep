@@ -88,8 +88,8 @@ export function BookLibraryView() {
 
       {/* Subject cards */}
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[...Array(6)].map((_, i) => <Skeleton key={i} className="h-44 w-full" />)}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {[...Array(6)].map((_, i) => <Skeleton key={i} className="h-64 w-full" />)}
         </div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-16">
@@ -98,7 +98,7 @@ export function BookLibraryView() {
           <p className="text-sm text-muted-foreground mt-1">Try a different search.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {filtered.map((subject, idx) => (
             <SubjectCard
               key={subject.id}
@@ -127,9 +127,11 @@ export function BookLibraryView() {
 
 function BookCover({ title, author, color }: { title: string; author: string; color?: string }) {
   return (
-    <div className={cn('h-20 w-14 shrink-0 rounded-md bg-gradient-to-br border flex flex-col items-center justify-center p-1.5 text-center overflow-hidden', color ?? 'from-amber-500/20 to-orange-600/20 border-amber-500/30')}>
-      <div className="text-[7px] font-bold leading-tight line-clamp-3 text-amber-900 dark:text-amber-100">{title.slice(0, 60)}</div>
-      <div className="text-[6px] text-amber-700/70 dark:text-amber-300/70 mt-1 line-clamp-1">{author.slice(0, 20)}</div>
+    <div className={cn('relative h-28 w-20 shrink-0 rounded-md rounded-l-sm bg-gradient-to-br border flex flex-col items-center justify-center p-2 text-center overflow-hidden shadow-md', color ?? 'from-amber-500/20 to-orange-600/20 border-amber-500/30')}>
+      {/* Spine shadow */}
+      <div className="absolute inset-y-0 left-0 w-[3px] bg-black/25" />
+      <div className="text-[8px] font-bold leading-tight line-clamp-4 text-amber-900 dark:text-amber-100">{title.slice(0, 70)}</div>
+      <div className="text-[7px] text-amber-700/70 dark:text-amber-300/70 mt-1 line-clamp-1">{author.slice(0, 20)}</div>
     </div>
   )
 }
@@ -138,26 +140,43 @@ function SubjectCard({ subject, index, onClick }: { subject: any; index: number;
   const lastRead = subject.lastReadBook
   const progressPct = lastRead?.progress?.completionPct ?? 0
   const hasProgress = subject.hasProgress
+  const isPaperII = subject.paper === 'II'
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
+      className="h-full"
     >
       <Card
         onClick={onClick}
-        className="group cursor-pointer relative overflow-hidden bg-card border border-border/60 shadow-sm hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-300"
+        className="group cursor-pointer relative overflow-hidden bg-card border border-border/60 shadow-sm hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full"
       >
         <div className={cn('absolute inset-x-0 top-0 h-1 bg-gradient-to-r', subject.color ?? 'from-amber-500 to-orange-600')} />
-        <CardContent className="p-5">
-          <div className="flex items-start gap-3.5 mb-4">
-            <div className={cn('inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-md', subject.color ?? 'from-amber-500 to-orange-600')}>
-              <BookOpen className="h-6 w-6" />
+        <CardContent className="p-6">
+          {/* Paper badge */}
+          <div className="absolute top-4 right-4">
+            <Badge
+              variant="outline"
+              className={cn(
+                'text-[10px] px-2 py-0.5 font-semibold border',
+                isPaperII
+                  ? 'text-violet-700 border-violet-300 bg-violet-50 dark:text-violet-300 dark:bg-violet-950/40 dark:border-violet-800'
+                  : 'text-emerald-700 border-emerald-300 bg-emerald-50 dark:text-emerald-300 dark:bg-emerald-950/40 dark:border-emerald-800',
+              )}
+            >
+              {isPaperII ? 'Paper II' : 'Paper I'}
+            </Badge>
+          </div>
+
+          <div className="flex items-start gap-4 mb-5">
+            <div className={cn('inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-md', subject.color ?? 'from-amber-500 to-orange-600')}>
+              <BookOpen className="h-7 w-7" />
             </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-bold text-sm leading-tight line-clamp-2 tracking-tight">{subject.name}</h3>
-              <div className="flex items-center gap-1.5 mt-1.5">
+            <div className="flex-1 min-w-0 pt-0.5">
+              <h3 className="font-bold text-base leading-tight line-clamp-2 tracking-tight pr-16">{subject.name}</h3>
+              <div className="flex items-center gap-1.5 mt-2">
                 <Badge variant="secondary" className="text-[10px] px-1.5 py-0 font-medium bg-muted">
                   <Library className="h-3 w-3 mr-1" />
                   {subject.bookCount} {subject.bookCount === 1 ? 'book' : 'books'}
@@ -178,7 +197,7 @@ function SubjectCard({ subject, index, onClick }: { subject: any; index: number;
 
           {/* Progress section */}
           {hasProgress && lastRead ? (
-            <div className="mb-4 rounded-lg bg-muted/30 border border-border/50 p-3">
+            <div className="mb-5 rounded-lg bg-muted/30 border border-border/50 p-3">
               <div className="flex items-center justify-between text-[11px] mb-1.5">
                 <span className="truncate font-medium text-foreground pr-2">{lastRead.title}</span>
                 <span className="font-bold text-primary shrink-0">{Math.round(progressPct)}%</span>
@@ -194,28 +213,28 @@ function SubjectCard({ subject, index, onClick }: { subject: any; index: number;
               </div>
             </div>
           ) : (
-            <div className="mb-4 flex items-center gap-1.5 text-xs text-muted-foreground">
+            <div className="mb-5 flex items-center gap-1.5 text-xs text-muted-foreground">
               <Layers className="h-3.5 w-3.5" />
               {subject.bookCount === 1 ? 'Single volume' : `${subject.bookCount} volumes`} • Tap to browse
             </div>
           )}
 
           {/* Book preview with professional covers */}
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             {subject.books.slice(0, 4).map((book: any) => (
-              <div key={book.id} className="relative group/cover">
+              <div key={book.id} className="relative group/cover transition-transform duration-200 group-hover:scale-[1.02] hover:-translate-y-0.5">
                 {book.coverUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={book.coverUrl} alt={book.title} className="h-20 w-14 rounded-md object-cover border border-border shadow-sm" />
+                  <img src={book.coverUrl} alt={book.title} className="h-28 w-20 rounded-md object-cover border border-border shadow-sm" />
                 ) : (
                   <BookCover title={book.title} author={book.author} color={subject.color} />
                 )}
-                {book.fileUrl && <div className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-emerald-500 border border-white shadow-sm" title="PDF ready" />}
+                {book.fileUrl && <div className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-emerald-500 border border-white shadow-sm" title="PDF ready" />}
               </div>
             ))}
             {subject.books.length > 4 && (
-              <div className="h-20 w-14 shrink-0 rounded-md bg-muted border border-dashed border-border flex flex-col items-center justify-center gap-0.5">
-                <span className="text-xs font-bold text-foreground">+{subject.books.length - 4}</span>
+              <div className="h-28 w-20 shrink-0 rounded-md bg-muted border border-dashed border-border flex flex-col items-center justify-center gap-0.5">
+                <span className="text-sm font-bold text-foreground">+{subject.books.length - 4}</span>
                 <span className="text-[9px] text-muted-foreground">more</span>
               </div>
             )}

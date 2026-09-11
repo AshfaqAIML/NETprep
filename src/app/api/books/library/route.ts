@@ -55,6 +55,7 @@ export async function GET() {
         slug: s.slug,
         name: s.name,
         code: s.code,
+        paper: s.paper,
         icon: s.icon,
         color: s.color,
         bookCount: visibleBooks.length,
