@@ -620,20 +620,6 @@ NETPrep Hub is an independent educational platform and is **not affiliated with,
 
 ---
 
-## Project Independence Statement
 
-This project is designed to be **100% platform-independent**:
-
-- ✅ No Z.ai runtime dependency
-- ✅ No Z.ai hosting dependency
-- ✅ No Z.ai-only database
-- ✅ No Z.ai-only storage
-- ✅ No Z.ai-only authentication
-- ✅ No hard-coded provider credentials
-- ✅ All external services documented in `.env.example`
-- ✅ Standard PostgreSQL/SQLite support via Prisma
-- ✅ Standard storage abstraction (local + S3-compatible)
-- ✅ Docker support
-- ✅ GitHub-ready source
 
 **If the original development platform disappeared tomorrow, any developer could clone this repository and deploy it using only standard, documented technologies.**
