@@ -43,6 +43,7 @@ export function TopicDetailView() {
   const [subject, setSubject] = React.useState<any>(null)
   const [topic, setTopic] = React.useState<any>(null)
   const [notes, setNotes] = React.useState<any[]>([])
+  const [usesFallbackNotes, setUsesFallbackNotes] = React.useState(false)
   const [cheatSheets, setCheatSheets] = React.useState<any[]>([])
   const [questions, setQuestions] = React.useState<any[]>([])
   const [pyqs, setPyqs] = React.useState<any[]>([])
@@ -73,14 +74,24 @@ export function TopicDetailView() {
           api.questions({ topicId, limit: 10 }),
           api.pyqs({ subject: subjectSlug }),
           api.cheatSheets(),
+          api.notes({ subjectId: r.subject.id }),
         ])
       })
-      .then(([n, q, p, cs]) => {
-        setNotes(n.notes)
+      .then(([n, q, p, cs, s]) => {
         setQuestions(q.questions)
         // Filter PYQs for this topic
         setPyqs((p.pyqQuestions || []).filter((pyq: any) => pyq.topicId === topicId))
         setCheatSheets(cs.cheatSheets.filter((c: any) => c.topicId === topicId))
+        // Use topic-specific notes; fall back to the subject's full-book notes
+        // (whole-book imports live at subject level, so topics inherit them).
+        const topicNotes = n.notes ?? []
+        if (topicNotes.length > 0) {
+          setNotes(topicNotes)
+          setUsesFallbackNotes(false)
+        } else {
+          setNotes((s.notes ?? []).filter((nn: any) => !nn.topicId))
+          setUsesFallbackNotes(true)
+        }
       })
       .finally(() => setLoading(false))
   }, [topicId, subjectSlug])
@@ -175,10 +186,13 @@ export function TopicDetailView() {
             <CardTitle className="text-base flex items-center gap-2">
               <PenTool className="h-4 w-4 text-primary" />
               Learn · Detailed Notes
-              <Badge variant="outline" className="ml-auto text-[10px]">{notes.length}</Badge>
+              <Badge variant="outline" className="ml-auto text-[10px]">{notes.length}{usesFallbackNotes ? ' book' : ''}</Badge>
             </CardTitle>
           </CardHeader>
           <CardContent>
+            {usesFallbackNotes && (
+              <p className="text-[11px] text-muted-foreground mb-3">No topic-specific notes yet — these full-book notes cover this unit's chapters.</p>
+            )}
             {notes.length > 0 ? (
               <div className="space-y-2">
                 {notes.map((n) => (
