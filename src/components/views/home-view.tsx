@@ -32,7 +32,7 @@ import { cn } from '@/lib/utils'
 
 const QUICK_ACCESS = [
   { label: 'Paper I', icon: GraduationCap, view: 'subject-detail' as const, params: { slug: 'paper-1' }, color: 'from-emerald-500 to-teal-600' },
-  { label: 'Paper II', icon: Library, view: 'subjects' as const, color: 'from-violet-500 to-purple-600' },
+  { label: 'Paper II', icon: Library, view: 'subject-detail' as const, params: { slug: 'computer-science' }, color: 'from-violet-500 to-purple-600' },
   { label: 'UGC NET PYQs', icon: FileText, view: 'pyq-dashboard' as const, color: 'from-lime-500 to-emerald-600', featured: true },
   { label: 'Notes', icon: PenTool, view: 'notes' as const, color: 'from-rose-500 to-pink-600' },
   { label: 'Cheat Sheets', icon: Sparkles, view: 'cheat-sheets' as const, color: 'from-cyan-500 to-blue-500' },
