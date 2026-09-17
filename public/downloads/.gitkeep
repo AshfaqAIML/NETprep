@@ -1,0 +1,2 @@
+Drop the built Android APK here as netprep.apk (or point APK_DOWNLOAD_URL at a hosted URL).
+See .env.example (Android APK section) for the release variables.

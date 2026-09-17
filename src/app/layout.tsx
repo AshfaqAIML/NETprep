@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/components/auth-provider";
+import { ApkPromptProvider } from "@/components/apk/apk-prompt-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,8 +33,14 @@ export const metadata: Metadata = {
     "NETPrep Hub",
   ],
   authors: [{ name: "NETPrep Hub" }],
+  applicationName: "NETPrep Hub",
+  manifest: "/manifest.webmanifest",
   icons: {
-    icon: "/logo.svg",
+    icon: [
+      { url: "/logo.svg", type: "image/svg+xml" },
+      { url: "/icons/favicon-32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180" }],
   },
   openGraph: {
     title: "NETPrep Hub — UGC NET Preparation Platform",
@@ -42,6 +49,15 @@ export const metadata: Metadata = {
     siteName: "NETPrep Hub",
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+  ],
 };
 
 export default function RootLayout({
@@ -59,6 +75,9 @@ export default function RootLayout({
             {children}
             <Toaster />
             <SonnerToaster position="top-right" richColors />
+            {/* First-visit Android APK prompt. Renders nothing for all
+                existing flows until an APK artifact is published. */}
+            <ApkPromptProvider />
           </AuthProvider>
         </ThemeProvider>
       </body>
