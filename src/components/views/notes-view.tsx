@@ -20,6 +20,7 @@ const DIFFICULTY_COLORS: Record<string, string> = {
 }
 
 const BOOK_NOTE_RE = /^ugc-net-paper-(\d+)-part-(\d+)$/
+const SHORT_BOOK_NOTE_RE = /^ugc-net-paper-(\d+)-short-part-(\d+)$/
 
 export function NotesView() {
   const navigate = useAppStore((s) => s.navigate)
@@ -31,6 +32,8 @@ export function NotesView() {
   const [query, setQuery] = React.useState('')
   const [subjectFilter, setSubjectFilter] = React.useState<string>('all')
   const [paper, setPaper] = React.useState<number | null>(viewParams.paper === 'I' ? 1 : viewParams.paper === 'II' ? 2 : null)
+  // 'long' = full book notes (Quick Access Paper I / Paper II), 'short' = condensed notes (Quick Access Notes)
+  const [kind] = React.useState<'long' | 'short'>(viewParams.kind === 'long' ? 'long' : 'short')
 
   React.useEffect(() => {
     Promise.all([api.notes({ limit: 100 }), api.subjects()])
@@ -42,22 +45,36 @@ export function NotesView() {
       .finally(() => setLoading(false))
   }, [])
 
-  // Book (hierarchical book-note) notes vs. regular notes
-  const bookNotes = React.useMemo(
-    () => notes.filter((n) => BOOK_NOTE_RE.test(n.slug)).sort((a, b) => (parseInt(a.slug.match(BOOK_NOTE_RE)[2]) - parseInt(b.slug.match(BOOK_NOTE_RE)[2]))),
+  // Book (hierarchical book-note) notes vs. regular notes.
+  // Long (full) books live at Quick Access Paper I / Paper II; short (condensed)
+  // books live at Quick Access Notes. `kind` selects which set drives the
+  // Paper → Part navigation below.
+  const sortByPart = (re: RegExp) => (a: any, b: any) =>
+    parseInt(a.slug.match(re)[a.slug.match(re).length - 1]) - parseInt(b.slug.match(re)[b.slug.match(re).length - 1])
+  const longBookNotes = React.useMemo(
+    () => notes.filter((n) => BOOK_NOTE_RE.test(n.slug)).sort(sortByPart(BOOK_NOTE_RE)),
     [notes],
   )
-  const otherNotes = React.useMemo(() => notes.filter((n) => !BOOK_NOTE_RE.test(n.slug) && !(n.content ?? '').includes('## UNIT')), [notes])
+  const shortBookNotes = React.useMemo(
+    () => notes.filter((n) => SHORT_BOOK_NOTE_RE.test(n.slug)).sort(sortByPart(SHORT_BOOK_NOTE_RE)),
+    [notes],
+  )
+  const activeBookNotes = kind === 'long' ? longBookNotes : shortBookNotes
+  const activeBookRe = kind === 'long' ? BOOK_NOTE_RE : SHORT_BOOK_NOTE_RE
+  const otherNotes = React.useMemo(
+    () => notes.filter((n) => !BOOK_NOTE_RE.test(n.slug) && !SHORT_BOOK_NOTE_RE.test(n.slug) && !(n.content ?? '').includes('## UNIT')),
+    [notes],
+  )
 
   const papersConfig = React.useMemo(() => {
     const papers: Record<number, any[]> = { 1: [], 2: [] }
-    for (const n of bookNotes) {
-      const m = n.slug.match(BOOK_NOTE_RE)
+    for (const n of activeBookNotes) {
+      const m = n.slug.match(activeBookRe)
       if (!m) continue
-      papers[parseInt(m[1])].push({ part: parseInt(m[2]), slug: n.slug, title: n.title, excerpt: n.excerpt })
+      papers[parseInt(m[1])].push({ part: parseInt(m[m.length - 1]), slug: n.slug, title: n.title, excerpt: n.excerpt })
     }
     return papers
-  }, [bookNotes])
+  }, [activeBookNotes, activeBookRe])
 
   const filtered = otherNotes.filter((n) => {
     const matchesQuery =
@@ -86,9 +103,11 @@ export function NotesView() {
       ]} />
 
       <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">Notes Library</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{kind === 'long' ? 'Long Notes' : 'Notes Library'}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Detailed, exam-ready notes for UGC NET Paper I and Paper II. Each note is syllabus-mapped and includes explanations, examples, and revision summaries.
+          {kind === 'long'
+            ? 'Full book-length notes for UGC NET Paper I and Paper II. Pick a part, then drill into units, chapters and content.'
+            : 'Condensed, exam-ready short notes for UGC NET Paper I and Paper II. Each note is syllabus-mapped and includes explanations, examples, and revision summaries.'}
         </p>
       </div>
 
@@ -103,7 +122,7 @@ export function NotesView() {
             {paper === null ? (
               <div className="space-y-4">
                 <div>
-                  <h2 className="text-lg font-bold tracking-tight">UGC NET Books</h2>
+                  <h2 className="text-lg font-bold tracking-tight">UGC NET Books · {kind === 'long' ? 'Long Notes' : 'Short Notes'}</h2>
                   <p className="text-xs text-muted-foreground">Select a paper, then a part, then drill into units, chapters and content.</p>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">

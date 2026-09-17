@@ -31,8 +31,8 @@ import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
 
 const QUICK_ACCESS = [
-  { label: 'Paper I', icon: GraduationCap, view: 'notes' as const, params: { paper: 'I' }, color: 'from-emerald-500 to-teal-600' },
-  { label: 'Paper II', icon: Library, view: 'notes' as const, params: { paper: 'II' }, color: 'from-violet-500 to-purple-600' },
+  { label: 'Paper I', icon: GraduationCap, view: 'notes' as const, params: { paper: 'I', kind: 'long' }, color: 'from-emerald-500 to-teal-600' },
+  { label: 'Paper II', icon: Library, view: 'notes' as const, params: { paper: 'II', kind: 'long' }, color: 'from-violet-500 to-purple-600' },
   { label: 'UGC NET PYQs', icon: FileText, view: 'pyq-dashboard' as const, color: 'from-lime-500 to-emerald-600', featured: true },
   { label: 'Notes', icon: PenTool, view: 'notes' as const, color: 'from-rose-500 to-pink-600' },
   { label: 'Cheat Sheets', icon: Sparkles, view: 'cheat-sheets' as const, color: 'from-cyan-500 to-blue-500' },
