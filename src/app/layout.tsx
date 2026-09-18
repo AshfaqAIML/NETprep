@@ -6,6 +6,7 @@ import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/components/auth-provider";
 import { ApkPromptProvider } from "@/components/apk/apk-prompt-provider";
+import { InstallAppHint } from "@/components/apk/install-app-hint";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -78,6 +79,9 @@ export default function RootLayout({
             {/* First-visit Android APK prompt. Renders nothing for all
                 existing flows until an APK artifact is published. */}
             <ApkPromptProvider />
+            {/* Mobile-only PWA install hint (Add to Home Screen path).
+                Hidden on desktop and inside the installed app. */}
+            <InstallAppHint />
           </AuthProvider>
         </ThemeProvider>
       </body>
