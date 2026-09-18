@@ -29,6 +29,7 @@ import { Progress } from '@/components/ui/progress'
 import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { GetAppButton } from '@/components/apk/get-app-button'
 
 const QUICK_ACCESS = [
   { label: 'Paper I', icon: GraduationCap, view: 'notes' as const, params: { paper: 'I', kind: 'long' }, color: 'from-emerald-500 to-teal-600' },
@@ -108,6 +109,7 @@ export function HomeView() {
                 <BookOpen className="h-4 w-4" />
                 Explore Study Materials
               </Button>
+              <GetAppButton size="lg" variant="outline" className="gap-2" />
             </div>
 
             {/* Search bar */}

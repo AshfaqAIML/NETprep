@@ -32,6 +32,7 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { useAppStore, type ViewKey } from '@/lib/store'
 import { useSession, signOut } from 'next-auth/react'
+import { GetAppButton } from '@/components/apk/get-app-button'
 
 interface NavItem {
   key: ViewKey
@@ -216,7 +217,10 @@ export function Header() {
                   onNavigate={handleNav}
                 />
               </div>
-              <div className="mt-6 rounded-lg border border-dashed bg-muted/40 p-3 text-xs text-muted-foreground">
+              <div className="mt-4">
+                <GetAppButton variant="outline" size="sm" className="w-full gap-1.5" />
+              </div>
+              <div className="mt-4 rounded-lg border border-dashed bg-muted/40 p-3 text-xs text-muted-foreground">
                 <div className="font-medium text-foreground mb-1">Demo Account</div>
                 Signed in as <span className="font-mono text-foreground">Kamraan</span> · preparing for UGC NET JRF (Computer Science)
               </div>
