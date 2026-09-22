@@ -633,6 +633,7 @@ NETPrep Hub is an independent educational platform and is **not affiliated with,
 
 📧 Email: [dar1.ishfaq36@gmail.com](https://mail.google.com/mail/?view=cm&fs=1&to=dar1.ishfaq36@gmail.com)  
 💼 LinkedIn: [Ishfaq Dar](https://www.linkedin.com/in/ishfaq-dar-aaa277240/)  
-🐙 GitHub: [AshfaqAIML](https://github.com/AshfaqAIML)
+🐙 GitHub: [AshfaqAIML](https://github.com/AshfaqAIML)  
+🌐 Portfolio: [AI & ML Portfolio](https://ai-and-ml-portfolio.vercel.app/)  
 
 ---
