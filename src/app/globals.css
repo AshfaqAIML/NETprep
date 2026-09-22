@@ -163,13 +163,14 @@
 .prose-netprep {
   @apply text-foreground leading-relaxed;
 }
-/* Even right edge via hyphenation (not justification): long words split with
-   a hyphen ("won-" + "der") instead of wrapping whole, so word spacing stays
-   uniform. Left alignment is intentionally kept. */
+/* Justified body text paired with hyphenation: both edges flush, while auto
+   hyphenation ("won-" + "der" splits) keeps the inter-word gaps small and
+   even instead of stretched. */
 .prose-netprep p,
 .prose-netprep li,
 .prose-netprep td,
 .prose-netprep blockquote {
+  text-align: justify;
   hyphens: auto;
   hyphenate-limit-chars: 6 3 2;
 }
