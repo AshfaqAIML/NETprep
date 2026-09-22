@@ -623,3 +623,16 @@ NETPrep Hub is an independent educational platform and is **not affiliated with,
 
 
 **If the original development platform disappeared tomorrow, any developer could clone this repository and deploy it using only standard, documented technologies.**
+
+
+---
+
+## 👤 Let's Connect
+
+**Ishfaq Dar | Data Analyst & Developer**
+
+📧 Email: [dar1.ishfaq36@gmail.com](https://mail.google.com/mail/?view=cm&fs=1&to=dar1.ishfaq36@gmail.com)  
+💼 LinkedIn: [Ishfaq Dar](https://www.linkedin.com/in/ishfaq-dar-aaa277240/)  
+🐙 GitHub: [AshfaqAIML](https://github.com/AshfaqAIML)
+
+---
