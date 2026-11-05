@@ -105,7 +105,7 @@ export function UserNotesView() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1600px] px-4 sm:px-6 py-8">
       <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'My Notes' }]} />
 
       {/* Header */}

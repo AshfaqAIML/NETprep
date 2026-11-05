@@ -20,6 +20,7 @@ import {
   ChevronRight,
   RotateCcw,
   Info,
+  BookMarked,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -35,6 +36,7 @@ const QUICK_ACCESS = [
   { label: 'Paper I', icon: GraduationCap, view: 'notes' as const, params: { paper: 'I', kind: 'long' }, color: 'from-emerald-500 to-teal-600' },
   { label: 'Paper II', icon: Library, view: 'notes' as const, params: { paper: 'II', kind: 'long' }, color: 'from-violet-500 to-purple-600' },
   { label: 'UGC NET PYQs', icon: FileText, view: 'pyq-dashboard' as const, color: 'from-lime-500 to-emerald-600', featured: true },
+  { label: 'Books', icon: BookMarked, view: 'book-library' as const, color: 'from-sky-500 to-indigo-600' },
   { label: 'Notes', icon: PenTool, view: 'notes' as const, color: 'from-rose-500 to-pink-600' },
   { label: 'Cheat Sheets', icon: Sparkles, view: 'cheat-sheets' as const, color: 'from-cyan-500 to-blue-500' },
   { label: 'Practice', icon: FileQuestion, view: 'practice' as const, color: 'from-fuchsia-500 to-pink-600' },
@@ -79,7 +81,7 @@ export function HomeView() {
         <div className="absolute inset-0 bg-grid-pattern opacity-30 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 h-[400px] w-[800px] bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-amber-500/10 blur-3xl rounded-full pointer-events-none" />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-24">
+        <div className="relative mx-auto max-w-[1800px] px-4 sm:px-6 py-16 sm:py-24">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -143,7 +145,7 @@ export function HomeView() {
       </section>
 
       {/* Quick Access */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-12">
+      <section className="mx-auto max-w-[1800px] px-4 sm:px-6 py-12">
         <SectionHeader title="Quick Access" subtitle="Jump straight to what you need" />
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {QUICK_ACCESS.map((qa) => {
@@ -210,7 +212,7 @@ export function HomeView() {
       </section>
 
       {/* Popular Subjects */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <SectionHeader
           title="Popular Subjects"
           subtitle="Choose your UGC NET Paper II subject"
@@ -226,7 +228,7 @@ export function HomeView() {
       </section>
 
       {/* Featured notes */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-12">
+      <section className="mx-auto max-w-[1800px] px-4 sm:px-6 py-12">
         <SectionHeader
           title="Study Resources"
           subtitle="Featured notes and cheat sheets curated for serious aspirants"
@@ -247,7 +249,7 @@ export function HomeView() {
 
       {/* Your Preparation block */}
       {progress && (
-        <section className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+        <section className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
           <SectionHeader
             title="Your Preparation"
             subtitle="A snapshot of your current progress"

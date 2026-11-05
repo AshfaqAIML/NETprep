@@ -89,7 +89,7 @@ export function NotesView() {
     navigate('note-reader', { slug, paper: paperNum === 1 ? 'I' : 'II', part: partNum })
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1800px] px-4 sm:px-6 py-8">
       {viewParams.subjectId && (
         <Button variant="ghost" size="sm" onClick={() => navigate('subjects')} className="mb-4 gap-1 text-muted-foreground">
           <ArrowLeft className="h-3.5 w-3.5" />

@@ -60,7 +60,7 @@ export function DashboardView() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      <div className="mx-auto max-w-[1800px] px-4 sm:px-6 py-8">
         <Skeleton className="h-32 w-full mb-4" />
         <div className="grid lg:grid-cols-3 gap-4">
           <Skeleton className="h-64 w-full" />
@@ -72,7 +72,7 @@ export function DashboardView() {
   }
 
   if (!data || !progress) return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1800px] px-4 sm:px-6 py-8">
       <div className="text-center py-12">
         <p className="text-muted-foreground">Failed to load dashboard. Please try again.</p>
       </div>
@@ -98,7 +98,7 @@ export function DashboardView() {
   }))
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1800px] px-4 sm:px-6 py-8">
       {/* Welcome */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}

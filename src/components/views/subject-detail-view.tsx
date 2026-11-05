@@ -50,7 +50,7 @@ export function SubjectDetailView() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      <div className="mx-auto max-w-[1800px] px-4 sm:px-6 py-8">
         <Skeleton className="h-10 w-1/2 mb-4" />
         <Skeleton className="h-32 w-full mb-6" />
         <Skeleton className="h-64 w-full" />
@@ -59,7 +59,7 @@ export function SubjectDetailView() {
   }
 
   if (!subject) {
-    return <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">Subject not found.</div>
+    return <div className="mx-auto max-w-[1800px] px-4 sm:px-6 py-8">Subject not found.</div>
   }
 
   // overall progress
@@ -68,7 +68,7 @@ export function SubjectDetailView() {
   const completionPct = allTopics.length > 0 ? Math.round((completed / allTopics.length) * 100) : 0
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1800px] px-4 sm:px-6 py-8">
       <Button variant="ghost" size="sm" onClick={() => navigate('subjects')} className="mb-4 gap-1 text-muted-foreground">
         <ArrowLeft className="h-3.5 w-3.5" />
         All Subjects

@@ -23,15 +23,15 @@ export function AboutExamView() {
   return (
     <div className="min-h-screen bg-background">
       {/* Breadcrumbs */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6">
-        <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'About the Exam' }]} />
+      <div className="mx-auto max-w-[1800px] px-4 sm:px-6 pt-6">
+        <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'About Exam' }]} />
       </div>
 
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
         <div className="absolute inset-0 bg-grid-pattern opacity-30 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 h-[400px] w-[800px] bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-violet-500/10 blur-3xl rounded-full pointer-events-none" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
+        <div className="relative mx-auto max-w-[1800px] px-4 sm:px-6 py-12 sm:py-16">
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-3xl">
             <Badge variant="outline" className="mb-3 bg-background/60 backdrop-blur gap-1.5">
               <ShieldCheck className="h-3 w-3 text-emerald-600" /> National Eligibility Test
@@ -51,7 +51,7 @@ export function AboutExamView() {
 
       {/* Anchor nav */}
       <div className="sticky top-16 z-20 border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-2 flex gap-1 overflow-x-auto scrollbar-none text-xs">
+        <div className="mx-auto max-w-[1800px] px-4 sm:px-6 py-2 flex gap-1 overflow-x-auto scrollbar-none text-xs">
           {[
             ['glance', 'At a Glance'],
             ['what-is', 'What is NET'],
@@ -73,7 +73,7 @@ export function AboutExamView() {
       </div>
 
       {/* Exam at a Glance */}
-      <section id="glance" className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
+      <section id="glance" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-10">
         <SectionTitle title="Exam at a Glance" subtitle="Quick facts — verified against latest NTA notification" />
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           <GlanceCard icon={FileText} label="Exam Name" value="UGC NET" sub="National Eligibility Test" />
@@ -93,7 +93,7 @@ export function AboutExamView() {
       </section>
 
       {/* What is UGC NET? */}
-      <section id="what-is" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section id="what-is" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <Card>
           <CardHeader><CardTitle className="text-lg flex items-center gap-2"><Info className="h-4 w-4 text-primary" />What is UGC NET?</CardTitle></CardHeader>
           <CardContent className="prose prose-sm max-w-none text-muted-foreground">
@@ -108,7 +108,7 @@ export function AboutExamView() {
       </section>
 
       {/* Two-Paper Structure */}
-      <section id="papers" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section id="papers" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <SectionTitle title="Paper I vs Paper II" subtitle="Two papers in one 3-hour session" />
         <div className="grid lg:grid-cols-2 gap-4">
           <Card className="border-emerald-500/20">
@@ -142,7 +142,7 @@ export function AboutExamView() {
       </section>
 
       {/* CS 087 */}
-      <section id="cs087" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section id="cs087" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <Card className="border-violet-500/20 bg-violet-500/[0.03]">
           <CardHeader><CardTitle className="text-base flex items-center gap-2"><Cpu className="h-4 w-4 text-violet-600" />Computer Science & Applications — Subject Code 087</CardTitle></CardHeader>
           <CardContent>
@@ -159,7 +159,7 @@ export function AboutExamView() {
       </section>
 
       {/* Exam Pattern */}
-      <section id="exam-pattern" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section id="exam-pattern" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <SectionTitle title="Exam Pattern" subtitle="150 Questions → 300 Marks in 3 Hours (single session)" />
         <div className="grid sm:grid-cols-3 gap-3 text-center">
           <Card><CardContent className="p-4"><div className="text-2xl font-bold">50 Q → 100 Marks</div><div className="text-xs text-muted-foreground">Paper I</div></CardContent></Card>
@@ -179,7 +179,7 @@ export function AboutExamView() {
       </section>
 
       {/* Marks Distribution Among Units — Latest Syllabus */}
-      <section id="marks-distribution" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section id="marks-distribution" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <SectionTitle title="Marks Distribution Among Units" subtitle="Latest NTA syllabus 2024 — Paper I (10 units) & Paper II Computer Science 087 (10 units)" />
         <div className="mb-3 flex flex-wrap items-center gap-2 text-[11px]">
           <Badge variant="outline" className="gap-1.5"><Clock className="h-3 w-3" />3 Hours single session</Badge>
@@ -290,7 +290,7 @@ export function AboutExamView() {
       </section>
 
       {/* Eligibility */}
-      <section id="eligibility" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section id="eligibility" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <SectionTitle title="Eligibility — Quick Overview" subtitle="Full rules on dedicated page" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
           <EligCard title="Master's Degree" desc="Master's or equivalent from UGC-recognized university." />
@@ -304,7 +304,7 @@ export function AboutExamView() {
       </section>
 
       {/* Qualification & Career */}
-      <section id="outcomes" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section id="outcomes" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <SectionTitle title="Qualification & Career Opportunities" subtitle="Eligibility ≠ guarantee — conditions apply" />
         <div className="grid sm:grid-cols-3 gap-3">
           <OutcomeCard icon={Award} title="JRF" desc="Fellowship for full-time research (PhD). Stipend + contingency as per UGC. Requires high cut-off." color="from-amber-500 to-orange-600" />
@@ -315,7 +315,7 @@ export function AboutExamView() {
       </section>
 
       {/* Exam Process */}
-      <section id="process" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section id="process" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <SectionTitle title="UGC NET Exam Process" subtitle="10 steps — as per current NTA flow" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-2">
           {[
@@ -331,7 +331,7 @@ export function AboutExamView() {
       </section>
 
       {/* Important Components */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           <InfoCard icon={ClipboardList} title="Application Form" desc="Online at ugcnet.nta.ac.in — personal, academic, subject, center, fee, photo/signature." />
           <InfoCard icon={Flag} title="Admit Card" desc="Mandatory for entry — photo, center, shift, instructions. Download before exam." />
@@ -343,7 +343,7 @@ export function AboutExamView() {
       </section>
 
       {/* Important Dates */}
-      <section id="dates" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section id="dates" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <Card className="border-amber-500/20">
           <CardHeader><CardTitle className="text-base flex items-center gap-2"><CalendarDays className="h-4 w-4 text-amber-600" />Important UGC NET Dates</CardTitle><p className="text-xs text-muted-foreground">Dynamically updated per NTA notification — not hard-coded</p></CardHeader>
           <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs">
@@ -359,7 +359,7 @@ export function AboutExamView() {
       </section>
 
       {/* Who Should Use */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <Card>
           <CardHeader><CardTitle className="text-base">Who Should Use NETPrep Hub?</CardTitle></CardHeader>
           <CardContent className="flex flex-wrap gap-1.5">
@@ -371,7 +371,7 @@ export function AboutExamView() {
       </section>
 
       {/* Why NETPrep */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <SectionTitle title="Why NETPrep Hub?" subtitle="Learn → Practice → Track — without guarantee claims" />
         <div className="grid sm:grid-cols-3 lg:grid-cols-6 gap-3">
           <WhyCard icon={BookOpen} title="Learn" desc="Structured syllabus, topic-wise notes" />
@@ -384,7 +384,7 @@ export function AboutExamView() {
       </section>
 
       {/* Paper I Overview */}
-      <section id="paper1" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section id="paper1" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <Card>
           <CardHeader><CardTitle className="text-base">Paper I Overview — 10 Units</CardTitle></CardHeader>
           <CardContent className="grid sm:grid-cols-2 gap-2 text-xs">
@@ -404,7 +404,7 @@ export function AboutExamView() {
       </section>
 
       {/* Paper II CS Overview */}
-      <section id="paper2" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section id="paper2" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <Card className="border-violet-500/20">
           <CardHeader><CardTitle className="text-base">Paper II Computer Science Overview — 10 Units (087)</CardTitle></CardHeader>
           <CardContent className="space-y-2 text-xs">
@@ -431,7 +431,7 @@ export function AboutExamView() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      <section id="faq" className="mx-auto max-w-[1800px] px-4 sm:px-6 py-6">
         <SectionTitle title="Frequently Asked Questions" subtitle="Concise answers per current NTA rules" />
         <Card>
           <CardContent className="p-0">
@@ -452,7 +452,7 @@ export function AboutExamView() {
       </section>
 
       {/* Start Preparation */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
+      <section className="mx-auto max-w-[1800px] px-4 sm:px-6 py-10">
         <Card className="border-primary/20 bg-gradient-to-br from-primary/5 via-background to-background">
           <CardContent className="p-6 sm:p-8 text-center">
             <h2 className="text-2xl font-bold tracking-tight">Ready to Start Your UGC NET Preparation?</h2>

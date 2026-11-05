@@ -40,7 +40,7 @@ export function SubjectsView() {
   })
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1800px] px-4 sm:px-6 py-8">
       <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'Subjects' }]} />
 
       <div className="mb-6">

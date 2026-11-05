@@ -57,7 +57,7 @@ export function PyqDashboardView() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+      <div className="mx-auto max-w-[1600px] px-4 sm:px-6 py-8">
         <Skeleton className="h-10 w-1/2 mb-6" />
         <div className="grid sm:grid-cols-2 gap-4 mb-6">
           <Skeleton className="h-48 w-full" />
@@ -69,7 +69,7 @@ export function PyqDashboardView() {
   }
 
   if (!data) return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1600px] px-4 sm:px-6 py-8">
       <div className="text-center py-12">
         <p className="text-muted-foreground">Failed to load. Please try again..</p>
         <Button variant="outline" size="sm" className="mt-3" onClick={() => window.location.reload()}>Retry</Button>
@@ -86,7 +86,7 @@ export function PyqDashboardView() {
   const p1UnitStats = unitStats.filter((u: any) => u.paper === 'I')
 
   return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1600px] px-4 sm:px-6 py-8">
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-1">

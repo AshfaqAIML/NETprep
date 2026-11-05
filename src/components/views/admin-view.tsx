@@ -60,7 +60,7 @@ export function AdminView() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      <div className="mx-auto max-w-[1800px] px-4 sm:px-6 py-8">
         <Skeleton className="h-10 w-1/3 mb-6" />
         <div className="grid grid-cols-4 gap-3 mb-6">
           {[...Array(8)].map((_, i) => <Skeleton key={i} className="h-20" />)}
@@ -71,7 +71,7 @@ export function AdminView() {
   }
 
   if (!stats) return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1800px] px-4 sm:px-6 py-8">
       <div className="text-center py-12">
         <p className="text-muted-foreground">Failed to load admin stats. Please try again.</p>
         <Button variant="outline" size="sm" className="mt-3" onClick={() => window.location.reload()}>Retry</Button>
@@ -82,7 +82,7 @@ export function AdminView() {
   const { totals } = stats
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1800px] px-4 sm:px-6 py-8">
       <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'Admin CMS' }]} />
 
       {/* Header */}

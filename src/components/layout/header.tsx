@@ -43,7 +43,7 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { key: 'home', label: 'Home', icon: GraduationCap, group: 'study' },
-  { key: 'about-exam', label: 'About the Exam', icon: Info, group: 'study' },
+  { key: 'about-exam', label: 'About Exam', icon: Info, group: 'study' },
   { key: 'subjects', label: 'Subjects', icon: Library, group: 'study' },
   { key: 'pyq-dashboard', label: 'PYQs', icon: FileText, group: 'study' },
   { key: 'notes', label: 'Notes', icon: PenTool, group: 'study' },
@@ -77,7 +77,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/80 bg-background/85 backdrop-blur-md supports-[backdrop-filter]:bg-background/70">
-      <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6">
+      <div className="mx-auto flex h-16 max-w-[1800px] items-center gap-3 px-4 sm:px-6">
         {/* Logo */}
         <button
           onClick={() => handleNav('home')}
@@ -89,13 +89,12 @@ export function Header() {
           </div>
           <div className="hidden sm:block text-left">
             <div className="text-base font-bold tracking-tight leading-none">NETPrep Hub</div>
-            <div className="text-[10px] text-muted-foreground leading-none mt-0.5">UGC NET Preparation</div>
           </div>
         </button>
 
         {/* Desktop nav — primary items only, rest in mobile menu */}
         <nav className="hidden lg:flex items-center gap-0.5 ml-2">
-          {NAV_ITEMS.filter((i) => ['home', 'about-exam', 'subjects', 'pyq-dashboard', 'book-library', 'notes', 'practice', 'mock-tests', 'dashboard', 'revision', 'planner'].includes(i.key)).map((item) => {
+          {NAV_ITEMS.filter((i) => ['home', 'about-exam', 'subjects', 'dashboard'].includes(i.key)).map((item) => {
             const Icon = item.icon
             const active = view === item.key
             return (

@@ -120,7 +120,7 @@ export function PyqsView() {
   const years = Object.keys(byYear).sort((a, b) => Number(b) - Number(a))
 
   return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1600px] px-4 sm:px-6 py-8">
       <Breadcrumbs items={[
         { label: 'Home', onClick: () => navigate('home') },
         { label: 'PYQ Dashboard', onClick: () => navigate('pyq-dashboard') },

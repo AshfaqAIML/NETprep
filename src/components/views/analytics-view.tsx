@@ -52,7 +52,7 @@ export function AnalyticsView() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+      <div className="mx-auto max-w-[1600px] px-4 sm:px-6 py-8">
       <Breadcrumbs items={[{ label: 'Home', onClick: () => navigate('home') }, { label: 'Analytics' }]} />
 
         <Skeleton className="h-10 w-1/3 mb-4" />
@@ -66,7 +66,7 @@ export function AnalyticsView() {
   }
 
   if (!data) return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1600px] px-4 sm:px-6 py-8">
       <div className="text-center py-12">
         <p className="text-muted-foreground">Failed to load. Please try again. analytics.</p>
         <Button variant="outline" size="sm" className="mt-3" onClick={() => window.location.reload()}>Retry</Button>
@@ -77,7 +77,7 @@ export function AnalyticsView() {
   const { accuracyOverTime = [], studyHoursOverTime = [], topicPerformance = [], difficultyBreakdown = [], mockScoreTrend = [], insights = [], summary = {} } = data
 
   return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-[1600px] px-4 sm:px-6 py-8">
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-1">

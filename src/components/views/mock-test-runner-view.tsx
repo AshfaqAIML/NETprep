@@ -244,7 +244,7 @@ export function MockTestRunnerView() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6">
+    <div className="mx-auto max-w-[1600px] px-4 sm:px-6 py-6">
       {/* Header bar */}
       <div className="sticky top-16 z-30 mb-4 rounded-lg border border-border bg-background/95 backdrop-blur p-3 shadow-sm">
         <div className="flex items-center justify-between gap-2">
