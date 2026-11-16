@@ -252,6 +252,9 @@ function attemptQuestionFor(
     explanation: candidate.explanation,
     topicName: candidate.topicName,
     unitName: candidate.unitName,
+    syllabusUnit: candidate.syllabusUnit,
+    syllabusUnitName: candidate.syllabusUnitName,
+    hindi: candidate.hindi,
     difficulty: candidate.difficulty,
     negativeMarking: negativeMarking(profile, examQuestion),
     status: 'active',
@@ -326,6 +329,11 @@ export function buildCbtPaperFromAssignments(
     profileFamily: profile.family,
     subjectName: profile.subjectName,
     generatedAt,
+    language: {
+      default: profile.language.default,
+      available: [...profile.language.available],
+      bilingual: profile.language.bilingual,
+    },
     sections,
     questions,
   }

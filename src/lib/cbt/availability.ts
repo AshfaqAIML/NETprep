@@ -6,6 +6,12 @@
  * answer-keyed questions exist to assemble its paper.
  */
 
+import {
+  UGC_FULL_PAPER_UNIT_QUESTION_COUNT,
+  ugcUnitByCode,
+  ugcUnitsForPaper,
+  type UgcPaper,
+} from '../exam/ugc-units'
 import type { ExamProfile } from '../exam/types'
 import type { CbtPoolStats } from './question-pool'
 import type { CbtContentRequirement } from './types'
@@ -24,20 +30,46 @@ function requirement(
   return { label, required, available, unit: 'questions' }
 }
 
+function unitRequirements(
+  paper: UgcPaper,
+  stats: CbtPoolStats,
+): CbtContentRequirement[] {
+  const paperLabel = paper === 'I' ? 'Paper I' : 'Paper II'
+  return ugcUnitsForPaper(paper).map((unit) =>
+    requirement(
+      `${paperLabel} Unit ${unit.order} — ${unit.shortName} (${unit.code})`,
+      UGC_FULL_PAPER_UNIT_QUESTION_COUNT[paper],
+      stats.unitSingleCounts[unit.code] ?? 0,
+    ),
+  )
+}
+
 export function requirementsForProfile(
   profile: ExamProfile,
   stats: CbtPoolStats,
 ): CbtContentRequirement[] {
+  const practiceUnitCode =
+    typeof profile.metadata?.practiceUnit === 'string'
+      ? profile.metadata.practiceUnit
+      : null
+  const practiceUnit = ugcUnitByCode(practiceUnitCode)
+  if (practiceUnit) {
+    return [
+      requirement(
+        `Unit ${practiceUnit.code} — ${practiceUnit.shortName}`,
+        UGC_FULL_PAPER_UNIT_QUESTION_COUNT[practiceUnit.paper],
+        stats.unitSingleCounts[practiceUnit.code] ?? 0,
+      ),
+    ]
+  }
+
   switch (profile.code) {
     case 'UGC-NET-DEC-2026':
-      return [
-        requirement('Paper I single-choice questions', 50, stats.paperOneSingle),
-        requirement('Paper II single-choice questions', 100, stats.paperTwoSingle),
-      ]
+      return [...unitRequirements('I', stats), ...unitRequirements('II', stats)]
     case 'UGC-NET-DEC-2026-P1':
-      return [requirement('Paper I single-choice questions', 50, stats.paperOneSingle)]
+      return unitRequirements('I', stats)
     case 'UGC-NET-DEC-2026-P2-CS':
-      return [requirement('Paper II single-choice questions', 100, stats.paperTwoSingle)]
+      return unitRequirements('II', stats)
     case 'GATE-CS-2027':
       return [
         requirement('General Aptitude questions', 10, stats.generalAptitude),

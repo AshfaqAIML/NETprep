@@ -3,7 +3,7 @@ import { EXAM_PROFILE_SCHEMA_VERSION, type ExamProfile } from '../types'
 import {
   ALL_PRESENTATION_TYPES,
   SOURCE_CHECKED_AT,
-  englishOnlyLanguageConfig,
+  ugcLanguage,
   ugcMarking,
   ugcNavigation,
   ugcPaperTwoSection,
@@ -15,9 +15,10 @@ import {
 /**
  * Standalone Paper II Computer Science practice profile.
  *
- * Subject code 87 is English-only in the official bulletin. The combined
- * session is 180 minutes with no break; no separate Paper II duration is
- * published, so this derived profile uses the full session duration.
+ * The combined session is 180 minutes with no break; no separate Paper II
+ * duration is published, so this derived profile uses the full session
+ * duration. English and reviewed Hindi translations are both offered, with
+ * English as the authoritative fallback.
  */
 export const UGC_NET_DEC_2026_P2_CS = deepFreeze<ExamProfile>({
   schemaVersion: EXAM_PROFILE_SCHEMA_VERSION,
@@ -44,16 +45,16 @@ export const UGC_NET_DEC_2026_P2_CS = deepFreeze<ExamProfile>({
   presentationTypes: [...ALL_PRESENTATION_TYPES],
   sections: [ugcPaperTwoSection()],
   marking: ugcMarking(),
-  language: englishOnlyLanguageConfig(
-    'Subject code 87 (Computer Science & Applications) is English-only.',
-  ),
+  language: ugcLanguage(),
   navigation: ugcNavigation(),
   result: ugcResult(),
   selection: ugcSelection(),
   instructions: [
     'Paper II Computer Science & Applications contains 100 compulsory questions worth 200 marks.',
     'Each correct answer awards 2 marks; there is no negative marking.',
-    'Subject code 87 is English-only.',
+    'Subject code 87 (Computer Science & Applications).',
+    'English and Hindi presentation are available. Reviewed Hindi translations are shown where provided; otherwise the question falls back to English.',
+    'The English text is authoritative, including mathematical notation, code and technical terminology.',
     'Standalone practice profile derived from the official combined UGC-NET December 2026 examination.',
     'The 180-minute duration is the official combined-session duration. The bulletin does not publish a separate Paper II duration.',
   ],
@@ -63,6 +64,9 @@ export const UGC_NET_DEC_2026_P2_CS = deepFreeze<ExamProfile>({
     derivedFrom: 'UGC-NET-DEC-2026',
     standalonePractice: true,
     durationBasis: 'official-combined-session',
+    paperUnits: 10,
+    unitCoverage: 'official',
+    bilingual: true,
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
 })

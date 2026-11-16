@@ -10,6 +10,7 @@ import type { ExamAttempt as ExamAttemptRow } from '@prisma/client'
 import { db } from '@/lib/db'
 import { getDefaultExamRegistry } from '../exam/profiles'
 import { scoreExam } from '../exam/scoring'
+import { ugcUnitByCode } from '../exam/ugc-units'
 import type {
   CbtSubmittedReason,
   CbtAttemptCounts,
@@ -18,6 +19,8 @@ import type {
   CbtAttemptState,
   CbtCandidate,
   CbtHeartbeatResponse,
+  CbtHindiContent,
+  CbtPaperPerformance,
   CbtPaperSnapshot,
   CbtResponse,
   CbtResponses,
@@ -27,6 +30,7 @@ import type {
   CbtSanitizedQuestion,
   CbtStartResponse,
   CbtSubmitResponse,
+  CbtUnitPerformance,
 } from './types'
 import type {
   ExamPaper,
@@ -371,6 +375,13 @@ function mergeResponses(
   return merged
 }
 
+/** Explanation is revealed only after submission. */
+function sanitizeHindi(hindi: CbtHindiContent): CbtHindiContent {
+  const sanitized = { ...hindi }
+  delete sanitized.explanation
+  return sanitized
+}
+
 function sanitizePaper(
   snapshot: CbtPaperSnapshot,
   profile: ExamProfile,
@@ -395,6 +406,9 @@ function sanitizePaper(
     options: question.options,
     topicName: question.topicName,
     unitName: question.unitName,
+    syllabusUnit: question.syllabusUnit,
+    syllabusUnitName: question.syllabusUnitName,
+    hindi: question.hindi ? sanitizeHindi(question.hindi) : null,
     difficulty: question.difficulty,
     negativeMarking: question.negativeMarking,
     numericPrecision: numericPrecision(profile, question),
@@ -408,6 +422,7 @@ function sanitizePaper(
     profileFamily: snapshot.profileFamily,
     subjectName: snapshot.subjectName,
     generatedAt: snapshot.generatedAt,
+    language: snapshot.language,
     sections: snapshot.sections,
     questions,
   }
@@ -453,6 +468,94 @@ function attemptState(
   }
 }
 
+function performanceForQuestions(
+  questions: CbtReviewQuestion[],
+  identity: { id: string; code: string; name: string },
+): CbtPaperPerformance {
+  let answered = 0
+  let correct = 0
+  let incorrect = 0
+  let unanswered = 0
+  let marksAwarded = 0
+  let penalty = 0
+  let finalScore = 0
+  let maxMarks = 0
+  let timeSpentSec = 0
+
+  for (const question of questions) {
+    if (question.answered) answered += 1
+    if (question.outcome === 'correct') correct += 1
+    else if (question.outcome === 'incorrect') incorrect += 1
+    else if (question.outcome === 'unanswered') unanswered += 1
+    marksAwarded += question.marksAwarded
+    penalty += question.penalty
+    finalScore += question.netMarks
+    maxMarks += question.marks
+    timeSpentSec += question.timeSpentSec
+  }
+
+  return {
+    ...identity,
+    questionCount: questions.length,
+    answered,
+    correct,
+    incorrect,
+    unanswered,
+    marksAwarded,
+    penalty,
+    finalScore,
+    maxMarks,
+    accuracy: answered > 0 ? correct / answered : 0,
+    timeSpentSec,
+  }
+}
+
+function paperPerformances(
+  snapshot: CbtPaperSnapshot,
+  review: CbtReviewQuestion[],
+): CbtPaperPerformance[] {
+  return snapshot.sections
+    .filter((section) => section.kind === 'paper')
+    .map((section) =>
+      performanceForQuestions(
+        review.filter((question) => question.sectionId === section.id),
+        { id: section.id, code: section.code, name: section.name },
+      ),
+    )
+}
+
+function unitPerformances(review: CbtReviewQuestion[]): CbtUnitPerformance[] {
+  const groups = new Map<string, CbtReviewQuestion[]>()
+  for (const question of review) {
+    if (!question.syllabusUnit) continue
+    const list = groups.get(question.syllabusUnit) ?? []
+    list.push(question)
+    groups.set(question.syllabusUnit, list)
+  }
+
+  const units: CbtUnitPerformance[] = []
+  for (const [code, questions] of groups) {
+    const unit = ugcUnitByCode(code)
+    if (!unit) continue
+    units.push({
+      ...performanceForQuestions(questions, {
+        id: unit.code,
+        code: unit.code,
+        name: unit.name,
+      }),
+      paper: unit.paper,
+      unitCode: unit.code,
+      unitName: unit.name,
+      unitOrder: unit.order,
+    })
+  }
+
+  return units.sort((left, right) => {
+    if (left.paper !== right.paper) return left.paper === 'I' ? -1 : 1
+    return left.unitOrder - right.unitOrder
+  })
+}
+
 function buildResult(
   row: ExamAttemptRow,
   profile: ExamProfile,
@@ -495,6 +598,9 @@ function buildResult(
       explanation: question.explanation,
       topicName: question.topicName,
       unitName: question.unitName,
+      syllabusUnit: question.syllabusUnit,
+      syllabusUnitName: question.syllabusUnitName,
+      hindi: question.hindi,
       difficulty: question.difficulty,
       response,
       outcome: questionScore.outcome,
@@ -529,8 +635,11 @@ function buildResult(
     submittedReason: reason,
     durationSec: row.durationSec,
     timeSpentSec,
+    language: snapshot.language,
     totals: score.totals,
     sections: score.sections,
+    papers: paperPerformances(snapshot, review),
+    units: unitPerformances(review),
     exact: score.exact,
     review,
   }

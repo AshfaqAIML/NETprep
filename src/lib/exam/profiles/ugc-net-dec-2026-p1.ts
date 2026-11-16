@@ -52,7 +52,7 @@ export const UGC_NET_DEC_2026_P1 = deepFreeze<ExamProfile>({
   instructions: [
     'Paper I contains 50 compulsory questions worth 100 marks.',
     'Each correct answer awards 2 marks; there is no negative marking.',
-    'Paper I is bilingual (English and Hindi).',
+    'English and Hindi presentation are available. Reviewed Hindi translations are shown where provided; otherwise the question falls back to English.',
     'Standalone practice profile derived from the official combined UGC-NET December 2026 examination.',
     'The 180-minute duration is the official combined-session duration. The bulletin does not publish a separate Paper I duration.',
   ],
@@ -62,6 +62,9 @@ export const UGC_NET_DEC_2026_P1 = deepFreeze<ExamProfile>({
     derivedFrom: 'UGC-NET-DEC-2026',
     standalonePractice: true,
     durationBasis: 'official-combined-session',
+    paperUnits: 10,
+    unitCoverage: 'official',
+    bilingual: true,
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
 })

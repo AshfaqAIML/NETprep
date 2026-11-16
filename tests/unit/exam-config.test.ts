@@ -16,6 +16,7 @@ import {
   UGC_NET_DEC_2026,
   UGC_NET_DEC_2026_P1,
   UGC_NET_DEC_2026_P2_CS,
+  UGC_UNIT_PRACTICE_PROFILES,
   assertValidExamPaper,
   assertValidExamProfile,
   cloneExamProfile,
@@ -76,7 +77,7 @@ describe('shipped examination profiles', () => {
     expect(UGC_NET_DEC_2026.instructions.join(' ')).toContain('All questions are compulsory')
   })
 
-  test('UGC NET language configuration is bilingual for Paper I and English-only for Paper II', () => {
+  test('UGC NET language configuration is bilingual for both papers', () => {
     expect(UGC_NET_DEC_2026.language.bilingual).toBe(true)
     expect(UGC_NET_DEC_2026.language.available).toEqual(['en', 'hi'])
     expect(findSection(UGC_NET_DEC_2026, 'paper-1')?.language).toEqual({
@@ -85,7 +86,7 @@ describe('shipped examination profiles', () => {
     })
     expect(findSection(UGC_NET_DEC_2026, 'paper-2')?.language).toEqual({
       default: 'en',
-      available: ['en'],
+      available: ['en', 'hi'],
     })
   })
 
@@ -98,8 +99,40 @@ describe('shipped examination profiles', () => {
     expect(UGC_NET_DEC_2026_P2_CS.totalQuestions).toBe(100)
     expect(UGC_NET_DEC_2026_P2_CS.totalMarks).toBe(200)
     expect(UGC_NET_DEC_2026_P2_CS.marking.incorrect.single).toEqual({ mode: 'none' })
-    expect(UGC_NET_DEC_2026_P2_CS.language.available).toEqual(['en'])
-    expect(UGC_NET_DEC_2026_P2_CS.language.bilingual).toBe(false)
+    expect(UGC_NET_DEC_2026_P2_CS.language.available).toEqual(['en', 'hi'])
+    expect(UGC_NET_DEC_2026_P2_CS.language.bilingual).toBe(true)
+  })
+
+  test('twenty official-unit practice profiles cover both papers', () => {
+    expect(UGC_UNIT_PRACTICE_PROFILES).toHaveLength(20)
+    const paperOne = UGC_UNIT_PRACTICE_PROFILES.filter(
+      (profile) => profile.metadata?.practicePaper === 'I',
+    )
+    const paperTwo = UGC_UNIT_PRACTICE_PROFILES.filter(
+      (profile) => profile.metadata?.practicePaper === 'II',
+    )
+    expect(paperOne).toHaveLength(10)
+    expect(paperTwo).toHaveLength(10)
+
+    for (const profile of paperOne) {
+      expect(profile.metadata?.unitPractice).toBe(true)
+      expect(profile.totalQuestions).toBe(5)
+      expect(profile.totalMarks).toBe(10)
+      expect(profile.durationMinutes).toBe(6)
+      expect(profile.language.available).toEqual(['en', 'hi'])
+    }
+    for (const profile of paperTwo) {
+      expect(profile.metadata?.unitPractice).toBe(true)
+      expect(profile.totalQuestions).toBe(10)
+      expect(profile.totalMarks).toBe(20)
+      expect(profile.durationMinutes).toBe(12)
+      expect(profile.language.available).toEqual(['en', 'hi'])
+    }
+
+    const units = new Set(
+      UGC_UNIT_PRACTICE_PROFILES.map((profile) => profile.metadata?.practiceUnit),
+    )
+    expect(units.size).toBe(20)
   })
 
   test('GATE CS matches the official 65/100/180 pattern and 85-mark subject split', () => {
@@ -319,14 +352,20 @@ describe('paper validation', () => {
 describe('versioned profile registry', () => {
   test('registers all shipped profiles and resolves by effective date', () => {
     const registry = createDefaultExamRegistry()
-    expect(registry.size).toBe(5)
-    expect(registry.codes()).toEqual([
-      'GATE-CS-2027',
-      'GATE-DA-2027',
-      'UGC-NET-DEC-2026',
-      'UGC-NET-DEC-2026-P1',
-      'UGC-NET-DEC-2026-P2-CS',
-    ])
+    const codes = registry.codes()
+    expect(registry.size).toBe(25)
+    expect(codes).toHaveLength(25)
+    expect(codes).toContain('GATE-CS-2027')
+    expect(codes).toContain('GATE-DA-2027')
+    expect(codes).toContain('UGC-NET-DEC-2026')
+    expect(codes).toContain('UGC-NET-DEC-2026-P1')
+    expect(codes).toContain('UGC-NET-DEC-2026-P2-CS')
+    expect(
+      codes.filter((code) => code.startsWith('UGC-NET-DEC-2026-P1-U')),
+    ).toHaveLength(10)
+    expect(
+      codes.filter((code) => code.startsWith('UGC-NET-DEC-2026-P2-U')),
+    ).toHaveLength(10)
     expect(registry.resolve('GATE-CS-2027', { at: '2026-11-15' })?.version).toBe('1.0.0')
     expect(registry.resolve('UGC-NET-DEC-2026', { at: '2026-10-16' })?.code).toBe(
       'UGC-NET-DEC-2026',

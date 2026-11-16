@@ -18,6 +18,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Markdown } from '@/components/shared/markdown'
+import { CbtLanguageToggle, useCbtLanguage } from '@/components/cbt/language-toggle'
 import {
   CbtAnswerOptions,
   CbtQuestionBody,
@@ -39,10 +40,12 @@ import {
   signedScore,
 } from '@/lib/cbt/status'
 import type {
+  CbtPaperPerformance,
   CbtResult,
   CbtReviewQuestion,
+  CbtUnitPerformance,
 } from '@/lib/cbt/types'
-import type { QuestionOutcome } from '@/lib/exam/types'
+import type { ExamLanguage, QuestionOutcome } from '@/lib/exam/types'
 
 type ReviewFilter = 'all' | 'correct' | 'incorrect' | 'unanswered' | 'marked'
 
@@ -107,6 +110,7 @@ export function ExamResultView() {
     typeof viewParams.attemptId === 'string' ? viewParams.attemptId : ''
 
   const [result, setResult] = React.useState<CbtResult | null>(null)
+  const [language, setLanguage] = useCbtLanguage(result?.language)
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState<string | null>(null)
   const [reloadKey, setReloadKey] = React.useState(0)
@@ -254,6 +258,11 @@ export function ExamResultView() {
   const sectionRows = result.sections.filter(
     (section) => !parentSectionIds.has(section.sectionId),
   )
+  const paperRows = result.papers ?? []
+  const unitRows = result.units ?? []
+  const languageOptions: ExamLanguage[] =
+    result.language?.available ??
+    (result.review.some((question) => question.hindi) ? ['en', 'hi'] : ['en'])
 
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900">
@@ -270,7 +279,12 @@ export function ExamResultView() {
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <CbtLanguageToggle
+              language={language}
+              onChange={setLanguage}
+              available={languageOptions}
+            />
             <Button
               variant="outline"
               size="sm"
@@ -399,7 +413,7 @@ export function ExamResultView() {
           </div>
         </section>
 
-        {sectionRows.length > 0 && (
+        {sectionRows.length > 0 && paperRows.length === 0 && (
           <section className="border border-slate-300 bg-white">
             <div className="border-b border-slate-300 px-4 py-3">
               <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-700">
@@ -470,6 +484,36 @@ export function ExamResultView() {
           </section>
         )}
 
+        {paperRows.length > 0 && (
+          <section className="border border-slate-300 bg-white">
+            <div className="border-b border-slate-300 px-4 py-3">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-700">
+                Paper performance
+              </h2>
+              <p className="mt-0.5 text-[11px] text-slate-500">
+                Paper I and Paper II are scored separately. The combined score is
+                shown above.
+              </p>
+            </div>
+            <PerformanceTable rows={paperRows} label="Paper" />
+          </section>
+        )}
+
+        {unitRows.length > 0 && (
+          <section className="border border-slate-300 bg-white">
+            <div className="border-b border-slate-300 px-4 py-3">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-700">
+                Unit-wise performance
+              </h2>
+              <p className="mt-0.5 text-[11px] text-slate-500">
+                Based on the official UGC NET syllabus units delivered in this
+                attempt.
+              </p>
+            </div>
+            <PerformanceTable rows={unitRows} label="Official unit" showPaper />
+          </section>
+        )}
+
         <section className="border border-slate-300 bg-white">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-300 px-4 py-3">
             <div>
@@ -510,6 +554,14 @@ export function ExamResultView() {
             <div className="divide-y divide-slate-200">
               {visible.map((question) => {
                 const isOpen = expanded.has(question.id)
+                const localizedQuestionText =
+                  language === 'hi'
+                    ? question.hindi?.questionText ?? question.questionText
+                    : question.questionText
+                const localizedExplanation =
+                  language === 'hi'
+                    ? question.hindi?.explanation ?? question.explanation
+                    : question.explanation
                 return (
                   <article key={question.id}>
                     <button
@@ -545,10 +597,15 @@ export function ExamResultView() {
                           )}
                         </div>
                         <p className="mt-1 line-clamp-2 text-sm leading-6 text-slate-700">
-                          {question.questionText}
+                          {localizedQuestionText}
                         </p>
                         <p className="mt-1 line-clamp-1 text-[11px] text-slate-500">
-                          Your answer: {responseAnswerText(question, question.response)}
+                          Your answer:{' '}
+                          {responseAnswerText(
+                            question,
+                            question.response,
+                            language,
+                          )}
                         </p>
                       </div>
                       <div className="flex shrink-0 flex-col items-end gap-1">
@@ -570,11 +627,15 @@ export function ExamResultView() {
 
                     {isOpen && (
                       <div className="border-t border-slate-200 bg-slate-50/50 px-4 py-4">
-                        <CbtQuestionBody question={question} />
+                        <CbtQuestionBody
+                          question={question}
+                          language={language}
+                        />
                         <CbtAnswerOptions
                           question={question}
                           value={question.response}
                           disabled
+                          language={language}
                           review={{
                             correctOptionId: question.correctOptionId,
                             correctOptionIds: question.correctOptionIds,
@@ -589,7 +650,11 @@ export function ExamResultView() {
                               Your answer
                             </div>
                             <div className="mt-1 text-slate-800">
-                              {responseAnswerText(question, question.response)}
+                              {responseAnswerText(
+                                question,
+                                question.response,
+                                language,
+                              )}
                             </div>
                           </div>
                           <div>
@@ -597,11 +662,15 @@ export function ExamResultView() {
                               Correct answer
                             </div>
                             <div className="mt-1 text-slate-800">
-                              {correctAnswerText(question, {
-                                correctOptionId: question.correctOptionId,
-                                correctOptionIds: question.correctOptionIds,
-                                numericAnswer: question.numericAnswer,
-                              })}
+                              {correctAnswerText(
+                                question,
+                                {
+                                  correctOptionId: question.correctOptionId,
+                                  correctOptionIds: question.correctOptionIds,
+                                  numericAnswer: question.numericAnswer,
+                                },
+                                language,
+                              )}
                             </div>
                           </div>
                           <div>
@@ -626,13 +695,13 @@ export function ExamResultView() {
                           </div>
                         </div>
 
-                        {question.explanation && (
+                        {localizedExplanation && (
                           <div className="mt-3 border-l-4 border-slate-400 bg-white px-4 py-3">
                             <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
                               Explanation
                             </div>
                             <div className="mt-1 text-sm text-slate-800">
-                              <Markdown content={question.explanation} />
+                              <Markdown content={localizedExplanation} />
                             </div>
                           </div>
                         )}
@@ -672,6 +741,104 @@ function ResultStat({
         {label}
       </div>
       <div className="mt-1 text-sm font-semibold text-slate-900">{value}</div>
+    </div>
+  )
+}
+
+type PerformanceRow = CbtPaperPerformance &
+  Partial<
+    Pick<CbtUnitPerformance, 'paper' | 'unitCode' | 'unitName' | 'unitOrder'>
+  >
+
+function PerformanceTable({
+  rows,
+  label,
+  showPaper = false,
+}: {
+  rows: PerformanceRow[]
+  label: string
+  showPaper?: boolean
+}) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full min-w-[880px] border-collapse text-left text-sm">
+        <thead className="bg-slate-100 text-[10px] uppercase tracking-wider text-slate-600">
+          <tr>
+            {showPaper && (
+              <th className="border-b border-slate-300 px-3 py-2 font-semibold">
+                Paper
+              </th>
+            )}
+            <th className="border-b border-slate-300 px-3 py-2 font-semibold">
+              {label}
+            </th>
+            <th className="border-b border-slate-300 px-3 py-2 font-semibold">
+              Questions
+            </th>
+            <th className="border-b border-slate-300 px-3 py-2 font-semibold">
+              Correct
+            </th>
+            <th className="border-b border-slate-300 px-3 py-2 font-semibold">
+              Incorrect
+            </th>
+            <th className="border-b border-slate-300 px-3 py-2 font-semibold">
+              Unanswered
+            </th>
+            <th className="border-b border-slate-300 px-3 py-2 font-semibold">
+              Accuracy
+            </th>
+            <th className="border-b border-slate-300 px-3 py-2 font-semibold">
+              Time
+            </th>
+            <th className="border-b border-slate-300 px-3 py-2 font-semibold">
+              Score
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.id}>
+              {showPaper && (
+                <td className="border-b border-slate-200 px-3 py-2.5 tabular-nums text-slate-700">
+                  {row.paper ? `Paper ${row.paper}` : '—'}
+                </td>
+              )}
+              <td className="border-b border-slate-200 px-3 py-2.5">
+                <div className="font-medium text-slate-900">{row.name}</div>
+                {row.unitCode && (
+                  <div className="font-mono text-[10px] text-slate-500">
+                    {row.unitCode}
+                  </div>
+                )}
+              </td>
+              <td className="border-b border-slate-200 px-3 py-2.5 tabular-nums text-slate-700">
+                {row.questionCount}
+              </td>
+              <td className="border-b border-slate-200 px-3 py-2.5 tabular-nums text-emerald-800">
+                {row.correct}
+              </td>
+              <td className="border-b border-slate-200 px-3 py-2.5 tabular-nums text-red-800">
+                {row.incorrect}
+              </td>
+              <td className="border-b border-slate-200 px-3 py-2.5 tabular-nums text-slate-700">
+                {row.unanswered}
+              </td>
+              <td className="border-b border-slate-200 px-3 py-2.5 tabular-nums text-slate-700">
+                {formatScore(row.accuracy * 100, 1)}%
+              </td>
+              <td className="border-b border-slate-200 px-3 py-2.5 tabular-nums text-slate-700">
+                {formatDuration(row.timeSpentSec)}
+              </td>
+              <td className="border-b border-slate-200 px-3 py-2.5 font-semibold tabular-nums text-slate-900">
+                {formatScore(row.finalScore)}
+                <span className="ml-1 text-[10px] font-normal text-slate-500">
+                  / {formatScore(row.maxMarks)}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }

@@ -150,11 +150,16 @@ export function ugcLanguage(): LanguageConfig {
     available: ['en', 'hi'],
     bilingual: true,
     fallback: 'en',
-    note: 'Paper I is bilingual (English/Hindi). Paper II Computer Science & Applications is English-only.',
+    note: 'English and Hindi presentation. Reviewed Hindi translations are shown where available; otherwise the question falls back to English. The English text is authoritative.',
   }
 }
 
 export function ugcPaperOneLanguage(): SectionLanguageConfig {
+  return { default: 'en', available: ['en', 'hi'] }
+}
+
+/** Both UGC papers offer reviewed Hindi translations with English fallback. */
+export function ugcPaperTwoLanguage(): SectionLanguageConfig {
   return { default: 'en', available: ['en', 'hi'] }
 }
 
@@ -298,11 +303,12 @@ export function ugcPaperTwoSection(): ExamSection {
     questionCount: 100,
     marks: 200,
     questionRules: ugcSingleCorrectRules(100),
-    language: englishOnlyLanguage(),
+    language: ugcPaperTwoLanguage(),
     instructions: [
       '100 compulsory questions, 2 marks each, 200 marks total.',
       'No negative marking.',
-      'Subject code 87 (Computer Science & Applications) is English-only.',
+      'Subject code 87 (Computer Science & Applications).',
+      'Reviewed Hindi translations are shown where available; English is the authoritative text.',
     ],
   }
 }

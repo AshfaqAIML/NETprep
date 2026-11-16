@@ -13,6 +13,8 @@ import type {
 } from '@/lib/cbt/types'
 import type { QuestionPresentationType, ResponseType } from '@/lib/exam/types'
 
+export type CbtQuestionLanguage = 'en' | 'hi'
+
 type QuestionView = Pick<
   CbtSanitizedQuestion | CbtReviewQuestion,
   | 'id'
@@ -24,7 +26,33 @@ type QuestionView = Pick<
   | 'tableMarkdown'
   | 'imageUrl'
   | 'options'
+  | 'hindi'
 >
+
+function localizedOptionText(
+  question: Pick<QuestionView, 'hindi'>,
+  option: CbtOption,
+  language: CbtQuestionLanguage,
+): string {
+  if (language !== 'hi' || !question.hindi) return option.text
+  const hindi = {
+    A: question.hindi.optionA,
+    B: question.hindi.optionB,
+    C: question.hindi.optionC,
+    D: question.hindi.optionD,
+  } as const
+  return hindi[option.id as keyof typeof hindi] ?? option.text
+}
+
+export function optionsForLanguage(
+  question: Pick<QuestionView, 'options' | 'hindi'>,
+  language: CbtQuestionLanguage,
+): CbtOption[] {
+  return question.options.map((option) => ({
+    ...option,
+    text: localizedOptionText(question, option, language),
+  }))
+}
 
 export interface AnswerReview {
   correctOptionId?: string | null
@@ -41,22 +69,40 @@ export interface AnswerPatch {
 
 interface QuestionBodyProps {
   question: QuestionView
+  language?: CbtQuestionLanguage
 }
 
-export function CbtQuestionBody({ question }: QuestionBodyProps) {
+export function CbtQuestionBody({
+  question,
+  language = 'en',
+}: QuestionBodyProps) {
+  const hindi = language === 'hi' ? question.hindi : null
+  const passage = hindi?.passage ?? question.passage
+  const questionText = hindi?.questionText ?? question.questionText
+  const codeSnippet = hindi?.codeSnippet ?? question.codeSnippet
+  const tableMarkdown = hindi?.tableMarkdown ?? question.tableMarkdown
+
   return (
     <div className="space-y-4">
-      {question.passage && (
+      {language === 'hi' && !question.hindi && (
+        <p className="border border-amber-300 bg-amber-50 px-3 py-2 text-[12px] leading-5 text-amber-900">
+          इस प्रश्न का समीक्षित हिंदी अनुवाद उपलब्ध नहीं है। अंग्रेज़ी पाठ दिखाया
+          जा रहा है। / A reviewed Hindi translation is not available for this
+          question. Showing the English text.
+        </p>
+      )}
+
+      {passage && (
         <div className="border-l-4 border-slate-400 bg-slate-50 px-4 py-3 text-[14px] text-slate-800">
-          <Markdown content={question.passage} />
+          <Markdown content={passage} />
         </div>
       )}
 
       <div className="text-[15px] leading-7 text-slate-900">
-        <Markdown content={question.questionText} />
+        <Markdown content={questionText} />
       </div>
 
-      {question.codeSnippet && (
+      {codeSnippet && (
         <div className="overflow-hidden border border-slate-300 bg-slate-950">
           <div className="flex items-center justify-between border-b border-slate-700 px-3 py-1.5">
             <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">
@@ -65,14 +111,14 @@ export function CbtQuestionBody({ question }: QuestionBodyProps) {
             <span className="text-[10px] text-slate-400">C</span>
           </div>
           <pre className="max-h-[360px] overflow-auto p-4 text-[13px] leading-6 text-slate-100">
-            <code>{question.codeSnippet}</code>
+            <code>{codeSnippet}</code>
           </pre>
         </div>
       )}
 
-      {question.tableMarkdown && (
+      {tableMarkdown && (
         <div className="overflow-x-auto border border-slate-300 bg-white px-3 py-2">
-          <Markdown content={question.tableMarkdown} />
+          <Markdown content={tableMarkdown} />
         </div>
       )}
 
@@ -99,6 +145,7 @@ interface AnswerOptionsProps {
   onChange?: (patch: AnswerPatch) => void
   disabled?: boolean
   review?: AnswerReview
+  language?: CbtQuestionLanguage
 }
 
 function optionTone(
@@ -129,8 +176,13 @@ export function CbtAnswerOptions({
   onChange,
   disabled = false,
   review,
+  language = 'en',
 }: AnswerOptionsProps) {
   const reviewing = Boolean(review)
+  const options = React.useMemo(
+    () => optionsForLanguage(question, language),
+    [question, language],
+  )
   const correctIds = React.useMemo(() => {
     if (!review) return null
     if (review.correctOptionIds && review.correctOptionIds.length > 0) {
@@ -158,7 +210,7 @@ export function CbtAnswerOptions({
           htmlFor={`numeric-${question.id}`}
           className="block text-sm font-semibold text-slate-900"
         >
-          Numerical answer
+          {language === 'hi' ? 'संख्यात्मक उत्तर' : 'Numerical answer'}
         </label>
         <input
           id={`numeric-${question.id}`}
@@ -168,20 +220,23 @@ export function CbtAnswerOptions({
           value={inputValue}
           disabled={disabled || reviewing}
           onChange={(event) => onChange?.({ numericValue: event.target.value })}
-          placeholder="Enter a number"
+          placeholder={language === 'hi' ? 'संख्या दर्ज करें' : 'Enter a number'}
           className={cn(
             'h-11 w-full max-w-xs border-2 border-slate-400 bg-white px-3 font-mono text-base text-slate-900 outline-none',
             'focus:border-slate-900 disabled:bg-slate-100 disabled:text-slate-700',
           )}
         />
         <p className="text-xs text-slate-600">
-          Enter the numerical value only. Answers are evaluated to{' '}
-          {review?.numericPrecision ?? 2} decimal place
-          {(review?.numericPrecision ?? 2) === 1 ? '' : 's'}.
+          {language === 'hi'
+            ? `केवल संख्यात्मक मान दर्ज करें। उत्तर ${review?.numericPrecision ?? 2} दशमलव स्थान तक मूल्यांकित किए जाएंगे।`
+            : `Enter the numerical value only. Answers are evaluated to ${
+                review?.numericPrecision ?? 2
+              } decimal place${(review?.numericPrecision ?? 2) === 1 ? '' : 's'}.`}
         </p>
         {review?.numericAnswer && (
           <p className="text-sm font-semibold text-emerald-800">
-            Correct answer: {review.numericAnswer.value}
+            {language === 'hi' ? 'सही उत्तर' : 'Correct answer'}:{' '}
+            {review.numericAnswer.value}
           </p>
         )}
       </div>
@@ -192,7 +247,7 @@ export function CbtAnswerOptions({
 
   return (
     <div className="mt-5 space-y-2.5" role={multiple ? 'group' : 'radiogroup'}>
-      {question.options.map((option: CbtOption) => {
+      {options.map((option: CbtOption) => {
         const selected = selectedIds.has(option.id)
         const correct = correctIds ? correctIds.has(option.id) : null
         const wrongSelected = reviewing && selected && correct === false
@@ -255,8 +310,9 @@ export function CbtAnswerOptions({
       })}
       {multiple && (
         <p className="text-xs text-slate-600">
-          Select all correct options. MSQ answers are marked only when the exact
-          combination is selected.
+          {language === 'hi'
+            ? 'सभी सही विकल्प चुनें। MSQ उत्तर तभी अंकित होते हैं जब सही संयोजन चुना गया हो।'
+            : 'Select all correct options. MSQ answers are marked only when the exact combination is selected.'}
         </p>
       )}
     </div>
@@ -264,38 +320,49 @@ export function CbtAnswerOptions({
 }
 
 export function responseAnswerText(
-  question: Pick<CbtSanitizedQuestion | CbtReviewQuestion, 'responseType' | 'options'>,
+  question: Pick<
+    CbtSanitizedQuestion | CbtReviewQuestion,
+    'responseType' | 'options' | 'hindi'
+  >,
   response: CbtResponse | null,
+  language: CbtQuestionLanguage = 'en',
 ): string {
-  if (!response) return 'Not answered'
+  const notAnswered = language === 'hi' ? 'उत्तर नहीं दिया गया' : 'Not answered'
+  if (!response) return notAnswered
+  const options = optionsForLanguage(question, language)
   if (question.responseType === 'single') {
-    if (!response.selectedOptionId) return 'Not answered'
-    const option = question.options.find((entry) => entry.id === response.selectedOptionId)
+    if (!response.selectedOptionId) return notAnswered
+    const option = options.find((entry) => entry.id === response.selectedOptionId)
     return option ? `${option.label}. ${option.text}` : response.selectedOptionId
   }
   if (question.responseType === 'multiple') {
     const ids = response.selectedOptionIds ?? []
-    if (ids.length === 0) return 'Not answered'
+    if (ids.length === 0) return notAnswered
     return ids
       .map((id) => {
-        const option = question.options.find((entry) => entry.id === id)
+        const option = options.find((entry) => entry.id === id)
         return option ? `${option.label}. ${option.text}` : id
       })
       .join('; ')
   }
   if (response.numericValue === null || response.numericValue === undefined) {
-    return 'Not answered'
+    return notAnswered
   }
   return String(response.numericValue)
 }
 
 export function correctAnswerText(
-  question: Pick<CbtSanitizedQuestion | CbtReviewQuestion, 'responseType' | 'options'>,
+  question: Pick<
+    CbtSanitizedQuestion | CbtReviewQuestion,
+    'responseType' | 'options' | 'hindi'
+  >,
   review: AnswerReview,
+  language: CbtQuestionLanguage = 'en',
 ): string {
+  const options = optionsForLanguage(question, language)
   if (question.responseType === 'single') {
     if (!review.correctOptionId) return '—'
-    const option = question.options.find((entry) => entry.id === review.correctOptionId)
+    const option = options.find((entry) => entry.id === review.correctOptionId)
     return option ? `${option.label}. ${option.text}` : review.correctOptionId
   }
   if (question.responseType === 'multiple') {
@@ -303,7 +370,7 @@ export function correctAnswerText(
     if (ids.length === 0) return '—'
     return ids
       .map((id) => {
-        const option = question.options.find((entry) => entry.id === id)
+        const option = options.find((entry) => entry.id === id)
         return option ? `${option.label}. ${option.text}` : id
       })
       .join('; ')

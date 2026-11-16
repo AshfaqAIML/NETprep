@@ -217,8 +217,9 @@ function CbtExamCard({
         </p>
         {profile.language.bilingual && (
           <p className="text-[11px] text-slate-500">
-            Bilingual paper: English and Hindi. Paper II subject content is
-            English-only where specified.
+            Bilingual presentation: English and Hindi. Reviewed Hindi
+            translations are shown where available; English remains
+            authoritative.
           </p>
         )}
       </div>
@@ -310,6 +311,114 @@ function UpcomingCard({
   )
 }
 
+function isUnitPractice(entry: CbtCatalogueEntry): boolean {
+  return entry.profile.metadata?.unitPractice === true
+}
+
+function practicePaper(entry: CbtCatalogueEntry): 'I' | 'II' | null {
+  const paper = entry.profile.metadata?.practicePaper
+  return paper === 'I' || paper === 'II' ? paper : null
+}
+
+function UnitPracticeCard({
+  entry,
+  onStart,
+  onResume,
+}: {
+  entry: CbtCatalogueEntry
+  onStart: (profileCode: string) => void
+  onResume: (attemptId: string) => void
+}) {
+  const { profile, activeAttempt } = entry
+  const unitCode =
+    typeof profile.metadata?.practiceUnit === 'string'
+      ? profile.metadata.practiceUnit
+      : profile.code
+  const unitName =
+    typeof profile.metadata?.practiceUnitName === 'string'
+      ? profile.metadata.practiceUnitName
+      : profile.name
+
+  return (
+    <article className="flex flex-col border border-slate-300 bg-white">
+      <div className="flex items-start justify-between gap-2 px-3 py-2.5">
+        <div className="min-w-0">
+          <div className="font-mono text-[10px] font-semibold tracking-wide text-slate-500">
+            {unitCode}
+          </div>
+          <h4 className="mt-0.5 text-sm font-semibold leading-tight text-slate-900">
+            {unitName}
+          </h4>
+        </div>
+        <div className="shrink-0 text-right text-[11px] leading-5 text-slate-600">
+          <div className="font-semibold text-slate-900">
+            {profile.totalQuestions} Q · {profile.totalMarks} marks
+          </div>
+          <div>{formatDuration(profile.durationMinutes * 60)}</div>
+        </div>
+      </div>
+      <div className="mt-auto border-t border-slate-200 px-3 py-2">
+        {activeAttempt ? (
+          <Button
+            size="sm"
+            onClick={() => onResume(activeAttempt.id)}
+            className="w-full gap-1.5 rounded-none bg-amber-600 text-white hover:bg-amber-700"
+          >
+            <RotateCcw className="h-3.5 w-3.5" />
+            Resume · {formatClock(activeAttempt.remainingSec)} left
+          </Button>
+        ) : (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onStart(profile.code)}
+            className="w-full gap-1.5 rounded-none border-slate-400 text-slate-800 hover:bg-slate-100"
+          >
+            Start unit practice
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Button>
+        )}
+      </div>
+    </article>
+  )
+}
+
+function UnitPracticeGroup({
+  title,
+  description,
+  entries,
+  onStart,
+  onResume,
+}: {
+  title: string
+  description: string
+  entries: CbtCatalogueEntry[]
+  onStart: (profileCode: string) => void
+  onResume: (attemptId: string) => void
+}) {
+  if (entries.length === 0) return null
+  return (
+    <div className="mt-6">
+      <div className="mb-2">
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-600">
+          {title}
+        </h3>
+        <p className="mt-0.5 text-[11px] text-slate-500">{description}</p>
+      </div>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        {entries.map((entry) => (
+          <UnitPracticeCard
+            key={entry.profile.code}
+            entry={entry}
+            onStart={onStart}
+            onResume={onResume}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export function MockTestsView() {
   const navigate = useAppStore((s) => s.navigate)
   const [mockTests, setMockTests] = React.useState<any[]>([])
@@ -376,6 +485,22 @@ export function MockTestsView() {
     [navigate],
   )
 
+  const catalogueEntries = catalogue?.entries ?? []
+  const unitPracticeEntries = catalogueEntries.filter(isUnitPractice)
+  const fullPaperEntries = catalogueEntries.filter(
+    (entry) => !isUnitPractice(entry),
+  )
+  const unitPracticeOrder = (entry: CbtCatalogueEntry): number => {
+    const order = entry.profile.metadata?.practiceUnitOrder
+    return typeof order === 'number' ? order : 99
+  }
+  const paperOnePractice = unitPracticeEntries
+    .filter((entry) => practicePaper(entry) === 'I')
+    .sort((left, right) => unitPracticeOrder(left) - unitPracticeOrder(right))
+  const paperTwoPractice = unitPracticeEntries
+    .filter((entry) => practicePaper(entry) === 'II')
+    .sort((left, right) => unitPracticeOrder(left) - unitPracticeOrder(right))
+
   return (
     <div className="mx-auto max-w-[1800px] px-4 py-8 sm:px-6">
       <Breadcrumbs items={[
@@ -405,13 +530,13 @@ export function MockTestsView() {
                 id="cbt-catalogue-heading"
                 className="text-xl font-semibold tracking-tight text-slate-900"
               >
-                Full-length CBT examinations
+                CBT examination catalogue
               </h2>
             </div>
             <p className="mt-1 max-w-3xl text-sm text-slate-600">
-              Official-pattern papers assembled from the verified question bank.
-              Each session runs on a server-authoritative timer and resumes after
-              a refresh.
+              Official-pattern full papers and official-unit sectional practice,
+              assembled from the verified question bank. Each session runs on a
+              server-authoritative timer and resumes after a refresh.
             </p>
           </div>
           {catalogue && (
@@ -459,16 +584,25 @@ export function MockTestsView() {
               <div className="border border-slate-300 bg-white px-4 py-8 text-center">
                 <FileQuestion className="mx-auto h-8 w-8 text-slate-400" />
                 <p className="mt-2 text-sm font-medium text-slate-800">
-                  No full-length examination is ready yet
+                  No examination is ready yet
                 </p>
                 <p className="mt-1 text-xs text-slate-500">
                   Papers appear here as soon as the required verified content is
                   available.
                 </p>
               </div>
+            ) : fullPaperEntries.length === 0 ? (
+              <div className="border border-slate-300 bg-white px-4 py-6 text-center">
+                <p className="text-sm font-medium text-slate-800">
+                  No full-length paper is ready yet
+                </p>
+                <p className="mt-1 text-xs text-slate-500">
+                  Unit-wise practice is available below.
+                </p>
+              </div>
             ) : (
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
-                {catalogue.entries.map((entry) => (
+                {fullPaperEntries.map((entry) => (
                   <CbtExamCard
                     key={entry.profile.code}
                     entry={entry}
@@ -498,6 +632,22 @@ export function MockTestsView() {
                 </div>
               </div>
             )}
+
+            <UnitPracticeGroup
+              title="Paper I — Unit practice"
+              description="Ten official General Paper units, 5 questions and 10 marks each. Duration is a proportional share of the combined session."
+              entries={paperOnePractice}
+              onStart={openInstructions}
+              onResume={resumeAttempt}
+            />
+
+            <UnitPracticeGroup
+              title="Paper II — Unit practice"
+              description="Ten official Computer Science units, 10 questions and 20 marks each. Duration is a proportional share of the combined session."
+              entries={paperTwoPractice}
+              onStart={openInstructions}
+              onResume={resumeAttempt}
+            />
           </>
         ) : null}
       </section>

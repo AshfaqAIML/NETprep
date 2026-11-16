@@ -7,12 +7,13 @@
  */
 
 import { db } from '@/lib/db'
+import { ugcUnitByCode } from '../exam/ugc-units'
 import type {
   NumericToleranceMode,
   QuestionPresentationType,
   ResponseType,
 } from '../exam/types'
-import type { CbtQuestionCandidate } from './types'
+import type { CbtHindiContent, CbtQuestionCandidate } from './types'
 
 const RESPONSE_TYPES = new Set<ResponseType>(['single', 'multiple', 'numeric'])
 const PRESENTATION_TYPES = new Set<QuestionPresentationType>([
@@ -90,6 +91,31 @@ function asToleranceMode(value: unknown): NumericToleranceMode | null {
     : null
 }
 
+/**
+ * Only reviewed Hindi rows are converted. Missing or empty translations return
+ * null so the candidate falls back to the authoritative English text. Fields a
+ * translator left untouched keep the English value: mathematical notation,
+ * code and technical terms are intentionally preserved rather than translated.
+ */
+function reviewedHindi(row: any): CbtHindiContent | null {
+  const translation = Array.isArray(row.translations) ? row.translations[0] : null
+  if (!translation) return null
+  if (typeof translation.questionText !== 'string' || !translation.questionText.trim()) {
+    return null
+  }
+  return {
+    questionText: translation.questionText,
+    passage: translation.passage ?? row.passage ?? null,
+    codeSnippet: translation.codeSnippet ?? row.codeSnippet ?? null,
+    tableMarkdown: translation.tableMarkdown ?? row.tableMarkdown ?? null,
+    optionA: translation.optionA ?? row.optionA ?? '',
+    optionB: translation.optionB ?? row.optionB ?? '',
+    optionC: translation.optionC ?? row.optionC ?? '',
+    optionD: translation.optionD ?? row.optionD ?? '',
+    explanation: translation.explanation ?? row.explanation ?? null,
+  }
+}
+
 function toCandidate(row: any): CbtQuestionCandidate | null {
   const responseType: ResponseType = RESPONSE_TYPES.has(row.responseType)
     ? row.responseType
@@ -116,6 +142,7 @@ function toCandidate(row: any): CbtQuestionCandidate | null {
   }
   if (responseType === 'numeric' && numericAnswer === null) return null
 
+  const syllabusUnit = ugcUnitByCode(row.syllabusUnit)
   return {
     id: row.id,
     paper: row.paper === 'II' ? 'II' : 'I',
@@ -125,6 +152,8 @@ function toCandidate(row: any): CbtQuestionCandidate | null {
     topicId: row.topicId ?? null,
     topicName: row.topic?.name ?? null,
     unitName: row.topic?.unit?.name ?? null,
+    syllabusUnit: syllabusUnit?.code ?? null,
+    syllabusUnitName: syllabusUnit?.name ?? null,
     gateSection: row.gateSection ?? null,
     verified: row.verified === true,
     createdAt:
@@ -151,6 +180,7 @@ function toCandidate(row: any): CbtQuestionCandidate | null {
     codeSnippet: row.codeSnippet ?? null,
     tableMarkdown: row.tableMarkdown ?? null,
     imageUrl: row.imageUrl ?? null,
+    hindi: reviewedHindi(row),
   }
 }
 
@@ -161,6 +191,8 @@ export interface CbtPoolStats {
   engineeringMathematics: number
   computerScience: number
   dataScience: number
+  /** Deliverable single-response count keyed by official unit code (P1-U01 …). */
+  unitSingleCounts: Record<string, number>
   totalDeliverable: number
 }
 
@@ -191,6 +223,22 @@ export function isComputerScienceCandidate(question: CbtQuestionCandidate): bool
   )
 }
 
+/**
+ * Count deliverable single-response questions per official unit. Questions
+ * without a mapped unit are excluded from unit practice availability but still
+ * count towards the paper-level totals.
+ */
+export function computeUnitSingleCounts(
+  pool: CbtQuestionCandidate[],
+): Record<string, number> {
+  const counts: Record<string, number> = {}
+  for (const question of pool) {
+    if (question.responseType !== 'single' || !question.syllabusUnit) continue
+    counts[question.syllabusUnit] = (counts[question.syllabusUnit] ?? 0) + 1
+  }
+  return counts
+}
+
 export function computePoolStats(pool: CbtQuestionCandidate[]): CbtPoolStats {
   return {
     paperOneSingle: pool.filter(
@@ -203,6 +251,7 @@ export function computePoolStats(pool: CbtQuestionCandidate[]): CbtPoolStats {
     engineeringMathematics: pool.filter(isEngineeringMathematicsCandidate).length,
     computerScience: pool.filter(isComputerScienceCandidate).length,
     dataScience: pool.filter(isDataScienceCandidate).length,
+    unitSingleCounts: computeUnitSingleCounts(pool),
     totalDeliverable: pool.length,
   }
 }
@@ -213,6 +262,22 @@ export async function loadCbtQuestionPool(): Promise<CbtQuestionCandidate[]> {
     include: {
       topic: {
         include: { unit: true },
+      },
+      // Only reviewed Hindi is delivered; drafts and rejected rows are ignored.
+      translations: {
+        where: { language: 'hi', status: 'reviewed' },
+        take: 1,
+        select: {
+          questionText: true,
+          optionA: true,
+          optionB: true,
+          optionC: true,
+          optionD: true,
+          passage: true,
+          codeSnippet: true,
+          tableMarkdown: true,
+          explanation: true,
+        },
       },
     },
     orderBy: [{ paper: 'asc' }, { topicId: 'asc' }, { id: 'asc' }],

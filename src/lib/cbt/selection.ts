@@ -9,6 +9,12 @@
  */
 
 import { findSection } from '../exam/blueprint'
+import {
+  UGC_FULL_PAPER_UNIT_QUESTION_COUNT,
+  ugcUnitByCode,
+  ugcUnitsForPaper,
+  type UgcPaper,
+} from '../exam/ugc-units'
 import type { ExamProfile, ExamSection } from '../exam/types'
 import type {
   CbtQuestionCandidate,
@@ -228,6 +234,50 @@ function selectGateGeneralAptitude(
   }))
 }
 
+/**
+ * Select an official-unit-complete UGC paper. Each of the ten syllabus units
+ * contributes exactly `perUnit` questions, so a full paper covers the whole
+ * syllabus instead of exhausting whichever topics happen to be largest.
+ */
+function selectUgcPaperSection(
+  profile: ExamProfile,
+  paper: UgcPaper,
+  sectionId: string,
+  pool: CbtQuestionCandidate[],
+  perUnit: number,
+): CbtSelectionAssignment[] {
+  const section = requireSection(profile, sectionId)
+  const marks = singleMarkValue(section)
+  const assignments: CbtSelectionAssignment[] = []
+  const shortfalls: string[] = []
+
+  for (const unit of ugcUnitsForPaper(paper)) {
+    const eligible = pool.filter(
+      (question) =>
+        question.paper === paper &&
+        question.responseType === 'single' &&
+        question.syllabusUnit === unit.code,
+    )
+    const selected = roundRobinByTopic(eligible, perUnit)
+    if (selected.length < perUnit) {
+      shortfalls.push(
+        `${unit.code} ${unit.shortName} (${selected.length}/${perUnit})`,
+      )
+      continue
+    }
+    for (const candidate of selected) {
+      assignments.push({ candidate, sectionId, marks })
+    }
+  }
+
+  if (shortfalls.length > 0) {
+    throw new CbtSelectionError(
+      `Section "${sectionId}" is missing official-unit coverage: ${shortfalls.join(', ')}`,
+    )
+  }
+  return assignments
+}
+
 export function selectUgcPaper(
   profile: ExamProfile,
   paperOnePool: CbtQuestionCandidate[],
@@ -238,24 +288,24 @@ export function selectUgcPaper(
   const paperTwo = findSection(profile, 'paper-2')
 
   if (paperOne) {
-    const count = paperOne.questionCount ?? 0
     assignments.push(
-      ...selectSingleSection(
+      ...selectUgcPaperSection(
         profile,
+        'I',
         'paper-1',
-        paperOnePool.filter((question) => question.paper === 'I'),
-        count,
+        paperOnePool,
+        UGC_FULL_PAPER_UNIT_QUESTION_COUNT.I,
       ),
     )
   }
   if (paperTwo) {
-    const count = paperTwo.questionCount ?? 0
     assignments.push(
-      ...selectSingleSection(
+      ...selectUgcPaperSection(
         profile,
+        'II',
         'paper-2',
-        paperTwoPool.filter((question) => question.paper === 'II'),
-        count,
+        paperTwoPool,
+        UGC_FULL_PAPER_UNIT_QUESTION_COUNT.II,
       ),
     )
   }
@@ -263,6 +313,45 @@ export function selectUgcPaper(
     throw new CbtSelectionError(`Profile ${profile.code} has no UGC paper sections`)
   }
   return assignments
+}
+
+/**
+ * Sectional practice draws only from the requested official unit. The profile
+ * carries the unit code in metadata so no profile-code switch is needed.
+ */
+export function selectUgcUnitPractice(
+  profile: ExamProfile,
+  pool: CbtQuestionCandidate[],
+): CbtSelectionAssignment[] {
+  const requested =
+    typeof profile.metadata?.practiceUnit === 'string'
+      ? profile.metadata.practiceUnit
+      : null
+  const unit = ugcUnitByCode(requested)
+  if (!unit) {
+    throw new CbtSelectionError(
+      `Profile ${profile.code} does not name a valid official unit`,
+    )
+  }
+
+  const sectionId = unit.paper === 'I' ? 'paper-1' : 'paper-2'
+  const section = requireSection(profile, sectionId)
+  const count =
+    section.questionCount ?? UGC_FULL_PAPER_UNIT_QUESTION_COUNT[unit.paper]
+  const marks = singleMarkValue(section)
+  const eligible = pool.filter(
+    (question) =>
+      question.paper === unit.paper &&
+      question.responseType === 'single' &&
+      question.syllabusUnit === unit.code,
+  )
+  const selected = roundRobinByTopic(eligible, count)
+  if (selected.length < count) {
+    throw new CbtSelectionError(
+      `Unit ${unit.code} ${unit.shortName} needs ${count} questions but only ${selected.length} are available`,
+    )
+  }
+  return selected.map((candidate) => ({ candidate, sectionId, marks }))
 }
 
 export function selectGateCsPaper(
@@ -360,6 +449,12 @@ export function selectCbtPaper(
   },
 ): CbtSelectionAssignment[] {
   if (profile.family === 'UGC_NET') {
+    if (profile.metadata?.unitPractice === true) {
+      return selectUgcUnitPractice(profile, [
+        ...(pools.paperOne ?? []),
+        ...(pools.paperTwo ?? []),
+      ])
+    }
     return selectUgcPaper(
       profile,
       pools.paperOne ?? [],

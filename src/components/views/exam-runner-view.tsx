@@ -33,6 +33,7 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet'
 import { Skeleton } from '@/components/ui/skeleton'
+import { CbtLanguageToggle, useCbtLanguage } from '@/components/cbt/language-toggle'
 import { QuestionPalette } from '@/components/cbt/palette'
 import {
   CbtAnswerOptions,
@@ -179,6 +180,7 @@ export function ExamRunnerView() {
     typeof viewParams.attemptId === 'string' ? viewParams.attemptId : ''
 
   const [payload, setPayload] = React.useState<CbtAttemptPayload | null>(null)
+  const [language, setLanguage] = useCbtLanguage(payload?.paper.language)
   const [responses, setResponses] = React.useState<CbtResponses>({})
   const [currentQuestionId, setCurrentQuestionId] = React.useState<string | null>(
     null,
@@ -921,6 +923,12 @@ export function ExamRunnerView() {
                 </div>
               </div>
 
+              <CbtLanguageToggle
+                language={language}
+                onChange={setLanguage}
+                available={payload.paper.language?.available ?? ['en']}
+              />
+
               <Button
                 variant="outline"
                 size="sm"
@@ -1041,12 +1049,13 @@ export function ExamRunnerView() {
             </div>
 
             <div className="px-4 py-4 sm:px-5">
-              <CbtQuestionBody question={currentQuestion} />
+              <CbtQuestionBody question={currentQuestion} language={language} />
               <CbtAnswerOptions
                 question={currentQuestion}
                 value={responses[currentQuestion.id] ?? null}
                 onChange={(patch) => applyPatch(currentQuestion, patch)}
                 disabled={submitting}
+                language={language}
               />
             </div>
 

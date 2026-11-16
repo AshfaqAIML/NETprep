@@ -8,6 +8,7 @@
 
 import type {
   ExamFamily,
+  ExamLanguage,
   ExamProfileStatus,
   ExamSection,
   LanguageConfig,
@@ -53,6 +54,29 @@ export interface CbtNumericAnswerKey {
 }
 
 /**
+ * Reviewed Hindi presentation for one question. `explanation` is included only
+ * in the post-submission review payload, never in the live attempt payload.
+ */
+export interface CbtHindiContent {
+  questionText: string
+  passage: string | null
+  codeSnippet: string | null
+  tableMarkdown: string | null
+  optionA: string
+  optionB: string
+  optionC: string
+  optionD: string
+  /** Post-submission review only; omitted from the live attempt payload. */
+  explanation?: string | null
+}
+
+export interface CbtPaperLanguage {
+  default: ExamLanguage
+  available: ExamLanguage[]
+  bilingual: boolean
+}
+
+/**
  * A question as frozen into an attempt. This object is server-only until the
  * attempt is submitted; the sanitized variant removes every answer key.
  */
@@ -83,6 +107,11 @@ export interface CbtAttemptQuestion {
   explanation: string
   topicName?: string | null
   unitName?: string | null
+  /** Official UGC syllabus unit code and name, when mapped. */
+  syllabusUnit?: string | null
+  syllabusUnitName?: string | null
+  /** Reviewed Hindi presentation; null means English fallback. */
+  hindi?: CbtHindiContent | null
   difficulty?: string | null
   negativeMarking: CbtNegativeMarking
   status: 'active' | 'dropped'
@@ -108,6 +137,8 @@ export interface CbtPaperSnapshot {
   profileFamily: ExamFamily
   subjectName: string | null
   generatedAt: string
+  /** Languages offered by the profile. Optional for pre-language snapshots. */
+  language?: CbtPaperLanguage
   sections: CbtPaperSection[]
   questions: CbtAttemptQuestion[]
 }
@@ -133,6 +164,10 @@ export interface CbtSanitizedQuestion {
   options: CbtOption[]
   topicName?: string | null
   unitName?: string | null
+  syllabusUnit?: string | null
+  syllabusUnitName?: string | null
+  /** Reviewed Hindi text and options; explanation is stripped before delivery. */
+  hindi?: CbtHindiContent | null
   difficulty?: string | null
   negativeMarking: CbtNegativeMarking
   /** Decimal precision used by NAT evaluation, for the candidate hint. */
@@ -147,6 +182,7 @@ export interface CbtSanitizedPaper {
   profileFamily: ExamFamily
   subjectName: string | null
   generatedAt: string
+  language?: CbtPaperLanguage
   sections: CbtPaperSection[]
   questions: CbtSanitizedQuestion[]
 }
@@ -334,6 +370,10 @@ export interface CbtReviewQuestion {
   explanation: string
   topicName?: string | null
   unitName?: string | null
+  syllabusUnit?: string | null
+  syllabusUnitName?: string | null
+  /** Reviewed Hindi presentation, including explanation, after submission. */
+  hindi?: CbtHindiContent | null
   difficulty?: string | null
   response: CbtResponse | null
   outcome: QuestionOutcome
@@ -343,6 +383,32 @@ export interface CbtReviewQuestion {
   answered: boolean
   markedForReview: boolean
   timeSpentSec: number
+}
+
+/** Paper-level performance for UGC combined and standalone attempts. */
+export interface CbtPaperPerformance {
+  id: string
+  code: string
+  name: string
+  questionCount: number
+  answered: number
+  correct: number
+  incorrect: number
+  unanswered: number
+  marksAwarded: number
+  penalty: number
+  finalScore: number
+  maxMarks: number
+  accuracy: number
+  timeSpentSec: number
+}
+
+/** Official-unit performance computed from delivered `syllabusUnit` codes. */
+export interface CbtUnitPerformance extends CbtPaperPerformance {
+  paper: 'I' | 'II'
+  unitCode: string
+  unitName: string
+  unitOrder: number
 }
 
 export interface CbtResult {
@@ -359,8 +425,14 @@ export interface CbtResult {
   submittedReason: CbtSubmittedReason
   durationSec: number
   timeSpentSec: number
+  /** Languages the delivered paper offered, for the review language toggle. */
+  language?: CbtPaperLanguage
   totals: ScoreCounts
   sections: SectionScore[]
+  /** Present for UGC attempts; empty for patterns without paper sections. */
+  papers?: CbtPaperPerformance[]
+  /** Official unit breakdown; present only for questions carrying a unit code. */
+  units?: CbtUnitPerformance[]
   exact: {
     rawScore: { numerator: number; denominator: number }
     finalScore: { numerator: number; denominator: number }
@@ -406,6 +478,9 @@ export interface CbtQuestionCandidate {
   topicId: string | null
   topicName: string | null
   unitName: string | null
+  /** Official UGC syllabus unit code and name. */
+  syllabusUnit: string | null
+  syllabusUnitName: string | null
   gateSection: string | null
   verified: boolean
   createdAt: string
@@ -425,6 +500,8 @@ export interface CbtQuestionCandidate {
   codeSnippet: string | null
   tableMarkdown: string | null
   imageUrl: string | null
+  /** Only reviewed Hindi translations are populated. */
+  hindi: CbtHindiContent | null
 }
 
 export interface CbtSelectionAssignment {

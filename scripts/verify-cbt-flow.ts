@@ -395,6 +395,20 @@ async function main(): Promise<void> {
   })
   check(expiryStart.resumed === false, 'a second profile starts its own attempt')
   check(expiryStart.paper.questions.length === 50, 'the Paper I profile delivers 50 questions')
+  check(
+    expiryStart.paper.language?.available.includes('hi') === true,
+    'the Paper I profile offers Hindi delivery',
+  )
+  const deliveredHindi = expiryStart.paper.questions.filter(
+    (question) => question.hindi,
+  )
+  check(deliveredHindi.length > 0, 'reviewed Hindi is delivered where available')
+  check(
+    deliveredHindi.every(
+      (question) => question.hindi && !('explanation' in question.hindi),
+    ),
+    'the live paper withholds Hindi explanations',
+  )
 
   const expirySnapshot = await snapshotFor(expiryStart.attempt.id)
   const expirySingle = requireQuestion(
@@ -439,6 +453,31 @@ async function main(): Promise<void> {
     'the expiry score matches the saved answer',
   )
   check(expiryResult.totals.unanswered === 49, 'the remaining questions are unanswered')
+
+  check(
+    expiryResult.papers?.length === 1 &&
+      expiryResult.papers[0].questionCount === 50 &&
+      expiryResult.papers[0].maxMarks === 100,
+    'the result reports Paper I performance separately',
+  )
+  const paperOneUnits = expiryResult.units ?? []
+  check(paperOneUnits.length === 10, 'the result reports all ten Paper I units')
+  check(
+    paperOneUnits.every(
+      (unit) => unit.paper === 'I' && unit.questionCount === 5,
+    ),
+    'each Paper I unit contributes five delivered questions',
+  )
+  check(
+    paperOneUnits.reduce((sum, unit) => sum + unit.questionCount, 0) === 50,
+    'the unit breakdown covers the whole Paper I paper',
+  )
+  check(
+    expiryResult.review.some(
+      (question) => (question.hindi?.explanation ?? '').length > 0,
+    ),
+    'the result exposes reviewed Hindi explanations',
+  )
 
   const expiryReplay = await submitAttempt(expiryStart.attempt.id, USER_ID, {}, afterExpiry)
   check(

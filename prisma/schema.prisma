@@ -322,39 +322,43 @@ model ReaderPreference {
 // ---------------------------------------------------------------------------
 
 model Question {
-  id                   String             @id @default(cuid())
+  id                   String                @id @default(cuid())
   topicId              String?
-  topic                Topic?             @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  topic                Topic?                @relation(fields: [topicId], references: [id], onDelete: SetNull)
   questionText         String
   optionA              String
   optionB              String
   optionC              String
   optionD              String
-  correctAnswer        String             @default("A") // A | B | C | D
+  correctAnswer        String                @default("A") // A | B | C | D
   explanation          String
-  difficulty           String             @default("medium") // easy | medium | hard
-  questionType         String             @default("mcq") // mcq | msq | nat | assertion-reason | match | sequence | case-based
+  difficulty           String                @default("medium") // easy | medium | hard
+  questionType         String                @default("mcq") // mcq | msq | nat | assertion-reason | match | sequence | case-based
   // --- Paper classification (Paper I vs Paper II) ---
-  paper                String             @default("I") // I | II
+  paper                String                @default("I") // I | II
+  // Official UGC syllabus unit code (P1-U01 ... P1-U10, P2-U01 ... P2-U10).
+  // This is separate from the editorial Topic/Unit hierarchy so existing study
+  // content can keep its own naming while papers stay syllabus-complete.
+  syllabusUnit         String?
   // --- CBT delivery metadata ---
   // The response type is authoritative for CBT scoring; questionType remains
   // the editorial/content classification.
-  responseType         String             @default("single") // single | multiple | numeric
+  responseType         String                @default("single") // single | multiple | numeric
   correctOptions       String? // JSON array of option ids for multiple-response (MSQ)
   numericAnswer        Float? // Answer key for numeric-answer (NAT) questions
   numericTolerance     Float?
   numericToleranceMode String? // absolute | relative | none
   numericPrecision     Int?
-  presentationType     String             @default("text") // text | passage | table | diagram | code | mathematical | data-interpretation
+  presentationType     String                @default("text") // text | passage | table | diagram | code | mathematical | data-interpretation
   passage              String?
   codeSnippet          String?
   tableMarkdown        String?
   imageUrl             String?
   gateSection          String? // general-aptitude | engineering-mathematics | computer-science | data-science-ai
   // --- Source classification (CRITICAL for trust) ---
-  sourceType           String             @default("practice") // official_pyq | verified_pyq | practice | mock
+  sourceType           String                @default("practice") // official_pyq | verified_pyq | practice | mock
   // --- PYQ metadata (only populated for official_pyq / verified_pyq) ---
-  isPYQ                Boolean            @default(false)
+  isPYQ                Boolean               @default(false)
   pyqYear              Int?
   pyqSession           String? // June | December | merged
   pyqShift             String? // Shift 1 | Shift 2 | Shift 3
@@ -366,31 +370,67 @@ model Question {
   sourceUrl            String? // Official URL if available
   sourceReference      String? // Citation / paper reference code
   answerKeyRef         String? // Official answer key reference
-  verified             Boolean            @default(false) // True only after editorial verification
+  verified             Boolean               @default(false) // True only after editorial verification
   verifiedAt           DateTime?
   // --- Verification & dedup fields (PYQ research system) ---
-  verificationStatus   String?            @default("unverified") // officially_verified | cross_verified | expert_verified | unverified | disputed
+  verificationStatus   String?               @default("unverified") // officially_verified | cross_verified | expert_verified | unverified | disputed
   answerConfidence     String? // high | medium | low | disputed
   answerSource         String? // Where the answer was verified from
-  fingerprint          String?            @unique // Normalized question hash for dedup
-  isCurrentSyllabus    Boolean            @default(true) // Maps to current syllabus version
-  syllabusVersion      String?            @default("2024")
+  fingerprint          String?               @unique // Normalized question hash for dedup
+  isCurrentSyllabus    Boolean               @default(true) // Maps to current syllabus version
+  syllabusVersion      String?               @default("2024")
   // --- Educational metadata ---
   learningObjective    String? // What concept this question tests
-  tags                 String             @default("")
-  status               String             @default("published") // draft | review | published | archived
+  tags                 String                @default("")
+  status               String                @default("published") // draft | review | published | archived
   mockTests            MockTestQuestion[]
   attempts             Attempt[]
-  createdAt            DateTime           @default(now())
-  updatedAt            DateTime           @updatedAt
+  translations         QuestionTranslation[]
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
 
   @@index([sourceType])
   @@index([paper])
   @@index([paper, responseType])
+  @@index([paper, syllabusUnit])
   @@index([gateSection])
   @@index([pyqYear, pyqSession])
   @@index([pyqPaperId])
   @@index([topicId])
+}
+
+// ---------------------------------------------------------------------------
+// Reviewed question translations
+//
+// Only translations with status = "reviewed" are delivered by the CBT engine.
+// English remains the authoritative source; a missing reviewed translation
+// causes a per-question fallback to English rather than machine-translated
+// content being shown.
+// ---------------------------------------------------------------------------
+
+model QuestionTranslation {
+  id            String    @id @default(cuid())
+  questionId    String
+  question      Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  language      String    @default("hi") // en | hi (hi is the reviewed translation)
+  questionText  String
+  optionA       String?
+  optionB       String?
+  optionC       String?
+  optionD       String?
+  passage       String?
+  codeSnippet   String?
+  tableMarkdown String?
+  explanation   String?
+  status        String    @default("draft") // draft | reviewed | rejected
+  translator    String?
+  reviewer      String?
+  reviewedAt    DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@unique([questionId, language])
+  @@index([language, status])
 }
 
 model PYQ {
