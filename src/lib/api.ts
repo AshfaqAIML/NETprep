@@ -1,5 +1,14 @@
 /** Simple typed fetch helpers for the API routes */
 import type { ViewKey } from '@/lib/store'
+import type {
+  CbtAttemptPayload,
+  CbtCatalogueResponse,
+  CbtHeartbeatResponse,
+  CbtProfileDetailResponse,
+  CbtResult,
+  CbtStartResponse,
+  CbtSubmitResponse,
+} from '@/lib/cbt/types'
 
 async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
   const res = await fetch(url, { ...init, headers: { 'Content-Type': 'application/json', ...(init?.headers ?? {}) } })
@@ -105,6 +114,57 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(body),
     }),
+
+  // Full-length CBT examinations
+  exams: () => fetchJson<CbtCatalogueResponse>('/api/exams'),
+  examProfile: (code: string) =>
+    fetchJson<CbtProfileDetailResponse>(`/api/exams/${encodeURIComponent(code)}`),
+  startExam: (profileCode: string) =>
+    fetchJson<CbtStartResponse>('/api/exams/attempts', {
+      method: 'POST',
+      body: JSON.stringify({ profileCode }),
+    }),
+  examAttempt: (attemptId: string) =>
+    fetchJson<CbtAttemptPayload>(`/api/exams/attempts/${encodeURIComponent(attemptId)}`),
+  saveExamResponse: (
+    attemptId: string,
+    body: {
+      response?: {
+        questionId: string
+        selectedOptionId?: string | null
+        selectedOptionIds?: string[] | null
+        numericValue?: string | number | null
+        markedForReview?: boolean
+        visited?: boolean
+        timeSpentSec?: number
+      }
+      position?: { currentSectionId: string; currentQuestionId: string }
+    },
+  ) =>
+    fetchJson<CbtAttemptPayload>(
+      `/api/exams/attempts/${encodeURIComponent(attemptId)}`,
+      { method: 'PATCH', body: JSON.stringify(body) },
+    ),
+  examHeartbeat: (attemptId: string) =>
+    fetchJson<CbtHeartbeatResponse>(
+      `/api/exams/attempts/${encodeURIComponent(attemptId)}/heartbeat`,
+      { method: 'POST' },
+    ),
+  submitExam: (
+    attemptId: string,
+    body: {
+      reason?: 'manual' | 'timer_expired'
+      responses?: Record<string, unknown>
+    } = {},
+  ) =>
+    fetchJson<CbtSubmitResponse>(
+      `/api/exams/attempts/${encodeURIComponent(attemptId)}/submit`,
+      { method: 'POST', body: JSON.stringify(body) },
+    ),
+  examResult: (attemptId: string) =>
+    fetchJson<{ result: CbtResult }>(
+      `/api/exams/attempts/${encodeURIComponent(attemptId)}/result`,
+    ),
 
   bookmarks: (folder?: string) => fetchJson<{ bookmarks: any[] }>(`/api/bookmarks${folder ? `?folder=${folder}` : ''}`),
   bookmarksStatus: () => fetchJson<{ bookmarks: string[] }>('/api/bookmarks'),

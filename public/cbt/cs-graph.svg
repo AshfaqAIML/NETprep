@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360" viewBox="0 0 600 360" role="img" aria-labelledby="title desc">
+  <title id="title">Weighted undirected graph with five vertices</title>
+  <desc id="desc">Vertices A, B, C, D and E with weighted edges AB 1, AC 4, BC 2, BD 5, CD 3, CE 7 and DE 6.</desc>
+  <rect width="600" height="360" fill="#ffffff"/>
+  <g stroke="#1f2937" stroke-width="2">
+    <line x1="90" y1="270" x2="250" y2="290"/>
+    <line x1="90" y1="270" x2="250" y2="110"/>
+    <line x1="250" y1="290" x2="250" y2="110"/>
+    <line x1="250" y1="290" x2="430" y2="190"/>
+    <line x1="250" y1="110" x2="430" y2="190"/>
+    <line x1="250" y1="110" x2="540" y2="270"/>
+    <line x1="430" y1="190" x2="540" y2="270"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="15" text-anchor="middle" fill="#111827">
+    <rect x="152" y="272" width="26" height="22" fill="#ffffff" stroke="none"/>
+    <text x="165" y="288">1</text>
+    <rect x="150" y="178" width="26" height="22" fill="#ffffff" stroke="none"/>
+    <text x="163" y="194">4</text>
+    <rect x="238" y="188" width="26" height="22" fill="#ffffff" stroke="none"/>
+    <text x="251" y="204">2</text>
+    <rect x="328" y="232" width="26" height="22" fill="#ffffff" stroke="none"/>
+    <text x="341" y="248">5</text>
+    <rect x="328" y="132" width="26" height="22" fill="#ffffff" stroke="none"/>
+    <text x="341" y="148">3</text>
+    <rect x="382" y="222" width="26" height="22" fill="#ffffff" stroke="none"/>
+    <text x="395" y="238">7</text>
+    <rect x="472" y="222" width="26" height="22" fill="#ffffff" stroke="none"/>
+    <text x="485" y="238">6</text>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="18" text-anchor="middle" font-weight="bold">
+    <circle cx="90" cy="270" r="23" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+    <text x="90" y="276" fill="#111827">A</text>
+    <circle cx="250" cy="290" r="23" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+    <text x="250" y="296" fill="#111827">B</text>
+    <circle cx="250" cy="110" r="23" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+    <text x="250" y="116" fill="#111827">C</text>
+    <circle cx="430" cy="190" r="23" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+    <text x="430" y="196" fill="#111827">D</text>
+    <circle cx="540" cy="270" r="23" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+    <text x="540" y="276" fill="#111827">E</text>
+  </g>
+  <text x="300" y="338" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#4b5563">Weighted undirected graph G</text>
+</svg>

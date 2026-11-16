@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="320" viewBox="0 0 520 320" role="img" aria-labelledby="title desc">
+  <title id="title">Hasse diagram of a partially ordered set</title>
+  <desc id="desc">Elements a, b, c, d and e. a is below b and c. b and c are below d. d is below e.</desc>
+  <rect width="520" height="320" fill="#ffffff"/>
+  <g stroke="#1f2937" stroke-width="2" fill="none">
+    <line x1="260" y1="270" x2="160" y2="190"/>
+    <line x1="260" y1="270" x2="360" y2="190"/>
+    <line x1="160" y1="190" x2="260" y2="110"/>
+    <line x1="360" y1="190" x2="260" y2="110"/>
+    <line x1="260" y1="110" x2="260" y2="40"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="18" text-anchor="middle">
+    <circle cx="260" cy="270" r="22" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+    <text x="260" y="277" fill="#111827">a</text>
+    <circle cx="160" cy="190" r="22" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+    <text x="160" y="197" fill="#111827">b</text>
+    <circle cx="360" cy="190" r="22" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+    <text x="360" y="197" fill="#111827">c</text>
+    <circle cx="260" cy="110" r="22" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+    <text x="260" y="117" fill="#111827">d</text>
+    <circle cx="260" cy="40" r="22" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+    <text x="260" y="47" fill="#111827">e</text>
+  </g>
+  <text x="260" y="310" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#4b5563">Hasse diagram of the poset (P, ≤)</text>
+</svg>

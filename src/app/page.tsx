@@ -19,6 +19,9 @@ import { PyqsView } from '@/components/views/pyqs-view'
 import { MockTestsView } from '@/components/views/mock-tests-view'
 import { MockTestRunnerView } from '@/components/views/mock-test-runner-view'
 import { MockTestResultView } from '@/components/views/mock-test-result-view'
+import { ExamInstructionsView } from '@/components/views/exam-instructions-view'
+import { ExamRunnerView } from '@/components/views/exam-runner-view'
+import { ExamResultView } from '@/components/views/exam-result-view'
 import { DashboardView } from '@/components/views/dashboard-view'
 import { PlannerView } from '@/components/views/planner-view'
 import { BookmarksView } from '@/components/views/bookmarks-view'
@@ -40,6 +43,38 @@ import { BookLibraryView } from '@/components/views/book-library-view'
 import { BookReaderProView } from '@/components/views/book-reader-pro-view'
 import { AboutExamView } from '@/components/views/about-exam-view'
 import { AuthView } from '@/components/views/auth-view'
+import { cn } from '@/lib/utils'
+import {
+  clearCbtRoute,
+  clearExamHash,
+  parseExamHash,
+  readCbtRoute,
+  storeCbtRoute,
+  type CbtExamRoute,
+} from '@/lib/cbt/client'
+import type { ViewKey } from '@/lib/store'
+
+const EXAM_VIEWS = new Set<string>([
+  'exam-instructions',
+  'exam-runner',
+  'exam-result',
+])
+
+function routeTarget(route: CbtExamRoute): {
+  view: ViewKey
+  params: Record<string, string>
+} {
+  if (route.kind === 'instructions') {
+    return {
+      view: 'exam-instructions',
+      params: { profileCode: route.profileCode ?? route.id },
+    }
+  }
+  if (route.kind === 'runner') {
+    return { view: 'exam-runner', params: { attemptId: route.id } }
+  }
+  return { view: 'exam-result', params: { attemptId: route.id } }
+}
 
 // Initialise bookmark cache on mount
 function useInitBookmarks() {
@@ -60,17 +95,73 @@ function useInitBookmarks() {
 
 export default function Home() {
   const view = useAppStore((s) => s.view)
+  const navigate = useAppStore((s) => s.navigate)
+  const [ready, setReady] = React.useState(false)
   useInitBookmarks()
 
+  // Restore an in-progress or completed CBT attempt from the URL hash, with
+  // localStorage as a fallback when the hash was lost.
+  React.useEffect(() => {
+    const hashRoute = parseExamHash(window.location.hash)
+    const stored = hashRoute ? null : readCbtRoute()
+    const route =
+      hashRoute ?? (stored && stored.kind !== 'instructions' ? stored : null)
+
+    if (route) {
+      const target = routeTarget(route)
+      navigate(target.view, target.params)
+      if (route.kind !== 'instructions') storeCbtRoute(route)
+    }
+
+    setReady(true)
+
+    const onHashChange = () => {
+      const next = parseExamHash(window.location.hash)
+      if (!next) return
+      const current = useAppStore.getState()
+      const target = routeTarget(next)
+      const same =
+        current.view === target.view &&
+        Object.entries(target.params).every(
+          ([key, value]) => current.viewParams[key] === value,
+        )
+      if (same) return
+      navigate(target.view, target.params)
+      if (next.kind !== 'instructions') storeCbtRoute(next)
+    }
+
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [navigate])
+
+  // Leaving the examination area clears the resume pointer and URL hash.
+  React.useEffect(() => {
+    if (!ready || EXAM_VIEWS.has(view)) return
+    if (window.location.hash.startsWith('#/exam/')) clearExamHash()
+    clearCbtRoute()
+  }, [view, ready])
+
+  const examView = EXAM_VIEWS.has(view)
+
   return (
-    <>
-      <Header />
-      <main className="flex-1 w-full">
+    <div
+      className={cn(
+        'flex min-h-screen w-full flex-col',
+        examView && 'bg-slate-100',
+      )}
+    >
+      {!examView && <Header />}
+      <main
+        className={cn(
+          'w-full flex-1',
+          examView && 'bg-slate-100 text-slate-900',
+        )}
+      >
         <ViewRouter view={view} />
       </main>
-      <Footer />
-      <SearchModal />
-    </>
+      {!examView && <Footer />}
+      {!examView && <SearchModal />}
+    </div>
   )
 }
 
@@ -108,6 +199,12 @@ function ViewRouter({ view }: { view: string }) {
       return <MockTestRunnerView />
     case 'mock-test-result':
       return <MockTestResultView />
+    case 'exam-instructions':
+      return <ExamInstructionsView />
+    case 'exam-runner':
+      return <ExamRunnerView />
+    case 'exam-result':
+      return <ExamResultView />
     case 'dashboard':
       return <DashboardView />
     case 'planner':
