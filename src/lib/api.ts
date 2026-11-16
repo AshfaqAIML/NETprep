@@ -243,6 +243,31 @@ export const api = {
     fetchJson<{ question: any }>(`/api/admin/questions/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   adminDeleteQuestion: (id: string) =>
     fetchJson<{ deleted: boolean }>(`/api/admin/questions/${id}`, { method: 'DELETE' }),
+  adminReviewQueue: (params?: {
+    status?: string
+    unit?: string
+    batch?: string
+    search?: string
+    limit?: number
+  }) => {
+    const qs = new URLSearchParams()
+    if (params?.status) qs.set('status', params.status)
+    if (params?.unit) qs.set('unit', params.unit)
+    if (params?.batch) qs.set('batch', params.batch)
+    if (params?.search) qs.set('search', params.search)
+    if (params?.limit) qs.set('limit', String(params.limit))
+    return fetchJson<any>(`/api/admin/questions/review?${qs.toString()}`)
+  },
+  adminReviewQuestions: (body: {
+    ids: string[]
+    action: 'approve' | 'reject' | 'reset'
+    reviewer?: string
+    notes?: string
+  }) =>
+    fetchJson<{ action: string; updated: number; reviewer: string; notes: string | null }>(
+      `/api/admin/questions/review`,
+      { method: 'POST', body: JSON.stringify(body) },
+    ),
   adminReports: () => fetchJson<any>('/api/admin/reports'),
   adminUpdateReport: (id: string, status: string) =>
     fetchJson<any>(`/api/admin/reports`, { method: 'PATCH', body: JSON.stringify({ id, status }) }),

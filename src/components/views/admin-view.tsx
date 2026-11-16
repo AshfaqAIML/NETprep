@@ -26,6 +26,11 @@ import {
   X,
   Upload,
   Loader2,
+  ClipboardCheck,
+  RefreshCw,
+  ChevronDown,
+  ChevronRight,
+  Check,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -44,6 +49,7 @@ import { useAppStore } from '@/lib/store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { SourceBadge } from '@/components/shared/source-badge'
+import { ReviewQueue } from '@/components/views/admin-review-queue'
 import { Breadcrumbs } from '@/components/shared/states'
 import { toast } from 'sonner'
 
@@ -117,6 +123,9 @@ export function AdminView() {
           <TabsTrigger value="questions" className="gap-1.5">
             <FileQuestion className="h-3.5 w-3.5" /> Questions
           </TabsTrigger>
+          <TabsTrigger value="review" className="gap-1.5">
+            <ClipboardCheck className="h-3.5 w-3.5" /> Review Queue
+          </TabsTrigger>
           <TabsTrigger value="papers" className="gap-1.5">
             <Layers className="h-3.5 w-3.5" /> Exam Papers
           </TabsTrigger>
@@ -134,6 +143,11 @@ export function AdminView() {
         {/* Questions management */}
         <TabsContent value="questions">
           <QuestionManager />
+        </TabsContent>
+
+        {/* Generated question review queue */}
+        <TabsContent value="review">
+          <ReviewQueue />
         </TabsContent>
 
         {/* Books management */}

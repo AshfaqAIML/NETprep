@@ -340,6 +340,23 @@ model Question {
   // This is separate from the editorial Topic/Unit hierarchy so existing study
   // content can keep its own naming while papers stay syllabus-complete.
   syllabusUnit         String?
+  // --- Stable bank identity and editorial metadata ---
+  // questionCode is the human-readable, stable identifier used by the content
+  // bank, review queue and audit reports. It never changes when the row is
+  // re-imported.
+  questionCode         String?               @unique
+  examName             String?               @default("UGC NET")
+  subject              String?
+  subtopic             String?
+  cognitiveSkill       String? // remember | understand | apply | analyse | evaluate | create
+  marks                Int?                  @default(2)
+  batch                String?
+  provenance           String?
+  // JSON audit record produced by the independent verification harness for
+  // questions that contain mathematics, code, SQL, automata, graphs or circuits.
+  verificationData     String?
+  reviewedBy           String?
+  reviewNotes          String?
   // --- CBT delivery metadata ---
   // The response type is authoritative for CBT scoring; questionType remains
   // the editorial/content classification.
@@ -393,6 +410,8 @@ model Question {
   @@index([paper])
   @@index([paper, responseType])
   @@index([paper, syllabusUnit])
+  @@index([status, paper])
+  @@index([batch])
   @@index([gateSection])
   @@index([pyqYear, pyqSession])
   @@index([pyqPaperId])

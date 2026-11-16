@@ -1,0 +1,358 @@
+import type { UgcQuestion } from '../types'
+
+export const questions: UgcQuestion[] = [
+  {
+    code: 'UGC-P2-U04-119',
+    examName: 'UGC NET',
+    subject: 'Computer Science & Applications',
+    paper: 'II',
+    unit: 'P2-U04',
+    unitName: 'Database Management Systems',
+    topic: 'SQL',
+    subtopic: 'NULL handling',
+    questionType: 'mcq',
+    responseType: 'single',
+    marks: 2,
+    difficulty: 'medium',
+    cognitiveSkill: 'apply',
+    presentationType: 'code',
+    codeSnippet:
+      "CREATE TABLE emp (name TEXT, commission INTEGER);\nINSERT INTO emp VALUES ('Asha',10),('Bilal',NULL),('Chen',NULL),('Deepa',5);\nSELECT name FROM emp WHERE commission IS NULL ORDER BY name;",
+    questionText:
+      'Which employees are returned by the query?',
+    options: {
+      A: 'Asha and Deepa',
+      B: 'Bilal and Chen',
+      C: 'Asha, Bilal, Chen and Deepa',
+      D: 'No rows',
+    },
+    correctAnswer: 'B',
+    explanation:
+      'The predicate commission IS NULL matches Bilal and Chen, whose commission values are NULL; Asha and Deepa have non-NULL commissions. Using commission = NULL instead would return no rows because NULL comparisons yield UNKNOWN. Option A selects the non-NULL rows, Option C ignores the predicate, and Option D describes the result of the incorrect = NULL comparison.',
+    source: 'NETPrep original practice bank',
+    sourceType: 'practice',
+    provenance:
+      'Original SQL question written for NETPrep; the schema and query were executed in an in-memory SQLite database by the bank validator.',
+    tags: ['sql', 'null', 'filtering'],
+    learningObjective:
+      'Use IS NULL correctly to retrieve missing values.',
+    batch: 'P2-U04-B3',
+    verification: {
+      kind: 'sql',
+      schema:
+        "CREATE TABLE emp (name TEXT, commission INTEGER);\nINSERT INTO emp VALUES ('Asha',10),('Bilal',NULL),('Chen',NULL),('Deepa',5);",
+      query:
+        "SELECT name FROM emp WHERE commission IS NULL ORDER BY name;",
+      expectedRows: [{ name: 'Bilal' }, { name: 'Chen' }],
+      answerMatch: 'Bilal and Chen',
+    },
+  },
+  {
+    code: 'UGC-P2-U04-120',
+    examName: 'UGC NET',
+    subject: 'Computer Science & Applications',
+    paper: 'II',
+    unit: 'P2-U04',
+    unitName: 'Database Management Systems',
+    topic: 'SQL',
+    subtopic: 'Correlated subquery with EXISTS',
+    questionType: 'mcq',
+    responseType: 'single',
+    marks: 2,
+    difficulty: 'medium',
+    cognitiveSkill: 'apply',
+    presentationType: 'code',
+    codeSnippet:
+      "CREATE TABLE students (sid INTEGER, name TEXT);\nINSERT INTO students VALUES (1,'Asha'),(2,'Bilal'),(3,'Chen');\nCREATE TABLE results (sid INTEGER, course TEXT, marks INTEGER);\nINSERT INTO results VALUES (1,'DBMS',60),(2,'DBMS',75),(3,'DBMS',45);\nSELECT s.name FROM students s WHERE EXISTS (SELECT 1 FROM results r WHERE r.sid = s.sid AND r.course = 'DBMS' AND r.marks >= 50) ORDER BY s.name;",
+    questionText:
+      'Which students are returned by the query?',
+    options: {
+      A: 'Asha only',
+      B: 'Bilal only',
+      C: 'Asha and Bilal',
+      D: 'Asha, Bilal and Chen',
+    },
+    correctAnswer: 'C',
+    explanation:
+      'EXISTS keeps a student if any matching result row has marks at least 50 in DBMS: Asha (60) and Bilal (75) qualify, while Chen (45) does not. Option A omits Bilal, Option B omits Asha, and Option D includes Chen despite the failing mark.',
+    source: 'NETPrep original practice bank',
+    sourceType: 'practice',
+    provenance:
+      'Original SQL question written for NETPrep; the schema and query were executed in an in-memory SQLite database by the bank validator.',
+    tags: ['sql', 'subquery', 'exists'],
+    learningObjective:
+      'Predict the result of a correlated EXISTS subquery.',
+    batch: 'P2-U04-B3',
+    verification: {
+      kind: 'sql',
+      schema:
+        "CREATE TABLE students (sid INTEGER, name TEXT);\nINSERT INTO students VALUES (1,'Asha'),(2,'Bilal'),(3,'Chen');\nCREATE TABLE results (sid INTEGER, course TEXT, marks INTEGER);\nINSERT INTO results VALUES (1,'DBMS',60),(2,'DBMS',75),(3,'DBMS',45);",
+      query:
+        "SELECT s.name FROM students s WHERE EXISTS (SELECT 1 FROM results r WHERE r.sid = s.sid AND r.course = 'DBMS' AND r.marks >= 50) ORDER BY s.name;",
+      expectedRows: [{ name: 'Asha' }, { name: 'Bilal' }],
+      answerMatch: 'Asha and Bilal',
+    },
+  },
+  {
+    code: 'UGC-P2-U04-121',
+    examName: 'UGC NET',
+    subject: 'Computer Science & Applications',
+    paper: 'II',
+    unit: 'P2-U04',
+    unitName: 'Database Management Systems',
+    topic: 'Indexing',
+    subtopic: 'Dense index size',
+    questionType: 'mcq',
+    responseType: 'single',
+    marks: 2,
+    difficulty: 'medium',
+    cognitiveSkill: 'apply',
+    presentationType: 'mathematical',
+    questionText:
+      'A data file contains $10000$ records. A dense index has one entry per record, and each index block holds $100$ entries. How many blocks are needed for the index?',
+    options: {
+      A: '10',
+      B: '50',
+      C: '100',
+      D: '1000',
+    },
+    correctAnswer: 'C',
+    explanation:
+      'The number of index blocks is $\\lceil 10000 / 100 \\rceil = 100$. Option A divides by $1000$, Option B divides by $200$, and Option D multiplies by $100$ instead of dividing; each misapplies the entries-per-block value.',
+    source: 'NETPrep original practice bank',
+    sourceType: 'practice',
+    provenance:
+      'Original calculation question written for NETPrep; the block count was independently evaluated by the bank validator.',
+    tags: ['indexing', 'calculation'],
+    learningObjective:
+      'Compute the number of blocks in a dense index.',
+    batch: 'P2-U04-B3',
+    verification: {
+      kind: 'math',
+      expression: '10000 / 100',
+      expected: 100,
+      answerMatch: '100',
+    },
+  },
+  {
+    code: 'UGC-P2-U04-122',
+    examName: 'UGC NET',
+    subject: 'Computer Science & Applications',
+    paper: 'II',
+    unit: 'P2-U04',
+    unitName: 'Database Management Systems',
+    topic: 'Transactions',
+    subtopic: 'Two-phase locking',
+    questionType: 'mcq',
+    responseType: 'single',
+    marks: 2,
+    difficulty: 'medium',
+    cognitiveSkill: 'understand',
+    presentationType: 'text',
+    questionText:
+      'In basic two-phase locking (2PL), a transaction:',
+    options: {
+      A: 'may acquire new locks after it has released any lock',
+      B: 'must acquire all its locks before releasing any lock',
+      C: 'never releases locks until the transaction commits',
+      D: 'does not need locks for read operations',
+    },
+    correctAnswer: 'B',
+    explanation:
+      'Basic 2PL has a growing phase in which locks are acquired and a shrinking phase in which locks are released, and once a lock is released no new lock may be acquired. Option A violates the two-phase rule, Option C describes strict 2PL rather than basic 2PL, and Option D is false because reads also require shared locks in 2PL.',
+    source: 'NETPrep original practice bank',
+    sourceType: 'practice',
+    provenance:
+      'Original transaction question written for NETPrep; the 2PL phase rule was checked against standard concurrency-control definitions.',
+    tags: ['transactions', 'locking', 'concurrency'],
+    learningObjective:
+      'State the lock-acquisition and release rule of basic 2PL.',
+    batch: 'P2-U04-B3',
+  },
+  {
+    code: 'UGC-P2-U04-123',
+    examName: 'UGC NET',
+    subject: 'Computer Science & Applications',
+    paper: 'II',
+    unit: 'P2-U04',
+    unitName: 'Database Management Systems',
+    topic: 'Transactions',
+    subtopic: 'Conflict count in a schedule',
+    questionType: 'mcq',
+    responseType: 'single',
+    marks: 2,
+    difficulty: 'hard',
+    cognitiveSkill: 'analyse',
+    presentationType: 'table',
+    tableMarkdown:
+      '| Step | Operation |\n| --- | --- |\n| 1 | R1(A) |\n| 2 | R2(A) |\n| 3 | W1(A) |\n| 4 | W2(A) |',
+    questionText:
+      'How many conflicting operation pairs (different transactions, same item, at least one write) does the schedule contain?',
+    options: {
+      A: '1',
+      B: '2',
+      C: '3',
+      D: '4',
+    },
+    correctAnswer: 'C',
+    explanation:
+      'The conflicting pairs in order are (R1, W2), (R2, W1) and (W1, W2): three pairs. Pairs within the same transaction or without a write are not conflicts. Option A counts only the write-write pair, Option B misses one of the read-write conflicts, and Option D also counts same-transaction or read-read pairs.',
+    source: 'NETPrep original practice bank',
+    sourceType: 'practice',
+    provenance:
+      'Original calculation question written for NETPrep; the conflict count was independently computed by the bank validator.',
+    tags: ['transactions', 'concurrency', 'calculation'],
+    learningObjective:
+      'Count conflicting operation pairs in a transaction schedule.',
+    batch: 'P2-U04-B3',
+    verification: {
+      kind: 'code',
+      language: 'javascript',
+      code: "const ops=[{t:1,type:'R',item:'A'},{t:2,type:'R',item:'A'},{t:1,type:'W',item:'A'},{t:2,type:'W',item:'A'}];\nlet count=0;\nfor(let i=0;i<ops.length;i++)for(let j=i+1;j<ops.length;j++){const a=ops[i],b=ops[j];if(a.t!==b.t&&a.item===b.item&&(a.type==='W'||b.type==='W'))count++;}\nconsole.log(count);",
+      expectedOutput: '3',
+      answerMatch: '3',
+    },
+  },
+  {
+    code: 'UGC-P2-U04-124',
+    examName: 'UGC NET',
+    subject: 'Computer Science & Applications',
+    paper: 'II',
+    unit: 'P2-U04',
+    unitName: 'Database Management Systems',
+    topic: 'Relational Calculus',
+    subtopic: 'Tuple calculus',
+    questionType: 'mcq',
+    responseType: 'single',
+    marks: 2,
+    difficulty: 'hard',
+    cognitiveSkill: 'analyse',
+    presentationType: 'text',
+    questionText:
+      'Which tuple-calculus expression denotes the set of names of students who have taken at least one course?',
+    options: {
+      A: '$\\{ t.name \\mid \\exists s (Student(t) \\land Takes(t.sid, s.cid)) \\}$',
+      B: '$\\{ t.name \\mid \\forall s (Student(t) \\land Takes(t.sid, s.cid)) \\}$',
+      C: '$\\{ t.name \\mid Student(t) \\land \\neg Takes(t.sid, s.cid) \\}$',
+      D: '$\\{ t \\mid Student(t) \\land Takes(t.sid, t.cid) \\}$',
+    },
+    correctAnswer: 'A',
+    explanation:
+      'Existential quantification expresses "at least one": the expression selects a student t for whom some course s exists in Takes. Option B uses universal quantification, which would require the student to have taken every course. Option C uses negation and would select students who have taken no course, and Option D lacks a quantifier and refers to an undefined s, so it is not a well-formed condition.',
+    source: 'NETPrep original practice bank',
+    sourceType: 'practice',
+    provenance:
+      'Original relational-calculus question written for NETPrep; the quantifier semantics were checked against standard tuple-calculus definitions.',
+    tags: ['relational-calculus', 'tuple-calculus'],
+    learningObjective:
+      'Choose the correct quantifier for an "at least one" query in tuple calculus.',
+    batch: 'P2-U04-B3',
+  },
+  {
+    code: 'UGC-P2-U04-125',
+    examName: 'UGC NET',
+    subject: 'Computer Science & Applications',
+    paper: 'II',
+    unit: 'P2-U04',
+    unitName: 'Database Management Systems',
+    topic: 'ER Model',
+    subtopic: 'Mapping many-to-many relationships',
+    questionType: 'mcq',
+    responseType: 'single',
+    marks: 2,
+    difficulty: 'easy',
+    cognitiveSkill: 'remember',
+    presentationType: 'text',
+    questionText:
+      'A many-to-many relationship between Employee and Project in an ER diagram is mapped to the relational model by:',
+    options: {
+      A: 'adding a foreign key to the Employee table',
+      B: 'adding a foreign key to the Project table',
+      C: 'creating a separate relation containing foreign keys to both tables',
+      D: 'merging Employee and Project into one table',
+    },
+    correctAnswer: 'C',
+    explanation:
+      'A many-to-many relationship cannot be represented by a single foreign key without redundancy, so it is mapped to a junction (associative) relation whose composite key is the pair of foreign keys. Option A or B can represent only a many-to-one relationship, and Option D would create repeating groups and violate 1NF.',
+    source: 'NETPrep original practice bank',
+    sourceType: 'practice',
+    provenance:
+      'Original ER-mapping question written for NETPrep; the mapping rule was checked against standard ER-to-relational conversion.',
+    tags: ['er-model', 'relational-model', 'mapping'],
+    learningObjective:
+      'Map a many-to-many ER relationship to a relational schema.',
+    batch: 'P2-U04-B3',
+  },
+  {
+    code: 'UGC-P2-U04-126',
+    examName: 'UGC NET',
+    subject: 'Computer Science & Applications',
+    paper: 'II',
+    unit: 'P2-U04',
+    unitName: 'Database Management Systems',
+    topic: 'Data Mining',
+    subtopic: 'Classification versus clustering',
+    questionType: 'mcq',
+    responseType: 'single',
+    marks: 2,
+    difficulty: 'easy',
+    cognitiveSkill: 'remember',
+    presentationType: 'text',
+    questionText:
+      'Which statement correctly distinguishes classification from clustering in data mining?',
+    options: {
+      A: 'Classification is supervised and uses labelled training data; clustering is unsupervised and discovers groups without labels.',
+      B: 'Classification never uses training data, while clustering always does.',
+      C: 'Clustering requires predefined class labels, while classification does not.',
+      D: 'Both classification and clustering require labelled data.',
+    },
+    correctAnswer: 'A',
+    explanation:
+      'Classification learns a model from labelled examples to assign new records to known classes, whereas clustering groups records by similarity without predefined labels. Option B reverses the use of training data, Option C reverses the label requirement, and Option D is false because clustering is unsupervised.',
+    source: 'NETPrep original practice bank',
+    sourceType: 'practice',
+    provenance:
+      'Original data-mining question written for NETPrep; the supervised/unsupervised distinction was checked against standard definitions.',
+    tags: ['data-mining', 'classification', 'clustering'],
+    learningObjective:
+      'Distinguish supervised classification from unsupervised clustering.',
+    batch: 'P2-U04-B3',
+  },
+  {
+    code: 'UGC-P2-U04-127',
+    examName: 'UGC NET',
+    subject: 'Computer Science & Applications',
+    paper: 'II',
+    unit: 'P2-U04',
+    unitName: 'Database Management Systems',
+    topic: 'Query Processing',
+    subtopic: 'Join order and cost',
+    questionType: 'case-based',
+    responseType: 'single',
+    marks: 2,
+    difficulty: 'hard',
+    cognitiveSkill: 'analyse',
+    presentationType: 'passage',
+    passage:
+      'A query joins three relations R (1000 tuples), S (500 tuples) and T (200 tuples). Plan X joins R and S first, then joins T. Plan Y joins S and T first, then joins R. Assume the intermediate result of R ⋈ S has 10000 tuples, while S ⋈ T has 1000 tuples, and each join cost is proportional to the product of its input sizes.',
+    questionText:
+      'Which plan has the lower total join cost?',
+    options: {
+      A: 'Plan X, because joining the two largest relations first reduces passes.',
+      B: 'Plan Y, because its first join produces a smaller intermediate result.',
+      C: 'Both plans have the same cost.',
+      D: 'Cannot be determined without index information.',
+    },
+    correctAnswer: 'B',
+    explanation:
+      'Plan X costs roughly 1000*500 + 10000*200 = 500000 + 2000000 = 2500000 units, whereas Plan Y costs roughly 500*200 + 1000*1000 = 100000 + 1000000 = 1100000 units. Plan Y is cheaper because its first join yields a smaller intermediate result, and join order should minimise intermediate sizes. Option A incorrectly favours joining large relations first, Option C ignores the differing intermediate sizes, and Option D is wrong because the stated costs and intermediate sizes are sufficient to compare the plans.',
+    source: 'NETPrep original practice bank',
+    sourceType: 'practice',
+    provenance:
+      'Original case-based question written for NETPrep; the cost comparison was checked arithmetically.',
+    tags: ['query-processing', 'join-order', 'optimisation'],
+    learningObjective:
+      'Compare join orders using intermediate result sizes.',
+    batch: 'P2-U04-B3',
+  },
+]
